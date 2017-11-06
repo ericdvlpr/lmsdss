@@ -7,7 +7,27 @@
       if($_POST["action"] == "Load")  
       {  
            echo $object->get_data_in_table("SELECT * FROM users ORDER BY id DESC");  
+      }
+      if($_POST["action"] == "Book")  
+      {  
+           echo $object->get_data_in_table("SELECT * FROM users ORDER BY id DESC");  
       }  
+       if($_POST["action"] == "Catalog")  
+      {  
+           echo $object->get_data_in_table("SELECT * FROM users ORDER BY id DESC");  
+      } 
+       if($_POST["action"] == "Author")  
+      {  
+           echo $object->get_data_in_table("SELECT * FROM users ORDER BY id DESC");  
+      }
+        if($_POST["action"] == "Borrow")  
+      {  
+           echo $object->get_data_in_table("SELECT * FROM users ORDER BY id DESC");  
+      }
+       if($_POST["action"] == "Member")  
+      {  
+           echo $object->get_data_in_table("SELECT * FROM users ORDER BY id DESC");  
+      }     
       if($_POST["action"] == "Insert")  
       {  
            $first_name = mysqli_real_escape_string($object->connect, $_POST["first_name"]);  
