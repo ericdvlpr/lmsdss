@@ -1,7 +1,7 @@
  $(document).ready(function(){  
            load_data();  
            $('#action').val("Insert");  
-           function load_data()  
+           function load_user_data()  
            {  
                 var action = "Load";  
                 $.ajax({  
@@ -14,6 +14,71 @@
                      }  
                 });  
            }  
+            function load_book_data()  
+           {  
+                var action = "Load";  
+                $.ajax({  
+                     url:"action.php",  
+                     method:"POST",  
+                     data:{action:action},  
+                     success:function(data)  
+                     {  
+                          $('#user_table').html(data);  
+                     }  
+                });  
+           }  
+            function load_author_data()  
+           {  
+                var action = "Load";  
+                $.ajax({  
+                     url:"action.php",  
+                     method:"POST",  
+                     data:{action:action},  
+                     success:function(data)  
+                     {  
+                          $('#user_table').html(data);  
+                     }  
+                });  
+           } 
+            function load_borrow_data()  
+           {  
+                var action = "Load";  
+                $.ajax({  
+                     url:"action.php",  
+                     method:"POST",  
+                     data:{action:action},  
+                     success:function(data)  
+                     {  
+                          $('#user_table').html(data);  
+                     }  
+                });  
+           }
+            function load_catalog_data()  
+           {  
+                var action = "Load";  
+                $.ajax({  
+                     url:"action.php",  
+                     method:"POST",  
+                     data:{action:action},  
+                     success:function(data)  
+                     {  
+                          $('#user_table').html(data);  
+                     }  
+                });  
+           }   
+            function load_member_data()  
+           {  
+                var action = "Load";  
+                $.ajax({  
+                     url:"action.php",  
+                     method:"POST",  
+                     data:{action:action},  
+                     success:function(data)  
+                     {  
+                          $('#user_table').html(data);  
+                     }  
+                });  
+           }    
            $('#user_form').on('submit', function(event){  
                 event.preventDefault();  
                 var firstName = $('#first_name').val();  
