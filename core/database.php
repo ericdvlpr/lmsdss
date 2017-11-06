@@ -5,8 +5,8 @@
       public $connect;  
       private $host = "localhost";  
       private $username = 'root';  
-      private $password = '';  
-      private  $database = 'crud';  
+      private $password = '123456';  
+      private  $database = 'db_lms';  
       function __construct()  
       {  
            $this->database_connect();  
