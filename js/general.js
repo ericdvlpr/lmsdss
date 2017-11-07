@@ -1,4 +1,10 @@
  $(document).ready(function(){  
+  //FORM ATTRIBUTES
+$('#collapseExample').BootSideMenu({
+            side: "left"
+    });
+
+
            load_data();  
            $('#action').val("Insert");  
            function load_user_data()  
