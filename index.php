@@ -4,7 +4,7 @@
                 <div class="row">
                   
                     <?php include 'includes/menu.php'; ?>
-                         <h3 align="center">DASHBOARD</h3><br />  
+                         <h3 align="center">DASHBOARD!</h3><br />  
                               <div id="user_table" class="table-responsive">  
                               </div>  
                   
