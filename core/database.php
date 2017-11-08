@@ -86,7 +86,7 @@
            $output .= '</table>';  
            return $output;  
       } 
-       public function get_borrower_data($query)  
+       public function get_borrowered_data($query)  
       {  
            $output = '';  
            $result = $this->execute_query($query);  
@@ -115,8 +115,36 @@
            $output .= '</table>';  
            return $output;  
       } 
-
-    public function get_catalog_data($query)  
+        public function get_category_data($query)  
+      {  
+           $output = '';  
+           $result = $this->execute_query($query);  
+           $output .= '  
+           <table class="table table-bordered table-striped">  
+                <tr>  
+                     <th width="10%">Image</th>  
+                     <th width="35%">First Name</th>  
+                     <th width="35%">Last Name</th>  
+                     <th width="10%">Update</th>  
+                     <th width="10%">Delete</th>  
+                </tr>  
+           ';  
+           while($row = mysqli_fetch_object($result))  
+           {  
+                $output .= '  
+                <tr>       
+                     <td><img src="upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" /></td>  
+                     <td>'.$row->first_name.'</td>  
+                     <td>'.$row->last_name.'</td>  
+                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button></td>  
+                     <td><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                </tr>  
+                ';  
+           }  
+           $output .= '</table>';  
+           return $output;  
+      } 
+    public function get_catalogue_data($query)  
       {  
            $output = '';  
            $result = $this->execute_query($query);  
@@ -174,7 +202,7 @@
            $output .= '</table>';  
            return $output;  
       } 
-      public function get_member_data($query)  
+      public function get_student_data($query)  
       {  
            $output = '';  
            $result = $this->execute_query($query);  

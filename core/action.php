@@ -1,6 +1,6 @@
 <?php  
  //action.php  
- include 'crud.php';  
+ include 'database.php';  
  $object = new Database();  
  if(isset($_POST["action"]))  
  {  
@@ -10,23 +10,23 @@
       }
       if($_POST["action"] == "Book")  
       {  
-           echo $object->get_data_in_table("SELECT * FROM book ORDER BY id DESC");  
+           echo $object->get_book_data("SELECT * FROM book ORDER BY book_id DESC");  
       }  
        if($_POST["action"] == "Category")  
       {  
-           echo $object->get_data_in_table("SELECT * FROM category ORDER BY id DESC");  
+           echo $object->get_category_data("SELECT * FROM category ORDER BY id DESC");  
       } 
        if($_POST["action"] == "Author")  
       {  
-           echo $object->get_data_in_table("SELECT * FROM author ORDER BY id DESC");  
+           echo $object->get_author_data("SELECT * FROM author ORDER BY id DESC");  
       }
         if($_POST["action"] == "Borrow")  
       {  
-           echo $object->get_data_in_table("SELECT * FROM borrow ORDER BY id DESC");  
+           echo $object->get_borrowered_data("SELECT * FROM borrow ORDER BY id DESC");  
       }
-       if($_POST["action"] == "Member")  
+       if($_POST["action"] == "Student")  
       {  
-           echo $object->get_data_in_table("SELECT * FROM member ORDER BY id DESC");  
+           echo $object->get_student_data("SELECT * FROM member ORDER BY id DESC");  
       }     
       if($_POST["action"] == "Insert")  
       {  
