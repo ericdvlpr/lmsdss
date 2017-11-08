@@ -22,7 +22,7 @@ $('#collapseExample').BootSideMenu({
            }  
             function load_book_data()  
            {  
-                var action = "Load";  
+                var action = "Book";  
                 $.ajax({  
                      url:"action.php",  
                      method:"POST",  
@@ -35,7 +35,7 @@ $('#collapseExample').BootSideMenu({
            }  
             function load_author_data()  
            {  
-                var action = "Load";  
+                var action = "Author";  
                 $.ajax({  
                      url:"action.php",  
                      method:"POST",  
@@ -48,7 +48,7 @@ $('#collapseExample').BootSideMenu({
            } 
             function load_borrow_data()  
            {  
-                var action = "Load";  
+                var action = "Borrow";  
                 $.ajax({  
                      url:"action.php",  
                      method:"POST",  
@@ -59,9 +59,9 @@ $('#collapseExample').BootSideMenu({
                      }  
                 });  
            }
-            function load_catalog_data()  
+            function load_category_data()  
            {  
-                var action = "Load";  
+                var action = "Category";  
                 $.ajax({  
                      url:"action.php",  
                      method:"POST",  
@@ -74,7 +74,7 @@ $('#collapseExample').BootSideMenu({
            }   
             function load_member_data()  
            {  
-                var action = "Load";  
+                var action = "Member";  
                 $.ajax({  
                      url:"action.php",  
                      method:"POST",  
