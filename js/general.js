@@ -4,12 +4,19 @@ $('#collapseExample').BootSideMenu({
             side: "left"
     });
 
-            load_book_data();
-           load_data();  
+          load_author_data() 
+          load_book_data();
+           load_student_data();
+           load_user_data();
+           load_borrow_data();
+           load_category_data();
+
+
            $('#action').val("Insert");  
            function load_user_data()  
            {  
-                var action = "Load";  
+                var action = "Load All"; 
+
                 $.ajax({  
                      url:"core/action.php",  
                      method:"POST",  
@@ -22,14 +29,17 @@ $('#collapseExample').BootSideMenu({
            }  
             function load_book_data()  
            {  
-                var action = "Book";  
+             
+                var action = "Book";
+
                 $.ajax({  
                      url:"core/action.php",  
                      method:"POST",  
                      data:{action:action},  
                      success:function(data)  
                      {  
-                          $('#book_table').html(data);  
+                          $('#book_table').html(data);
+                          $('#books').DataTable(); 
                      }  
                 });  
            }  
@@ -42,7 +52,8 @@ $('#collapseExample').BootSideMenu({
                      data:{action:action},  
                      success:function(data)  
                      {  
-                          $('#author_table').html(data);  
+                          $('#author_table').html(data); 
+                          $('#authors').DataTable();  
                      }  
                 });  
            } 
@@ -55,7 +66,8 @@ $('#collapseExample').BootSideMenu({
                      data:{action:action},  
                      success:function(data)  
                      {  
-                          $('#user_table').html(data);  
+                          $('#borrowed_table').html(data);
+                           $('#borrowed').DataTable();   
                      }  
                 });  
            }
@@ -87,7 +99,7 @@ $('#collapseExample').BootSideMenu({
            }   
             function load_student_data()  
            {  
-                var action = "Student";  
+                var action = "Students";  
                 $.ajax({  
                      url:"core/action.php",  
                      method:"POST",  
@@ -97,7 +109,26 @@ $('#collapseExample').BootSideMenu({
                           $('#student_table').html(data);  
                      }  
                 });  
-           }    
+           }  
+
+
+             function load_user_data()  
+           {  
+                var action = "Users";  
+                $.ajax({  
+                     url:"core/action.php",  
+                     method:"POST",  
+                     data:{action:action},  
+                     success:function(data)  
+                     {  
+                          $('#user_table').html(data);  
+                     }  
+                });  
+           }   
+
+
+
+           // FORM SUBMIT 
            $('#user_form').on('submit', function(event){  
                 event.preventDefault();  
                 var firstName = $('#first_name').val();  

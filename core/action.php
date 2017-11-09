@@ -6,27 +6,31 @@
  {  
       if($_POST["action"] == "Load")  
       {  
-           echo $object->get_data_in_table("SELECT * FROM book ORDER BY id DESC");  
+           echo $object->get_data_in_table("SELECT * FROM book ");  
       }
       if($_POST["action"] == "Book")  
       {  
-           echo $object->get_book_data("SELECT * FROM book ORDER BY book_id DESC");  
+           echo $object->get_book_data("SELECT * FROM book ");  
       }  
        if($_POST["action"] == "Category")  
       {  
-           echo $object->get_category_data("SELECT * FROM category ORDER BY id DESC");  
+           echo $object->get_category_data("SELECT * FROM category ");  
       } 
        if($_POST["action"] == "Author")  
       {  
-           echo $object->get_author_data("SELECT * FROM author ORDER BY id DESC");  
+           echo $object->get_author_data("SELECT * FROM authors ");  
       }
         if($_POST["action"] == "Borrow")  
       {  
-           echo $object->get_borrowered_data("SELECT * FROM borrow ORDER BY id DESC");  
+           echo $object->get_borrowered_data("SELECT * FROM borrowdetails LEFT JOIN borrow USING (borrow_id) LEFT JOIN students USING (student_id) LEFT JOIN book USING (book_id)");  
       }
-       if($_POST["action"] == "Student")  
+       if($_POST["action"] == "Students")  
       {  
-           echo $object->get_student_data("SELECT * FROM member ORDER BY id DESC");  
+           echo $object->get_student_data("SELECT * FROM students ");  
+      }   
+       if($_POST["action"] == "Users")  
+      {  
+           echo $object->get_user_data("SELECT * FROM users WHERE access_level != 0  ");  
       }     
       if($_POST["action"] == "Insert")  
       {  
