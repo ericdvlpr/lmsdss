@@ -4,14 +4,14 @@ $('#collapseExample').BootSideMenu({
             side: "left"
     });
 
-
+            load_book_data();
            load_data();  
            $('#action').val("Insert");  
            function load_user_data()  
            {  
                 var action = "Load";  
                 $.ajax({  
-                     url:"action.php",  
+                     url:"core/action.php",  
                      method:"POST",  
                      data:{action:action},  
                      success:function(data)  
@@ -24,12 +24,12 @@ $('#collapseExample').BootSideMenu({
            {  
                 var action = "Book";  
                 $.ajax({  
-                     url:"action.php",  
+                     url:"core/action.php",  
                      method:"POST",  
                      data:{action:action},  
                      success:function(data)  
                      {  
-                          $('#user_table').html(data);  
+                          $('#book_table').html(data);  
                      }  
                 });  
            }  
@@ -37,12 +37,12 @@ $('#collapseExample').BootSideMenu({
            {  
                 var action = "Author";  
                 $.ajax({  
-                     url:"action.php",  
+                     url:"core/action.php",  
                      method:"POST",  
                      data:{action:action},  
                      success:function(data)  
                      {  
-                          $('#user_table').html(data);  
+                          $('#author_table').html(data);  
                      }  
                 });  
            } 
@@ -50,7 +50,7 @@ $('#collapseExample').BootSideMenu({
            {  
                 var action = "Borrow";  
                 $.ajax({  
-                     url:"action.php",  
+                     url:"core/action.php",  
                      method:"POST",  
                      data:{action:action},  
                      success:function(data)  
@@ -63,25 +63,38 @@ $('#collapseExample').BootSideMenu({
            {  
                 var action = "Category";  
                 $.ajax({  
-                     url:"action.php",  
+                     url:"core/action.php",  
                      method:"POST",  
                      data:{action:action},  
                      success:function(data)  
                      {  
-                          $('#user_table').html(data);  
+                          $('#category_table').html(data);  
+                     }  
+                });  
+           }  
+            function load_catalogue_data()  
+           {  
+                var action = "Category";  
+                $.ajax({  
+                     url:"core/action.php",  
+                     method:"POST",  
+                     data:{action:action},  
+                     success:function(data)  
+                     {  
+                          $('#catalogue_table').html(data);  
                      }  
                 });  
            }   
-            function load_member_data()  
+            function load_student_data()  
            {  
-                var action = "Member";  
+                var action = "Student";  
                 $.ajax({  
-                     url:"action.php",  
+                     url:"core/action.php",  
                      method:"POST",  
                      data:{action:action},  
                      success:function(data)  
                      {  
-                          $('#user_table').html(data);  
+                          $('#student_table').html(data);  
                      }  
                 });  
            }    
@@ -102,7 +115,7 @@ $('#collapseExample').BootSideMenu({
                 if(firstName != '' && lastName != '')  
                 {  
                      $.ajax({  
-                          url:"action.php",  
+                          url:"core/action.php",  
                           method:"POST",  
                           data:new FormData(this),  
                           contentType:false,  
