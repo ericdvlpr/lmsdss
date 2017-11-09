@@ -35,7 +35,7 @@
                      <th width="35%">Book Copies</th>  
                      <th width="35%">Status</th>  
                       
-                     <th width="10%">Command</th>  
+                     <th width="20%">Command</th>  
                 </tr>  
            ';  
            while($row = mysqli_fetch_object($result))  
@@ -50,7 +50,7 @@
                      <td>'.$row->date_added.'</td>  
                      <td>'.$row->book_copies.'</td>  
                      <td>'.$row->status.'</td>  
-                     <td><button type="button" name="update" id="'.$row->book_id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->book_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td><button type="button" name="update" id="'.$row->book_id .'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->book_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  
                 ';  
            }  
@@ -64,11 +64,11 @@
            $output .= '  
            <table class="table table-bordered table-striped">  
                 <tr>  
-                     <th width="10%">Image</th>  
-                     <th width="35%">First Name</th>  
-                     <th width="35%">Last Name</th>  
-                     <th width="10%">Update</th>  
-                     <th width="10%">Delete</th>  
+                     <th width="10%">Author #</th>  
+                     <th width="35%">Name</th>  
+                     <th width="35%">No of Book Published</th>  
+                     <th width="20%">Command</th>  
+                     
                 </tr>  
            ';  
            while($row = mysqli_fetch_object($result))  
@@ -76,10 +76,9 @@
                 $output .= '  
                 <tr>       
                      <td><img src="upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" /></td>  
-                     <td>'.$row->first_name.'</td>  
-                     <td>'.$row->last_name.'</td>  
-                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button></td>  
-                     <td><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td>'.$row->author_name.'</td>  
+                     <td>'.$row->num_published.'</td>  
+                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  
                 ';  
            }  
@@ -93,11 +92,13 @@
            $output .= '  
            <table class="table table-bordered table-striped">  
                 <tr>  
-                     <th width="10%">Image</th>  
-                     <th width="35%">First Name</th>  
-                     <th width="35%">Last Name</th>  
-                     <th width="10%">Update</th>  
-                     <th width="10%">Delete</th>  
+                     <th width="10%">#</th>  
+                     <th width="35%">Name</th>    
+                     <th width="35%">Book Name</th>    
+                     <th width="35%">Date Borrowed</th>    
+                     <th width="35%">Date Returned</th>    
+                     <th width="20%">Command</th>  
+                     
                 </tr>  
            ';  
            while($row = mysqli_fetch_object($result))  
@@ -105,10 +106,11 @@
                 $output .= '  
                 <tr>       
                      <td><img src="upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" /></td>  
-                     <td>'.$row->first_name.'</td>  
-                     <td>'.$row->last_name.'</td>  
-                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button></td>  
-                     <td><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td>'.$row->borrower_name.'</td>  
+                     <td>'.$row->book_name.'</td>  
+                     <td>'.$row->date_borrowed.'</td>  
+                     <td>'.$row->date_returned.'</td>  
+                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  
                 ';  
            }  
@@ -123,11 +125,9 @@
            $output .= '  
            <table class="table table-bordered table-striped">  
                 <tr>  
-                     <th width="10%">Image</th>  
-                     <th width="35%">First Name</th>  
-                     <th width="35%">Last Name</th>  
-                     <th width="10%">Update</th>  
-                     <th width="10%">Delete</th>  
+                     <th width="10%">#</th>  
+                     <th width="35%">Catalog Name</th>   
+                     <th width="20%">Command</th>  
                 </tr>  
            ';  
            while($row = mysqli_fetch_object($result))  
