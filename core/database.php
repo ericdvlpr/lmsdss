@@ -18,7 +18,10 @@
       public function execute_query($query)  
       {  
            return mysqli_query($this->connect, $query);  
-      }  
+      }
+
+
+      //load query  
       public function get_book_data($query)  
       {  
            $output = '';  
@@ -30,11 +33,11 @@
                 <tr>        
                      <td>'.$row->book_id.'</td>  
                      <td>'.$row->book_title.'</td>  
-                     <td>'.$row->author.'</td>  
-                     <td>'.$row->book_pub.'</td>  
-                     <td>'.$row->publisher_name.'</td>   
+                     <td>'.$row->author_name.'</td>  
+                     <td>'.$row->book_publisher.'</td>   
+                     <td>'.$row->isbn.'</td>   
                      <td>'.$row->book_copies.'</td>  
-                     <td>'.$row->status.'</td>  
+                     <td>'.$row->status_name.'</td>  
                      <td><button type="button" name="update" id="'.$row->book_id .'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->book_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  
                 ';  
@@ -181,6 +184,14 @@
            $output .= '</table>';  
            return $output;  
       } 
+
+
+
+       public function get_number($query){
+              $result = $this->execute_query($query);
+              $row = mysqli_fetch_object($result);
+              return $row->bookNum;
+             }
       // function upload_file($file)  
       // {  
       //      if(isset($file))  
