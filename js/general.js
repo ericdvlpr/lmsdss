@@ -1,5 +1,9 @@
 $(document).ready(function(){  
     $(".chosen-select").chosen({ width:"100%" });
+    $('.modal').on("hidden.bs.modal", function(){
+         $("input").val("");
+         
+      });
       //Load Table Data
               load_author_data() 
               load_book_data();
