@@ -33,7 +33,7 @@
                       </div>  
                 </div>
            </div>  
-           <div class="modal fade" id="book" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade" id="book" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -56,8 +56,13 @@
               </div>
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label text-left">Catergory</label>
+<<<<<<< HEAD
                 <div class="col-sm-9 chosen">
                  <select  class="chosen-select form-control" name='category'  id='category' tabindex="2" required>
+=======
+                <div class="col-sm-9">
+                 <select  class=" form-control" name='category'  id='category' tabindex="2" required>
+>>>>>>> bf60c2d868597caca5fcf75f584e24435c02cb93
                   <option value="">Please Select</option>
                <?php 
                   
@@ -77,6 +82,7 @@
               </div>      
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label text-left">Author</label>
+<<<<<<< HEAD
                 <div class="col-sm-9 chosen">
                  <select  class="chosen-select form-control" name='author'  id='author' tabindex="2" required>
                   <option value="">Please Select</option>
@@ -94,11 +100,17 @@
                       echo $output;
                      ?>
                  </select>
+=======
+                <div class="col-sm-9">
+                    <input type="search" name="author" id="search_author" placeholder="Search Author" class="form-control" />
+>>>>>>> bf60c2d868597caca5fcf75f584e24435c02cb93
                 </div>
+                 <ul class="list-group" id="result_author"></ul>
               </div>       
       	     <div class="form-group chosen">
       	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Publisher</label>
       	          <div class="col-sm-9">
+<<<<<<< HEAD
       	           <select class="chosen-select form-control" name='publisher'  id='publisher' tabindex="2" required>
       	            <option value="">Please Select</option>
       	         <?php 
@@ -116,7 +128,11 @@
       	               ?>
       	           </select>
 
+=======
+                      <input type="search" name="publisher" id="search_publisher" placeholder="Search Publisher" class="form-control" />
+>>>>>>> bf60c2d868597caca5fcf75f584e24435c02cb93
       	          </div>
+                  <ul class="list-group" id="result_author"></ul>
               </div>
               <div class="form-group">
       	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Book Copies</label>
@@ -127,7 +143,11 @@
               </div>
               <div class="form-group">
       	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Status</label>
+<<<<<<< HEAD
       	          <div class="col-sm-9 ">
+=======
+      	          <div class="col-sm-9">
+>>>>>>> bf60c2d868597caca5fcf75f584e24435c02cb93
       			       <select  class=" form-control" name='status'  id='status' tabindex="2" required>
       			            <option value="">Please Select</option>
       			         <?php 
