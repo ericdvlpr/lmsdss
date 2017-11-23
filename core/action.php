@@ -131,5 +131,14 @@
            $object->execute_query($query);
            echo "Data Deleted";
         }
+
+        if(isset($_POST["query"]))
+          {
+           $search = mysqli_real_escape_string($connect, $_POST["query"]);
+           $query = "
+            SELECT * FROM author 
+            WHERE author_name LIKE '%".$search."%'
+            OR author_number LIKE '%".$search."%'";
+          }
  }  
  ?>  

@@ -5,7 +5,7 @@
       public $connect;  
       private $host = "localhost";  
       private $username = 'root';  
-      private $password = '123456';  
+      private $password = '';  
       private  $database = 'db_lms';  
       function __construct()  
       {  

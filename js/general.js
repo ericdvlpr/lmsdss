@@ -1,20 +1,30 @@
-$(document).ready(function(){  
-    $(".chosen-select").chosen({ width:"100%" });
+$(document).ready(function(){
+      $(".chosen-select").chosen({ width:"100%" });
     $('.modal').on("hidden.bs.modal", function(){
          $("input").val("");
          
       });
-      //Load Table Data
+//       //Load Table Data
               load_author_data() 
               load_book_data();
                load_student_data();
                load_user_data();
                load_borrow_data();
                load_category_data();
-      //FORM ATTRIBUTES
+//       //FORM ATTRIBUTES
 
-            $('#action').val("Insert");  
-     //Load Functions
+            $('#action').val("Insert"); 
+//      //Search Function     
+         $('#search').keyup(function(){
+                        var search = $(this).val();
+                        alert(search);
+                        // if(search != '')
+                        // {
+                        //  search_author_data(search);
+                        // }}
+                       });
+
+//      //Load Functions
           
                function load_user_data()  
                {  
@@ -127,8 +137,20 @@ $(document).ready(function(){
                               $('#user_table').html(data);  
                          }  
                     });  
+               }
+               function search_author_data(author)
+               {
+                $.ajax({
+                 url:"core/action.php",
+                 method:"POST",
+                 data:{search:author},
+                 success:function(data)
+                 {
+                  $('#result').html(data);
+                 }
+                });
                }   
-               //Load unique number
+//                //Load unique number
                 $('#add_book').click(function(){
                     $('#action').val("addBook"); 
                     $('#button_action').val("Saves");
@@ -148,7 +170,7 @@ $(document).ready(function(){
                     });
 
 
-               // FORM SUBMIT 
+//                // FORM SUBMIT 
                $('#bookform').on('submit', function(event){  
                     event.preventDefault();  
                     var action=$('#action').val();
@@ -177,7 +199,7 @@ $(document).ready(function(){
                          })  
                });
 
-               //UPDATE & DELETE
+//                //UPDATE & DELETE
                $(document).on('click','.update', function(){
                       var bookID = $(this).attr("id");
                       $('#button_action').val("Save changes");
@@ -232,5 +254,8 @@ $(document).ready(function(){
                           {
                            return false;
                           }
-                    })
+                    });
+
+                   
+
 });  
