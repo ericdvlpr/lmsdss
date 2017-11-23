@@ -80,8 +80,7 @@
                   $output["isbn"] = $row["isbn"];
                   $output["copyright_year"] = $row["copyright_year"];
                   $output["date_receive"] = $row["date_receive"];
-                  $output["date_receive"] = $row["date_receive"];
-                  $output["status"] = $row["status_name"];
+                  $output["status"] = $row["id"];
                   
             
                 }
@@ -112,13 +111,18 @@
       if($_POST['action']=="Edit"){
               
               
-               $lname = mysqli_escape_string($object->con,$_POST['lname']);
-               $fname = mysqli_escape_string($object->con,$_POST['fname']);
-               $mdname = mysqli_escape_string($object->con,$_POST['mdname']);
-               $address = mysqli_escape_string($object->con,$_POST['address']);
-               $gender = mysqli_escape_string($object->con,$_POST['gender']);
-               $bday = mysqli_escape_string($object->con,$_POST['bday']);
-              $query = "UPDATE residents SET last_name ='$lname', first_name = '$fname', middle_name='$mdname', address='$address', gender='$gender', birthday='$bday'  WHERE id = '".$_POST['res_id']."' ";
+               $book_id = mysqli_escape_string($object->connect,$_POST["book_id"]);
+               $book_title = mysqli_escape_string($object->connect,$_POST["book_name"]);
+               $category_id = mysqli_escape_string($object->connect,$_POST["category"]);
+               $author_name = mysqli_escape_string($object->connect,$_POST["author"]);
+               $book_copies = mysqli_escape_string($object->connect,$_POST["book_copies"]);
+               $book_publisher = mysqli_escape_string($object->connect,$_POST["publisher"]);
+               $cp_yr = mysqli_escape_string($object->connect,$_POST["cp_yr"]);
+               $date_rcv = mysqli_escape_string($object->connect,$_POST["date_rcv"]);
+               $status = mysqli_escape_string($object->connect,$_POST["status"]);
+               $isbn = mysqli_escape_string($object->connect,$_POST["isbn"]);
+
+              $query = "UPDATE book SET book_title ='$book_title', category_id = '$category_id', author='$author_name', book_copies='$book_copies', book_pub='$book_publisher', isbn='$isbn',copyright_year='$cp_yr',date_receive='$date_rcv',status='$status' WHERE book_id = '".$_POST['book_id']."' ";
               $object->execute_query($query);
               echo 'Data Updated';/**/
             } 

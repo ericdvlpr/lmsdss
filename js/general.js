@@ -2,6 +2,7 @@ $(document).ready(function(){
       $(".chosen-select").chosen({ width:"100%" });
     $('.modal').on("hidden.bs.modal", function(){
          $("input").val("");
+         $("select").val("");
          
       });
 //       //Load Table Data
@@ -215,13 +216,14 @@ $(document).ready(function(){
                         success:function(data){
 
                           $("#book").modal('show');
-                          $(".chosenn").css("display","inline");
+
                            $("#book_no").val(data.book_no);                          
+                           $("#book_id").val(data.book_id);                          
                            $("#book_name").val(data.book_title);                          
                            $("#category").val(data.category_id);                          
-                           $("#author").val(data.author);                          
+                           $("#search_author").val(data.author);                          
                            $("#book_copies").val(data.book_copies);                          
-                           $("#publisher").val(data.book_pub);                          
+                           $("#search_publisher").val(data.book_pub);                          
                            $("#isbn").val(data.isbn);                          
                            $("#cp_yr").val(data.copyright_year);                          
                            $("#date_rcv").val(data.date_receive);                          
