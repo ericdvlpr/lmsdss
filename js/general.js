@@ -180,8 +180,8 @@ $(document).ready(function(){
                //UPDATE & DELETE
                $(document).on('click','.update', function(){
                       var bookID = $(this).attr("id");
-                      $('#button_action').val("Save changes");
-
+                      $('#button_action').val("Save");
+                      $(".chosen").css("display","none");
                       var action = "Fetch Book Data";
                       // alert(action);
                       // alert(bookID);
@@ -193,7 +193,7 @@ $(document).ready(function(){
                         success:function(data){
 
                           $("#book").modal('show');
-                          
+                          $(".chosenn").css("display","inline");
                            $("#book_no").val(data.book_no);                          
                            $("#book_name").val(data.book_title);                          
                            $("#category").val(data.category_id);                          

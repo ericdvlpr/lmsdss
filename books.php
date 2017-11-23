@@ -56,7 +56,7 @@
               </div>
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label text-left">Catergory</label>
-                <div class="col-sm-9">
+                <div class="col-sm-9 chosen">
                  <select  class="chosen-select form-control" name='category'  id='category' tabindex="2" required>
                   <option value="">Please Select</option>
                <?php 
@@ -77,7 +77,7 @@
               </div>      
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label text-left">Author</label>
-                <div class="col-sm-9">
+                <div class="col-sm-9 chosen">
                  <select  class="chosen-select form-control" name='author'  id='author' tabindex="2" required>
                   <option value="">Please Select</option>
                <?php 
@@ -96,10 +96,10 @@
                  </select>
                 </div>
               </div>       
-      	     <div class="form-group">
+      	     <div class="form-group chosen">
       	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Publisher</label>
       	          <div class="col-sm-9">
-      	           <select  class="chosen-select form-control" name='publisher'  id='publisher' tabindex="2" required>
+      	           <select class="chosen-select form-control" name='publisher'  id='publisher' tabindex="2" required>
       	            <option value="">Please Select</option>
       	         <?php 
       	           
@@ -127,8 +127,8 @@
               </div>
               <div class="form-group">
       	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Status</label>
-      	          <div class="col-sm-9">
-      			       <select  class="chosen-select form-control" name='status'  id='status' tabindex="2" required>
+      	          <div class="col-sm-9 ">
+      			       <select  class=" form-control" name='status'  id='status' tabindex="2" required>
       			            <option value="">Please Select</option>
       			         <?php 
       			             
@@ -180,3 +180,4 @@
 <?php 
 include 'includes/footer.php';
 ?>
+
