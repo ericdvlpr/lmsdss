@@ -136,13 +136,23 @@
            echo "Data Deleted";
         }
 
-        if(isset($_POST["query"]))
-          {
-           $search = mysqli_real_escape_string($connect, $_POST["query"]);
-           $query = "
-            SELECT * FROM author 
-            WHERE author_name LIKE '%".$search."%'
-            OR author_number LIKE '%".$search."%'";
+        if($_POST["action"]=="Search") {
+            $output = '';
+             if($_POST["type"]=="author") {
+                   $search = mysqli_real_escape_string($object->connect,  $_POST["search"]);
+                    $query = "
+                    SELECT * FROM author 
+                    WHERE author_name LIKE '%".$search."%'";
+                    $result = $object->execute_query($query);
+                     while($row = mysqli_fetch_array($result))
+                         {
+                          $output .= '
+                            <li>'.$row["CustomerName"].'</li>
+                          ';
+                         }
+                         echo $output;
+                }
+           
           }
  }  
  ?>  

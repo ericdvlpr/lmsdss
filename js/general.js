@@ -5,27 +5,28 @@ $(document).ready(function(){
          $("select").val("");
          
       });
-//       //Load Table Data
+      //Load Table Data
               load_author_data() 
               load_book_data();
                load_student_data();
                load_user_data();
                load_borrow_data();
                load_category_data();
-//       //FORM ATTRIBUTES
+      //FORM ATTRIBUTES
 
             $('#action').val("Insert"); 
-//      //Search Function     
-         $('#search').keyup(function(){
-                        var search = $(this).val();
-                        alert(search);
-                        // if(search != '')
-                        // {
-                        //  search_author_data(search);
-                        // }}
-                       });
+     //Search Function     
+         $('#search_author').keyup(function(){
+                    var search = $(this).val();
+                    var type = "author";
+                    
+                    if(search != '')
+                    {
+                     search_data(search,type);
+                    }
+              });
 
-//      //Load Functions
+     //Load Functions
           
                function load_user_data()  
                {  
@@ -139,17 +140,19 @@ $(document).ready(function(){
                          }  
                     });  
                }
-               function search_author_data(author)
+               function search_data(search,type)
                {
-                $.ajax({
-                 url:"core/action.php",
-                 method:"POST",
-                 data:{search:author},
-                 success:function(data)
-                 {
-                  $('#result').html(data);
-                 }
-                });
+                  var action = 'Search';
+                  $.ajax({
+                   url:"core/action.php",
+                   method:"POST",
+                   data:{search:search,type:type,action:action},
+                     success:function(data)
+                     {
+                      // $('#result').html(data);
+                      alert(data);
+                     }
+                  });
                }   
 //                //Load unique number
                 $('#add_book').click(function(){
