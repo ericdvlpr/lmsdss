@@ -103,3 +103,15 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+.result {
+   position: relative;
+   top: 33px;
+   left: 165px;
+   width: 70%;
+   display: block;
+   cursor:pointer;  
+  }
+  .link-class:hover{
+   background-color:#f1f1f1;
+  }

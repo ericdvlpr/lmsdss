@@ -5,7 +5,7 @@
       public $connect;  
       private $host = "localhost";  
       private $username = 'root';  
-      private $password = '';  
+      private $password = '123456';  
       private  $database = 'db_lms';  
       function __construct()  
       {  
@@ -31,10 +31,10 @@
            {  
                 $output .= '  
                 <tr>        
-                     <td>'.$row->book_id.'</td>  
+                     <td>'.$row->book_no.'</td>  
                      <td>'.$row->book_title.'</td>  
                      <td>'.$row->author_name.'</td>  
-                     <td>'.$row->book_publisher.'</td>   
+                     <td>'.$row->cataloguename.'</td>   
                      <td>'.$row->isbn.'</td>   
                      <td>'.$row->book_copies.'</td>  
                      <td>'.$row->status_name.'</td>  
@@ -56,7 +56,7 @@
                      <td>'.$row->author_id.'</td>  
                      <td>'.$row->author_name.'</td>  
                      <td></td>  
-                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td><button type="button" name="update" id="'.$row->author_id.'" class="btn btn-success btn-xs updateauthor">Update</button><button type="button" name="delete" id="'.$row->author_id.'" class="btn btn-danger btn-xs deleteauthor">Delete</button></td>  
                 </tr>  
                 ';  
            }  
@@ -83,45 +83,27 @@
            }  
            return $output;  
       } 
-        public function get_category_data($query)  
+
+    public function get_catalogue_data($query)  
       {  
            $output = '';  
            $result = $this->execute_query($query);  
-
+           $output .= '  
+           
+           ';  
            while($row = mysqli_fetch_object($result))  
            {  
                 $output .= '  
                 <tr>       
-                     <td>'.$row->category_id.'</td>  
-                     <td>'.$row->categoryname.'</td>  
-                     <td><button type="button" name="update" id="'.$row->category_id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->category_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td>'.$row->catalogue_no.'</td>  
+                     <td>'.$row->cataloguename.'</td>  
+                     <td><button type="button" name="update" id="'.$row->catalogue_id.'" class="btn btn-success btn-xs updatecatalogue">Update</button><button type="button" name="delete" id="'.$row->catalogue_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  
                 ';  
            }  
+           $output .= '';  
            return $output;  
       } 
-    // public function get_catalogue_data($query)  
-    //   {  
-    //        $output = '';  
-    //        $result = $this->execute_query($query);  
-    //        $output .= '  
-           
-    //        ';  
-    //        while($row = mysqli_fetch_object($result))  
-    //        {  
-    //             $output .= '  
-    //             <tr>       
-    //                  <td><img src="upload/'.$row->image.'" class="img-thumbnail" width="50" height="35" /></td>  
-    //                  <td>'.$row->first_name.'</td>  
-    //                  <td>'.$row->last_name.'</td>  
-    //                  <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button></td>  
-    //                  <td><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
-    //             </tr>  
-    //             ';  
-    //        }  
-    //        $output .= '';  
-    //        return $output;  
-    //   } 
 
 
       public function get_user_data($query)  
@@ -156,18 +138,7 @@
       public function get_student_data($query)  
       {  
            $output = '';  
-           $result = $this->execute_query($query);  
-           $output .= '  
-           <table class="table table-bordered table-striped">  
-                <tr>  
-                     <th width="10%">#</th>  
-                     <th width="20%">First Name</th>  
-                     <th width="20%">Middle Name</th>  
-                     <th width="20%">Last Name</th>  
-                     <th width="20%">Year level</th>  
-                     <th width="20%">Command</th>  
-                </tr>  
-           ';  
+           $result = $this->execute_query($query);   
            while($row = mysqli_fetch_object($result))  
            {  
                 $output .= '  
@@ -181,12 +152,24 @@
                 </tr>  
                 ';  
            }  
-           $output .= '</table>';  
            return $output;  
       } 
 
 
-
+        public function get_pub_id($name){
+            $query = "SELECT id FROM publishers WHERE publisher_name LIKE '%".$name."%' ";
+            $result = $this->execute_query($query) ;
+            $row = mysqli_fetch_assoc($result);
+            $id = $row['id'];
+            return $id;
+          } 
+        public function get_auth_id($name){
+            $query = "SELECT id FROM authors WHERE author_name LIKE '%".$name."%' ";
+            $result = $this->execute_query($query) ;
+            $row = mysqli_fetch_assoc($result);
+            $id = $row['id'];
+            return $id;
+          }   
        public function get_number($query){
               $result = $this->execute_query($query);
               $row = mysqli_fetch_object($result);

@@ -33,7 +33,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myModalLabel">Add Author</h4>
             </div>
-            <form class="form-horizontal" id="bookform" method="Post" class="collapse">
+            <form class="form-horizontal" id="authorform" method="Post" class="collapse">
             <div class="modal-body">
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label text-left">Author No</label>

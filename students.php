@@ -14,11 +14,14 @@
                                         </div>
 
                                         <table class="table table-bordered table-striped">  
-              						                <tr>  
-              						                     <th width="10%">#</th>  
-              						                     <th width="35%">Student Name</th>   
-              						                     <th width="20%">Command</th>  
-              						                </tr> 
+              						                  <tr>  
+                                                 <th width="10%">Student #</th>  
+                                                 <th width="20%">First Name</th>  
+                                                 <th width="20%">Middle Name</th>  
+                                                 <th width="20%">Last Name</th>  
+                                                 <th width="15%">Year level</th>  
+                                                 <th width="25%">Command</th>  
+                                            </tr>  
               						                <tbody id="student_table"></tbody> 
 								      </table> 
                                    </div> 
@@ -33,12 +36,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Add Students</h4>
               </div>
-              <form class="form-horizontal" id="bookform" method="Post" class="collapse">
+              <form class="form-horizontal" id="studentform" method="Post" class="collapse">
               <div class="modal-body">
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Student No</label>
                   <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="catalogue_no" id="catalogue_no" placeholder="Catalogue No" readonly="true">
+                     <input type="text" class="form-control"  name="student_no" id="student_no" placeholder="Student No">
                   </div>
                 </div>
                 <div class="form-group">

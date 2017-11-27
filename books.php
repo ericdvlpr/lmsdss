@@ -16,9 +16,9 @@
                                <table class="table table-bordered table-striped" id="books">  
           					                <thead>  
           					                     <th width="10%">Book No</th>  
-          					                     <th width="10%">Book Title</th>  
-          					                     <th width="14%">Book Author</th>  
-          					                     <th width="21%">Publisher Name</th>  
+          					                     <th width="17%">Book Title</th>  
+          					                     <th width="15%">Book Author</th>  
+          					                     <th width="15%">Catalogue</th>  
           					                     <th width="16%">ISBN</th>  
           					                     <th width="7%">Book Copies</th>  
           					                     <th width="7%">Status</th>  
@@ -64,11 +64,11 @@
                   
                    $output='';
 
-                    $query="SELECT * FROM category";
+                    $query="SELECT * FROM catalogue";
                      $result =mysqli_query($object->connect,$query);
                      while ($row = mysqli_fetch_array($result)) {
 
-                        $output .='<option value='.$row["category_id"].'> '.$row["categoryname"]. '</option>';
+                        $output .='<option value='.$row["catalogue_id"].'> '.$row["cataloguename"]. '</option>';
 
                       }
                       echo $output;
@@ -79,17 +79,22 @@
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label text-left">Author</label>
                 <div class="col-sm-9">
-                    <input type="search" name="author" id="search_author" placeholder="Search Author" class="form-control" />
+                    <input type="search" name="author" id="search_author" list="datalist1" placeholder="Search Author" class="form-control" />
+                    <datalist id=datalist1>
+
+                    </datalist>
                 </div>
-                 <ul class="list-group" id="result_author"></ul>
+                <!--  <div class="list-group result" id="result_author"></div> -->
               </div>       
       	     <div class="form-group">
       	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Publisher</label>
       	          <div class="col-sm-9">
-                      <input type="search" name="publisher" id="search_publisher" placeholder="Search Publisher" class="form-control" />
+                      <input type="search" name="publisher" id="search_publisher" list="datalist2" placeholder="Search Publisher" class="form-control" />
+                      <datalist id=datalist2>
 
+                    </datalist>
       	          </div>
-                  <ul class="list-group" id="result_author"></ul>
+                  
               </div>
               <div class="form-group">
       	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Book Copies</label>

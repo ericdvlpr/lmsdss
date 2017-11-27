@@ -1,7 +1,9 @@
 $(document).ready(function(){
       $(".chosen-select").chosen({ width:"100%" });
+       $("input").attr("autocomplete","off");
     $('.modal').on("hidden.bs.modal", function(){
          $("input").val("");
+        
          $("select").val("");
          
       });
@@ -11,7 +13,7 @@ $(document).ready(function(){
                load_student_data();
                load_user_data();
                load_borrow_data();
-               load_category_data();
+               load_catalogoue_data();
       //FORM ATTRIBUTES
 
             $('#action').val("Insert"); 
@@ -19,13 +21,41 @@ $(document).ready(function(){
          $('#search_author').keyup(function(){
                     var search = $(this).val();
                     var type = "author";
+                    var action = 'Search';
                     
                     if(search != '')
                     {
-                     search_data(search,type);
+                      $.ajax({
+                         url:"core/action.php",
+                         method:"POST",
+                         data:{search:search,type:type,action:action},
+                           success:function(data)
+                           {
+                            $('#datalist1').html(data);
+                            // alert(data);
+                           }
+                        });
                     }
               });
-
+            $('#search_publisher').keyup(function(){
+                                var search = $(this).val();
+                                var type = "publisher";
+                                var action = 'Search';
+                                
+                                if(search != '')
+                                {
+                                  $.ajax({
+                                     url:"core/action.php",
+                                     method:"POST",
+                                     data:{search:search,type:type,action:action},
+                                       success:function(data)
+                                       {
+                                        $('#datalist2').html(data);
+                                        // alert(data);
+                                       }
+                                    });
+                                }
+                          });
      //Load Functions
           
                function load_user_data()  
@@ -86,16 +116,16 @@ $(document).ready(function(){
                          }  
                     });  
                }
-                function load_category_data()  
+                function load_catalogoue_data()  
                {  
-                    var action = "Category";  
+                    var action = "Catalogoue";  
                     $.ajax({  
                          url:"core/action.php",  
                          method:"POST",  
                          data:{action:action},  
                          success:function(data)  
                          {  
-                              $('#category_table').html(data);  
+                              $('#catalogue_table').html(data);  
                          }  
                     });  
                }  
@@ -140,20 +170,7 @@ $(document).ready(function(){
                          }  
                     });  
                }
-               function search_data(search,type)
-               {
-                  var action = 'Search';
-                  $.ajax({
-                   url:"core/action.php",
-                   method:"POST",
-                   data:{search:search,type:type,action:action},
-                     success:function(data)
-                     {
-                      // $('#result').html(data);
-                      alert(data);
-                     }
-                  });
-               }   
+   
 //                //Load unique number
                 $('#add_book').click(function(){
                     $('#action').val("addBook"); 
@@ -165,15 +182,61 @@ $(document).ready(function(){
                         method:"POST",
                         data:{action:action,cvin:vin},
                         success:function(data){
-                          $("#exampleModal").modal('show');
+                          $("#author").modal('show');
                           $('#book_no').val(data);
                           
 
                         }
                       });
                     });
+             $('#add_author').click(function(){
+                    $('#action').val("addAuthor"); 
+                    $('#button_action').val("Saves");
+                      var action = "author num";
 
+                      $.ajax({
+                        url:"core/action.php",
+                        method:"POST",
+                        data:{action:action},
+                        success:function(data){
+                          $("#exampleModal").modal('show');
+                          $('#author_no').val(data);
+                          
 
+                        }
+                      });
+                    });
+               $('#add_catalogue').click(function(){
+                    $('#action').val("addCatalogue"); 
+                    $('#button_action').val("Saves");
+                      var action = "author num";
+
+                      $.ajax({
+                        url:"core/action.php",
+                        method:"POST",
+                        data:{action:action},
+                        success:function(data){
+                          $("#catalogue").modal('show');
+                          $('#catalogue_no').val(data);
+                          
+
+                        }
+                      });
+                    });
+               $('#add_student').click(function(){
+                    $('#action').val("addStudent"); 
+                    $('#button_action').val("Saves");
+                      var action = "author num";
+
+                      $.ajax({
+                        url:"core/action.php",
+                        method:"POST",
+                        data:{action:action},
+                        success:function(data){
+                          $("#students").modal('show');
+                        }
+                      });
+                    });
 //                // FORM SUBMIT 
                $('#bookform').on('submit', function(event){  
                     event.preventDefault();  
@@ -202,8 +265,65 @@ $(document).ready(function(){
                               }  
                          })  
                });
-
-//                //UPDATE & DELETE
+               $('#authorform').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                    var authorNo = $('#author_no').val();     
+                    var authorNo = $('#author_name').val();     
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#author").modal('toggle');
+                                   window.location.reload();
+                                   $('#authorform')[0].reset(); 
+                              }  
+                         })  
+               });
+               $('#catalogueform').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                        
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#catalogue").modal('toggle');
+                                   window.location.reload();
+                                   $('#catalogueform')[0].reset(); 
+                              }  
+                         })  
+               });
+               $('#studentform').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                        
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#students").modal('toggle');
+                                   window.location.reload();
+                                   $('#studentform')[0].reset(); 
+                              }  
+                         })  
+               });
+               //UPDATE & DELETE
                $(document).on('click','.update', function(){
                       var bookID = $(this).attr("id");
                       $('#button_action').val("Save");
@@ -239,28 +359,73 @@ $(document).ready(function(){
                         }
                       });
                     });
-                    $(document).on('click','.delete', function(){
-                      var res_id = $(this).attr("id");
+                    $(document).on('click','.updateauthor', function(){
+                        var authorID = $(this).attr("id");
+                        $('#button_action').val("Save");
+                        var action = "Fetch Author Data";
+                        // alert(action);
+                        // alert(bookID);
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{authorID:authorID,action:action},
+                          dataType:"json",
+                          success:function(data){
 
-                      var action = "Delete";
+                            $("#author").modal('show');
+                             $("#author_no").val(data.author_id);                          
+                             $("#author_name").val(data.author_name);                                               
+                             $("#author_id").val(data.id);                                               
+                             $('#action').val("Edit Author");
+                            
+                            
+
+                          }
+                        });
+                    });
+               // Delete
+                    $(document).on('click','.delete', function(){
+                      var book_id = $(this).attr("id");
+
+                      var action = "Delete Book";
                       if(confirm("Are you sure you want to delete?") == true){
                       
-                        // $.ajax({
-                        //   url:"core/action.php",
-                        //   method:"POST",
-                        //   data:{res_id:res_id,action:action},
-                        //   success:function(data){
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{book_id:book_id,action:action},
+                          success:function(data){
                             
-                        //     alert(data);
-                        //     window.location.reload();
-                        //     }
-                        // });
+                            alert(data);
+                            window.location.reload();
+                            }
+                        });
                       } else
                           {
                            return false;
                           }
                     });
+                    $(document).on('click','.deleteauthor', function(){
+                      var author_id = $(this).attr("id");
 
+                      var action = "Delete Author";
+                      if(confirm("Are you sure you want to delete?") == true){
+                      
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{author_id:author_id,action:action},
+                          success:function(data){
+                            
+                            alert(data);
+                            window.location.reload();
+                            }
+                        });
+                      } else
+                          {
+                           return false;
+                          }
+                    });
                    
 
 });  
