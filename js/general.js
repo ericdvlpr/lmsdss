@@ -170,6 +170,19 @@ $(document).ready(function(){
                          }  
                     });  
                }
+                 function load_department_list()  
+               {  
+                    var action = "Department";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#department').html(data);  
+                         }  
+                    });  
+               }
    
 //                //Load unique number
                 $('#add_book').click(function(){
@@ -224,19 +237,34 @@ $(document).ready(function(){
                       });
                     });
                $('#add_student').click(function(){
-                    $('#action').val("addStudent"); 
-                    $('#button_action').val("Saves");
-                      var action = "author num";
-
+                      load_department_list() 
+                      $("#students").modal('show');
+                    // $('#button_action').val("Saves");
+                    $('#department').change(function(){
+                      var action = "Course";
+                      var val = $('#department').val(); 
                       $.ajax({
                         url:"core/action.php",
                         method:"POST",
-                        data:{action:action},
+                        data:{action:action,val:val},
                         success:function(data){
-                          $("#students").modal('show');
+                          $("#course").html(data);
+                          $("#course-year").removeAttr("disabled","disabled");
                         }
                       });
                     });
+                    $("#generate").click(function(){
+                         var action = "Course";
+                          $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{action:action,val:val},
+                          success:function(data){
+                            $("#course").html(data);
+                          }
+                        });
+                    });
+                });
 //                // FORM SUBMIT 
                $('#bookform').on('submit', function(event){  
                     event.preventDefault();  

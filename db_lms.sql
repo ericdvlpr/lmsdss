@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2017 at 03:20 PM
+-- Generation Time: Nov 27, 2017 at 03:26 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `authors` (
   `id` int(11) NOT NULL,
-  `author_id` int(11) NOT NULL,
+  `author_id` varchar(250) NOT NULL,
   `author_name` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -39,26 +39,26 @@ CREATE TABLE `authors` (
 --
 
 INSERT INTO `authors` (`id`, `author_id`, `author_name`) VALUES
-(1, 0, 'Robin Kerrod'),
-(2, 0, 'Grolier'),
-(3, 0, 'Carolyn Bradshaw'),
-(4, 0, 'Michael Seals'),
-(5, 0, '..'),
-(6, 0, 'Brian Knapp'),
-(7, 0, 'Greg Glowka'),
-(8, 0, 'Lexicon'),
-(9, 0, 'Clarke Donald'),
-(10, 0, 'Dartford Mark'),
-(11, 0, 'Merde C. Tan'),
-(12, 0, 'Glencoe McGraw Hill'),
-(13, 0, 'Lorenza P. Avera'),
-(14, 0, 'Virginia Bermudez Ed. O. et al'),
-(15, 0, 'Ricardo T. Jose Ph . D.'),
-(16, 0, 'Glencoe McGraw Hill'),
-(17, 0, 'Toni Morrison'),
-(18, 0, 'Judy Brim'),
-(19, 0, 'Douglas K. Ramsey'),
-(20, 0, 'Cristine Redoblo');
+(1, 'I7518PND1511637420  ', 'Robin Kerrod'),
+(2, 'E1035ZUW1511637420  ', 'Grolier'),
+(3, 'J1834SYX1511637420  ', 'Carolyn Bradshaw'),
+(4, 'J0938VTF1511637420  ', 'Michael Seals'),
+(5, 'L4951QPV1511637420', 'Makarov'),
+(6, 'E2170ZPL1511637420  ', 'Brian Knapp'),
+(7, 'C1425UDE1511637420  ', 'Greg Glowka'),
+(8, 'Q7385PCW1511637420  ', 'Lexicon'),
+(9, 'U1782CXE1511637420', 'Clarke Donald'),
+(10, 'E2837KPF1511637420  ', 'Dartford Mark'),
+(11, 'S3752BWR1511637420  ', 'Merde C. Tan'),
+(12, 'E9416QWG1511637420', 'Glencoe McGraw Hill'),
+(13, 'Z2479RSY1511637420', 'Lorenza P. Avera'),
+(14, 'S4768OAY1511637420', 'Virginia Bermudez Ed. O. et al'),
+(15, 'F8903KRT1511637420', 'Ricardo T. Jose Ph . D.'),
+(16, 'W4623YMN1511637420', 'Glencoe McGraw Hill'),
+(17, 'Y7109IQG1511637420', 'Toni Morrison'),
+(18, 'O2861UTL1511637420', 'Judy Brim'),
+(19, 'R1049ZAF1511637420', 'Douglas K. Ramsey'),
+(20, 'E1957IDN1511637420', 'Cristine Redoblo');
 
 -- --------------------------------------------------------
 
@@ -86,11 +86,12 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`book_id`, `book_no`, `book_title`, `category_id`, `author`, `book_copies`, `book_pub`, `isbn`, `copyright_year`, `date_receive`, `date_added`, `status`) VALUES
-(1, '  G6035FBE20171111  ', 'Sample', 2, 'Grolier', 3, 'Connecticut', 'AGDFW12313131', 2017, '2017-11-12', '2017-11-12 11:10:15', '2'),
 (2, '  Q3265TAO20171111  ', 'test', 2, '1', 1, '2', 'sdgsdfsdf13', 2017, '2017-11-12', '2017-11-12 11:16:02', '1'),
 (3, '  N8752TZY20171111  ', 'Sample1', 1, '2', 5, '2', '1241515-12131-515', 2017, '0000-00-00', '2017-11-12 11:17:40', '2'),
 (4, '  B9720JGO20171111  ', 'Try', 3, '3', 2, '5', '2312312323-34534534-55675', 2017, '2017-11-12', '2017-11-12 11:20:10', '3'),
-(5, '  Y5219ZPQ20171111  ', 'Try', 7, '3', 2, '4', 'sdgsdfsdf13', 2017, '2017-11-04', '2017-11-12 11:23:21', '5');
+(5, '  Y5219ZPQ20171111  ', 'Try', 7, '3', 2, '4', 'sdgsdfsdf13', 2017, '2017-11-04', '2017-11-12 11:23:21', '5'),
+(6, '  R4592NYT20171111  ', 'trial', 1, '1', 2, '1', 'wqrthjd1313', 2018, '2017-11-25', '2017-11-25 11:06:03', '2'),
+(7, '  A3859BDX20171111  ', 'Tested', 2, '6', 4, '1', 'Asdasd-12313', 2017, '2017-11-25', '2017-11-25 11:53:52', '1');
 
 -- --------------------------------------------------------
 
@@ -159,28 +160,122 @@ INSERT INTO `borrowdetails` (`borrow_details_id`, `book_id`, `borrow_id`, `borro
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Table structure for table `catalogue`
 --
 
-CREATE TABLE `category` (
-  `category_id` int(11) NOT NULL,
-  `categoryname` varchar(50) DEFAULT NULL
+CREATE TABLE `catalogue` (
+  `catalogue_id` int(11) NOT NULL,
+  `catalogue_no` varchar(250) NOT NULL,
+  `cataloguename` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `category`
+-- Dumping data for table `catalogue`
 --
 
-INSERT INTO `category` (`category_id`, `categoryname`) VALUES
-(1, 'Periodical'),
-(2, 'English'),
-(3, 'Math'),
-(4, 'Science'),
-(5, 'Encyclopedia'),
-(6, 'Filipiniana'),
-(7, 'Newspaper'),
-(8, 'General'),
-(9, 'References');
+INSERT INTO `catalogue` (`catalogue_id`, `catalogue_no`, `cataloguename`) VALUES
+(1, '', 'Periodical'),
+(2, '', 'English'),
+(3, '', 'Math'),
+(4, '', 'Science'),
+(5, '', 'Encyclopedia'),
+(6, '', 'Filipiniana'),
+(7, '', 'Newspaper'),
+(8, '', 'General'),
+(9, '', 'References'),
+(801, '  L8347DLF1511723820  ', 'test');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courses`
+--
+
+CREATE TABLE `courses` (
+  `course_id` int(11) NOT NULL,
+  `course_code` varchar(250) NOT NULL,
+  `department_code` int(11) NOT NULL,
+  `course_name` varchar(250) NOT NULL,
+  `numYear` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `courses`
+--
+
+INSERT INTO `courses` (`course_id`, `course_code`, `department_code`, `course_name`, `numYear`) VALUES
+(1, 'BSA', 1, 'Bachelor of Science in Accountancy', 5),
+(2, 'BSMA', 1, 'Bachelor of Science in Management & Accountancy', 4),
+(3, 'BSEntrep', 1, 'Bachelor of Science in Entrepreneurship', 4),
+(4, 'BSBAMM', 1, 'Bachelor of Science in Business Administration Marketing Management', 4),
+(5, 'BSBAOM', 1, 'Bachelor of Science in Business Administration Operations Management', 4),
+(6, 'BSBAHRM', 1, 'Bachelor of Science in Business Administration Human Resource Management', 4),
+(7, 'BSBAFM', 1, 'Bachelor of Science in Business Administration Financial Management', 4),
+(8, 'BSOA', 1, 'Bachelor of Science in Office Administration', 4),
+(9, 'BSCE', 2, 'Bachelor of Science in Civil Engineering', 5),
+(10, 'BSEE', 2, 'Bachelor of Science in Electrical Engineering', 5),
+(11, 'BSIT', 2, 'Bachelor of Science in Information Technology', 4),
+(12, 'BSCS', 2, 'Bachelor of Science in Computer Science', 4),
+(13, 'ACT', 2, 'Associate in Computer Technology', 2),
+(14, 'ABEcon', 3, 'Bachelor of Arts in Economics', 4),
+(15, 'ABEnglang', 3, 'Bachelor of Arts in English Language', 4),
+(16, 'ABPolSci', 3, 'Bachelor of Arts in Political Science', 4),
+(17, 'BSLIS', 3, 'Bachelor of Library & Information Science', 4),
+(18, 'BSBio', 3, 'Bachelor of Science in Biology', 4),
+(19, 'BSMath', 3, 'Bachelor of Science in Mathematics', 4),
+(20, 'BSPsych', 3, 'Bachelor of Science in Psychology', 4),
+(21, 'BSEEng', 4, 'Bachelor of Science in Education ENGLISH', 4),
+(22, 'BSEFil', 4, 'Bachelor of Science in Education FILIPINO', 4),
+(23, 'BSEMAPEH', 4, 'Bachelor of Science in Education MAPEH', 4),
+(24, 'BSEMATH', 4, 'Bachelor of Science in Education MATHEMATICS', 4),
+(25, 'BSESocStud', 4, 'Bachelor of Science in Education SOCIAL STUDIES', 4),
+(26, 'BSEBIO', 4, 'Bachelor of Science in Education BIOLOGY', 4),
+(27, 'BSEGen', 4, 'Bachelor of Science in Elementary Education GENERALIST', 4),
+(28, 'BSESpe', 4, 'Bachelor of Science in Elementary Education SPECIAL', 4),
+(29, 'BSEPreSch', 4, 'Bachelor of Science in Elementary Education PRE-SCHOOL', 4),
+(30, 'BSN', 5, 'Bachelor of Science in Nursing', 4),
+(31, 'Midwifey', 5, 'Midwifery Course', 2),
+(32, 'BSHM', 6, 'Bachelor of Science in Hospitality Management', 4),
+(33, 'SHSABM', 7, 'Academic Business & Management', 0),
+(34, 'SHSSTEM', 7, 'Science Technology Engineering & Mathematics', 0),
+(35, 'SHSGAS', 7, ' General Academic Strand', 0),
+(36, 'SHTechVocHeBPP', 8, 'Home Economics Bread & Pastry Production', 0),
+(37, 'SHTechVocHeCk', 8, 'Home Economics Cookery', 0),
+(38, 'SHTechVocHeHK', 8, 'Home Economics Housekeeping', 0),
+(39, 'SHTechVocHeFB', 8, 'Home Economics Food and Beverages', 0),
+(40, 'JHS', 9, 'Junior High School', 0),
+(41, 'GS', 10, 'Grade School', 0),
+(42, 'NonDegTeach', 11, 'CERT. IN TEACHING', 0),
+(43, 'NonDegSPED', 11, 'CERT. IN SPED', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `departments`
+--
+
+CREATE TABLE `departments` (
+  `dept_id` int(11) NOT NULL,
+  `department_code` varchar(250) NOT NULL,
+  `department_name` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `departments`
+--
+
+INSERT INTO `departments` (`dept_id`, `department_code`, `department_name`) VALUES
+(1, 'SBMA', 'School of Business Education'),
+(2, 'SOECS', 'School of Engineering and Computer Studies'),
+(3, 'SAS', 'School of Arts and Sciences '),
+(4, 'SOED', ' School of Education'),
+(5, 'SON', ' School of Nursing'),
+(6, 'SOHM', ' School of Hospitality Management'),
+(7, 'SHSAcad', 'Senior High School Academic Track'),
+(8, 'SHSTechVoc', 'Senior High School Technical Vocational Track'),
+(9, 'JHS', ' Junior High School'),
+(10, 'GS', ' Grade School'),
+(11, 'NonDeg', 'Non Degree Courses');
 
 -- --------------------------------------------------------
 
@@ -260,7 +355,8 @@ INSERT INTO `status` (`id`, `status_name`) VALUES
 --
 
 CREATE TABLE `students` (
-  `student_id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `student_id` int(250) NOT NULL,
   `firstname` varchar(100) NOT NULL,
   `middle_name` varchar(250) NOT NULL,
   `lastname` varchar(100) NOT NULL,
@@ -269,27 +365,31 @@ CREATE TABLE `students` (
   `contact` varchar(100) NOT NULL,
   `type` varchar(100) NOT NULL,
   `year_level` varchar(100) NOT NULL,
-  `status` varchar(100) NOT NULL
+  `status` varchar(100) NOT NULL,
+  `pwd` int(11) NOT NULL,
+  `passcode` varchar(250) NOT NULL,
+  `dept` int(11) NOT NULL,
+  `course` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `firstname`, `middle_name`, `lastname`, `gender`, `address`, `contact`, `type`, `year_level`, `status`) VALUES
-(52, 'Mark', '', 'Sanchez', 'Male', 'Talisay', '212010', '4', 'Faculty', 'Active'),
-(53, 'April Joy', '', 'Aguilar', 'Female', 'E.B. Magalona', '00', '5', 'Second Year', 'Banned'),
-(54, 'Alfonso', '', 'Pancho', 'Male', 'E.B. Magalona', '009', '5', 'First Year', 'Active'),
-(55, 'Jonathan ', '', 'Antanilla', 'Male', 'E.B. Magalona', '0032', '5', 'Fourth Year', 'Active'),
-(56, 'Renzo Bryan', '', 'Pedroso', 'Male', 'Silay City', '03030', '5', 'Third Year', 'Active'),
-(57, 'Eleazar', '', 'Duterte', 'Male', 'E.B. Magalona', '90902', '5', 'Second Year', 'Active'),
-(58, 'Ellen Mae', '', 'Espino', 'Female', 'E.B. Magalona', '123', '5', 'First Year', 'Active'),
-(59, 'Ruth', '', 'Magbanua', 'Female', 'E.B. Magalona', '9340', '5', 'Second Year', 'Active'),
-(60, 'Shaina Marie', '', 'Gabino', 'Female', 'Silay City', '132134', '5', 'Second Year', 'Active'),
-(62, 'Chairty Joy', '', 'Punzalan', 'Female', 'E.B. Magalona', '12423', '4', 'Faculty', 'Active'),
-(63, 'Kristine May', '', 'Dela Rosa', 'Female', 'Silay City', '1321', '5', 'Second Year', 'Active'),
-(64, 'Chinie marie', '', 'Laborosa', 'Female', 'E.B. Magalona', '902101', '5', 'Second Year', 'Active'),
-(65, 'Ruby', '', 'Morante', 'Female', 'E.B. Magalona', '', '4', 'Faculty', 'Active');
+INSERT INTO `students` (`id`, `student_id`, `firstname`, `middle_name`, `lastname`, `gender`, `address`, `contact`, `type`, `year_level`, `status`, `pwd`, `passcode`, `dept`, `course`) VALUES
+(52, 0, 'Mark', '', 'Sanchez', 'Male', 'Talisay', '212010', '4', 'Second Year', 'Active', 0, '', 0, 0),
+(53, 0, 'April Joy', '', 'Aguilar', 'Female', 'E.B. Magalona', '00', '5', 'Second Year', 'Banned', 0, '', 0, 0),
+(54, 0, 'Alfonso', '', 'Pancho', 'Male', 'E.B. Magalona', '009', '5', 'First Year', 'Active', 0, '', 0, 0),
+(55, 0, 'Jonathan ', '', 'Antanilla', 'Male', 'E.B. Magalona', '0032', '5', 'Fourth Year', 'Active', 0, '', 0, 0),
+(56, 0, 'Renzo Bryan', '', 'Pedroso', 'Male', 'Silay City', '03030', '5', 'Third Year', 'Active', 0, '', 0, 0),
+(57, 0, 'Eleazar', '', 'Duterte', 'Male', 'E.B. Magalona', '90902', '5', 'Second Year', 'Active', 0, '', 0, 0),
+(58, 0, 'Ellen Mae', '', 'Espino', 'Female', 'E.B. Magalona', '123', '5', 'First Year', 'Active', 0, '', 0, 0),
+(59, 0, 'Ruth', '', 'Magbanua', 'Female', 'E.B. Magalona', '9340', '5', 'Second Year', 'Active', 0, '', 0, 0),
+(60, 0, 'Shaina Marie', '', 'Gabino', 'Female', 'Silay City', '132134', '5', 'Second Year', 'Active', 0, '', 0, 0),
+(62, 0, 'Chairty Joy', '', 'Punzalan', 'Female', 'E.B. Magalona', '12423', '4', 'Second Year', 'Active', 0, '', 0, 0),
+(63, 0, 'Kristine May', '', 'Dela Rosa', 'Female', 'Silay City', '1321', '5', 'Second Year', 'Active', 0, '', 0, 0),
+(64, 0, 'Chinie marie', '', 'Laborosa', 'Female', 'E.B. Magalona', '902101', '5', 'Second Year', 'Active', 0, '', 0, 0),
+(65, 0, 'Ruby', '', 'Morante', 'Female', 'E.B. Magalona', '', '4', 'Second Year', 'Active', 0, '', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -373,12 +473,24 @@ ALTER TABLE `borrowdetails`
   ADD PRIMARY KEY (`borrow_details_id`);
 
 --
--- Indexes for table `category`
+-- Indexes for table `catalogue`
 --
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`category_id`),
-  ADD UNIQUE KEY `category_id` (`category_id`),
-  ADD KEY `classid` (`category_id`);
+ALTER TABLE `catalogue`
+  ADD PRIMARY KEY (`catalogue_id`),
+  ADD UNIQUE KEY `category_id` (`catalogue_id`),
+  ADD KEY `classid` (`catalogue_id`);
+
+--
+-- Indexes for table `courses`
+--
+ALTER TABLE `courses`
+  ADD PRIMARY KEY (`course_id`);
+
+--
+-- Indexes for table `departments`
+--
+ALTER TABLE `departments`
+  ADD PRIMARY KEY (`dept_id`);
 
 --
 -- Indexes for table `lost_book`
@@ -402,7 +514,7 @@ ALTER TABLE `status`
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`student_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `type`
@@ -426,12 +538,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `booknumber`
 --
@@ -448,10 +560,20 @@ ALTER TABLE `borrow`
 ALTER TABLE `borrowdetails`
   MODIFY `borrow_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT for table `catalogue`
 --
-ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=801;
+ALTER TABLE `catalogue`
+  MODIFY `catalogue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=802;
+--
+-- AUTO_INCREMENT for table `courses`
+--
+ALTER TABLE `courses`
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+--
+-- AUTO_INCREMENT for table `departments`
+--
+ALTER TABLE `departments`
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `lost_book`
 --
@@ -471,7 +593,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 --
 -- AUTO_INCREMENT for table `type`
 --

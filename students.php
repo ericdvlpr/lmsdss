@@ -8,7 +8,7 @@
 	                         <h3 align="center">Students!</h3><br />  
 	                              <div  class="table-responsive"> 
 	                              <div class="btn-group">
-                                          <button type="button" class="btn btn-primary" id="add_student" data-toggle="modal" data-target="#students">
+                                          <button type="button" class="btn btn-primary" id="add_student">
                                           Add Students                                       
                                         </button>
                                         </div>
@@ -65,22 +65,33 @@
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Department</label>
                   <div class="col-sm-9">
-                     <select name="department"></select>
+                     <select class="form-control" name="department" id="department" required="true">
+                       <option value="">Please Select</option>
+                     </select>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Course</label>
                   <div class="col-sm-9">
-                     <select name="course"></select>
+                     <select class="form-control" name="course" id="course" required="true">
+                        <option value="">Please Select</option>
+                     </select>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Year</label>
                   <div class="col-sm-9">
-                     <select name="course-year"></select>
+                     <input type="number" min="1" max="5" disabled="true" class="form-control" name="course-year" id="course-year" required="true" />
                   </div>
                 </div>
-                <input type="hidden" name="action" id="action" value="addStudent" />
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">PassCode</label>
+                  <div class="col-sm-9">
+                     <input type="text" class="form-control" name="passcode" id="passcode" required="true" />
+                     <button type="button" class="btn btn-primary" id="generate" >Generate Passcode</button>
+                  </div>
+                </div>
+                <input type="hidden" name="action" id="action" />
                 <input type="hidden" name="student" id="student_id" />
                 
               </div>

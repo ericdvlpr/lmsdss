@@ -33,8 +33,29 @@
       {  
            echo $object->get_user_data("SELECT * FROM users WHERE access_level != 0  ");  
       }  
-
-
+      if($_POST["action"] == "Department")
+           {
+            $output ='';
+            $query = "SELECT * FROM departments";
+            $result = $object->execute_query($query);
+            $output .='<option value="">Please Select</option>';
+            while($row = mysqli_fetch_array($result))
+            {
+             $output .= '<option value="'.$row["dept_id"].'">'.$row["department_name"].'</option>';
+            }
+            echo $output;
+       }
+       if($_POST["action"] == "Course") {
+            $output ='';
+            $query = "SELECT * FROM courses WHERE department_code='".$_POST['val']."' ";
+            $result = $object->execute_query($query);
+            $output .='<option value="">Please Select</option>';
+            while($row = mysqli_fetch_array($result))
+            {
+             $output .= '<option value="'.$row["course_id"].'">'.$row["course_name"].'</option>';
+            }
+            echo $output;
+         }
 
       //Insert queries   
       if($_POST["action"] == "addBook") {  
