@@ -177,16 +177,16 @@
                        $catalogue_code=trim($alpha.$num.$end.$uniqueCode);
                       echo $catalogue_code;
       }
-      if($_POST['action']=="generate passcode"){
+      if($_POST['action']=="Generate"){
                 $newcode=date("Y d F");
                 $uniqueCode = strtotime($newcode);
                 $alpha = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),-1);
-                       $num = substr(str_shuffle("0123456789"),-4);
+                       $num = substr(str_shuffle("0123456789"),-8);
                        $end = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),-3);
             /*          $newcode=str_pad(10000 +$cvin, 5, 0, STR_PAD_LEFT);*/
 
                        // //$vin = "0514-0225A-";
-                       $passcode=trim($alpha.$num.$end.$uniqueCode);
+                       $passcode=trim($num);
                       echo $passcode;
       }
       //Update queries

@@ -86,9 +86,12 @@
                 </div>
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">PassCode</label>
-                  <div class="col-sm-9">
+                  <div class="col-sm-6">
                      <input type="text" class="form-control" name="passcode" id="passcode" required="true" />
-                     <button type="button" class="btn btn-primary" id="generate" >Generate Passcode</button>
+                     
+                  </div>
+                  <div class="btn-group col-sm-3">
+                    <button type="button" class="btn btn-primary btn-sm " id="generate" >Generate Passcode</button>
                   </div>
                 </div>
                 <input type="hidden" name="action" id="action" />

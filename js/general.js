@@ -254,13 +254,14 @@ $(document).ready(function(){
                       });
                     });
                     $("#generate").click(function(){
-                         var action = "Course";
+                         var action = "Generate";
                           $.ajax({
                           url:"core/action.php",
                           method:"POST",
-                          data:{action:action,val:val},
+                          data:{action:action},
                           success:function(data){
-                            $("#course").html(data);
+                            // alert(data);
+                            $("#passcode").val(data);
                           }
                         });
                     });
