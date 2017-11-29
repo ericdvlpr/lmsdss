@@ -27,7 +27,7 @@
       }
        if($_POST["action"] == "Students")  
       {  
-           echo $object->get_student_data("SELECT * FROM students ");  
+           echo $object->get_student_data("SELECT * FROM students s LEFT JOIN departments d ON d.dept_id = s.dept LEFT JOIN courses c ON c.course_id =s.course ");  
       }   
        if($_POST["action"] == "Users")  
       {  
@@ -101,7 +101,22 @@
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
-
+      if($_POST["action"] == "addStudent") {  
+            $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
+            $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
+            $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
+            $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
+            $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
+            $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
+            $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
+             
+           $query = "  
+           INSERT INTO catalogue  
+           (catalogue_no,cataloguename)   
+           VALUES ('".$catalogue_no."', '".$catalogue_name."')";  
+           $object->execute_query($query);  
+           echo 'Data Inserted';  
+      }
 
 
       //Fetch Queries 

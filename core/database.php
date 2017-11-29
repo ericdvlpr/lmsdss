@@ -144,11 +144,10 @@
                 $output .= '  
                 <tr>       
                      <td>'.$row->student_id.'</td>  
-                     <td>'.$row->firstname.' '.$row->middle_name.' '.$row->lastname.'</td>  
-                     <td></td>  
-                     <td></td>  
-                     <td>'.$row->year_level.'</td>  
-                     <td><button type="button" name="update" id="'.$row->student_id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->student_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td>'.$row->student_name.'</td>  
+                     <td>'.$row->department_name.'</td>  
+                     <td>'.$row->course_code.'</td>  
+                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  
                 ';  
            }  

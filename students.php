@@ -19,7 +19,6 @@
                                                  <th width="25%">Student Name</th>  
                                                  <th width="25%">Department</th>  
                                                  <th width="10%">Course</th>  
-                                                 <th width="10%">Year level</th>  
                                                  <th width="10%">Command</th>  
                                             </tr>  
               						                <tbody id="student_table"></tbody> 
@@ -45,21 +44,25 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">First Name</label>
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Student Name</label>
                   <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="first_name" id="first_name" required="true" placeholder="First Name">
-                  </div>
-                </div>
-                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Middle Name</label>
-                  <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="middle_name" id="middle_name" required="true" placeholder="Middle Name">
+                     <input type="text" class="form-control"  name="student_name" id="student_name" required="true" placeholder="Student Name">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Address</label>
                   <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="address" id="address" required="true" placeholder="Address">
+                     <input type="text" class="form-control"  name="address" id="address" required="true" placeholder="Student Name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Sex</label>
+                  <div class="col-sm-9">
+                     <select class="form-control" name="sex" id="sex" required="true">
+                       <option value="">Please Select</option>
+                       <option value="male">Male</option>
+                       <option value="female">Female</option>
+                     </select>
                   </div>
                 </div>
                 <div class="form-group">
@@ -95,13 +98,20 @@
                   </div>
                 </div>
                 <div class="form-group">
-                <label for="inputPassword3" class="col-sm-3 control-label text-left">PassCode</label>
-                <div class="col-sm-6">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> Check me out
-                      </label>
-                    </div>
+                <label for="inputPassword3" class="col-sm-3 control-label text-left">With Disability</label>
+                <div class="col-sm-9">
+                      <div class="checkbox">
+                          <label class="checkbox-inline">
+                              <input type="radio" name="pwd" value="0">None
+                          </label>
+                          <label class="checkbox-inline">
+                              <input type="radio" name="pwd" value="1">Visual Disability
+                          </label>
+                          <label class="checkbox-inline">
+                              <input type="radio" name="pwd" value="1">Hearing Disability
+                          </label>
+                      
+                      </div>
                   </div>
                 </div>
                 <input type="hidden" name="action" id="action" />
