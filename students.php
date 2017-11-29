@@ -16,11 +16,11 @@
                                         <table class="table table-bordered table-striped">  
               						                  <tr>  
                                                  <th width="10%">Student #</th>  
-                                                 <th width="20%">First Name</th>  
-                                                 <th width="20%">Middle Name</th>  
-                                                 <th width="20%">Last Name</th>  
-                                                 <th width="15%">Year level</th>  
-                                                 <th width="25%">Command</th>  
+                                                 <th width="25%">Student Name</th>  
+                                                 <th width="25%">Department</th>  
+                                                 <th width="10%">Course</th>  
+                                                 <th width="10%">Year level</th>  
+                                                 <th width="10%">Command</th>  
                                             </tr>  
               						                <tbody id="student_table"></tbody> 
 								      </table> 
@@ -92,6 +92,16 @@
                   </div>
                   <div class="btn-group col-sm-3">
                     <button type="button" class="btn btn-primary btn-sm " id="generate" >Generate Passcode</button>
+                  </div>
+                </div>
+                <div class="form-group">
+                <label for="inputPassword3" class="col-sm-3 control-label text-left">PassCode</label>
+                <div class="col-sm-6">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"> Check me out
+                      </label>
+                    </div>
                   </div>
                 </div>
                 <input type="hidden" name="action" id="action" />

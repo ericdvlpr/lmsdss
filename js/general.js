@@ -412,6 +412,31 @@ $(document).ready(function(){
                           }
                         });
                     });
+                    $(document).on('click','.updatecatalogue', function(){
+                        
+                        var catalogueID = $(this).attr("id");
+                        $('#button_action').val("Save");
+                        var action = "Fetch Catalogue Data";
+                        
+                       
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{catalogueID:catalogueID,action:action},
+                          dataType:"json",
+                          success:function(data){
+
+                            $("#catalogue").modal('show');
+                             $("#catalogue_no").val(data.catalogue_no);                          
+                             $("#catalogue_name").val(data.catalogue_name);                                               
+                             $("#catalogue_id").val(data.catalogue_id);                                               
+                             $('#action').val("Edit Catalogue");
+                            
+                            
+
+                          }
+                        });
+                    });
                // Delete
                     $(document).on('click','.delete', function(){
                       var book_id = $(this).attr("id");
@@ -444,6 +469,27 @@ $(document).ready(function(){
                           url:"core/action.php",
                           method:"POST",
                           data:{author_id:author_id,action:action},
+                          success:function(data){
+                            
+                            alert(data);
+                            window.location.reload();
+                            }
+                        });
+                      } else
+                          {
+                           return false;
+                          }
+                    });
+                    $(document).on('click','.deletecatalogue', function(){
+                      var catalogue_id = $(this).attr("id");
+
+                      var action = "Delete Catalogue";
+                      if(confirm("Are you sure you want to delete?") == true){
+                      
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{catalogue_id:catalogue_id,action:action},
                           success:function(data){
                             
                             alert(data);

@@ -97,7 +97,7 @@
                 <tr>       
                      <td>'.$row->catalogue_no.'</td>  
                      <td>'.$row->cataloguename.'</td>  
-                     <td><button type="button" name="update" id="'.$row->catalogue_id.'" class="btn btn-success btn-xs updatecatalogue">Update</button><button type="button" name="delete" id="'.$row->catalogue_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td><button type="button" name="update" id="'.$row->catalogue_id.'" class="btn btn-success btn-xs updatecatalogue">Update</button><button type="button" name="delete" id="'.$row->catalogue_id.'" class="btn btn-danger btn-xs deletecatalogue">Delete</button></td>  
                 </tr>  
                 ';  
            }  
@@ -144,9 +144,9 @@
                 $output .= '  
                 <tr>       
                      <td>'.$row->student_id.'</td>  
-                     <td>'.$row->firstname.'</td>  
-                     <td>'.$row->middle_name.'</td>  
-                     <td>'.$row->lastname.'</td>  
+                     <td>'.$row->firstname.' '.$row->middle_name.' '.$row->lastname.'</td>  
+                     <td></td>  
+                     <td></td>  
                      <td>'.$row->year_level.'</td>  
                      <td><button type="button" name="update" id="'.$row->student_id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->student_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  

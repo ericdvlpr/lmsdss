@@ -143,7 +143,69 @@
                 echo json_encode($output);
                 
       }
+      if($_POST["action"]=="Fetch Catalogue Data") {
+      
+                $output =array();
+               $query = "SELECT * FROM catalogue WHERE catalogue_id ='".$_POST['catalogueID']."'";
+               $result = $object->execute_query($query);
+                while($row = mysqli_fetch_array($result)) {
+                 $output["catalogue_id"] = $row["catalogue_id"];
+                 $output["catalogue_no"] = $row["catalogue_no"];
+                  $output["catalogue_name"] = $row["cataloguename"];
+                }
 
+                echo json_encode($output);
+                
+      }
+       //Update queries
+      if($_POST['action']=="Edit") {
+              
+              
+               $book_id = mysqli_escape_string($object->connect,$_POST["book_id"]);
+               $book_title = mysqli_escape_string($object->connect,$_POST["book_name"]);
+               $category_id = mysqli_escape_string($object->connect,$_POST["category"]);
+               $author_name = mysqli_escape_string($object->connect,$_POST["author"]);
+               $book_copies = mysqli_escape_string($object->connect,$_POST["book_copies"]);
+               $book_publisher = mysqli_escape_string($object->connect,$_POST["publisher"]);
+               $cp_yr = mysqli_escape_string($object->connect,$_POST["cp_yr"]);
+               $date_rcv = mysqli_escape_string($object->connect,$_POST["date_rcv"]);
+               $status = mysqli_escape_string($object->connect,$_POST["status"]);
+               $isbn = mysqli_escape_string($object->connect,$_POST["isbn"]);
+
+              $query = "UPDATE book SET book_title ='$book_title', category_id = '$category_id', author='$author_name', book_copies='$book_copies', book_pub='$book_publisher', isbn='$isbn',copyright_year='$cp_yr',date_receive='$date_rcv',status='$status' WHERE book_id = '".$_POST['book_id']."' ";
+              $object->execute_query($query);
+              echo 'Data Updated';/**/
+            } 
+            if($_POST['action']=="Edit Author") {
+              
+              
+               $author_no = mysqli_escape_string($object->connect,$_POST["author_no"]);
+               $author_name = mysqli_escape_string($object->connect,$_POST["author_name"]);
+
+              $query = "UPDATE authors SET author_id ='$author_no', author_name = '$author_name' WHERE id = '".$_POST['author']."' ";
+              $object->execute_query($query);
+              echo 'Data Updated';
+            } 
+            if($_POST['action']=="Edit Catalogue") {
+                $catalogue_name = mysqli_escape_string($object->connect,$_POST["catalogue_name"]);
+                $query = "UPDATE catalogue SET cataloguename = '$catalogue_name' WHERE catalogue_id = '".$_POST['catalogue_id']."' ";
+                $object->execute_query($query);
+                echo 'Data Updated';
+            } 
+
+      //Delete Queries      
+        if($_POST['action']=="Delete Book"){
+        
+          $query = "DELETE FROM book WHERE book_id = '".$_POST['book_id']."' ";
+           $object->execute_query($query);
+           echo "Data Deleted";
+        }
+        if($_POST['action']=="Delete Author"){
+        
+          $query = "DELETE FROM authors WHERE author_id = '".$_POST['author_id']."' ";
+           $object->execute_query($query);
+           echo "Data Deleted";
+        }
       //Generate Number
       if($_POST['action']=="vin") {
               $newcode=$object->get_number("SELECT bookNum FROM bookNumber");
@@ -189,50 +251,7 @@
                        $passcode=trim($num);
                       echo $passcode;
       }
-      //Update queries
-      if($_POST['action']=="Edit") {
-              
-              
-               $book_id = mysqli_escape_string($object->connect,$_POST["book_id"]);
-               $book_title = mysqli_escape_string($object->connect,$_POST["book_name"]);
-               $category_id = mysqli_escape_string($object->connect,$_POST["category"]);
-               $author_name = mysqli_escape_string($object->connect,$_POST["author"]);
-               $book_copies = mysqli_escape_string($object->connect,$_POST["book_copies"]);
-               $book_publisher = mysqli_escape_string($object->connect,$_POST["publisher"]);
-               $cp_yr = mysqli_escape_string($object->connect,$_POST["cp_yr"]);
-               $date_rcv = mysqli_escape_string($object->connect,$_POST["date_rcv"]);
-               $status = mysqli_escape_string($object->connect,$_POST["status"]);
-               $isbn = mysqli_escape_string($object->connect,$_POST["isbn"]);
 
-              $query = "UPDATE book SET book_title ='$book_title', category_id = '$category_id', author='$author_name', book_copies='$book_copies', book_pub='$book_publisher', isbn='$isbn',copyright_year='$cp_yr',date_receive='$date_rcv',status='$status' WHERE book_id = '".$_POST['book_id']."' ";
-              $object->execute_query($query);
-              echo 'Data Updated';/**/
-            } 
-            if($_POST['action']=="Edit Author") {
-              
-              
-               $author_no = mysqli_escape_string($object->connect,$_POST["author_no"]);
-               $author_name = mysqli_escape_string($object->connect,$_POST["author_name"]);
-
-              $query = "UPDATE authors SET author_id ='$author_no', author_name = '$author_name' WHERE id = '".$_POST['author']."' ";
-              $object->execute_query($query);
-              echo 'Data Updated';
-            } 
-
-
-      //Delete Queries      
-        if($_POST['action']=="Delete Book"){
-        
-          $query = "DELETE FROM book WHERE book_id = '".$_POST['book_id']."' ";
-           $object->execute_query($query);
-           echo "Data Deleted";
-        }
-        if($_POST['action']=="Delete Author"){
-        
-          $query = "DELETE FROM authors WHERE author_id = '".$_POST['author_id']."' ";
-           $object->execute_query($query);
-           echo "Data Deleted";
-        }
         // Search Queries
         if($_POST["action"]=="Search") {
             $output = '';

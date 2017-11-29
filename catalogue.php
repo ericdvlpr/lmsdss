@@ -8,7 +8,7 @@
                          <h3 align="center">Catalogs!</h3><br />  
                               <div  class="table-responsive"> 
                                 <div class="btn-group">
-                                          <button type="button" class="btn btn-primary" id="add_catalogue" data-toggle="modal" data-target="#catalogue">
+                                          <button type="button" class="btn btn-primary" id="add_catalogue" >
                                           Add Catalogue                                       
                                         </button>
                                    </div>
@@ -46,7 +46,7 @@
                   </div>
                 </div>
                 <input type="hidden" name="action" id="action" value="addCatalogue" />
-                <input type="hidden" name="catalogue" id="catalogue_id" />
+                <input type="hidden" name="catalogue_id" id="catalogue_id" />
                 
               </div>
               <div class="modal-footer">
