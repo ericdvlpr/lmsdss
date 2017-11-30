@@ -448,7 +448,6 @@ $(document).ready(function(){
                           data:{studentID:studentID,action:action},
                           dataType:"json",
                           success:function(data){
-
                             $("#students").modal('show');
                              $("#student_id").val(data.student_id);                          
                              $("#student_no").val(data.student_no);                          
@@ -462,9 +461,6 @@ $(document).ready(function(){
                              $("#passcode").val(data.passcode);                                               
                              $("#pwd").val(data.pwd);                                               
                              $('#action').val("Edit Student");
-                            
-                            
-
                           }
                         });
                     });
