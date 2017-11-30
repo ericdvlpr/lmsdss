@@ -73,7 +73,7 @@
                 $output .= '  
                 <tr>       
                      <td>'.$row->borrow_no.'</td>  
-                     <td>'.$row->lastname.' '.$row->firstname.' '.$row->middle_name.'</td>  
+                     <td>'.$row->student_name.'</td>  
                      <td>'.$row->book_title.'</td>  
                      <td>'.$row->date_borrow.'</td>  
                      <td>'.$row->date_return.'</td>  
@@ -147,7 +147,7 @@
                      <td>'.$row->student_name.'</td>  
                      <td>'.$row->department_name.'</td>  
                      <td>'.$row->course_code.'</td>  
-                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs updatestudent">Update</button><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs deletestudent">Delete</button></td>  
                 </tr>  
                 ';  
            }  

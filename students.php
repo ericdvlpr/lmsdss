@@ -56,6 +56,12 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Contact Number</label>
+                  <div class="col-sm-9">
+                     <input type="number" class="form-control"  name="contact" id="contact" required="true" placeholder="Student Name">
+                  </div>
+                </div>
+                <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Sex</label>
                   <div class="col-sm-9">
                      <select class="form-control" name="sex" id="sex" required="true">
@@ -115,7 +121,7 @@
                   </div>
                 </div>
                 <input type="hidden" name="action" id="action" />
-                <input type="hidden" name="student" id="student_id" />
+                <input type="hidden" name="student_id" id="student_id" />
                 
               </div>
               <div class="modal-footer">

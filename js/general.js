@@ -437,6 +437,62 @@ $(document).ready(function(){
                           }
                         });
                     });
+                    $(document).on('click','.updatestudent', function(){
+                        
+                        var studentID = $(this).attr("id");
+                        $('#button_action').val("Save");
+                        var action = "Fetch Student Data";
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{studentID:studentID,action:action},
+                          dataType:"json",
+                          success:function(data){
+
+                            $("#students").modal('show');
+                             $("#student_id").val(data.student_id);                          
+                             $("#student_no").val(data.student_no);                          
+                             $("#student_name").val(data.student_name);                                               
+                             $("#address").val(data.address);                                               
+                             $("#contact").val(data.contact);                                               
+                             $("#sex").val(data.sex);                                               
+                             $("#department").val(data.department);                                               
+                             $("#course").val(data.course);                                               
+                             $("#course-year").val(data.course);                                               
+                             $("#passcode").val(data.passcode);                                               
+                             $("#pwd").val(data.pwd);                                               
+                             $('#action').val("Edit Student");
+                            
+                            
+
+                          }
+                        });
+                    });
+                    // $(document).on('click','.updatecatalogue', function(){
+                        
+                    //     var catalogueID = $(this).attr("id");
+                    //     $('#button_action').val("Save");
+                    //     var action = "Fetch Catalogue Data";
+                        
+                       
+                    //     $.ajax({
+                    //       url:"core/action.php",
+                    //       method:"POST",
+                    //       data:{catalogueID:catalogueID,action:action},
+                    //       dataType:"json",
+                    //       success:function(data){
+
+                    //         $("#catalogue").modal('show');
+                    //          $("#catalogue_no").val(data.catalogue_no);                          
+                    //          $("#catalogue_name").val(data.catalogue_name);                                               
+                    //          $("#catalogue_id").val(data.catalogue_id);                                               
+                    //          $('#action').val("Edit Catalogue");
+                            
+                            
+
+                    //       }
+                    //     });
+                    // });
                // Delete
                     $(document).on('click','.delete', function(){
                       var book_id = $(this).attr("id");

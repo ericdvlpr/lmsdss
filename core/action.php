@@ -109,11 +109,13 @@
             $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
             $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
             $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
-             
+             $address=mysqli_real_escape_string($object->connect, $_POST["address"]);
+             $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
+             $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
            $query = "  
-           INSERT INTO catalogue  
-           (catalogue_no,cataloguename)   
-           VALUES ('".$catalogue_no."', '".$catalogue_name."')";  
+           INSERT INTO students  
+           (student_id,student_name,gender,address,contact,pwd,passcode,dept,course)   
+           VALUES ('".$student_no."', '".$student_name."', '".$sex."', '".$address."', '".$contact."','".$contact."','".$pwd."','".$passcode."','".$dept."','".$course."')";  
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
@@ -172,6 +174,26 @@
                 echo json_encode($output);
                 
       }
+      if($_POST["action"]=="Fetch Student Data") {
+      
+                $output =array();
+               $query = "SELECT * FROM students WHERE id ='".$_POST['studentID']."'";
+               $result = $object->execute_query($query);
+                while($row = mysqli_fetch_array($result)) {
+                   $output["student_id"] =$row["student_id"];
+                   $output["student_name"] =$row["student_name"];
+                   $output["gender"] =$row["gender"];
+                   $output["address"] =$row["address"];
+                   $output["contact"] =$row["contact"];
+                   $output["pwd"] =$row["pwd"];
+                   $output["passcode"] =$row["passcode"];
+                   $output["dept"] =$row["dept"];
+                   $output["course"] =$row["course"];
+                }
+
+                echo json_encode($output);
+                
+      }
        //Update queries
       if($_POST['action']=="Edit") {
               
@@ -192,8 +214,6 @@
               echo 'Data Updated';/**/
             } 
             if($_POST['action']=="Edit Author") {
-              
-              
                $author_no = mysqli_escape_string($object->connect,$_POST["author_no"]);
                $author_name = mysqli_escape_string($object->connect,$_POST["author_name"]);
 
@@ -207,7 +227,23 @@
                 $object->execute_query($query);
                 echo 'Data Updated';
             } 
+            if($_POST['action']=="Edit Student") {
+               $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
+            $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
+            $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
+            $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
+            $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
+            $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
+            $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
+             $address=mysqli_real_escape_string($object->connect, $_POST["address"]);
+             $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
+             $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
 
+
+                $query = "UPDATE students SET student_no = '$student_no',student_name='$student_name',address='$address',sex='$sex',contact='$contact',department='$dept',course='$course',pwd='$pwd',passcode='$passcode' WHERE id = '".$_POST['student_id']."' ";
+                $object->execute_query($query);
+                echo 'Data Updated';
+            }
       //Delete Queries      
         if($_POST['action']=="Delete Book"){
         
@@ -218,6 +254,18 @@
         if($_POST['action']=="Delete Author"){
         
           $query = "DELETE FROM authors WHERE author_id = '".$_POST['author_id']."' ";
+           $object->execute_query($query);
+           echo "Data Deleted";
+        }
+        if($_POST['action']=="Delete Catalogue"){
+        
+          $query = "DELETE FROM catalogue WHERE catalogue_id = '".$_POST['catalogue_id']."' ";
+           $object->execute_query($query);
+           echo "Data Deleted";
+        }
+        if($_POST['action']=="Delete Student"){
+        
+          $query = "DELETE FROM students WHERE id = '".$_POST['student_id']."'";
            $object->execute_query($query);
            echo "Data Deleted";
         }
