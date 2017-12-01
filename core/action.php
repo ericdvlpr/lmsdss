@@ -22,7 +22,7 @@
       }
         if($_POST["action"] == "Borrow")  
       {  
-           echo $object->get_borrowered_data("SELECT * FROM borrowdetails LEFT JOIN borrow USING (borrow_id) LEFT JOIN students USING (student_id) LEFT JOIN book USING (book_id)");  
+           echo $object->get_borrowered_data("SELECT * FROM borrowdetails LEFT JOIN borrow USING (borrow_id) LEFT JOIN member USING (member_id) LEFT JOIN book USING (book_id)");  
       }
        if($_POST["action"] == "Students")  
       {  
@@ -30,7 +30,7 @@
       }   
        if($_POST["action"] == "Users")  
       {  
-           echo $object->get_user_data("SELECT * FROM users WHERE access_level != 0  ");  
+           echo $object->get_user_data("SELECT * FROM users ");  
       }     
       if($_POST["action"] == "Insert")  
       {  
@@ -44,6 +44,18 @@
            ";  
            $object->execute_query($query);  
            echo 'Data Inserted';  
-      }  
+      }
+      if($_POST["action"] == "Search")  
+      {
+          //"searching for ".$_POST["srch_name"]; 
+          echo $object->get_search_data("SELECT * FROM book WHERE book_title LIKE '%".$_POST["srch_name"]."%' ");
+      }
+      if($_POST["action"] == "Book_select")  
+      {
+          //"searching for ".$_POST["srch_name"]; 
+          echo $object->get_selected_data("SELECT book_id, book_title, author, book_copies FROM book WHERE book_id LIKE '".$_POST["id"]."' ");
+      }
+ }else {
+  echo 'No Action Found ';
  }  
  ?>  
