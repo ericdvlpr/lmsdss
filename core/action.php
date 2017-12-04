@@ -347,5 +347,13 @@
                          echo $output;
                 }
           }
+      if($_POST["action"] == "Search Book") {
+          //"searching for ".$_POST["srch_name"]; 
+          echo $object->get_search_data("SELECT * FROM book WHERE book_title LIKE '%".$_POST["srch_name"]."%' ");
+      }
+      if($_POST["action"] == "Book_select") {
+          //"searching for ".$_POST["srch_name"]; 
+          echo $object->get_selected_data("SELECT book_id, book_title, author, book_copies FROM book WHERE book_id LIKE '".$_POST["id"]."' ");
+      }
  }  
  ?>  
