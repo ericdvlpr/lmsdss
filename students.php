@@ -8,7 +8,7 @@
 	                         <h3 align="center">Students!</h3><br />  
 	                              <div  class="table-responsive"> 
 	                              <div class="btn-group">
-                                          <button type="button" class="btn btn-primary" id="add_student">
+                                          <button type="button" class="btn btn-primary" id="add_student" data-toggle="modal" data-target="#book">
                                           Add Students                                       
                                         </button>
                                         </div>

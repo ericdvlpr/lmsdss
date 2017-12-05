@@ -31,7 +31,7 @@
       }   
        if($_POST["action"] == "Users")  
       {  
-           echo $object->get_user_data("SELECT * FROM users ");  
+           echo $object->get_user_data("SELECT * FROM users WHERE access != 0 ");  
       }  
       if($_POST["action"] == "Department")
            {
@@ -130,6 +130,18 @@
            INSERT INTO issue_book  
            (book_no,book_title,student_name,copies,date_issued,date_returned,status)   
            VALUES ('".$book_no."', '".$book_name."', '".$student_name."', '".$qty."', '".$date_issued."','".$date_returned."','1')";  
+           $object->execute_query($query);  
+           echo 'Data Inserted';  
+      }
+      if($_POST["action"] == "addUser") {  
+             $username=mysqli_real_escape_string($object->connect, $_POST["username"]);
+             $password=md5(mysqli_real_escape_string($object->connect, $_POST["password"]));
+             $access=mysqli_real_escape_string($object->connect, $_POST["access"]);
+            
+           $query = "  
+           INSERT INTO users  
+           (username,password,access)   
+           VALUES ('".$username."', '".$password."', '".$access."')";  
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
@@ -407,16 +419,13 @@
                              echo $output;
                 }
           }
-<<<<<<< HEAD
+
           // $expired = (strtotime('2017-12-01') == strtotime('2017-12-01'));
           // if ($expired) {
           //   // Do something, like output an error
           //   echo 'expired';
           //   // die();
           // }
-
-
-=======
       if($_POST["action"] == "Search Book") {
           //"searching for ".$_POST["srch_name"]; 
           echo $object->get_search_data("SELECT * FROM book WHERE book_title LIKE '%".$_POST["srch_name"]."%' ");
@@ -425,6 +434,6 @@
           //"searching for ".$_POST["srch_name"]; 
           echo $object->get_selected_data("SELECT book_id, book_title, author, book_copies FROM book WHERE book_id LIKE '".$_POST["id"]."' ");
       }
->>>>>>> 1506e62531db000a92478858f483fed8af852c47
+
  }  
  ?>  

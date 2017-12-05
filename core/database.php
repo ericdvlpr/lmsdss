@@ -145,10 +145,24 @@ session_start();
            
            while($row = mysqli_fetch_object($result))  
            {  
+
+            switch ($row->access) {
+              case 1:
+                $access = 'Librarian';
+                break;
+               case 2:
+                $access = 'Asst Librarian';
+                break;
+              
+              default:
+                $access = 'Admin';
+                break;
+            }
+
                 $output .= '  
                 <tr>         
                      <td>'.$row->username.'</td>  
-                     <td>'.$row->access.'</td>  
+                     <td>'.$access.'</td>  
                      <td><button type="button" name="update" id="'.$row->user_id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->user_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  
                 ';  

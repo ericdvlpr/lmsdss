@@ -323,7 +323,7 @@ $(document).ready(function(){
                       // });
                     });
                $('#add_user').click(function(){
-                    $('#action').val("addIssueBook"); 
+                    $('#action').val("addUser"); 
                     $('#button_action').val("Saves");
                       $("#user").modal('show');
                       // $.ajax({
@@ -464,9 +464,28 @@ $(document).ready(function(){
                               success:function(data)  
                               {  
                                    alert(data);  
-                                   $("#students").modal('toggle');
+                                   $("#issue").modal('toggle');
                                    window.location.reload();
-                                   $('#studentform')[0].reset(); 
+                                   $('#issueform')[0].reset(); 
+                              }  
+                         })  
+               });
+               $('#userform').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                        
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#users").modal('toggle');
+                                   window.location.reload();
+                                   $('#userform')[0].reset(); 
                               }  
                          })  
                });

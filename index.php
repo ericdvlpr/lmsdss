@@ -29,10 +29,7 @@
 			            </div>
 			          </div>
 
-			          <h2 class="sub-header">Section title</h2>
-			          <div class="table-responsive" id="user_table">
-			            
-			    </div> 
+			          <h2 class="sub-header">Section title</h2> 
            </div>
      </div>  
 </div>  
