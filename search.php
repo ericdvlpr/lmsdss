@@ -6,7 +6,7 @@
                             <div align="center">
                             	<form class="form-horizontal" id="srch_form" name="srch_form" method="Post" class="collapse">
                             	
-                            	<input type="text" name="searchname" id="searchname" > 
+                            	<input type="text" class="form-control" name="searchname" id="searchname" > 
                             	<button class="btn btn-success btn-xs update" name="schbttn" id="schbttn">SEARCH</button>
                             	</form>
 
