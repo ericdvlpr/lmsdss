@@ -407,6 +407,7 @@
                              echo $output;
                 }
           }
+<<<<<<< HEAD
           // $expired = (strtotime('2017-12-01') == strtotime('2017-12-01'));
           // if ($expired) {
           //   // Do something, like output an error
@@ -415,5 +416,15 @@
           // }
 
 
+=======
+      if($_POST["action"] == "Search Book") {
+          //"searching for ".$_POST["srch_name"]; 
+          echo $object->get_search_data("SELECT * FROM book WHERE book_title LIKE '%".$_POST["srch_name"]."%' ");
+      }
+      if($_POST["action"] == "Book_select") {
+          //"searching for ".$_POST["srch_name"]; 
+          echo $object->get_selected_data("SELECT book_id, book_title, author, book_copies FROM book WHERE book_id LIKE '".$_POST["id"]."' ");
+      }
+>>>>>>> 1506e62531db000a92478858f483fed8af852c47
  }  
  ?>  

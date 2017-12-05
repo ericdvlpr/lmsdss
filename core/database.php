@@ -32,15 +32,13 @@ session_start();
           $result = mysqli_query($this->connect, $query);  
              while ($record = mysqli_fetch_array($result)) {
                   $array[] = $record;
-
               }
               return $array;
-          if(mysqli_num_rows($result) ){
-            return true;
-            
-          }else{
-            $this->error .= "<p>Wrong data</p>";
-          }
+              if(mysqli_num_rows($result) ){
+                return true;
+              }else{
+                $this->error .= "<p>Wrong data</p>";
+              }
 
         }
 
@@ -215,6 +213,76 @@ session_start();
               $row = mysqli_fetch_object($result);
               return $row->bookNum;
              }
+ public function get_selected_data($query)
+      {
+         $result = $this->execute_query($query);
+         $row = mysqli_fetch_object($result);
+         $output = '';
+
+         $output .='
+         <table class="table table-bordered table-striped">
+            <tr>
+              <td>'. $row->book_title .' by '. $row->author .'</td> 
+              <td rowspan="2"> LOCATION </td>
+            </tr>
+            <tr>
+              <td>'. $row->book_copies .'</td>
+            </tr>
+          </table>
+         |The book ' .$row->book_title. ' by ' . $row->author . ' located in some location, books available ' .$row->book_copies. '.' ;
+
+         return $output;
+
+      }
+
+     
+      public function get_search_data($query)
+      {
+        
+        $result = $this->execute_query($query);
+        $numrow = mysqli_num_rows($result);
+        $output = '';
+
+        
+
+
+        if($numrow>0){
+          $output .= $numrow.'|';
+          $output .= '
+          <table name="sc_table" id="sc_table">  
+             <thead>
+             <tr>  
+                <th width="10%">#</th>  
+                <th width="30%">Book</th>    
+                <th width="20%">Author</th>    
+                <th width="20%">Published</th>    
+              </tr>
+              </thead>
+              <tbody>
+                            
+        ';
+          while($row = mysqli_fetch_object($result))
+          {
+             $output .= '
+              <tr>
+
+                <td>'.$row->book_id.'</td>  
+                <td>'.$row->book_title.'</td>  
+                <td>'.$row->author.'</td>  
+                <td>'.$row->publisher_name.'</td>  
+             </tr> ';
+          }
+          $output .='
+            </tbody>
+            </table>
+          ';
+
+        }else{
+          $output = 0; 
+        }
+        
+        return $output;
+      }
       // function upload_file($file)  
       // {  
       //      if(isset($file))  

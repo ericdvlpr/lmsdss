@@ -18,6 +18,7 @@ if(!isset($_SESSION['username'])){
 <!--            <link rel="stylesheet" href="css/jquery.dataTables.min.css" />    -->
          	    <link rel="stylesheet" href="css/BootSideMenu.css">
          	    <link rel="stylesheet" href="css/style.css">
+         	   
       </head> 
  <body>  
  	<?php include 'includes/nav.php';?>
