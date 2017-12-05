@@ -8,12 +8,12 @@
 	                         <h3 align="center">Students!</h3><br />  
 	                              <div  class="table-responsive"> 
 	                              <div class="btn-group">
-                                          <button type="button" class="btn btn-primary" id="add_student">
+                                          <button type="button" class="btn btn-primary" id="add_student" data-toggle="modal" data-target="#book">
                                           Add Students                                       
                                         </button>
                                         </div>
 
-                                        <table class="table table-bordered table-striped">  
+                                        <table class="table table-bordered table-striped" id='students'>  
               						                  <tr>  
                                                  <th width="10%">Student #</th>  
                                                  <th width="25%">Student Name</th>  
@@ -66,8 +66,8 @@
                   <div class="col-sm-9">
                      <select class="form-control" name="sex" id="sex" required="true">
                        <option value="">Please Select</option>
-                       <option value="male">Male</option>
-                       <option value="female">Female</option>
+                       <option value="Male">Male</option>
+                       <option value="Female">Female</option>
                      </select>
                   </div>
                 </div>
@@ -76,6 +76,16 @@
                   <div class="col-sm-9">
                      <select class="form-control" name="department" id="department" required="true">
                        <option value="">Please Select</option>
+                       <?php 
+                           $output ='';
+                            $query = "SELECT * FROM departments";
+                            $result = $object->execute_query($query);
+                            while($row = mysqli_fetch_array($result))
+                            {
+                             $output .= '<option value="'.$row["dept_id"].'">'.$row["department_name"].'</option>';
+                            }
+                            echo $output;
+                       ?>
                      </select>
                   </div>
                 </div>

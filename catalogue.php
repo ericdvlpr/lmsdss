@@ -12,7 +12,7 @@
                                           Add Catalogue                                       
                                         </button>
                                    </div>
-                                  <table class="table table-bordered table-striped">  
+                                  <table class="table table-bordered table-striped" id="catalogue">  
               						                <tr>  
               						                     <th width="10%">Catalogue #</th>  
               						                     <th width="35%">Catalogue Name</th>   
