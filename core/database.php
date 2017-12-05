@@ -1,4 +1,5 @@
-<?php  
+<?php 
+session_start(); 
  class Database  
  {  
       //crud class  
@@ -21,14 +22,17 @@
       }
       public function can_login($table_name,$where_condition){
           $condition = '';
+          echo $table_name;
           foreach ($where_condition as $key => $value) {
-             $condition .= $key . " = '".$value."' AND ";
+              $condition .= $key . " = '".$value."' AND ";
+
           }
-           $condition = substr($condition, 0, -5);
-             $query = "SELECT * FROM ".$table_name." WHERE ". $condition;
-           $result = mysqli_query($this->con, $query);  
-                while ($record = mysqli_fetch_array($result)) {
-                   $array[] = $record;
+             $condition = substr($condition, 0, -5);
+           $query = "SELECT * FROM ".$table_name." WHERE ". $condition;
+          $result = mysqli_query($this->connect, $query);  
+             while ($record = mysqli_fetch_array($result)) {
+                  $array[] = $record;
+
               }
               return $array;
           if(mysqli_num_rows($result) ){
@@ -146,7 +150,7 @@
                 $output .= '  
                 <tr>         
                      <td>'.$row->username.'</td>  
-                     <td>'.$row->access_level.'</td>  
+                     <td>'.$row->access.'</td>  
                      <td><button type="button" name="update" id="'.$row->user_id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->user_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                 </tr>  
                 ';  

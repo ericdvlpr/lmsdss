@@ -2,6 +2,10 @@
 
  include 'core/database.php';  
 $object = new Database();
+if(!isset($_SESSION['username'])){
+	header("location:login.php");
+
+}
  ?> 
  <html>  
       <head>  
