@@ -21,9 +21,9 @@
       {  
            echo $object->get_author_data("SELECT * FROM authors ");  
       }
-        if($_POST["action"] == "Borrow")  
+        if($_POST["action"] == "Issued")  
       {  
-           echo $object->get_borrowered_data("SELECT * FROM borrowdetails LEFT JOIN borrow USING (borrow_id) LEFT JOIN students USING (student_id) LEFT JOIN book USING (book_id)");  
+           echo $object->get_book_issued_data("SELECT * FROM issue_book");  
       }
        if($_POST["action"] == "Students")  
       {  
@@ -31,14 +31,13 @@
       }   
        if($_POST["action"] == "Users")  
       {  
-           echo $object->get_user_data("SELECT * FROM users WHERE access_level != 0  ");  
+           echo $object->get_user_data("SELECT * FROM users ");  
       }  
       if($_POST["action"] == "Department")
            {
             $output ='';
             $query = "SELECT * FROM departments";
             $result = $object->execute_query($query);
-            $output .='<option value="">Please Select</option>';
             while($row = mysqli_fetch_array($result))
             {
              $output .= '<option value="'.$row["dept_id"].'">'.$row["department_name"].'</option>';
@@ -119,7 +118,21 @@
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
-
+      if($_POST["action"] == "addIssueBook") {  
+             $book_no=mysqli_real_escape_string($object->connect, $_POST["book_no"]);
+             $book_name=mysqli_real_escape_string($object->connect, $_POST["book_name"]);
+             $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
+             $qty=mysqli_real_escape_string($object->connect, $_POST["qty"]);
+             $date_issued=mysqli_real_escape_string($object->connect, $_POST["date_issued"]);
+             $date_returned=mysqli_real_escape_string($object->connect, $_POST["date_returned"]);
+            
+           $query = "  
+           INSERT INTO issue_book  
+           (book_no,book_title,student_name,copies,date_issued,date_returned,status)   
+           VALUES ('".$book_no."', '".$book_name."', '".$student_name."', '".$qty."', '".$date_issued."','".$date_returned."','1')";  
+           $object->execute_query($query);  
+           echo 'Data Inserted';  
+      }
 
       //Fetch Queries 
       if($_POST["action"]=="Fetch Book Data") {
@@ -153,7 +166,7 @@
                $result = $object->execute_query($query);
                 while($row = mysqli_fetch_array($result)) {
                  $output["id"] = $row["id"];
-                 $output["author_id"] = $row["author_id"];
+                 $output["author_no"] = $row["author_id"];
                   $output["author_name"] = $row["author_name"];
                 }
 
@@ -194,6 +207,18 @@
                 echo json_encode($output);
                 
       }
+      if($_POST["action"]=="Fetch Data") {
+      
+                $output =array();
+               $query = "SELECT * FROM book WHERE book_no ='".$_POST['bookID']."'";
+               $result = $object->execute_query($query);
+                while($row = mysqli_fetch_array($result)) {
+                  $output["book_title"] = $row["book_title"];
+                }
+
+                echo json_encode($output);
+                
+      }
        //Update queries
       if($_POST['action']=="Edit") {
               
@@ -228,21 +253,21 @@
                 echo 'Data Updated';
             } 
             if($_POST['action']=="Edit Student") {
-               $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
-            $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
-            $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
-            $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
-            $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
-            $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
-            $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
-             $address=mysqli_real_escape_string($object->connect, $_POST["address"]);
-             $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
-             $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
+                echo $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
+                echo $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
+                echo $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
+                echo $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
+                echo $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
+                echo $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
+                echo $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
+                echo $address=mysqli_real_escape_string($object->connect, $_POST["address"]);
+                echo $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
+                echo $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
 
 
-                $query = "UPDATE students SET student_no = '$student_no',student_name='$student_name',address='$address',sex='$sex',contact='$contact',department='$dept',course='$course',pwd='$pwd',passcode='$passcode' WHERE id = '".$_POST['student_id']."' ";
-                $object->execute_query($query);
-                echo 'Data Updated';
+                // $query = "UPDATE students SET student_no = '$student_no',student_name='$student_name',address='$address',sex='$sex',contact='$contact',dept='$dept',course='$course',pwd='$pwd',passcode='$passcode' WHERE id = '".$_POST['student_id']."' ";
+                // $object->execute_query($query);
+                // echo 'Data Updated';
             }
       //Delete Queries      
         if($_POST['action']=="Delete Book"){
@@ -320,32 +345,75 @@
             $output = '';
              if($_POST["type"]=="author") {
                     $search = mysqli_real_escape_string($object->connect,  $_POST["search"]);
+                    $output = '<ul class="list-unstyled author">';  
                     $query = "
                     SELECT * FROM authors
                     WHERE author_name LIKE '%".$search."%' LIMIT 5";
                     $result = $object->execute_query($query);
-                     while($row = mysqli_fetch_array($result))
-                         {
-                          $output .= '
-                            <option value="'.$row["author_name"].'">
-                          ';
+                     if(mysqli_num_rows($result) > 0)  
+                      {  
+                       while($row = mysqli_fetch_array($result))
+                           {
+                            $output .= '
+                              <li>'.$row["author_name"].'</li>
+                            ';
+                           }
+                         }else{
+                          $output .= '<li>Author Not Found</li>';  
                          }
+                          $output .= '</ul>';  
                          echo $output;
                 }
-            if($_POST["type"]=="publisher") {
-                    $search = mysqli_real_escape_string($object->connect,  $_POST["search"]);
-                    $query = "
-                    SELECT * FROM publishers
-                    WHERE publisher_name LIKE '%".$search."%' OR book_publisher LIKE '%".$search."%'  LIMIT 5";
-                    $result = $object->execute_query($query);
-                     while($row = mysqli_fetch_array($result))
-                         {
-                          $output .= '
-                            <option value="'.$row["publisher_name"].'">
-                          ';
-                         }
-                         echo $output;
+                if($_POST["type"]=="publisher") {
+                        $search = mysqli_real_escape_string($object->connect,  $_POST["search"]);
+                        $output = '<ul class="list-unstyled publisher">';  
+                        $query = "
+                        SELECT * FROM publishers
+                        WHERE publisher_name LIKE '%".$search."%' OR book_publisher LIKE '%".$search."%'  LIMIT 5";
+                        $result = $object->execute_query($query);
+                          if(mysqli_num_rows($result) > 0)  
+                          {  
+                           while($row = mysqli_fetch_array($result))
+                               {
+                                $output .= '
+                                  <li>'.$row["publisher_name"].'</li>
+                                ';
+                               }
+                             }else{
+                              $output .= '<li>Publisher Not Found</li>';  
+                             }
+                              $output .= '</ul>';  
+                             echo $output;
+                    }
+                if($_POST["type"]=="bookNo") {
+                        $search = mysqli_real_escape_string($object->connect,  $_POST["search"]);
+                        $output = '<ul class="list-unstyled bookNo">';  
+                        $query = "
+                        SELECT * FROM book
+                        WHERE book_no LIKE '%".$search."%' LIMIT 5";
+                        $result = $object->execute_query($query);
+                          if(mysqli_num_rows($result) > 0)  
+                          {  
+                           while($row = mysqli_fetch_array($result))
+                               {
+                                $output .= '
+                                  <li>'.$row["book_no"].'</li>
+                                ';
+                               }
+                             }else{
+                              $output .= '<li>Invalid Book No</li>';  
+                             }
+                              $output .= '</ul>';  
+                             echo $output;
                 }
           }
+          // $expired = (strtotime('2017-12-01') == strtotime('2017-12-01'));
+          // if ($expired) {
+          //   // Do something, like output an error
+          //   echo 'expired';
+          //   // die();
+          // }
+
+
  }  
  ?>  

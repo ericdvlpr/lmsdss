@@ -4,6 +4,7 @@
             <li><a href="authors.php">Authors</a></li>
             <li><a href="books.php">Books</a></li>
             <li><a href="catalogue.php">Catalogues</a></li>
+            <li><a href="issuebook.php">Issue Book</a></li>
             <li><a href="students.php">Students</a></li>
             <li><a href="users.php">Users</a></li>
           </ul>

@@ -5,19 +5,20 @@
                     <?php include 'includes/sidemenu.php'; ?>
                     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                          <h3 align="center">Users!</h3><br />  
-                              <div id="user_table" class="table-responsive"> 
+                              <div  class="table-responsive"> 
                                     <div class="btn-group">
-                                          <button type="button" class="btn btn-primary" id="add_user" data-toggle="modal" data-target="#user">
+                                          <button type="button" class="btn btn-primary" id="add_user" >
                                           Add User                                       
                                         </button>
                                         </div>
-                                        <table class="table table-bordered table-striped">  
+                                        <table class="table table-bordered table-striped" id="users">  
                                           <tr>  
-                                               <th width="10%">#</th>  
-                                               <th width="35%">Student Name</th>   
+                                            
+                                               <th width="35%">Username</th>   
+                                               <th width="35%">Access Level</th>   
                                                <th width="20%">Command</th>  
                                           </tr> 
-                                          <tbody id="student_table"></tbody> 
+                                          <tbody id="user_table"></tbody> 
                                       </table> 
                               </div>  
                 	 </div>
@@ -31,18 +32,12 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Add User</h4>
               </div>
-              <form class="form-horizontal" id="bookform" method="Post" class="collapse">
+              <form class="form-horizontal" id="userform" method="Post" class="collapse">
               <div class="modal-body">
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Student No</label>
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Username</label>
                   <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="catalogue_no" id="catalogue_no" placeholder="Catalogue No" readonly="true">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">First Name</label>
-                  <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="first_name" id="first_name" required="true" placeholder="First Name">
+                     <input type="text" class="form-control"  name="username" id="username" required="true" placeholder="Username">
                   </div>
                 </div>
                  <div class="form-group">
@@ -57,26 +52,8 @@
                      <input type="text" class="form-control"  name="address" id="address" required="true" placeholder="Address">
                   </div>
                 </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Department</label>
-                  <div class="col-sm-9">
-                     <select name="department"></select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Course</label>
-                  <div class="col-sm-9">
-                     <select name="course"></select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Year</label>
-                  <div class="col-sm-9">
-                     <select name="course-year"></select>
-                  </div>
-                </div>
-                <input type="hidden" name="action" id="action" value="addStudent" />
-                <input type="hidden" name="student" id="student_id" />
+                <input type="hidden" name="action" id="action" value="addUser" />
+                <input type="hidden" name="user" id="user_id" />
                 
               </div>
               <div class="modal-footer">

@@ -12,15 +12,16 @@
                                       <button type="button" class="btn btn-primary" id="add_book" data-toggle="modal" data-target="#book">
                                       Add Book
                                     </button>
+                                    
                                 </div>
                                <table class="table table-bordered table-striped" id="books">  
           					                <thead>  
           					                     <th width="10%">Book No</th>  
-          					                     <th width="17%">Book Title</th>  
+          					                     <th width="20%">Book Title</th>  
           					                     <th width="15%">Book Author</th>  
           					                     <th width="15%">Catalogue</th>  
-          					                     <th width="16%">ISBN</th>  
-          					                     <th width="7%">Book Copies</th>  
+          					                     <th width="10%">ISBN</th>  
+          					                     <th width="10%">Book Copies</th>  
           					                     <th width="7%">Status</th>  
           					                      
           					                     <th width="14%">Command</th>  
@@ -75,24 +76,24 @@
                      ?>
                  </select>
                 </div>
-              </div>      
+              </div>   
+
               <div class="form-group">
                 <label for="inputPassword3" class="col-sm-3 control-label text-left">Author</label>
                 <div class="col-sm-9">
-                    <input type="search" name="author" id="search_author" list="datalist1" placeholder="Search Author" class="form-control" />
-                    <datalist id=datalist1>
-
-                    </datalist>
+                    <input type="search" name="author" id="search_author" placeholder="Search Author" class="form-control" />
+                   <!--  <datalist id=datalist1>
+                      
+                    </datalist> -->
+                    <div id="authorList"></div>  
                 </div>
-                <!--  <div class="list-group result" id="result_author"></div> -->
+                 
               </div>       
       	     <div class="form-group">
       	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Publisher</label>
       	          <div class="col-sm-9">
                       <input type="search" name="publisher" id="search_publisher" list="datalist2" placeholder="Search Publisher" class="form-control" />
-                      <datalist id=datalist2>
-
-                    </datalist>
+                       <div id="publisherList"></div>  
       	          </div>
                   
               </div>

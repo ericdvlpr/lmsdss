@@ -115,3 +115,48 @@ body {
   .link-class:hover{
    background-color:#f1f1f1;
   }
+#authorList{
+  width: 93%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  top: 30;
+  left: 16;
+}  
+#authorList ul{  
+      background-color:#eee;  
+      cursor:pointer;  
+    }  
+#authorList li{  
+      padding:12px;  
+ } 
+#publisherList{
+  width: 93%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  top: 30;
+  left: 16;
+}  
+#publisherList ul{  
+      background-color:#eee;  
+      cursor:pointer;  
+}  
+#publisherList li{  
+      padding:12px;  
+} 
+#bookNoList{
+  width: 93%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  top: 30;
+  left: 16;
+}  
+#bookNoList ul{  
+      background-color:#eee;  
+      cursor:pointer;  
+}  
+#bookNoList li{  
+      padding:12px;  
+} 
