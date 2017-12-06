@@ -41,18 +41,25 @@
                   </div>
                 </div>
                  <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Middle Name</label>
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Password</label>
                   <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="middle_name" id="middle_name" required="true" placeholder="Middle Name">
+                     <input type="password" class="form-control"  name="password" id="password" required="true" placeholder="Password">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Address</label>
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Access Level</label>
                   <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="address" id="address" required="true" placeholder="Address">
+                     <select class="form-control" name="access" required>
+                            <option value="">Please Select</option>
+                            <option value="1">Librarian</option>
+                            <option value="2">Asst-Librarian</option>
+                            <option value="3">Library Staff</option>
+                            <option value="4">Student Assistant</option>
+                            <option value="5">Student</option>
+                     </select>
                   </div>
                 </div>
-                <input type="hidden" name="action" id="action" value="addUser" />
+                <input type="text" name="action" id="action" value="addUser" />
                 <input type="hidden" name="user" id="user_id" />
                 
               </div>
