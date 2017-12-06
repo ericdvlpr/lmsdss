@@ -160,3 +160,9 @@ body {
 #bookNoList li{  
       padding:12px;  
 } 
+#divPasscode{
+  display: none;
+}
+#divPwd{
+  display: none;
+}

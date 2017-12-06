@@ -18,7 +18,7 @@ $(document).ready(function(){
                
       //FORM ATTRIBUTES
 
-            $('#action').val("Insert"); 
+            // $('#action').val("Insert"); 
      
      //Load Functions
           
@@ -125,32 +125,19 @@ $(document).ready(function(){
                     });  
                }
 
-               //   function load_department_list()  
-               // {  
-               //      var action = "Department";  
-               //      $.ajax({  
-               //           url:"core/action.php",  
-               //           method:"POST",  
-               //           data:{action:action},  
-               //           success:function(data)  
-               //           {  
-               //                $('#department').html(data);  
-               //           }  
-               //      });  
-               // }
-               function load_course(){
-                   var action = "Course";
-                            var val = $('#department').val(); 
-                            alert(val);
-                            // $.ajax({
-                            //   url:"core/action.php",
-                            //   method:"POST",
-                            //   data:{action:action,val:val},
-                            //   success:function(data){
-                            //     $("#course").html(data);
-                            //     $("#course-year").removeAttr("disabled","disabled");
-                            //   }
-                            // });
+                 function load_department_list()  
+               {  
+                    var action = "Department";  
+
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#department').html(data);  
+                         }  
+                    });  
                }
                // function load_book_issue(){
                //     var search = $('#search_book_no').val();
@@ -336,12 +323,19 @@ $(document).ready(function(){
                       // });
                     });
                $('#add_student').click(function(){
-                      // load_department_list() 
-                      $("#students").modal('show');
+                      load_department_list(); 
+                      window.location.href = "add_student.php";
                     // $('#button_action').val("Saves");
-                    $('#department').change(function(){
+                    
+                    });
+
+
+
+               //Dynamic Select
+               $('#department').change(function(){
                       var action = "Course";
                       var val = $('#department').val(); 
+                     
                       $.ajax({
                         url:"core/action.php",
                         method:"POST",
@@ -351,21 +345,42 @@ $(document).ready(function(){
                           $("#course-year").removeAttr("disabled","disabled");
                         }
                       });
-                    });
-                    $("#generate").click(function(){
+                });
+                $("#generate").click(function(){
                          var action = "Generate";
                           $.ajax({
                           url:"core/action.php",
                           method:"POST",
                           data:{action:action},
                           success:function(data){
-                            // alert(data);
                             $("#passcode").val(data);
                           }
                         });
-                    });
                 });
-//                // FORM SUBMIT 
+                $("#type").change(function(){
+                         var action = "Type";
+                        var type = $('#type').val();
+                        if(type== 'regStud'){
+                          $("#divPasscode").css({"display":"inline"});
+                           $("#divPwd").css({"display":"none"});
+                        }else if(type== 'visDis'){
+                          $("#divPasscode").css({"display":"none"});
+                          $("#divPwd").css({"display":"inline"});
+                        }else if(type== 'hearDis'){
+                           $("#divPasscode").css({"display":"inline"});
+                            $("#divPwd").css({"display":"none"});
+                        }
+                        //   $.ajax({
+                        //   url:"core/action.php",
+                        //   method:"POST",
+                        //   data:{action:action},
+                        //   success:function(data){
+                        //     alert(data);
+                        //     $("#passcode").val(data);
+                        //   }
+                        // });
+                });
+//           FORM SUBMIT 
                $('#bookform').on('submit', function(event){  
                     event.preventDefault();  
                     var action=$('#action').val();
@@ -435,7 +450,7 @@ $(document).ready(function(){
                $('#studentform').on('submit', function(event){  
                     event.preventDefault();  
                     var action=$('#action').val();
-                        
+                    
                     $.ajax({  
                               url:"core/action.php",  
                               method:"POST",  
@@ -445,8 +460,7 @@ $(document).ready(function(){
                               success:function(data)  
                               {  
                                    alert(data);  
-                                   $("#students").modal('toggle');
-                                   window.location.reload();
+                                    window.location.href="students.php";
                                    $('#studentform')[0].reset(); 
                               }  
                          })  
@@ -454,7 +468,7 @@ $(document).ready(function(){
                $('#issueform').on('submit', function(event){  
                     event.preventDefault();  
                     var action=$('#action').val();
-                        
+                        alert(action);
                     $.ajax({  
                               url:"core/action.php",  
                               method:"POST",  
@@ -465,7 +479,7 @@ $(document).ready(function(){
                               {  
                                    alert(data);  
                                    $("#issue").modal('toggle');
-                                   window.location.reload();
+                                    window.location.reload();
                                    $('#issueform')[0].reset(); 
                               }  
                          })  
@@ -493,7 +507,7 @@ $(document).ready(function(){
                $(document).on('click','.update', function(){
                       var bookID = $(this).attr("id");
                       $('#button_action').val("Save");
-                      $(".chosen").css("display","none");
+                      // $(".chosen").css("display","none");
                       var action = "Fetch Book Data";
                       // alert(action);
                       // alert(bookID);

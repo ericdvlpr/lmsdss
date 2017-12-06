@@ -3,7 +3,8 @@
             <li class="active"><a href="index.php">Overview <span class="sr-only">(current)</span></a></li>
             <li><a href="authors.php">Authors</a></li>
             <li><a href="books.php">Books</a></li>
-            <li><a href="catalogue.php">Catalogues</a></li>
+            <li><a href="catalogue.php">Category</a></li>
+            <li><a href="faculty.php">Faculty</a></li>
             <li><a href="issuebook.php">Issue Book</a></li>
             <li><a href="#">Requisitions</a></li>
             <li><a href="#">Reservation</a></li>

@@ -101,20 +101,21 @@
            echo 'Data Inserted';  
       }
       if($_POST["action"] == "addStudent") {  
-            $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
-            $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
-            $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
-            $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
-            $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
-            $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
-            $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
-             $address=mysqli_real_escape_string($object->connect, $_POST["address"]);
+             $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
+             $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
              $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
              $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
-           $query = "  
+             $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
+             $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
+             $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
+             $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
+             $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
+             $type=mysqli_real_escape_string($object->connect, $_POST["type"]);
+           echo $query = "  
            INSERT INTO students  
-           (student_id,student_name,gender,address,contact,pwd,passcode,dept,course)   
-           VALUES ('".$student_no."', '".$student_name."', '".$sex."', '".$address."', '".$contact."','".$contact."','".$pwd."','".$passcode."','".$dept."','".$course."')";  
+           (student_id,student_name,gender,address,contact,type,passcode,dept,course)   
+           VALUES ('".$student_no."', '".$student_name."', '".$sex."', '".$contact."','".$type."','".$passcode."','".$dept."','".$course."')"; 
+            $object->execute_query("INSERT INTO students(username,password)VALUES('".$student_no."','".$passcode."')");
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
