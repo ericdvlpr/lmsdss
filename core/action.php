@@ -109,13 +109,13 @@
              $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
              $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
              $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
-             $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
+             $passcode=md5(mysqli_real_escape_string($object->connect, $_POST["passcode"]));
              $type=mysqli_real_escape_string($object->connect, $_POST["type"]);
-           echo $query = "  
+            $query = "  
            INSERT INTO students  
-           (student_id,student_name,gender,address,contact,type,passcode,dept,course)   
+           (student_id,student_name,gender,contact,type,passcode,dept,course)   
            VALUES ('".$student_no."', '".$student_name."', '".$sex."', '".$contact."','".$type."','".$passcode."','".$dept."','".$course."')"; 
-            $object->execute_query("INSERT INTO students(username,password)VALUES('".$student_no."','".$passcode."')");
+            $object->execute_query("INSERT INTO users(username,password,access)VALUES('".$student_no."','".$passcode."',5)");
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }

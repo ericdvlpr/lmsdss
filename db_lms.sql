@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2017 at 03:26 PM
+-- Generation Time: Dec 06, 2017 at 11:13 PM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -86,12 +86,15 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`book_id`, `book_no`, `book_title`, `category_id`, `author`, `book_copies`, `book_pub`, `isbn`, `copyright_year`, `date_receive`, `date_added`, `status`) VALUES
-(2, '  Q3265TAO20171111  ', 'test', 2, '1', 1, '2', 'sdgsdfsdf13', 2017, '2017-11-12', '2017-11-12 11:16:02', '1'),
-(3, '  N8752TZY20171111  ', 'Sample1', 1, '2', 5, '2', '1241515-12131-515', 2017, '0000-00-00', '2017-11-12 11:17:40', '2'),
-(4, '  B9720JGO20171111  ', 'Try', 3, '3', 2, '5', '2312312323-34534534-55675', 2017, '2017-11-12', '2017-11-12 11:20:10', '3'),
-(5, '  Y5219ZPQ20171111  ', 'Try', 7, '3', 2, '4', 'sdgsdfsdf13', 2017, '2017-11-04', '2017-11-12 11:23:21', '5'),
-(6, '  R4592NYT20171111  ', 'trial', 1, '1', 2, '1', 'wqrthjd1313', 2018, '2017-11-25', '2017-11-25 11:06:03', '2'),
-(7, '  A3859BDX20171111  ', 'Tested', 2, '6', 4, '1', 'Asdasd-12313', 2017, '2017-11-25', '2017-11-25 11:53:52', '1');
+(2, 'Q3265TAO20171111', 'test', 2, '1', 1, '2', 'sdgsdfsdf13', 2017, '2017-11-12', '2017-11-12 11:16:02', '1'),
+(3, 'N8752TZY20171111', 'Sample1', 1, '2', 5, '2', '1241515-12131-515', 2017, '0000-00-00', '2017-11-12 11:17:40', '2'),
+(4, 'B9720JGO20171111', 'Try', 3, '3', 2, '5', '2312312323-34534534-55675', 2017, '2017-11-12', '2017-11-12 11:20:10', '3'),
+(5, 'Y5219ZPQ20171111', 'Try', 7, '3', 2, '4', 'sdgsdfsdf13', 2017, '2017-11-04', '2017-11-12 11:23:21', '5'),
+(6, 'R4592NYT20171111', 'trial', 1, '1', 2, '1', 'wqrthjd1313', 2018, '2017-11-25', '2017-11-25 11:06:03', '2'),
+(7, 'A3859BDX20171111', 'Tested', 2, '6', 4, '1', 'Asdasd-12313', 2017, '2017-11-25', '2017-11-25 11:53:52', '1'),
+(8, 'H2137VDX20171111', 'Test', 2, '', 1, '', '56461321321', 2017, '2017-12-01', '2017-12-01 10:16:30', '1'),
+(9, 'Z9801TPF20171111', 'try', 1, '', 1, '', 'q123124524', 2019, '2017-12-01', '2017-12-01 12:41:33', '1'),
+(10, 'A3694YFD20171111', 'Try', 1, '3', 3, '14', '123135678', 2018, '2017-12-01', '2017-12-01 14:19:28', '1');
 
 -- --------------------------------------------------------
 
@@ -280,6 +283,30 @@ INSERT INTO `departments` (`dept_id`, `department_code`, `department_name`) VALU
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `issue_book`
+--
+
+CREATE TABLE `issue_book` (
+  `issue_book_id` int(11) NOT NULL,
+  `book_no` text NOT NULL,
+  `book_title` text NOT NULL,
+  `student_name` text NOT NULL,
+  `copies` int(11) NOT NULL,
+  `date_issued` date NOT NULL,
+  `date_returned` date NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `issue_book`
+--
+
+INSERT INTO `issue_book` (`issue_book_id`, `book_no`, `book_title`, `student_name`, `copies`, `date_issued`, `date_returned`, `status`) VALUES
+(1, 'Q3265TAO20171111', 'Test', 'test', 1, '2017-12-02', '2017-12-06', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `lost_book`
 --
 
@@ -357,16 +384,12 @@ INSERT INTO `status` (`id`, `status_name`) VALUES
 CREATE TABLE `students` (
   `id` int(11) NOT NULL,
   `student_id` int(250) NOT NULL,
-  `firstname` varchar(100) NOT NULL,
-  `middle_name` varchar(250) NOT NULL,
-  `lastname` varchar(100) NOT NULL,
+  `student_name` text NOT NULL,
   `gender` varchar(10) NOT NULL,
   `address` varchar(100) NOT NULL,
   `contact` varchar(100) NOT NULL,
-  `type` varchar(100) NOT NULL,
   `year_level` varchar(100) NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `pwd` int(11) NOT NULL,
+  `type` varchar(100) NOT NULL,
   `passcode` varchar(250) NOT NULL,
   `dept` int(11) NOT NULL,
   `course` int(11) NOT NULL
@@ -376,20 +399,22 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`id`, `student_id`, `firstname`, `middle_name`, `lastname`, `gender`, `address`, `contact`, `type`, `year_level`, `status`, `pwd`, `passcode`, `dept`, `course`) VALUES
-(52, 0, 'Mark', '', 'Sanchez', 'Male', 'Talisay', '212010', '4', 'Second Year', 'Active', 0, '', 0, 0),
-(53, 0, 'April Joy', '', 'Aguilar', 'Female', 'E.B. Magalona', '00', '5', 'Second Year', 'Banned', 0, '', 0, 0),
-(54, 0, 'Alfonso', '', 'Pancho', 'Male', 'E.B. Magalona', '009', '5', 'First Year', 'Active', 0, '', 0, 0),
-(55, 0, 'Jonathan ', '', 'Antanilla', 'Male', 'E.B. Magalona', '0032', '5', 'Fourth Year', 'Active', 0, '', 0, 0),
-(56, 0, 'Renzo Bryan', '', 'Pedroso', 'Male', 'Silay City', '03030', '5', 'Third Year', 'Active', 0, '', 0, 0),
-(57, 0, 'Eleazar', '', 'Duterte', 'Male', 'E.B. Magalona', '90902', '5', 'Second Year', 'Active', 0, '', 0, 0),
-(58, 0, 'Ellen Mae', '', 'Espino', 'Female', 'E.B. Magalona', '123', '5', 'First Year', 'Active', 0, '', 0, 0),
-(59, 0, 'Ruth', '', 'Magbanua', 'Female', 'E.B. Magalona', '9340', '5', 'Second Year', 'Active', 0, '', 0, 0),
-(60, 0, 'Shaina Marie', '', 'Gabino', 'Female', 'Silay City', '132134', '5', 'Second Year', 'Active', 0, '', 0, 0),
-(62, 0, 'Chairty Joy', '', 'Punzalan', 'Female', 'E.B. Magalona', '12423', '4', 'Second Year', 'Active', 0, '', 0, 0),
-(63, 0, 'Kristine May', '', 'Dela Rosa', 'Female', 'Silay City', '1321', '5', 'Second Year', 'Active', 0, '', 0, 0),
-(64, 0, 'Chinie marie', '', 'Laborosa', 'Female', 'E.B. Magalona', '902101', '5', 'Second Year', 'Active', 0, '', 0, 0),
-(65, 0, 'Ruby', '', 'Morante', 'Female', 'E.B. Magalona', '', '4', 'Second Year', 'Active', 0, '', 0, 0);
+INSERT INTO `students` (`id`, `student_id`, `student_name`, `gender`, `address`, `contact`, `year_level`, `type`, `passcode`, `dept`, `course`) VALUES
+(52, 190377, 'Mark', 'Male', 'Talisay', '212010', 'Second Year', '0', '', 1, 3),
+(53, 3523526, 'April Joy', 'Female', 'E.B. Magalona', '00', 'Second Year', '0', '', 1, 1),
+(54, 312412, 'Alfonso', 'Male', 'E.B. Magalona', '009', 'First Year', '0', '', 1, 3),
+(55, 134412345, 'Jonathan ', 'Male', 'E.B. Magalona', '0032', 'Fourth Year', '0', '', 3, 4),
+(56, 213423412, 'Renzo Bryan', 'Male', 'Silay City', '03030', 'Third Year', '0', '', 5, 6),
+(57, 12342324, 'Eleazar', 'Male', 'E.B. Magalona', '90902', 'Second Year', '0', '', 2, 6),
+(58, 5236574, 'Ellen Mae', 'Female', 'E.B. Magalona', '123', 'First Year', '0', '', 5, 2),
+(59, 5654754, 'Ruth', 'Female', 'E.B. Magalona', '9340', 'Second Year', '0', '', 4, 3),
+(60, 43634633, 'Shaina Marie', 'Female', 'Silay City', '132134', 'Second Year', '0', '', 5, 2),
+(62, 4356452, 'Chairty Joy', 'Female', 'E.B. Magalona', '12423', 'Second Year', '0', '', 1, 5),
+(63, 24564434, 'Kristine May', 'Female', 'Silay City', '1321', 'Second Year', '0', '', 3, 4),
+(64, 2124134, 'Chinie marie', 'Female', 'E.B. Magalona', '902101', 'Second Year', '0', '', 4, 1),
+(65, 1234645, 'Ruby', 'Female', 'E.B. Magalona', '', 'Second Year', '0', '', 1, 1),
+(66, 123124, 'test', 'Male', '', '1235345', '', 'regStud', '', 2, 11),
+(67, 0, '1231', 'Male', '', '1231', '', 'visDis', 'd8578edf8458ce06fbc5bb76a58c5ca4', 2, 11);
 
 -- --------------------------------------------------------
 
@@ -426,15 +451,18 @@ CREATE TABLE `users` (
   `firstname` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `image` varchar(250) NOT NULL,
-  `access_level` int(11) NOT NULL
+  `access` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `firstname`, `lastname`, `image`, `access_level`) VALUES
-(2, 'admin', 'admin', 'john', 'smith', '', 0);
+INSERT INTO `users` (`user_id`, `username`, `password`, `firstname`, `lastname`, `image`, `access`) VALUES
+(2, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'john', 'smith', '', 0),
+(3, 'ChfLib', 'e10adc3949ba59abbe56e057f20f883e', '', '', '', 1),
+(4, '123124', '', '', '', '', 5),
+(5, 'try', 'd8578edf8458ce06fbc5bb76a58c5ca4', '', '', '', 5);
 
 --
 -- Indexes for dumped tables
@@ -493,6 +521,12 @@ ALTER TABLE `departments`
   ADD PRIMARY KEY (`dept_id`);
 
 --
+-- Indexes for table `issue_book`
+--
+ALTER TABLE `issue_book`
+  ADD PRIMARY KEY (`issue_book_id`);
+
+--
 -- Indexes for table `lost_book`
 --
 ALTER TABLE `lost_book`
@@ -543,7 +577,7 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `booknumber`
 --
@@ -575,6 +609,11 @@ ALTER TABLE `courses`
 ALTER TABLE `departments`
   MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
+-- AUTO_INCREMENT for table `issue_book`
+--
+ALTER TABLE `issue_book`
+  MODIFY `issue_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `lost_book`
 --
 ALTER TABLE `lost_book`
@@ -593,7 +632,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 --
 -- AUTO_INCREMENT for table `type`
 --
@@ -603,7 +642,7 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
