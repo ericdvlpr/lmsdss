@@ -2,9 +2,8 @@
  //action.php  
  include 'database.php';  
  $object = new Database();  
- if(isset($_POST["action"]))  
- {  
-      //Load queries
+ if(isset($_POST["action"])){
+       //Load queries
       if($_POST["action"] == "Load")  
       {  
            echo $object->get_data_in_table("SELECT * FROM book ");  
@@ -23,11 +22,11 @@
       }
         if($_POST["action"] == "Issued")  
       {  
-<<<<<<< HEAD
+
            echo $object->get_borrowered_data("SELECT * FROM borrowdetails LEFT JOIN borrow USING (borrow_id) LEFT JOIN member USING (member_id) LEFT JOIN book USING (book_id)");  
-=======
+
            echo $object->get_book_issued_data("SELECT * FROM issue_book");  
->>>>>>> 48ab87ac5094cdb34a4a8368ad202b6269f1488d
+
       }
        if($_POST["action"] == "Students")  
       {  
@@ -35,23 +34,27 @@
       }   
        if($_POST["action"] == "Users")  
       {  
-<<<<<<< HEAD
+
            echo $object->get_user_data("SELECT * FROM users ");  
-<<<<<<< HEAD
-      }     
+
+      } 
+       if($_POST["action"] == "Faculty")  
+      {  
+           echo $object->get_faculty_data("SELECT * FROM faculty f LEFT JOIN departments d ON d.dept_id = f.dept ");  
+
+      }    
       if($_POST["action"] == "Insert")  
       {  
            $first_name = mysqli_real_escape_string($object->connect, $_POST["first_name"]);  
            $last_name = mysqli_real_escape_string($object->connect, $_POST["last_name"]);  
            $image = $object->upload_file($_FILES["user_image"]);  
-=======
-=======
+
            echo $object->get_user_data("SELECT * FROM users WHERE access != 0 ");  
->>>>>>> 8697eddf588f2a5d0128ae5aaf8b9414f4150079
       }  
       if($_POST["action"] == "Department")
            {
             $output ='';
+            $output .='<option value="">Please Select</option>';
             $query = "SELECT * FROM departments";
             $result = $object->execute_query($query);
             while($row = mysqli_fetch_array($result))
@@ -87,29 +90,15 @@
             $date_rcv = mysqli_real_escape_string($object->connect, $_POST["date_rcv"]);  
             $status = mysqli_real_escape_string($object->connect, $_POST["status"]);  
              $isbn = mysqli_real_escape_string($object->connect, $_POST["isbn"]);
->>>>>>> 48ab87ac5094cdb34a4a8368ad202b6269f1488d
            $query = "  
            INSERT INTO book  
            (book_no,book_title, category_id, author, book_copies, book_pub, isbn, copyright_year,date_receive,status)   
            VALUES ('".$book_no."', '".$book_name."', '".$category."','".$author_id."','".$book_copies."','".$publisher_id."','".$isbn."','".$cp_yr."','".$date_rcv."','".$status."')";  
            $object->execute_query($query);  
            echo 'Data Inserted';  
-<<<<<<< HEAD
+
       }
-      if($_POST["action"] == "Search")  
-      {
-          //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_search_data("SELECT * FROM book WHERE book_title LIKE '%".$_POST["srch_name"]."%' ");
-      }
-      if($_POST["action"] == "Book_select")  
-      {
-          //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_selected_data("SELECT book_id, book_title, author, book_copies FROM book WHERE book_id LIKE '".$_POST["id"]."' ");
-      }
- }else {
-  echo 'No Action Found ';
-=======
-      } 
+       
       if($_POST["action"] == "addAuthor") {  
 
             $author_no = mysqli_real_escape_string($object->connect, $_POST["author_no"]);  
@@ -147,7 +136,7 @@
            INSERT INTO students  
            (student_id,student_name,gender,address,contact,type,passcode,dept,course)   
            VALUES ('".$student_no."', '".$student_name."', '".$sex."', '".$contact."','".$type."','".$passcode."','".$dept."','".$course."')"; 
-            $object->execute_query("INSERT INTO students(username,password)VALUES('".$student_no."','".$passcode."')");
+            $object->execute_query("INSERT INTO users(username,password)VALUES('".$student_no."','".$passcode."')");
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
@@ -178,7 +167,19 @@
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
-
+      if($_POST["action"] == "addFaculty") {  
+              $faculty_no=mysqli_real_escape_string($object->connect, $_POST["faculty_no"]);
+              $faculty_name=mysqli_real_escape_string($object->connect, $_POST["faculty_name"]);
+              $department=mysqli_real_escape_string($object->connect, $_POST["department"]);
+              $passcode=md5(mysqli_real_escape_string($object->connect, $_POST["passcode"]));
+             
+            
+              $query = "INSERT INTO faculty(faculty_no,faculty_name,dept)VALUES ('".$faculty_no."', '".$faculty_name."', '".$department."')";
+              $query1 ="INSERT INTO users(username,password)VALUES('".$faculty_no."','".$passcode."')";
+               $object->execute_query($query1);
+               $object->execute_query($query);  
+               echo 'Data Inserted';  
+      }
       //Fetch Queries 
       if($_POST["action"]=="Fetch Book Data") {
       
@@ -450,8 +451,8 @@
                              }
                               $output .= '</ul>';  
                              echo $output;
+                      }
                 }
-          }
 
           // $expired = (strtotime('2017-12-01') == strtotime('2017-12-01'));
           // if ($expired) {
@@ -467,11 +468,5 @@
           //"searching for ".$_POST["srch_name"]; 
           echo $object->get_selected_data("SELECT book_id, book_title, author, book_copies FROM book WHERE book_id LIKE '".$_POST["id"]."' ");
       }
-<<<<<<< HEAD
->>>>>>> 1506e62531db000a92478858f483fed8af852c47
->>>>>>> 48ab87ac5094cdb34a4a8368ad202b6269f1488d
-=======
-
->>>>>>> 8697eddf588f2a5d0128ae5aaf8b9414f4150079
- }  
+  }
  ?>  

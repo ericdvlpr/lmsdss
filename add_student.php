@@ -98,7 +98,7 @@
                       </div>
                       <hr />
                       <br />
-                        <input type="text" name="action" id="action" value="addStudent" />
+                        <input type="hidden" name="action" id="action" value="addStudent" />
                         <input type="hidden" name="student_id" id="student_id" />
                             <div class="form-group pull-right">
                                 <div class="col-sm-offset-2 col-sm-10">

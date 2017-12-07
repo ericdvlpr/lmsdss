@@ -15,7 +15,7 @@ $(document).ready(function(){
                // load_borrow_data();
                load_catalogoue_data();
                load_Issued_data();
-               
+               load_faculty_data()
       //FORM ATTRIBUTES
 
             // $('#action').val("Insert"); 
@@ -109,7 +109,19 @@ $(document).ready(function(){
                          }  
                     });  
                }  
-
+               function load_faculty_data()  {  
+                    var action = "Faculty";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#faculty_table').html(data);
+                              $('#faculty').DataTable();   
+                         }  
+                    });  
+               }
 
                  function load_user_data()  
                {  
@@ -125,8 +137,7 @@ $(document).ready(function(){
                     });  
                }
 
-                 function load_department_list()  
-               {  
+                 function load_department_list() {  
                     var action = "Department";  
 
                     $.ajax({  
@@ -139,6 +150,7 @@ $(document).ready(function(){
                          }  
                     });  
                }
+
                // function load_book_issue(){
                //     var search = $('#search_book_no').val();
                //     var action = 'Fetch Book Data';
@@ -328,9 +340,13 @@ $(document).ready(function(){
                     // $('#button_action').val("Saves");
                     
                     });
+               $('#add_faculty').click(function(){
 
-
-
+                      load_department_list(); 
+                       $("#facultyModal").modal('show');
+                    $('#button_action').val("Saves");
+                    
+                    });
                //Dynamic Select
                $('#department').change(function(){
                       var action = "Course";
@@ -500,6 +516,44 @@ $(document).ready(function(){
                                    $("#users").modal('toggle');
                                    window.location.reload();
                                    $('#userform')[0].reset(); 
+                              }  
+                         })  
+               });
+               $('#userform').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                        
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#users").modal('toggle');
+                                   window.location.reload();
+                                   $('#userform')[0].reset(); 
+                              }  
+                         })  
+               });
+               $('#facultyform').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                        
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#facultyModal").modal('toggle');
+                                   window.location.reload();
+                                   $('#facultyform')[0].reset(); 
                               }  
                          })  
                });

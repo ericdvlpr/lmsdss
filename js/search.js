@@ -6,15 +6,11 @@ var tbl_diag = false;
 $(document).ready(function(){
 
 		
-<<<<<<< HEAD
-		$('#collapseExample').BootSideMenu({
-            side: "left"
-		});
-=======
+
 		// $('#collapseExample').BootSideMenu({
   //           side: "left"
 		// });
->>>>>>> 48ab87ac5094cdb34a4a8368ad202b6269f1488d
+
         
         function select_book(id){
               var action = "Book_select";
