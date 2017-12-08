@@ -9,14 +9,12 @@ if(isset($_POST['login'])){
 		'username' => $_POST['username'],
 		'password' => md5($_POST['password'])
 		);
-	 // print_r($data->can_login("users", $field));
 		if($data->can_login("users", $field)){
 			$post_data = $data->can_login("users", $field);
 			foreach($post_data as $post){
-			echo $post;
 			$_SESSION["username"] = $post["username"];
-			$_SESSION["id"] = $post['user_id'];;
-			$_SESSION["access"] = $post['access'];;
+			$_SESSION["id"] = $post['user_id'];
+			$_SESSION["access"] = $post['access'];
 			header("location:index.php");
 			}
 		}else{

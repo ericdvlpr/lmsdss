@@ -136,7 +136,7 @@
            INSERT INTO students  
            (student_id,student_name,gender,address,contact,type,passcode,dept,course)   
            VALUES ('".$student_no."', '".$student_name."', '".$sex."', '".$contact."','".$type."','".$passcode."','".$dept."','".$course."')"; 
-            $object->execute_query("INSERT INTO users(username,password)VALUES('".$student_no."','".$passcode."')");
+            $object->execute_query("INSERT INTO users(username,password,access)VALUES('".$student_no."','".$passcode."','5')");
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
@@ -175,8 +175,8 @@
              
             
               $query = "INSERT INTO faculty(faculty_no,faculty_name,dept)VALUES ('".$faculty_no."', '".$faculty_name."', '".$department."')";
-              $query1 ="INSERT INTO users(username,password)VALUES('".$faculty_no."','".$passcode."')";
-               $object->execute_query($query1);
+             
+               $object->execute_query("INSERT INTO users(username,password,access)VALUES('".$faculty_no."','".$passcode."','4')");
                $object->execute_query($query);  
                echo 'Data Inserted';  
       }
