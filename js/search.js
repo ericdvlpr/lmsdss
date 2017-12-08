@@ -6,9 +6,11 @@ var tbl_diag = false;
 $(document).ready(function(){
 
 		
+
 		// $('#collapseExample').BootSideMenu({
   //           side: "left"
 		// });
+
         
         function select_book(id){
               var action = "Book_select";
