@@ -15,7 +15,9 @@ $(document).ready(function(){
                // load_borrow_data();
                load_catalogoue_data();
                load_Issued_data();
-               load_faculty_data()
+               load_faculty_data();
+               load_request_data();
+                load_unseen_notification();
       //FORM ATTRIBUTES
 
             // $('#action').val("Insert"); 
@@ -136,7 +138,20 @@ $(document).ready(function(){
                          }  
                     });  
                }
-
+                function load_request_data()  
+               {  
+                    var action = "Book Request";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#request_table').html(data); 
+                              $('#request').DataTable();    
+                         }  
+                    });  
+               } 
                  function load_department_list() {  
                     var action = "Department";  
 
@@ -150,7 +165,26 @@ $(document).ready(function(){
                          }  
                     });  
                }
-
+               //Notification
+               function load_unseen_notification(view = '') {
+                    var action = "Notification";
+                    // alert(action);
+                      $.ajax({
+                       url:"core/action.php",
+                       method:"POST",
+                       data:{view:view,action:action},
+                       dataType:"json",
+                       success:function(data)
+                       {
+                        
+                        $('.notif').html(data.notification);
+                        if(data.unseen_notification > 0)
+                        {
+                         $('.count').html(data.unseen_notification);
+                        }
+                       }
+                      });
+                }  
                // function load_book_issue(){
                //     var search = $('#search_book_no').val();
                //     var action = 'Fetch Book Data';
@@ -347,6 +381,23 @@ $(document).ready(function(){
                     $('#button_action').val("Saves");
                     
                     });
+               $('#request_book').click(function(){
+                      
+                    $('#button_action').val("Request");
+                     var action = "Request";
+
+                      $.ajax({
+                        url:"core/action.php",
+                        method:"POST",
+                        data:{action:action},
+                        success:function(data){
+                          $("#myModalRequest").modal('show');
+                          $('#request_no').val(data);
+                          
+
+                        }
+                      });
+                    });
                //Dynamic Select
                $('#department').change(function(){
                       var action = "Course";
@@ -519,7 +570,7 @@ $(document).ready(function(){
                               }  
                          })  
                });
-               $('#userform').on('submit', function(event){  
+               $('#requestform').on('submit', function(event){  
                     event.preventDefault();  
                     var action=$('#action').val();
                         
@@ -532,9 +583,9 @@ $(document).ready(function(){
                               success:function(data)  
                               {  
                                    alert(data);  
-                                   $("#users").modal('toggle');
+                                   $("#myModalRequest").modal('toggle');
                                    window.location.reload();
-                                   $('#userform')[0].reset(); 
+                                   $('#requestform')[0].reset(); 
                               }  
                          })  
                });
@@ -602,6 +653,26 @@ $(document).ready(function(){
                              $("#author_name").val(data.author_name);                                               
                              $("#author_id").val(data.id);                                               
                              $('#action').val("Edit Author");
+                          }
+                        });
+                    });
+                    $(document).on('click','.updaterequest', function(){
+                        var requestID = $(this).attr("id");
+                        $('#button_action').val("Save");
+                        var action = "Fetch Request Data";
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{requestID:requestID,action:action},
+                          dataType:"json",
+                          success:function(data){
+                            $("#myModalRequest").modal('show');
+                             $("#request_id").val(data.request_id);                          
+                             $("#request_no").val(data.request_no);                          
+                             $("#book_title").val(data.book_title);                                               
+                             $("#author").val(data.author);                                               
+                             $("#copies").val(data.copies);                                               
+                             $('#action').val("Edit Request");
                           }
                         });
                     });
@@ -759,6 +830,6 @@ $(document).ready(function(){
                            return false;
                           }
                     });
-                   
+
 
 });  

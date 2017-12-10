@@ -13,10 +13,17 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
            <?php if($_SESSION['access'] == 1){?>
-            
-            <li><a href="#">Notification</a></li>
+            <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span>Notification</span></a>
+                      <ul class="dropdown-menu notif"></ul>
+            </li>
             <li><a href="#">FeedBacks</a></li>
-            <?php } ?>
+            <?php }elseif($_SESSION['access'] == 4){?>
+               <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span>Notification</span></a>
+                      <ul class="dropdown-menu notif"></ul>
+            </li> 
+            <?php }?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <?php echo $_SESSION['username'];?> <span class="caret"></span></a>
               <ul class="dropdown-menu">

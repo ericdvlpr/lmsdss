@@ -8,7 +8,7 @@
      				if(isset($_GET['facID'])){
      					$output='';
 
-     					 $query = "SELECT * FROM  s LEFT JOIN departments d ON d.dept_id = s.dept LEFT JOIN courses c ON c.course_id =s.course WHERE student_id='".$_GET['studID']."'";
+     					 $query = "SELECT * FROM faculty f LEFT JOIN departments d ON d.dept_id = f.dept  WHERE faculty_no='".$_GET['facID']."'";
                             $result = $object->execute_query($query);
                             while($row = mysqli_fetch_array($result))
                             {

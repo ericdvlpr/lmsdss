@@ -41,7 +41,7 @@ session_start();
 
         public function check_access($id) {
          
-          $query = "SELECT access FROM users WHERE id='".$id."' ";
+          $query = "SELECT access FROM users WHERE user_id='".$id."' ";
             $result = $this->execute_query($query);
            $row = mysqli_fetch_assoc($result);
             $access = $row['access'];
@@ -139,39 +139,61 @@ session_start();
            $output .= '';  
            return $output;  
       } 
+      public function get_request_data($query) {  
+           $output = '';  
+           $result = $this->execute_query($query);  
+           $output .= '  
+           
+           ';  
+           while($row = mysqli_fetch_object($result))  
+           {  
+                $output .= '  
+                <tr>       
+                     <td>'.$row->request_no.'</td>  
+                     <td>'.$row->book_title.'</td>  
+                     <td>'.$row->author.'</td>  
+                     <td>'.$row->copies.'</td>  
+                     <td>'.$row->date_requested.'</td>  
+                     <td>'.$row->status.'</td>  
+                     <td><button type="button" name="update" id="'.$row->request_id.'" class="btn btn-success btn-xs updaterequest">Update</button> 
+                </tr>  
+                ';  
+           }  
+           $output .= '';  
+           return $output;  
+      } 
 
 
       public function get_user_data($query) {  
            $output = '';  
            $result = $this->execute_query($query);  
-           $output .= '  
-           <table class="table table-bordered table-striped" >  
-                <tr>  
-                     <th width="10%">ID</th>  
-                     <th width="35%">Username</th>  
-                     <th width="35%">Name</th>
-                     <th width="10%">Command</th>   
-                </tr>  
-           ';  
            while($row = mysqli_fetch_object($result))  
            {  
                 $output .= '  
                 <tr>       
                      <td>'.$row->user_id.'</td>  
                      <td>'.$row->username.'</td>  
-                     <td>'.$row->lastname.', '.$row->firstname.'</td>  
+                    
                      <td><button type="button" name="update" id="'.$row->user_id.'" class="btn btn-success btn-xs update">Update</button> <button type="button" name="delete" id="'.$row->user_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>';
            while($row = mysqli_fetch_object($result))  
            {  
 
             switch ($row->access) {
               case 1:
-                $access = 'Librarian';
+                  $access = 'Librarian';
                 break;
                case 2:
-                $access = 'Asst Librarian';
+                  $access = 'Asst Librarian';
                 break;
-              
+                case 3:
+                   $access = 'Staff';
+                break;
+                case 4:
+                   $access = 'Faculty';
+                break;
+              case 5:
+                   $access = 'Student';
+                break;
               default:
                 $access = 'Admin';
                 break;
@@ -318,6 +340,38 @@ session_start();
           }
           
           return $output;
+      }
+      function get_notification($query){
+        $result = $this->execute_query($query);
+           $output = '';
+           
+           if(mysqli_num_rows($result) > 0)
+           {
+            while($row = mysqli_fetch_array($result))
+            {
+             $output .= '
+             <li>
+              <a href="#">
+               <strong>'.$row["notif_subject"].'</strong><br />
+               <small><em>'.$row["notif_text"].'</em></small>
+              </a>
+             </li>
+             <li class="divider"></li>
+             ';
+            }
+           }
+           else
+           {
+            $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
+           }
+           $query_1 = "SELECT * FROM notification WHERE notif_status=0";
+           $result_1 =$this->execute_query($query_1);
+           $count = mysqli_num_rows($result_1);
+           $data = array(
+              'notification'   => $output,
+              'unseen_notification' => $count
+             );
+           echo json_encode($data);
       }
       // function upload_file($file)  
       // {  

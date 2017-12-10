@@ -74,9 +74,9 @@
                         <div class="col-sm-5">
                               <select name="type" class="form-control" id="type" required>
                                 <option value="">Please Select</option>
-                                <option value="regStud">Regular Student</option>
-                                <option value="visDis">Visual Disability</option>
-                                <option value="hearDis">Hearing Disability</option>
+                                <option value="0">Regular Student</option>
+                                <option value="1">Visual Disability</option>
+                                <option value="2">Hearing Disability</option>
                               </select>
                           </div>
                         </div>

@@ -42,6 +42,11 @@
       {  
            echo $object->get_faculty_data("SELECT * FROM faculty f LEFT JOIN departments d ON d.dept_id = f.dept ");  
 
+      } 
+      if($_POST["action"] == "Book Request")  
+      {  
+           echo $object->get_request_data("SELECT * FROM book_request ");  
+
       }    
       if($_POST["action"] == "Insert")  
       {  
@@ -136,9 +141,7 @@
            INSERT INTO students  
            (student_id,student_name,gender,contact,type,passcode,dept,course)   
            VALUES ('".$student_no."', '".$student_name."', '".$sex."', '".$contact."','".$type."','".$passcode."','".$dept."','".$course."')"; 
-
-            $object->execute_query("INSERT INTO users(username,password,access)VALUES('".$student_no."','".$passcode."',5)");
-            $object->execute_query("INSERT INTO users(username,password)VALUES('".$student_no."','".$passcode."')");
+            $object->execute_query("INSERT INTO users(username,password,access)VALUES('".$student_no."','".$passcode."','5')");
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
@@ -169,6 +172,21 @@
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
+      if($_POST["action"] == "addRequest") {  
+              $request_no=mysqli_real_escape_string($object->connect, $_POST["request_no"]);
+              $book_title=mysqli_real_escape_string($object->connect, $_POST["book_title"]);
+              $author=mysqli_real_escape_string($object->connect, $_POST["author"]);
+              $copies=mysqli_real_escape_string($object->connect, $_POST["copies"]);
+               $date_requested = date("Y-m-d");
+            $query = "  
+           INSERT INTO book_request  
+           (request_no,book_title,author,copies,date_requested,status,user_id)   
+           VALUES ('".$request_no."', '".$book_title."', '".$author."','".$copies."','".$date_requested."','pending','".$_SESSION['id']."')";  
+           $object->execute_query("INSERT INTO notification(notif_id_type,notif_type,notif_subject,notif_text,notif_status,user_id) VALUES('1','request','Requested for Book','".$book_title."','0','".$_SESSION['id']."')"); 
+           $object->execute_query($query); 
+
+           echo 'Data Inserted';  
+      }
       if($_POST["action"] == "addFaculty") {  
               $faculty_no=mysqli_real_escape_string($object->connect, $_POST["faculty_no"]);
               $faculty_name=mysqli_real_escape_string($object->connect, $_POST["faculty_name"]);
@@ -177,8 +195,8 @@
              
             
               $query = "INSERT INTO faculty(faculty_no,faculty_name,dept)VALUES ('".$faculty_no."', '".$faculty_name."', '".$department."')";
-              $query1 ="INSERT INTO users(username,password)VALUES('".$faculty_no."','".$passcode."')";
-               $object->execute_query($query1);
+             
+               $object->execute_query("INSERT INTO users(username,password,access)VALUES('".$faculty_no."','".$passcode."','4')");
                $object->execute_query($query);  
                echo 'Data Inserted';  
       }
@@ -202,6 +220,22 @@
                   $output["status"] = $row["id"];
                   
             
+                }
+
+                echo json_encode($output);
+                
+      }
+      if($_POST["action"]=="Fetch Request Data") {
+      
+                $output =array();
+               $query = "SELECT * FROM book_request WHERE request_id ='".$_POST['requestID']."'";
+               $result = $object->execute_query($query);
+                while($row = mysqli_fetch_array($result)) {
+                 $output["request_id"] = $row["request_id"];
+                 $output["request_no"] = $row["request_no"];
+                  $output["book_title"] = $row["book_title"];
+                   $output["author"] = $row["author"];
+                   $output["copies"] = $row["copies"];
                 }
 
                 echo json_encode($output);
@@ -300,6 +334,17 @@
                 $object->execute_query($query);
                 echo 'Data Updated';
             } 
+            if($_POST['action']=="Edit Request") {
+                
+              $request_no=mysqli_real_escape_string($object->connect, $_POST["request_no"]);
+              $book_title=mysqli_real_escape_string($object->connect, $_POST["book_title"]);
+              $author=mysqli_real_escape_string($object->connect, $_POST["author"]);
+              $copies=mysqli_real_escape_string($object->connect, $_POST["copies"]);
+              $date_requested = date("Y-m-d");
+              $query = "UPDATE book_request SET book_title = '$book_title',author = '$author',copies='$copies' WHERE request_id = '".$_POST['request_id']."' ";
+                $object->execute_query($query);
+                echo 'Data Updated';
+            } 
             if($_POST['action']=="Edit Student") {
                 echo $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
                 echo $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
@@ -313,9 +358,9 @@
                 echo $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
 
 
-                // $query = "UPDATE students SET student_no = '$student_no',student_name='$student_name',address='$address',sex='$sex',contact='$contact',dept='$dept',course='$course',pwd='$pwd',passcode='$passcode' WHERE id = '".$_POST['student_id']."' ";
-                // $object->execute_query($query);
-                // echo 'Data Updated';
+                $query = "UPDATE students SET student_no = '$student_no',student_name='$student_name',address='$address',sex='$sex',contact='$contact',dept='$dept',course='$course',pwd='$pwd',passcode='$passcode' WHERE id = '".$_POST['student_id']."' ";
+                $object->execute_query($query);
+                echo 'Data Updated';
             }
       //Delete Queries      
         if($_POST['action']=="Delete Book"){
@@ -387,7 +432,18 @@
                        $passcode=trim($num);
                       echo $passcode;
       }
+      if($_POST['action']=="Request"){
+                $newcode=date("Y d F");
+                $uniqueCode = strtotime($newcode);
+                $alpha = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),-1);
+                       $num = substr(str_shuffle("0123456789"),-8);
+                       $end = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),-3);
+            /*          $newcode=str_pad(10000 +$cvin, 5, 0, STR_PAD_LEFT);*/
 
+                       // //$vin = "0514-0225A-";
+                       $request_num=trim($num);
+                      echo $request_num;
+      }
         // Search Queries
         if($_POST["action"]=="Search") {
             $output = '';
@@ -469,6 +525,10 @@
       if($_POST["action"] == "Book_select") {
           //"searching for ".$_POST["srch_name"]; 
           echo $object->get_selected_data("SELECT book_id, book_title, author, book_copies FROM book WHERE book_id LIKE '".$_POST["id"]."' ");
+      }
+      if($_POST["action"] == "Notification"){
+         echo $object->get_notification("SELECT * FROM notification ORDER BY notif_id DESC LIMIT 5");
+           
       }
   }
  ?>  
