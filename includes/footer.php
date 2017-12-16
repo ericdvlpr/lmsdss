@@ -6,7 +6,12 @@
 		  <script src="js/jquery.dataTables.min.js"></script>  
 		 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 		 <script src="js/chosen.jquery.js"></script>
-		 <script src="js/general.js"></script>
-		 <script src="js/search.js"></script>
+		 
+		 <?php if(isset($_SESSION['type'])) {?>
+		 	<script src="js/search.js"></script>
+		 <?php }else{ ?>
+		 	<script src="js/general.js"></script>
+		 <?php } ?>
+		 <script src="js/jquery-ui.js"></script>
       </body>  
  </html>  

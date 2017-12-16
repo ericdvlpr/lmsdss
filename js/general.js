@@ -15,7 +15,9 @@ $(document).ready(function(){
                // load_borrow_data();
                load_catalogoue_data();
                load_Issued_data();
-               
+               load_faculty_data();
+               load_request_data();
+                load_unseen_notification();
       //FORM ATTRIBUTES
 
             // $('#action').val("Insert"); 
@@ -109,7 +111,19 @@ $(document).ready(function(){
                          }  
                     });  
                }  
-
+               function load_faculty_data()  {  
+                    var action = "Faculty";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#faculty_table').html(data);
+                              $('#faculty').DataTable();   
+                         }  
+                    });  
+               }
 
                  function load_user_data()  
                {  
@@ -124,9 +138,21 @@ $(document).ready(function(){
                          }  
                     });  
                }
-
-                 function load_department_list()  
+                function load_request_data()  
                {  
+                    var action = "Book Request";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#request_table').html(data); 
+                              $('#request').DataTable();    
+                         }  
+                    });  
+               } 
+                 function load_department_list() {  
                     var action = "Department";  
 
                     $.ajax({  
@@ -139,6 +165,26 @@ $(document).ready(function(){
                          }  
                     });  
                }
+               //Notification
+               function load_unseen_notification(view = '') {
+                    var action = "Notification";
+                    // alert(action);
+                      $.ajax({
+                       url:"core/action.php",
+                       method:"POST",
+                       data:{view:view,action:action},
+                       dataType:"json",
+                       success:function(data)
+                       {
+                        
+                        $('.notif').html(data.notification);
+                        if(data.unseen_notification > 0)
+                        {
+                         $('.count').html(data.unseen_notification);
+                        }
+                       }
+                      });
+                }  
                // function load_book_issue(){
                //     var search = $('#search_book_no').val();
                //     var action = 'Fetch Book Data';
@@ -328,9 +374,30 @@ $(document).ready(function(){
                     // $('#button_action').val("Saves");
                     
                     });
+               $('#add_faculty').click(function(){
 
+                      load_department_list(); 
+                       $("#facultyModal").modal('show');
+                    $('#button_action').val("Saves");
+                    
+                    });
+               $('#request_book').click(function(){
+                      
+                    $('#button_action').val("Request");
+                     var action = "Request";
 
+                      $.ajax({
+                        url:"core/action.php",
+                        method:"POST",
+                        data:{action:action},
+                        success:function(data){
+                          $("#myModalRequest").modal('show');
+                          $('#request_no').val(data);
+                          
 
+                        }
+                      });
+                    });
                //Dynamic Select
                $('#department').change(function(){
                       var action = "Course";
@@ -503,6 +570,44 @@ $(document).ready(function(){
                               }  
                          })  
                });
+               $('#requestform').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                        
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#myModalRequest").modal('toggle');
+                                   window.location.reload();
+                                   $('#requestform')[0].reset(); 
+                              }  
+                         })  
+               });
+               $('#facultyform').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                        
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#facultyModal").modal('toggle');
+                                   window.location.reload();
+                                   $('#facultyform')[0].reset(); 
+                              }  
+                         })  
+               });
                //UPDATE & DELETE
                $(document).on('click','.update', function(){
                       var bookID = $(this).attr("id");
@@ -548,6 +653,26 @@ $(document).ready(function(){
                              $("#author_name").val(data.author_name);                                               
                              $("#author_id").val(data.id);                                               
                              $('#action').val("Edit Author");
+                          }
+                        });
+                    });
+                    $(document).on('click','.updaterequest', function(){
+                        var requestID = $(this).attr("id");
+                        $('#button_action').val("Save");
+                        var action = "Fetch Request Data";
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{requestID:requestID,action:action},
+                          dataType:"json",
+                          success:function(data){
+                            $("#myModalRequest").modal('show');
+                             $("#request_id").val(data.request_id);                          
+                             $("#request_no").val(data.request_no);                          
+                             $("#book_title").val(data.book_title);                                               
+                             $("#author").val(data.author);                                               
+                             $("#copies").val(data.copies);                                               
+                             $('#action').val("Edit Request");
                           }
                         });
                     });
@@ -705,6 +830,146 @@ $(document).ready(function(){
                            return false;
                           }
                     });
-                   
+
+
+                    //Log-in function
+                    
+                    $('#log_in').on('submit', function(event){
+                        
+                        event.preventDefault();
+                        var user = $("#username").val();
+                        var pass = $("#password").val();
+                        var action = 'Login'
+
+                        var dat = new FormData();
+                        dat.append('action', action);
+                        dat.append('user',user);
+                        dat.append('pass',pass);
+              
+
+                        $.ajax({
+                              url:"core/action.php",
+                              method:"POST",
+                              data:dat,
+                              contentType:false,  
+                              processData:false,
+                              success:function(data)
+                              {
+                                var d = data.split(',');
+                                alert(d[2])
+                                  
+                                  ///*
+                                  if(d[2] == "Student  "){
+                                    voice("Log in verified. Access Approve","log",'login_parse.php?id='+d[1]+'&type='+d[2])
+                                  }else{
+                                    voice("Log in verified. Access Denied, Wrong passcode or ID.")
+                                  }
+                                  
+                                  //*/  
+                              }
+                        });
+
+                    });
+
+                    function voice(text,proc,data){
+                        var ssy = window.speechSynthesis
+                        var utt = new SpeechSynthesisUtterance();
+
+               
+                        utt.text = text
+              
+                        ssy.speak(utt);
+
+                        utt.onend = function(e){
+                            if(proc=="log"){
+                              $(location).attr('href', data);
+                              return false;
+                            }
+                        }
+
+                    }
+                    $('#username').on('keypress', function(data){
+                        var d 
+                        var srch_name = $("#username").val();
+                        if(data.keyCode == 13){
+                            //d= 'Enter'
+                        }else if(data.keyCode==8){
+                            if($('#username').val()!=''){
+                                d= 'Backspace'
+                            }
+                        }else if(data.which==32){
+                            //d="Space"
+                        voice(srch_name);
+                        }else if(data.which==45){
+                            d="Dash"
+                        }else if(data.which==91){
+                            d="Left Bracket"
+                        }else if(data.which==93){
+                            d="Right Bracket"
+                        }else if(data.which==58){
+                            d="Colon"
+                        }else if(data.which==59){
+                            d="Semicolon"
+                        }else if(data.which==39){
+                            d="Apostropy"
+                        }else if(data.which==34){
+                            d="Double Apostropy"
+                        }else if(data.which==44){
+                            d="Coma"
+                        }else if(data.which==63){
+                            d="Question Mark"
+                        }else if(data.which==60){
+                            d="Less Than"
+                        }else if(data.which==46){
+                            d="Period"
+                        }else {
+                            d = String.fromCharCode(data.keyCode || data.which);
+                        }
+                        if(d!=undefined){
+                        voice(d,"not");
+                        }                        
+                    });
+                    $('#password').on('keypress', function(data){
+                        var d 
+                        var srch_name = $("#password").val();
+                        if(data.keyCode == 13){
+                            //d= 'Enter'
+                        }else if(data.keyCode==8){
+                            if($('#password').val()!=''){
+                                d= 'Backspace'
+                            }
+                        }else if(data.which==32){
+                            //d="Space"
+                        voice(srch_name);
+                        }else if(data.which==45){
+                            d="Dash"
+                        }else if(data.which==91){
+                            d="Left Bracket"
+                        }else if(data.which==93){
+                            d="Right Bracket"
+                        }else if(data.which==58){
+                            d="Colon"
+                        }else if(data.which==59){
+                            d="Semicolon"
+                        }else if(data.which==39){
+                            d="Apostropy"
+                        }else if(data.which==34){
+                            d="Double Apostropy"
+                        }else if(data.which==44){
+                            d="Coma"
+                        }else if(data.which==63){
+                            d="Question Mark"
+                        }else if(data.which==60){
+                            d="Less Than"
+                        }else if(data.which==46){
+                            d="Period"
+                        }else {
+                            d = String.fromCharCode(data.keyCode || data.which);
+                        }
+                        if(d!=undefined){
+                        voice(d);
+                        }                        
+                    });
+
 
 });  

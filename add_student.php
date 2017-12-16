@@ -5,7 +5,8 @@
             <?php include 'includes/sidemenu.php'; ?>
      		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
      			<div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-8">
+                <div class="col-xs-12 col-sm-6 col-md-8">\
+                  <h1 class="page-header">Add Student</h1>
                     <form class="form-horizontal" name="studentform" novalidate id="studentform" method="Post" class="collapse">
                       <div class="modal-body">
                         <div class="form-group">
@@ -73,9 +74,9 @@
                         <div class="col-sm-5">
                               <select name="type" class="form-control" id="type" required>
                                 <option value="">Please Select</option>
-                                <option value="regStud">Regular Student</option>
-                                <option value="visDis">Visual Disability</option>
-                                <option value="hearDis">Hearing Disability</option>
+                                <option value="0">Regular Student</option>
+                                <option value="1">Visual Disability</option>
+                                <option value="2">Hearing Disability</option>
                               </select>
                           </div>
                         </div>
@@ -98,7 +99,7 @@
                       </div>
                       <hr />
                       <br />
-                        <input type="text" name="action" id="action" value="addStudent" />
+                        <input type="hidden" name="action" id="action" value="addStudent" />
                         <input type="hidden" name="student_id" id="student_id" />
                             <div class="form-group pull-right">
                                 <div class="col-sm-offset-2 col-sm-10">
