@@ -539,7 +539,7 @@
           //*
           $query = "
           INSERT INTO `borrow`
-          (member_id, book_id, on_date, due_date, status) VALUES ('".$st_id."', '".$bk_id."', '".$date."', '".$due."', 'reserve')
+          (member_id, book_no, on_date, due_date, status) VALUES ('".$st_id."', '".$bk_id."', '".$date."', '".$due."', 'reserve')
           ";
 
           $object->execute_query($query);

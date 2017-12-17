@@ -856,8 +856,7 @@ $(document).ready(function(){
                               success:function(data)
                               {
                                 var d = data.split(',');
-                                alert(d[2])
-                                  
+                                 
                                   ///*
                                   if(d[2] == "Student  "){
                                     voice("Log in verified. Access Approve","log",'login_parse.php?id='+d[1]+'&type='+d[2])

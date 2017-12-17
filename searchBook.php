@@ -12,7 +12,7 @@ if(!isset($_SESSION['id'])){
 			</div>
 			  <div class="form-group">
 				  <div class="col-sm-10">
-				  		<input type="text" class="form-control" id="searchname" placeholder="Search Book" autocomplete="false">
+				  		<input type="text" class="form-control" id="searchname" placeholder="Search Book" autocomplete="off">
 				  </div>
 			  </div>
 			 	<button type="submit" class="btn btn-default">Search</button> 

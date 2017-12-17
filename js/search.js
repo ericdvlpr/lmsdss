@@ -3,14 +3,21 @@ var tbl = false;
 var dat = [];
 var dat2;
 var tbl_diag = false;
-var tbl_res = false;  
+var tbl_res = false;
+var sec_sh = false;
+var rt = 1;  
 $(document).ready(function(){
 
     /*
     $('#collapseExample').BootSideMenu({
             side: "left"
     });
-      */  
+      */
+        welcome();
+        function welcome(){
+          voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title,  or related to the title of the your book and press enter. To log out please press the escape button.")
+          $('#searchname').focus();
+        }  
         function reserve(id,student){
       
           var action = 'Book_Reserve' 
@@ -80,9 +87,9 @@ $(document).ready(function(){
               var ssy = window.speechSynthesis
               var utt = new SpeechSynthesisUtterance();
 
-               
               utt.text = text
-              
+              utt.rate = rt
+
               ssy.speak(utt);
 
               utt.onend = function(e){
@@ -94,6 +101,9 @@ $(document).ready(function(){
                   tbl_diag = false;
                   tbl_res = false;
                     
+                }else if(tb==3){
+                  $(location).attr('href','logout.php')
+                  return false
                 }
               }
 
@@ -178,14 +188,37 @@ $(document).ready(function(){
         $('#modal_select').dialog('close')
       }
     });
-    $(document).on('keypress', function(e){
-      
-      if(e.keyCode == 27){
-        alert('Logout')
-        $(location).attr('href','logout.php')
-        return false
+
+    $(document).on('keydown', function(e){
+      if(e.keyCode == 16){
+       // alert(e.keyCode)
+        if(!sec_sh){
+          voice_pre("Switching to maintenance mode.",0,null)
+          sec_sh = true
+        }else{
+          voice_pre("Switching back to search mode.",0,null)
+          sec_sh = false
+        }
       }
-      if(tbl && (!tbl_diag)){
+    });
+    $(document).on('keypress', function(e){
+      //alert(e.keyCode)
+      if(e.keyCode == 27){
+        voice_pre("Logging out. Thank you please come again.",3,null)
+      }
+      if(sec_sh){
+        if(e.keyCode==39){
+            rt++;
+            voice_pre("Increasing speed.",0,null)
+        }else if(e.keyCode==37){
+          if(rt>0){
+            rt--;
+            voice_pre("Decreasing speed.",0,null)
+          }
+        }
+      }
+
+      if(tbl && (!tbl_diag) && (!sec_sh)){
         if(((e.keyCode == 38) || (e.keyCode == 40)) && (!tbl_diag) ) {
           reCalculate(e);
             rePosition();
@@ -205,7 +238,7 @@ $(document).ready(function(){
           if(e.which == 49){
             reserve(dat[active-1][0], $('#std_name').val());
           }
-        }else if((tbl_diag)&&(!tbl_res)){
+        }else if((tbl_diag) && (!tbl_res) && (!sec_sh)){
           if(e.keyCode == 13){
             tbl_diag = false;
             tbl_res = false
@@ -226,6 +259,7 @@ $(document).ready(function(){
     $('#searchname').on('keypress', function(data){
             var d 
             var srch_name = $("#searchname").val();
+            if(!sec_sh){
             if(data.keyCode == 13){
                 //d= 'Enter'
             }else if(data.keyCode==8){
@@ -258,18 +292,20 @@ $(document).ready(function(){
             }else if(data.which==46){
                 d="Period"
             }else {
-                d = String.fromCharCode(data.keyCode || data.which);
+                d = String.fromCharCode(data.which);
             }
             
               if(d!=undefined){
                 voice_pre(d,0,null);
               }
+            }
           });
 
 
           $('#srch_form').on('submit', function(event){
               event.preventDefault();
               
+              if(!sec_sh){
               var srch_name = $("#searchname").val(); 
               var text = "Searching related to. " + srch_name+ "..." 
               var action = "Search";
@@ -294,8 +330,8 @@ $(document).ready(function(){
                   //alert(data)
                   //*
                   if(data==0){
-                   voice_pre("SEARCH NOT FOUND",0,null);
-                   alert('SEARCH NOT FOUND...'); 
+                   voice_pre("Search not found related to "+srch_name,0,null);
+                    
                   }else{
                     var plt = data.split("|");
                     var temp1 =plt[2].split("/"); 
@@ -319,7 +355,7 @@ $(document).ready(function(){
                    alert('PLEASE TYPE IN YOUR BOOK...');
               }
 
-
+            }
           });
           
 }); 
