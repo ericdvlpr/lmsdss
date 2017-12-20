@@ -7,8 +7,8 @@
             <li><a href="catalogue.php">Category</a></li>
             <li><a href="faculty.php">Faculty</a></li>
             <li><a href="issuebook.php">Issue Book</a></li>
-            <li><a href="#">Requisitions</a></li>
-            <li><a href="#">Reservation</a></li>
+            <li><a href="referrence.php">Book Referrence</a></li>
+            <li><a href="reservation.php">Reservation</a></li>
             <li><a href="students.php">Students</a></li>
             <li><a href="users.php">Users</a></li>
           </ul>

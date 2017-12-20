@@ -59,7 +59,7 @@
                      </select>
                   </div>
                 </div>
-                <input type="text" name="action" id="action" value="addUser" />
+                <input type="hidden" name="action" id="action" value="addUser" />
                 <input type="hidden" name="user" id="user_id" />
                 
               </div>

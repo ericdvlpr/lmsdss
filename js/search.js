@@ -133,7 +133,7 @@ $(document).ready(function(){
 
 		$('tr').on('click',function(){
    			active = $(this).closest('table').find('tr').index(this);
-   			alert(active)
+   			//alert(active)
    			rePosition();
 		});
 		$('#searchname').on('keypress', function(data){

@@ -40,12 +40,18 @@ session_start();
         }
 
         public function check_access($id) {
-         
           $query = "SELECT access FROM users WHERE user_id='".$id."' ";
             $result = $this->execute_query($query);
            $row = mysqli_fetch_assoc($result);
             $access = $row['access'];
           return $access;
+        }
+        public function get_faculty_name($id) {
+           $query = "SELECT * FROM users u JOIN faculty f ON f.faculty_no=u.username  WHERE user_id='".$id."' ";
+            $result = $this->execute_query($query);
+           $row = mysqli_fetch_assoc($result);
+            $data = $row['faculty_name'];
+          return $data;
         }
 
       //load query  
@@ -99,20 +105,11 @@ session_start();
                 $output .= '  
                 <tr>       
                      <td>'.$row->borrow_id.'</td>  
-                     <td>'.$row->lastname.', '.$row->firstname.'</td>  
+                     <td>'.$row->student_name.'</td>  
                      <td>'.$row->book_title.'</td>  
-                     <td>'.$row->date_borrow.'</td>  
-                     <td>'.$row->date_return.'</td>  
-                     <td><button type="button" name="update" id="'.$row->borrow_id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->borrow_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
-
-                     <td>'.$row->book_no.'</td>  
-                     <td>'.$row->book_title.'</td> 
-                     <td>'.$row->student_name.'</td>   
-                     <td>'.$row->copies.'</td>  
-                     <td>'.$row->date_issued.'</td>  
-                     <td>'.$row->date_returned.'</td>  
-                     <td>'.$row->status.'</td>  
-                     <td><button type="button" name="update" id="'.$row->issue_book_id.'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->issue_book_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td>'.$row->on_date.'</td>  
+                     <td>'.$row->due_date.'</td>  
+                     <td><button type="button" name="update" id="'.$row->borrow_id.'" class="btn btn-success btn-xs updateReturn">Update</button> 
 
                 </tr>  
                 ';  
@@ -147,7 +144,30 @@ session_start();
            ';  
            while($row = mysqli_fetch_object($result))  
            {  
-                $output .= '  
+
+            $access=$this->check_access($_SESSION['id']);
+            $faculty = $this->get_faculty_name($row->user_id);
+            if($row->status==0){
+              $status = 'pending';
+            }else{
+              $status = 'approved';
+            }
+            if($access == 1){
+              $output .= '  
+                <tr>       
+                     <td>'.$row->request_no.'</td>  
+                     <td>'.$row->book_title.'</td>  
+                     <td>'.$row->author.'</td>  
+                     <td>'.$row->copies.'</td>
+                      <td>'.$faculty.'</td>   
+                     <td>'.$row->date_requested.'</td>  
+                     
+                     <td>'.$status.'</td>  
+                     <td><button type="button" name="update" id="'.$row->request_id.'" class="btn btn-primary btn-xs viewRequest">View</button><button type="button" name="approve" id="'.$row->request_id.'" class="btn btn-success btn-xs approveRequest">Approve</button></td> 
+                </tr>  
+                ';    
+            }else{
+              $output .= '  
                 <tr>       
                      <td>'.$row->request_no.'</td>  
                      <td>'.$row->book_title.'</td>  
@@ -158,6 +178,8 @@ session_start();
                      <td><button type="button" name="update" id="'.$row->request_id.'" class="btn btn-success btn-xs updaterequest">Update</button> 
                 </tr>  
                 ';  
+            }
+                
            }  
            $output .= '';  
            return $output;  
@@ -351,7 +373,7 @@ session_start();
             {
              $output .= '
              <li>
-              <a href="#">
+              <a href="referrence.php">
                <strong>'.$row["notif_subject"].'</strong><br />
                <small><em>'.$row["notif_text"].'</em></small>
               </a>
@@ -372,6 +394,10 @@ session_start();
               'unseen_notification' => $count
              );
            echo json_encode($data);
+      }
+      function get_last_id(){
+          $last_id = $this->insert_id;
+          return $last_id;
       }
       // function upload_file($file)  
       // {  

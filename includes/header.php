@@ -17,6 +17,9 @@ $object = new Database();
            <link rel="stylesheet" href="css/jquery.dataTables.min.css" />   
 <!--            <link rel="stylesheet" href="css/jquery.dataTables.min.css" />    -->
          	    <link rel="stylesheet" href="css/style.css">
+              <link rel="stylesheet" href="css/bootstrap-select.min.css">
+         	    <!-- <script src="js/webcam.js"></script> -->
+         	    
          	   
       </head> 
  <body>  

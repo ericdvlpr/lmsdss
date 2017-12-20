@@ -20,14 +20,6 @@
       {  
            echo $object->get_author_data("SELECT * FROM authors ");  
       }
-        if($_POST["action"] == "Issued")  
-      {  
-
-           echo $object->get_borrowered_data("SELECT * FROM borrowdetails LEFT JOIN borrow USING (borrow_id) LEFT JOIN member USING (member_id) LEFT JOIN book USING (book_id)");  
-
-           echo $object->get_book_issued_data("SELECT * FROM issue_book");  
-
-      }
        if($_POST["action"] == "Students")  
       {  
            echo $object->get_student_data("SELECT * FROM students s LEFT JOIN departments d ON d.dept_id = s.dept LEFT JOIN courses c ON c.course_id =s.course ");  
@@ -47,7 +39,12 @@
       {  
            echo $object->get_request_data("SELECT * FROM book_request ");  
 
-      }    
+      }
+      if($_POST["action"] == "Issue Book")  
+      {  
+           echo $object->get_book_issued_data("SELECT * FROM borrow JOIN students USING (student_id) JOIN book USING (book_no)");  
+
+      }     
       if($_POST["action"] == "Insert")  
       {  
            $first_name = mysqli_real_escape_string($object->connect, $_POST["first_name"]);  
@@ -126,7 +123,8 @@
            $object->execute_query($query);  
            echo 'Data Inserted';  
       }
-      if($_POST["action"] == "addStudent") {  
+      if($_POST["action"] == "addStudent") {
+        $output =array();  
              $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
              $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
              $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
@@ -142,8 +140,11 @@
            (student_id,student_name,gender,contact,type,passcode,dept,course)   
            VALUES ('".$student_no."', '".$student_name."', '".$sex."', '".$contact."','".$type."','".$passcode."','".$dept."','".$course."')"; 
             $object->execute_query("INSERT INTO users(username,password,access)VALUES('".$student_no."','".$passcode."','5')");
-           $object->execute_query($query);  
-           echo 'Data Inserted';  
+           $object->execute_query($query);
+           $last=mysqli_insert_id($object->connect);  
+           $_SESSION['lastID'] = $last;
+           echo 'Data Inserted';
+          
       }
       if($_POST["action"] == "addIssueBook") {  
              $book_no=mysqli_real_escape_string($object->connect, $_POST["book_no"]);
@@ -181,7 +182,7 @@
             $query = "  
            INSERT INTO book_request  
            (request_no,book_title,author,copies,date_requested,status,user_id)   
-           VALUES ('".$request_no."', '".$book_title."', '".$author."','".$copies."','".$date_requested."','pending','".$_SESSION['id']."')";  
+           VALUES ('".$request_no."', '".$book_title."', '".$author."','".$copies."','".$date_requested."','0','".$_SESSION['id']."')";  
            $object->execute_query("INSERT INTO notification(notif_id_type,notif_type,notif_subject,notif_text,notif_status,user_id) VALUES('1','request','Requested for Book','".$book_title."','0','".$_SESSION['id']."')"); 
            $object->execute_query($query); 
 
@@ -201,6 +202,22 @@
                echo 'Data Inserted';  
       }
       //Fetch Queries 
+       if($_POST["action"]=="Load Books") {
+      
+                $output =array();
+               $query = "SELECT * FROM book";
+               $result = $object->execute_query($query);
+                while($row = mysqli_fetch_array($result)) {
+                 $book_id = $row["book_id"];
+                  $book_no = $row["book_no"];
+                  $book_title = $row["book_title"];
+                  
+                  
+                }
+
+                echo json_encode($output);
+                
+      }
       if($_POST["action"]=="Fetch Book Data") {
       
                 $output =array();
@@ -228,14 +245,17 @@
       if($_POST["action"]=="Fetch Request Data") {
       
                 $output =array();
-               $query = "SELECT * FROM book_request WHERE request_id ='".$_POST['requestID']."'";
+               $query = "SELECT * FROM book_request br JOIN users u USING (user_id) JOIN faculty f ON u.username = f.faculty_no WHERE request_id ='".$_POST['requestID']."'";
                $result = $object->execute_query($query);
                 while($row = mysqli_fetch_array($result)) {
                  $output["request_id"] = $row["request_id"];
                  $output["request_no"] = $row["request_no"];
+                 $output["request_by"] = $row["faculty_name"];
                   $output["book_title"] = $row["book_title"];
+                  $output["date_requested"] = $row["date_requested"];
                    $output["author"] = $row["author"];
                    $output["copies"] = $row["copies"];
+                   $output["status"] = $row["status"];
                 }
 
                 echo json_encode($output);
@@ -280,7 +300,7 @@
                    $output["gender"] =$row["gender"];
                    $output["address"] =$row["address"];
                    $output["contact"] =$row["contact"];
-                   $output["pwd"] =$row["pwd"];
+                   $output["type"] =$row["type"];
                    $output["passcode"] =$row["passcode"];
                    $output["dept"] =$row["dept"];
                    $output["course"] =$row["course"];
@@ -346,16 +366,16 @@
                 echo 'Data Updated';
             } 
             if($_POST['action']=="Edit Student") {
-                echo $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
-                echo $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
-                echo $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
-                echo $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
-                echo $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
-                echo $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
-                echo $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
-                echo $address=mysqli_real_escape_string($object->connect, $_POST["address"]);
-                echo $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
-                echo $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
+                 $student_no=mysqli_real_escape_string($object->connect, $_POST["student_no"]);
+                 $student_name=mysqli_real_escape_string($object->connect, $_POST["student_name"]);
+                 $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
+                 $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
+                 $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
+                 $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
+                 $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
+                 $address=mysqli_real_escape_string($object->connect, $_POST["address"]);
+                 $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
+                 $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
 
 
                 $query = "UPDATE students SET student_no = '$student_no',student_name='$student_name',address='$address',sex='$sex',contact='$contact',dept='$dept',course='$course',pwd='$pwd',passcode='$passcode' WHERE id = '".$_POST['student_id']."' ";
