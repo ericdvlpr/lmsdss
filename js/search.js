@@ -5,7 +5,8 @@ var dat2;
 var tbl_diag = false;
 var tbl_res = false;
 var sec_sh = false;
-var rt = 1;  
+var rt = 1;
+var vl =1;  
 $(document).ready(function(){
 
     /*
@@ -89,7 +90,7 @@ $(document).ready(function(){
 
               utt.text = text
               utt.rate = rt
-
+              utt.volume = vl;
               ssy.speak(utt);
 
               utt.onend = function(e){
@@ -211,9 +212,17 @@ $(document).ready(function(){
             rt++;
             voice_pre("Increasing speed.",0,null)
         }else if(e.keyCode==37){
-          if(rt>0){
+          if(rt>1){
             rt--;
             voice_pre("Decreasing speed.",0,null)
+          }
+        }else if(e.keyCode == 38){
+            vl++;
+            voice_pre("Increasing volume.",0,null)
+        }else if(e.keyCode == 40){
+            if(vl>1){
+            vl--;
+            voice_pre("Deccreasing volume.",0,null)
           }
         }
       }

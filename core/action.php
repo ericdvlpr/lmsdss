@@ -528,7 +528,7 @@
       if($_POST["action"] == "Book_select")  
       {
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, a.author_name AS author, b.copyright_year, p.publisher_name, p.book_publisher AS book_pub, b.isbn, b.book_copies FROM book b LEFT JOIN authors a ON a.id = b.author LEFT JOIN publishers p ON p.id=b.book_pub WHERE book_no ='".$_POST["id"]."'","SELECT COUNT(*) AS CNT FROM `borrow` WHERE book_id = '".$_POST["id"]."'");
+          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, a.author_name AS author, b.copyright_year, p.publisher_name, p.book_publisher AS book_pub, b.isbn, b.book_copies FROM book b LEFT JOIN authors a ON a.id = b.author LEFT JOIN publishers p ON p.id=b.book_pub WHERE book_no ='".$_POST["id"]."'","SELECT COUNT(*) AS CNT FROM `borrow` WHERE book_no = '".$_POST["id"]."'");
       }
       if($_POST["action"] == "Book_Reserve")  
       {
@@ -557,5 +557,13 @@
             echo "null,0,none";
           }
         }
+        
+        if($_POST['action']  == "Tapin"){
+            echo $object->tapin_data("SELECT * FROM logs WHERE student_no = '".$_POST['user']."' ORDER by log_id DESC",$_POST['user']);
+
+        }
+
+
+
   }
  ?>  

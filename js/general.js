@@ -831,9 +831,41 @@ $(document).ready(function(){
                           }
                     });
 
+//Log-in function
+//------------------------------------------------------------------------------------------
+//Tap-in function
+                    $('#tp_id').focus();
+                    $('#tp_id').on('input', function(){
+                      var user = $("#tp_id").val();
+                      var action = 'Tapin'
 
-                    //Log-in function
-                    
+                      var dats = new FormData();
+                      dats.append('action', action);
+                      dats.append('user',user);
+                      
+                      $.ajax({
+                              url:"core/action.php",
+                              method:"POST",
+                              data:dats,
+                              contentType:false,  
+                              processData:false,
+                              success:function(data)
+                              {
+                                  $('#output').html(data)
+                                  $('#tp_id').val('')
+                      
+                              }
+                      })
+
+
+                      
+
+                    });
+
+
+
+
+//Log-in------------------------------------------------------------------------------------
                     $('#log_in').on('submit', function(event){
                         
                         event.preventDefault();
@@ -969,6 +1001,48 @@ $(document).ready(function(){
                         voice(d);
                         }                        
                     });
+//--------------------------------------------------------------------------------------
+//Message Data
+
+          $("#data").on('submit', function(e){
+              e.preventDefault();
+              $no = $("#cp_no").val()
+              $mess = $("#message").val()
+              
+
+              //alert($mess)
+              //*
+              var dats = new FormData();
+             
+              dats.append('nos', $no);
+              dats.append('mess', $mess);
+
+              $.ajax({
+                url:"core/sms.php",
+                method:"POST",
+                data:dats,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                  {
+                    if(data == ""){
+                      alert("Server Not Found")
+                    }else if(data==0){
+                      alert('Message Sent')
+                    }else{
+                      alert(data)
+                    }
+
+
+                  }
+              });
+              //*/
+          });
+
+
+
+
+
 
 
 });  

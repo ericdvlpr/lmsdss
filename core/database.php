@@ -433,7 +433,7 @@ session_start();
 
 
 
-      function get_notification($query){
+     public function get_notification($query){
         $result = $this->execute_query($query);
            $output = '';
            
@@ -464,6 +464,44 @@ session_start();
               'unseen_notification' => $count
              );
            echo json_encode($data);
+      }
+
+      public function tapin_data($query,$id){
+        $result = $this->execute_query($query);
+        $stuque = "SELECT students.student_name as stdname FROM students WHERE student_id='".$id."'";
+        $studexe = $this->execute_query($stuque);
+
+        date_default_timezone_set("Asia/Manila");
+        
+        $rows=mysqli_fetch_object($result);
+        if(mysqli_num_rows($result)){
+          
+          if($rows->description == "Just Login"){
+            $exeque = "INSERT INTO `logs`
+            (student_no, description, Date_time) VALUES ('".$id."', 'Just Logout', NOW())
+            ";
+            $execute = $this->execute_query($exeque);
+            $row = mysqli_fetch_object($studexe);
+            echo $row->stdname. " just Logged Out.";   
+          }else{
+            $exeque = "INSERT INTO `logs`
+            (student_no, description, Date_time) VALUES ('".$id."', 'Just Login', NOW())
+            ";
+            $execute = $this->execute_query($exeque);
+            $row = mysqli_fetch_object($studexe);
+            echo $row->stdname. " just Logged In.";
+          }
+
+        }else{
+          $exeque = "INSERT INTO `logs`
+          (student_no, description, Date_time) VALUES ('".$id."', 'Just Login', NOW())
+          ";
+          $execute = $this->execute_query($exeque);
+          $row = mysqli_fetch_object($studexe);
+          echo $row->stdname. " just Logged In.";
+
+        }
+
       }
       // function upload_file($file)  
       // {  
