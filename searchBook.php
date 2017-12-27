@@ -9,6 +9,7 @@ if(!isset($_SESSION['id'])){
 			<div class="page-header"><h1 class="text-center">DWCL LIBRARY</h1></br>
 			<input type="hidden" name="std_name" id="std_name" value=<?php echo $_SESSION['id']; ?>>
 			<input type="hidden" name="std_name2" id="std_name2" value=<?php echo $_SESSION['name']; ?>> 
+			<input type="hidden" name="std_type" id="std_type" value=<?php echo $_SESSION['type']; ?>>
 			</div>
 			  <div class="form-group">
 				  <div class="col-sm-10">
@@ -19,14 +20,45 @@ if(!isset($_SESSION['id'])){
 		</form>
 	</div> 
 	<br />
-    <div id="search_table" name="search_table">
- 
+    <div>
+ 		<table id="sc_table" class="table table-bordered table-striped">  
+            <thead>
+            	<tr>
+              		<th width="100%"></th>  
+            	</tr>
+            </thead>
+            <tbody id="search_table">
+
+            </tbody>
+         </table>
     </div>
-	<div id="modal_select" name="modal_select" class="modal">
-        <div id="modal_data" name="modal_data" class="modal_content">
+	<div id="mod_info" class="modal">
+        <div id="info_data" class="modal_content">
                                   
         </div>
-    </div> 
+    </div>
+
+	<div id="modal_select" class="modal">
+        <div id="modal_data" class="modal_content">
+             <table>
+             	<tr>
+             		<td id='book_content'>
+             		</td>
+             	</tr>
+             	<tr id="row1hid" align="center">
+             		<td>
+             			Would you like to reserve this book?<br />
+             			<button id="Yes">(1)Yes</button> <button id="No">(2)No</button>
+             		</td>
+             	</tr>
+             	<tr id="row2hid" align="center">
+             		<td>No Longer Available</td>
+             	</tr>
+             </table>                
+        </div>
+    </div>
+    
+
 <?php 
 include 'includes/footer.php';
 ?>

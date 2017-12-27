@@ -5,8 +5,13 @@ var dat2;
 var tbl_diag = false;
 var tbl_res = false;
 var sec_sh = false;
+var Timeout = null;
+var bkn = 0
 var rt = 1;
-var vl =1;  
+var vl =1;
+var voi_ab=false
+var tabD = false
+
 $(document).ready(function(){
 
     /*
@@ -15,8 +20,25 @@ $(document).ready(function(){
     });
       */
         welcome();
+        
         function welcome(){
-          voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title,  or related to the title of the your book and press enter. To log out please press the escape button.")
+          $("#sc_table").hide();
+          if($("#std_type").val() == "2"){
+            voi_ab = true
+            voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. To change volume or speede please press the shift button.")
+          }else{
+            
+            $('#mod_info').dialog({
+                    title: "Welcome To LMS",
+                    width: 550,
+                    position: {
+                      my: "center top",
+                      at: "center left"
+                    }
+             });
+             $('#info_data').html("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button.");
+          }
+
           $('#searchname').focus();
         }  
         function reserve(id,student){
@@ -74,7 +96,16 @@ $(document).ready(function(){
                       at: "right top"
                     }
                   });
-                  $('#modal_data').html(plt2[0]);
+                  
+                  $('#book_content').html(plt2[0]);
+                  if(plt2[4] != 0){
+                    $('#row1hid').show()
+                    $('#row2hid').hide()
+                  }else{
+                    $('#row2hid').show()
+                    $('#row1hid').hide()
+                  }
+
                   tbl_res = plt2[2];
                   voice_pre(plt2[1],0,null);
                   //*/
@@ -85,43 +116,98 @@ $(document).ready(function(){
 
 
         function voice_pre(text,tb,td){
+              if(voi_ab){
+              
               var ssy = window.speechSynthesis
               var utt = new SpeechSynthesisUtterance();
 
+              if(ssy.speaking){
+                  ssy.cancel()
+                  if (Timeout !== null)
+                      clearTimeout(Timeout);
+
+                  Timeout = setTimeout(function(){ voice_pre(text,tb,td); }, 250);
+              }else{
               utt.text = text
               utt.rate = rt
               utt.volume = vl;
               ssy.speak(utt);
+              }
 
               utt.onend = function(e){
                 if(tb==1){
+                  $('#sc_table').show()
                   $('#search_table').html(td);
-                  $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bFilter": false})
+                  
+                  if(!tabD){
+                    $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bFilter": false})
+                    tabD=true
+                  }
                   voice_pre("Please use up and down buttons to navigate.",0,null);
                 }else if(tb==2){
                   tbl_diag = false;
                   tbl_res = false;
                     
                 }else if(tb==3){
-                  $(location).attr('href','logout.php')
-                  return false
+                 logout(); 
                 }
               }
+            }else{
+              if(tb==1){
+                  $('#sc_table').show()
+                  $('#search_table').html(td);
+                  if(!tabD){
+                    $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bFilter": false})
+                    tabD=true
+                  }
+                }else if(tb==2){
+                  $('#mod_info').dialog({
+                    title: "Book Reserve",
+                    width: 550,
+                    position: {
+                      my: "center top",
+                      at: "center left"
+                    }
+                  });
+                  $('#info_data').html("Your Book is now reserve. Please procceed to the librerian on duty to collect your book.");
+                  tbl_diag = false;
+                  tbl_res = false;
+                   
+                }else if(tb==3){
+                  $('#mod_info').dialog({
+                    title: "Logout",
+                    width: 550,
+                    position: {
+                      my: "center top",
+                      at: "center left"
+                    }
+                  });
+                  $('#info_data').html(text);
+                  setTimeout(logout, 3000)
+                }
+            }
 
         }
+    function logout(){
+         $('#mod_info').dialog('close')
+         $(location).attr('href','logout.php');
+         return false;
+    }
     function reCalculate(e){
         var rows = $('#sc_table tr').length;
-        
+              
         if (e.keyCode == 38) { // move up
-            active = (active>=1)?active-1:active;
-            
-            
+           active--;
         }
-    
         if (e.keyCode == 40) { // move down
-            
-            active = (active<=rows-2)?active+1:active;
-            
+            active++    
+        }
+        if((active<=rows-1)&&(active>=0)){
+          rePosition();
+        }else if(active<0){
+          active++
+        }else if(active>rows-1){
+          active--
         }
         //alert(e.keyCode)
         //alert(active)
@@ -130,13 +216,7 @@ $(document).ready(function(){
         if(active>0){
           $('.active').removeClass('active');
           $('#sc_table tr').eq(active).addClass('active');
-         
 
-         /*
-          var tbl_dat = $('#sc_table').DataTable()
-          
-          dat = tbl_dat.row(active-1).data()
-         */ 
           var aut = ''
           var dat4 = dat[active-1][2].split(',')
           if(dat4.length>1){
@@ -157,15 +237,14 @@ $(document).ready(function(){
           voice_pre(dat[active-1][1] + ' by ' + aut,0,null);
           //*/
 
-          $('#searchname').prop('disabled',true)
+          //$('#searchname').prop('disabled',true)
           $('#searchname').blur();
-
           scrollInView();
-          
+
         }else{
           $('.active').removeClass('active');
           
-          $('#searchname').prop('disabled',false)
+          //$('#searchname').prop('disabled',false)
           $('#searchname').focus();
 
           scrollInView();
@@ -182,30 +261,60 @@ $(document).ready(function(){
         }
         
     }
-
-    $(document).on('click', function(e){
+   $('#No').on('click', function(){
       if(tbl_diag){
         tbl_diag = false;
         $('#modal_select').dialog('close')
       }
     });
+    $('#Yes').on('click', function(){
+        reserve(dat[active-1][0], $('#std_name').val());
+    })
 
+    $('#sc_table tbody').on('click', 'tr', function(){
+      if(tbl && (!tbl_diag) && (!sec_sh)){
+        active = $(this).closest('table').find('tr').index(this);
+        rePosition();
+        tbl_diag = true
+        select_book(dat[active-1][0]);
+      }
+
+    })
+    
     $(document).on('keydown', function(e){
-      if(e.keyCode == 16){
-       // alert(e.keyCode)
-        if(!sec_sh){
-          voice_pre("Switching to maintenance mode.",0,null)
-          sec_sh = true
-        }else{
-          voice_pre("Switching back to search mode.",0,null)
-          sec_sh = false
+     
+     if(voi_ab){
+        if(e.keyCode == 16){
+          if(!sec_sh){
+            voice_pre("Switching to maintenance mode. Press Left or Right button to change Speed. Press Up or Down button to change volume.",0,null)
+            $('#searchname').prop('disabled',true)
+            $('#searchname').blur();
+            sec_sh = true
+          }else{
+             voice_pre("Switching back to search mode.",0,null)
+             $('#searchname').prop('disabled',false)
+             $('#searchname').focus();
+             sec_sh = false
+          }
         }
       }
     });
+
     $(document).on('keypress', function(e){
       //alert(e.keyCode)
       if(e.keyCode == 27){
-        voice_pre("Logging out. Thank you please come again.",3,null)
+        if(!sec_sh){
+          $('#mod_info').dialog({
+                    title: "Logout",
+                    width: 550,
+                    position: {
+                      my: "center top",
+                      at: "center left"
+                    }
+                  });
+          $('#info_data').html("Logging out. Thank you please come again.");
+          voice_pre("Logging out. Thank you please come again.",3,null)
+        }
       }
       if(sec_sh){
         if(e.keyCode==39){
@@ -229,8 +338,7 @@ $(document).ready(function(){
 
       if(tbl && (!tbl_diag) && (!sec_sh)){
         if(((e.keyCode == 38) || (e.keyCode == 40)) && (!tbl_diag) ) {
-          reCalculate(e);
-            rePosition();
+            reCalculate(e);
             return false;
           }
           if((e.keyCode == 13) && (active>0) &&(!tbl_diag)){
@@ -259,11 +367,7 @@ $(document).ready(function(){
     });
 
 
-    $('tr').on('click',function(){
-        active = $(this).closest('table').find('tr').index(this);
-        alert(active)
-        rePosition();
-    });
+    
    
     $('#searchname').on('keypress', function(data){
             var d 
@@ -316,12 +420,11 @@ $(document).ready(function(){
               
               if(!sec_sh){
               var srch_name = $("#searchname").val(); 
-              var text = "Searching related to. " + srch_name+ "..." 
+              var text = "Searching related to. "+srch_name+ "..." 
               var action = "Search";
               
               if(srch_name!=''){
-              voice_pre(text,0,null);
-
+              
               var tp ='';
               var dat2 = new FormData()
               dat2.append('action', action);
@@ -339,7 +442,7 @@ $(document).ready(function(){
                   //alert(data)
                   //*
                   if(data==0){
-                   voice_pre("Search not found related to "+srch_name,0,null);
+                   voice_pre(text+" Search not found related to "+srch_name,0,null);
                     
                   }else{
                     var plt = data.split("|");
@@ -350,7 +453,8 @@ $(document).ready(function(){
                       tp += dat[i][0] +',';
                     }
 
-                    voice_pre('SEARCH FOUND. '+plt[0]+'Hits.',1,plt[1]);
+                    voice_pre(text+' SEARCH FOUND. '+plt[0]+'Hits.',1,plt[1]);
+                    bkn = plt[0]
                     tbl=true;
                   
                   }
@@ -361,7 +465,6 @@ $(document).ready(function(){
               });
               }else{
                 voice_pre("PLEASE TYPE IN YOUR BOOK...",0,null);
-                   alert('PLEASE TYPE IN YOUR BOOK...');
               }
 
             }

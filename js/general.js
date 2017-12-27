@@ -1,3 +1,4 @@
+var Timeout=null;
 $(document).ready(function(){
       $(".chosen-select").chosen({ width:"100%" });
        $("input").attr("autocomplete","off");
@@ -866,6 +867,14 @@ $(document).ready(function(){
 
 
 //Log-in------------------------------------------------------------------------------------
+                    $('#username').focus()
+                    $('#username').on('focus', function(){
+                        voice("Please enter your student ID number then press tab.")
+                    });
+                    $('#password').on('focus', function(){
+                        voice("Please enter your passcode Number then press enter.")
+                    });
+
                     $('#log_in').on('submit', function(event){
                         
                         event.preventDefault();
@@ -887,11 +896,13 @@ $(document).ready(function(){
                               processData:false,
                               success:function(data)
                               {
+                               // alert(data);
                                 var d = data.split(',');
-                                 
-                                  ///*
-                                  if(d[2] == "Student  "){
-                                    voice("Log in verified. Access Approve","log",'login_parse.php?id='+d[1]+'&type='+d[2])
+                                  //*
+                                  if(d[0] == 0 || d[0] == 2 || d[0] == 3){
+                                    voice("Log in verified. Access Approve","log",'login_parse.php?id='+d[1]+'&type='+d[0])
+                                  }else if(d[0] == 5){
+                                    voice("Log in verified. Access Denied, Your ID is no longer active. Please proceed to your librerian on duty for futher info.")
                                   }else{
                                     voice("Log in verified. Access Denied, Wrong passcode or ID.")
                                   }
@@ -906,11 +917,16 @@ $(document).ready(function(){
                         var ssy = window.speechSynthesis
                         var utt = new SpeechSynthesisUtterance();
 
-               
-                        utt.text = text
-              
-                        ssy.speak(utt);
+                        if(ssy.speaking){
+                            ssy.cancel()
+                            if (Timeout !== null)
+                            clearTimeout(Timeout);
 
+                            Timeout = setTimeout(function(){ voice(text,proc,data); }, 250);
+                        }else{
+                            utt.text = text
+                            ssy.speak(utt);
+                        }
                         utt.onend = function(e){
                             if(proc=="log"){
                               $(location).attr('href', data);

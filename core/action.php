@@ -549,6 +549,8 @@
         }
 
         if($_POST['action']  == "Login"){
+          
+          /*
           $query = "SELECT * FROM students WHERE student_id = '".$_POST['user']."' AND passcode = '".$_POST['pass']."'";
           $results = $object->execute_query($query);
           if(mysqli_fetch_assoc($results)){
@@ -556,6 +558,9 @@
           }else{
             echo "null,0,none";
           }
+          */
+
+          echo $object->login($_POST['user'],$_POST['pass']);
         }
         
         if($_POST['action']  == "Tapin"){

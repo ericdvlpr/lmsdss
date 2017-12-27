@@ -352,26 +352,15 @@ session_start();
             </tr>
             ';
 
-          
-         if(($row->book_copies-$row2->CNT)!=0){     
-           $output .= 
-              '<td colspan="2" align="center">Would you like to Reserve this Book?<br>
-              <button>(1)Yes</button> <button>(2)No</button></td>';  
-             }else{
-               $output .= 
-              '<td colspan="2" align="center">No Longer Available</td>';
-             }
-
-        $output  .=  '</tr>
-          </table>';
+        $output  .=  '</table>';
 
 
 
          $output .= '|The book ' .$row->book_title. ' by ' . $aut . ' located in some location, books available ' .($row->book_copies-$row2->CNT). '. ' ;
          if(($row->book_copies-$row2->CNT) == 0){
-            $output .= 'Sorry... This Book is no longer available. Try Again Later.|false|'.$row->book_title.'/'.$aut;
+            $output .= 'Sorry... This Book is no longer available. Try Again Later.|false|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$row2->CNT);
          }else{
-            $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$aut;
+            $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$row2->CNT);
          }
          return $output;
 
@@ -391,13 +380,7 @@ session_start();
           $output .= $numrow.'|';
           
           $output .= '
-          <table name="sc_table" id="sc_table" class="table table-bordered table-striped">  
-             <thead>
-             <tr>
-                <th width="100%"></th>  
-              </tr>
-              </thead>
-              <tbody>
+          
                             
         ';
           while($row = mysqli_fetch_object($result))
@@ -416,10 +399,6 @@ session_start();
               $array .= $row->book_id.'*'.$row->book_title.'*'.$row->author.'/';
 
           }
-          $output .='
-            </tbody>
-            </table>
-          ';
           $output .= '|'.$array;
         }else{
           $output = 0; 
@@ -464,6 +443,34 @@ session_start();
               'unseen_notification' => $count
              );
            echo json_encode($data);
+      }
+      public function login($user,$pass){
+        $query = "SELECT * FROM students WHERE student_id = '".$user."' AND passcode = '".$pass."'";
+        $query2 = "SELECT * FROM faculty WHERE faculty_no = '".$user."' AND passcode = '".$pass."'";
+        
+        $results = $this->execute_query($query);
+        $results2 = $this->execute_query($query2);
+        
+        if($row = mysqli_fetch_object($results)){
+            if($row->active){
+              if(($row->type=="0") || ($row->type=="1")){
+                  echo "0,".$user;
+              }else if($row->type=="2"){
+                  echo "2,".$user;
+              }
+            }else{
+              echo "5,".$user;
+            }
+        }else if($row = mysqli_fetch_object($results2)){
+            if($row->active){
+              echo "3,".$user;
+            }else{
+              echo "5,".$user; 
+            }
+        }else{
+            echo "6,".$user;
+        }
+
       }
 
       public function tapin_data($query,$id){
