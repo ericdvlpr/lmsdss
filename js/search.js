@@ -11,6 +11,7 @@ var rt = 1;
 var vl =1;
 var voi_ab=false
 var tabD = false
+var mod2 = false
 
 $(document).ready(function(){
 
@@ -26,20 +27,26 @@ $(document).ready(function(){
           if($("#std_type").val() == "2"){
             voi_ab = true
             voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. To change volume or speede please press the shift button.")
+            $('#searchname').focus();
           }else{
-            
             $('#mod_info').dialog({
                     title: "Welcome To LMS",
                     width: 550,
                     position: {
                       my: "center top",
                       at: "center left"
+                    },
+                    closeOnEscape: false,
+                    open: function(event, ui) {
+                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
                     }
              });
-             $('#info_data').html("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button.");
+             $('#info_data').html("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. Press any key or click anywhere to continue");
+             $('#searchname').prop('disabled',true)
+             mod2 =true
           }
 
-          $('#searchname').focus();
+          
         }  
         function reserve(id,student){
       
@@ -108,6 +115,7 @@ $(document).ready(function(){
 
                   tbl_res = plt2[2];
                   voice_pre(plt2[1],0,null);
+                  $('#searchname').prop('disabled',true)
                   //*/
                 }  
                           
@@ -169,7 +177,9 @@ $(document).ready(function(){
                       at: "center left"
                     }
                   });
-                  $('#info_data').html("Your Book is now reserve. Please procceed to the librerian on duty to collect your book.");
+                  $('#info_data').html(text+" Press any key or click anywhere to continue" );
+                  mod2 =true
+                  $('#searchname').prop('disabled',true)
                   tbl_diag = false;
                   tbl_res = false;
                    
@@ -189,7 +199,7 @@ $(document).ready(function(){
 
         }
     function logout(){
-         $('#mod_info').dialog('close')
+         $('#mod_info').dialog('close');
          $(location).attr('href','logout.php');
          return false;
     }
@@ -261,10 +271,20 @@ $(document).ready(function(){
         }
         
     }
+   $(document).on('click', function(){
+      if(mod2){
+         $('#searchname').prop('disabled',false)
+         $('#mod_info').dialog('close');
+         $('#searchname').focus();
+         mod2 = false
+      }
+  })
    $('#No').on('click', function(){
       if(tbl_diag){
         tbl_diag = false;
         $('#modal_select').dialog('close')
+        $('#searchname').prop('disabled',false)
+        $('#searchname').blur();
       }
     });
     $('#Yes').on('click', function(){
@@ -300,8 +320,13 @@ $(document).ready(function(){
       }
     });
 
+    $('#searchname').on('click', function(){
+      active = 0
+      $('.active').removeClass('active');
+    })
     $(document).on('keypress', function(e){
       //alert(e.keyCode)
+    if(!mod2){
       if(e.keyCode == 27){
         if(!sec_sh){
           $('#mod_info').dialog({
@@ -350,6 +375,8 @@ $(document).ready(function(){
           if(e.which == 50){
             tbl_diag = false;
             tbl_res = false
+            $('#searchname').prop('disabled',false)
+            $('#searchname').blur();
             $('#modal_select').dialog('close')  
           }
           if(e.which == 49){
@@ -363,7 +390,12 @@ $(document).ready(function(){
           }
         }
 
-    
+    }else{
+         $('#searchname').prop('disabled',false)
+         $('#mod_info').dialog('close');
+         $('#searchname').focus();
+         mod2 = false
+    }
     });
 
 
@@ -442,8 +474,13 @@ $(document).ready(function(){
                   //alert(data)
                   //*
                   if(data==0){
-                   voice_pre(text+" Search not found related to "+srch_name,0,null);
-                    
+                   if(voi_ab){
+                      voice_pre(text+" Search not found related to "+srch_name,0,null);
+                   }else{
+
+                      alert("Search not found related to "+srch_name)
+
+                   }
                   }else{
                     var plt = data.split("|");
                     var temp1 =plt[2].split("/"); 

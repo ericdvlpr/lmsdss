@@ -314,7 +314,11 @@ session_start();
          }else{
           $aut=$row->author;
          }
-
+         $tloc='';
+         $loc = explode(' ', $row->location);
+         foreach ($loc as $locs) {
+           $tloc .= $locs. '<br />'; 
+         }
 
          $output = '';
 
@@ -322,8 +326,15 @@ session_start();
          $output .='
          <table class="table table-bordered table-striped>
             <tr>
-              <td align="right" width="50%">Call #: </td>
-              <td width="50%">Not Available</td>
+              <td colspan = "2"> </td>
+            </tr>
+            <tr>
+              <td align="right" width="20%">Call #: </td>
+              <td width="80%" class="calln">'. $tloc .'</td>
+            </tr>
+            <tr>
+              <td align="right" width="50%">Library: </td>
+              <td width="50%">'.$row->department.'</td>
             </tr>
             
             <tr>
@@ -356,7 +367,7 @@ session_start();
 
 
 
-         $output .= '|The book ' .$row->book_title. ' by ' . $aut . ' located in some location, books available ' .($row->book_copies-$row2->CNT). '. ' ;
+         $output .= '|The book ' .$row->book_title. ' by ' . $aut . ' located in the '.$row->department.' Library, call number '.$row->location.', books available ' .($row->book_copies-$row2->CNT). '. ' ;
          if(($row->book_copies-$row2->CNT) == 0){
             $output .= 'Sorry... This Book is no longer available. Try Again Later.|false|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$row2->CNT);
          }else{
@@ -392,7 +403,8 @@ session_start();
                 '.$row->copyright_year.' ed.</br>
                 '.$row->publisher_name.', '.$row->book_pub.'</br>
                 ISBN: '.$row->isbn.'</br>
-                Call #: </br>
+                Call #: '.$row->location.'</br>
+                '.$row->department.' Library</br>
                 </div></br>
                 </td>  
               </tr> ';

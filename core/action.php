@@ -523,12 +523,12 @@
      if($_POST["action"] == "Search")  
       {
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_search_data("SELECT b.book_title, b.book_no AS book_id, a.author_name AS author, b.copyright_year, p.publisher_name, p.book_publisher AS book_pub, b.isbn  FROM book b LEFT JOIN authors a ON a.id = b.author LEFT JOIN publishers p ON p.id=b.book_pub LEFT JOIN status s ON s.id = b.status WHERE book_title LIKE '%".$_POST["srch_name"]."%' ORDER BY b.book_title ASC");
+          echo $object->get_search_data("SELECT b.book_title, b.book_no AS book_id, a.author_name AS author, b.copyright_year, p.publisher_name, p.book_publisher AS book_pub, b.isbn, b.location, b.department  FROM book b LEFT JOIN authors a ON a.id = b.author LEFT JOIN publishers p ON p.id=b.book_pub LEFT JOIN status s ON s.id = b.status WHERE book_title LIKE '%".$_POST["srch_name"]."%' ORDER BY b.book_title ASC");
       }
       if($_POST["action"] == "Book_select")  
       {
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, a.author_name AS author, b.copyright_year, p.publisher_name, p.book_publisher AS book_pub, b.isbn, b.book_copies FROM book b LEFT JOIN authors a ON a.id = b.author LEFT JOIN publishers p ON p.id=b.book_pub WHERE book_no ='".$_POST["id"]."'","SELECT COUNT(*) AS CNT FROM `borrow` WHERE book_no = '".$_POST["id"]."'");
+          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, a.author_name AS author, b.copyright_year, p.publisher_name, p.book_publisher AS book_pub, b.isbn, b.book_copies, b.location as location, b.department as department FROM book b LEFT JOIN authors a ON a.id = b.author LEFT JOIN publishers p ON p.id=b.book_pub WHERE book_no ='".$_POST["id"]."'","SELECT COUNT(*) AS CNT FROM `borrow` WHERE book_no = '".$_POST["id"]."'");
       }
       if($_POST["action"] == "Book_Reserve")  
       {

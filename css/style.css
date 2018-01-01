@@ -188,3 +188,9 @@ body {
     border: 1px solid #888;
     width: 90%;
 }
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+.calln{
+  font-size: 8px;
+}
