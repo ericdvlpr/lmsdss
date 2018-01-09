@@ -16,6 +16,7 @@
                                             
                                                <th width="35%">Username</th>   
                                                <th width="35%">Access Level</th>   
+                                               <th width="35%">Status</th>   
                                                <th width="20%">Command</th>  
                                           </tr> 
                                           <tbody id="user_table"></tbody> 
@@ -54,8 +55,20 @@
                             <option value="1">Librarian</option>
                             <option value="2">Asst-Librarian</option>
                             <option value="3">Library Staff</option>
-                            <option value="4">Student Assistant</option>
-                            <option value="5">Student</option>
+                            
+                     </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Library</label>
+                  <div class="col-sm-9">
+                     <select class="form-control" name="library" required>
+                            <option value="">Please Select</option>
+                            <option value="1">College Library</option>
+                            <option value="2">GradeSchool Library</option>
+                            <option value="3">HighSchool Library</option>
+                            <option value="4">Graduate School Library</option>
+                            
                      </select>
                   </div>
                 </div>

@@ -65,14 +65,10 @@ session_start();
                 <tr>        
                      <td>'.$row->book_no.'</td>  
                      <td>'.$row->book_title.'</td>  
-                     <td>'.$row->author_name.'</td>  
-                     <td>'.$row->cataloguename.'</td>   
-                     <td>'.$row->isbn.'</td>   
+                     <td>'.$row->author.'</td>    
                      <td>'.$row->book_copies.'</td>  
-                     <td>'.$row->status.'</td>  
-                     <td><button type="button" name="update" id="'.$row->book_id .'" class="btn btn-success btn-xs update">Update</button> <button type="button" name="delete" id="'.$row->book_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
                      <td>'.$row->status_name.'</td>  
-                     <td><button type="button" name="update" id="'.$row->book_id .'" class="btn btn-success btn-xs update">Update</button><button type="button" name="delete" id="'.$row->book_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>  
+                     <td><button type="button" name="view" id="'.$row->book_id.'" class="btn btn-primary btn-xs view">View</button><button type="button" name="update" id="'.$row->book_id .'" class="btn btn-success btn-xs update">Update</button></td>  
                 </tr>  
                 ';  
            }  
@@ -191,12 +187,33 @@ session_start();
            $result = $this->execute_query($query);  
            while($row = mysqli_fetch_object($result))  
            {  
+
+            switch($row->access){
+              case 0:
+              $access = 'Administrator';
+              break;
+              case 1:
+              $access = 'Chief Librarian';
+              break;
+              case 2:
+              $access = 'Asst-Librarian';
+              break;
+              case 3:
+              $access = 'Library Staff';
+              break;
+            }
+            if($row->active == 1){
+              $active = '<span class="label label-success">Active</span>';
+            }else{
+               $active = '<span class="label label-danger">Inactive</span>';
+            }
                 $output .= '  
                 <tr>       
-                     <td>'.$row->user_id.'</td>  
                      <td>'.$row->username.'</td>  
+                     <td>'.$access.'</td>  
+                     <td>'.$active.'</td>  
                     
-                     <td><button type="button" name="update" id="'.$row->user_id.'" class="btn btn-success btn-xs update">Update</button> <button type="button" name="delete" id="'.$row->user_id.'" class="btn btn-danger btn-xs delete">Delete</button></td>';
+                     <td><button type="button" name="update" id="'.$row->user_id.'" class="btn btn-success btn-xs update">Update</button></td>';
            while($row = mysqli_fetch_object($result))  
            {  
 
@@ -245,7 +262,7 @@ session_start();
                      <td>'.$row->student_name.'</td>  
                      <td>'.$row->department_name.'</td>  
                      <td>'.$row->course_code.'</td>  
-                     <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs updatestudent">Update</button><button type="button" name="delete" id="'.$row->id.'" class="btn btn-danger btn-xs deletestudent">Delete</button></td>  
+                     <td><button type="button" name="update" id="'.$row->student_id.'" class="btn btn-success btn-xs updatestudent">Update</button><button type="button" name="delete" id="'.$row->student_id.'" class="btn btn-danger btn-xs deletestudent">Delete</button></td>  
                 </tr>  
                 ';  
            }  
@@ -303,66 +320,7 @@ session_start();
               $row = mysqli_fetch_object($result);
               return $row->bookNum;
       }
-      public function get_selected_data($query) {
-             $result = $this->execute_query($query);
-             $row = mysqli_fetch_object($result);
-             $output = '';
 
-             $output .='
-             <table class="table table-bordered table-striped">
-                <tr>
-                  <td>'. $row->book_title .' by '. $row->author .'</td> 
-                  <td rowspan="2"> LOCATION </td>
-                </tr>
-                <tr>
-                  <td>'. $row->book_copies .'</td>
-                </tr>
-              </table>
-             |The book ' .$row->book_title. ' by ' . $row->author . ' located in some location, books available ' .$row->book_copies. '.' ;
-
-             return $output;
-      }
-
-     
-      public function get_search_data($query) {
-          $result = $this->execute_query($query);
-          $numrow = mysqli_num_rows($result);
-          $output = '';
-
-          if($numrow>0){
-            $output .= $numrow.'|';
-            $output .= '
-            <table name="sc_table" id="sc_table">  
-               <thead>
-               <tr>  
-                  <th width="10%">#</th>  
-                  <th width="30%">Book</th>    
-                  <th width="20%">Author</th>    
-                  <th width="20%">Published</th>    
-                </tr>
-                </thead>
-                <tbody>';
-            while($row = mysqli_fetch_object($result)) {
-               $output .= '
-                <tr>
-
-                  <td>'.$row->book_id.'</td>  
-                  <td>'.$row->book_title.'</td>  
-                  <td>'.$row->author.'</td>  
-                  <td>'.$row->publisher_name.'</td>  
-               </tr> ';
-            }
-            $output .='
-              </tbody>
-              </table>
-            ';
-
-          }else{
-            $output = 0; 
-          }
-          
-          return $output;
-      }
       function get_notification($query){
         $result = $this->execute_query($query);
            $output = '';
@@ -398,6 +356,174 @@ session_start();
       function get_last_id(){
           $last_id = $this->insert_id;
           return $last_id;
+      }
+       public function get_selected_data($query, $query2)
+      {
+         $result = $this->execute_query($query);
+         $result2 = $this->execute_query($query2);
+         $row2 = mysqli_fetch_object($result2); 
+         $row = mysqli_fetch_object($result);
+         
+         $dat = explode(',',$row->author);
+         $dcnt = count($dat);
+         $aut = '';
+         if($dcnt>1){
+          $cnt=0;
+          foreach ($dat as $did){
+              if($cnt == ($dcnt-1)){
+                $aut .= 'and '. $did;
+              }elseif($cnt == ($dcnt-2)){
+                $aut .= $did . ' ';
+              }else{
+                $aut .= $did . ', ';
+              }
+              $cnt++;
+          }
+         }else{
+          $aut=$row->author;
+         }
+         $tloc='';
+         $loc = explode(' ', $row->location);
+         foreach ($loc as $locs) {
+           $tloc .= $locs. '<br />'; 
+         }
+
+         $output = '';
+
+         
+         $output .='
+         <table class="table table-bordered table-striped>
+            <tr>
+              <td colspan = "2"> </td>
+            </tr>
+            <tr>
+              <td align="right" width="20%">Call #: </td>
+              <td width="80%" class="calln">'. $tloc .'</td>
+            </tr>
+            <tr>
+              <td align="right" width="50%">Library: </td>
+              <td width="50%">'.$row->department.'</td>
+            </tr>
+            
+            <tr>
+              <td align="right" >Main Title: </td>
+              <td>'.$row->book_title.'</td>
+            </tr>
+            <tr>
+              <td align="right" >Author: </td>
+              <td>'.$aut.'</td>
+            </tr>
+            <tr>
+              <td align="right" >Edition: </td>
+              <td>'.$row->copyright_year.'</td>
+            </tr>
+            <tr>
+              <td align="right" >Published: </td>
+              <td>'.$row->publisher_name.', '.$row->book_pub.'</td>
+            </tr>
+            <tr>
+              <td align="right" >ISBN: </td>
+              <td>'.$row->isbn.'</td>
+            </tr>
+            <tr>
+              <td align="right" >Available: </td>
+              <td>'.($row->book_copies-$row2->CNT).'</td>
+            </tr>
+            ';
+
+        $output  .=  '</table>';
+
+
+
+         $output .= '|The book ' .$row->book_title. ' by ' . $aut . ' located in the '.$row->department.' Library, call number '.$row->location.', books available ' .($row->book_copies-$row2->CNT). '. ' ;
+         if(($row->book_copies-$row2->CNT) == 0){
+            $output .= 'Sorry... This Book is no longer available. Try Again Later.|false|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$row2->CNT);
+         }else{
+            $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$row2->CNT);
+         }
+         return $output;
+
+      }
+public function get_search_data($query)
+      {
+        
+        $result = $this->execute_query($query);
+        $numrow = mysqli_num_rows($result);
+        $output = '';
+        $array = '';
+
+
+        if($numrow>0){
+          $output .= $numrow.'|';
+          
+          $output .= '
+          
+                            
+        ';
+          while($row = mysqli_fetch_object($result))
+          {
+             $output .= '
+              <tr>
+                <td><div class="book_title">'.$row->book_title.'</div>
+                <div class="book_specks">'.$row->author.'</br>
+                '.$row->copyright_year.' ed.</br>
+                '.$row->publisher_name.', '.$row->book_pub.'</br>
+                ISBN: '.$row->isbn.'</br>
+                Call #: '.$row->location.'</br>
+                '.$row->department.' Library</br>
+                </div></br>
+                </td>  
+              </tr> ';
+              $array .= $row->book_id.'*'.$row->book_title.'*'.$row->author.'/';
+
+          }
+          $output .= '|'.$array;
+        }else{
+          $output = 0; 
+        }
+       
+       return $output;
+
+      }
+ public function tapin_data($query,$id){
+        $result = $this->execute_query($query);
+        $stuque = "SELECT students.student_name as stdname FROM students WHERE student_id='".$id."'";
+        $studexe = $this->execute_query($stuque);
+
+        date_default_timezone_set("Asia/Manila");
+        
+
+        if(mysqli_num_rows($studexe)){
+        $rows=mysqli_fetch_object($result);
+        if(mysqli_num_rows($result)){
+            if($rows->description == "Just Login"){
+            $exeque = "INSERT INTO `logs`
+            (student_no, description, Date_time) VALUES ('".$id."', 'Just Logout', NOW())
+            ";
+            $execute = $this->execute_query($exeque);
+            $row = mysqli_fetch_object($studexe);
+            echo $row->stdname. " just Logged Out.";   
+          }else{
+            $exeque = "INSERT INTO `logs`
+            (student_no, description, Date_time) VALUES ('".$id."', 'Just Login', NOW())
+            ";
+            $execute = $this->execute_query($exeque);
+            $row = mysqli_fetch_object($studexe);
+            echo $row->stdname. " just Logged In.";
+          }
+
+        }else{
+          $exeque = "INSERT INTO `logs`
+          (student_no, description, Date_time) VALUES ('".$id."', 'Just Login', NOW())
+          ";
+          $execute = $this->execute_query($exeque);
+          $row = mysqli_fetch_object($studexe);
+          echo $row->stdname. " just Logged In.";
+
+        }
+      }else{
+        echo $id. " is not a student here...";
+      }
       }
       // function upload_file($file)  
       // {  

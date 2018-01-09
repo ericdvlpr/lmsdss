@@ -8,7 +8,7 @@
                          <h3 align="center">Borrowed Books!</h3> 
                               <div  class="table-responsive"> 
                               	  <div class="btn-group">
-                                      <a href="issuedBook.php" class="btn btn-primary"  >
+                                      <a href="issuedBook.php" id="issue_book" class="btn btn-primary"  >
                                       Issue Book
                                     </a>
                                 </div>

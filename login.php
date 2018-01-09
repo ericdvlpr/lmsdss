@@ -12,10 +12,33 @@ if(isset($_POST['login'])){
 		if($data->can_login("users", $field)){
 			$post_data = $data->can_login("users", $field);
 			foreach($post_data as $post){
-				$_SESSION["username"] = $post["username"];
-				$_SESSION["id"] = $post['user_id'];
-				$_SESSION["access"] = $post['access'];
-				header("location:index.php");
+				
+				if($post['access']==5){
+					$query = "SELECT type FROM students WHERE student_id ='".$post["username"]."'";
+					$result =  $data->execute_query($query);
+					$row = mysqli_fetch_object($result);
+					$type = $row->student_id;
+					$_SESSION["username"] = $post["username"];
+					$_SESSION["id"] = $post['user_id'];
+					$_SESSION["access"] = $post['access'];
+					$_SESSION["department"] = $post['department'];
+					$_SESSION["type"] = $type;
+					header("location:student_index.php");
+				}else if($post['access']==4){
+					$_SESSION["username"] = $post["username"];
+					$_SESSION["id"] = $post['user_id'];
+					$_SESSION["access"] = $post['access'];
+					$_SESSION["department"] = $post['department'];
+					header("location:faculty_index.php");
+				}else{
+					$_SESSION["username"] = $post["username"];
+					$_SESSION["id"] = $post['user_id'];
+					$_SESSION["access"] = $post['access'];
+					$_SESSION["department"] = $post['department'];
+					header("location:index.php");
+				}
+				
+				
 			}
 		}else{
 			$message = $data->error;

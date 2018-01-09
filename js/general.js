@@ -92,20 +92,6 @@ $(document).ready(function(){
                          }  
                     });  
                } 
-               //  function load_Issued_data()  
-               // {  
-               //      var action = "Issued";  
-               //      $.ajax({  
-               //           url:"core/action.php",  
-               //           method:"POST",  
-               //           data:{action:action},  
-               //           success:function(data)  
-               //           {  
-               //                $('#bookissue_table').html(data);
-               //                 $('#bookissue').DataTable();   
-               //           }  
-               //      });  
-               // }
                 function load_catalogoue_data()  
                {  
                     var action = "Catalogoue";  
@@ -222,21 +208,9 @@ $(document).ready(function(){
                        }
                       });
                 }  
-               // function load_book_issue(){
-               //     var search = $('#search_book_no').val();
-               //     var action = 'Fetch Book Data';
-                   
-               //      $.ajax({
-               //           url:"core/action.php",
-               //           method:"POST",
-               //           data:{bookID:search,action:action},
-               //             success:function(data)
-               //             {
-               //               $('#search_title').val(data.book_title);
-                            
-               //             }
-               //          }); 
-               // }  
+              
+
+              
           //Search Function     
           $('#search_author').keyup(function(){
                     var search = $(this).val();
@@ -327,22 +301,11 @@ $(document).ready(function(){
             });
 //                //Load unique number
               $('#add_book').click(function(){
-                    $('#action').val("addBook"); 
-                    $('#button_action').val("Saves");
-                      var action = "vin";
-                      var vin = 1;
-                      $.ajax({
-                        url:"core/action.php",
-                        method:"POST",
-                        data:{action:action,cvin:vin},
-                        success:function(data){
-                          $("#author").modal('show');
-                          $('#book_no').val(data);
-                          
-
-                        }
-                      });
-              });
+                    $('#button_action').val("Add Book"); 
+                    $('#book').modal('show', function() {
+                       $('#book_no').focus();
+                    });
+               });
              $('#add_author').click(function(){
                     $('#action').val("addAuthor"); 
                     $('#button_action').val("Saves");
@@ -409,9 +372,7 @@ $(document).ready(function(){
                     });
                $('#add_student').click(function(){
                       load_department_list(); 
-                      window.location.href = "add_student.php";
-                    // $('#button_action').val("Saves");
-                    
+                      $("#student").modal('show');
                     });
                $('#add_faculty').click(function(){
 
@@ -452,6 +413,7 @@ $(document).ready(function(){
                         }
                       });
                 });
+               
                 $("#generate").click(function(){
                          var action = "Generate";
                           $.ajax({
@@ -470,12 +432,15 @@ $(document).ready(function(){
                         if(type== 0){
                           $("#divPasscode").css({"display":"inline"});
                            $("#divPwd").css({"display":"none"});
+                          $("#searchname").attr("disabled",true);
                         }else if(type== 1){
                           $("#divPasscode").css({"display":"none"});
                           $("#divPwd").css({"display":"inline"});
+                          $("#searchname").attr("disabled",false);
                         }else if(type== 2){
                            $("#divPasscode").css({"display":"inline"});
                             $("#divPwd").css({"display":"none"});
+                            $("#searchname").attr("disabled",true);
                         }
                           $.ajax({
                           url:"core/action.php",
@@ -489,16 +454,16 @@ $(document).ready(function(){
 //           FORM SUBMIT 
                $('#bookform').on('submit', function(event){  
                     event.preventDefault();  
-                    var action=$('#action').val();
-                    var bookNo = $('#book_no').val();  
-                    var category = $('#category').val();  
-                    var bookTitle = $('#book_name').val();  
-                    var author = $('#author').val();     
-                    var publisher = $('#publisher').val();     
-                    var bookCopies = $('#book_copies').val();     
-                    var cp_yr = $('#cp_yr').val();     
-                    var date_added = $('#date_added').val();     
-                    var status = $('#status').val();     
+                    // var action=$('#action').val();
+                    // var bookNo = $('#book_no').val();  
+                    // var category = $('#category').val();  
+                    // var bookTitle = $('#book_name').val();  
+                    // var author = $('#author').val();     
+                    // var publisher = $('#publisher').val();     
+                    // var bookCopies = $('#book_copies').val();     
+                    // var cp_yr = $('#cp_yr').val();     
+                    // var date_added = $('#date_added').val();     
+                    // var status = $('#status').val();     
                     $.ajax({  
                               url:"core/action.php",  
                               method:"POST",  
@@ -507,13 +472,139 @@ $(document).ready(function(){
                               processData:false,  
                               success:function(data)  
                               {  
-                                   alert(data);  
-                                   $("#book").modal('toggle');
+                                   alert(data);
+                                    
                                    window.location.reload();
                                    $('#book_form')[0].reset(); 
                               }  
-                         })  
+                         })       
                });
+               $(document).on('change', '#file', function(){
+                      var name = document.getElementById("file").files[0].name;
+                      var form_data = new FormData();
+                      var action = 'addBook';
+                      var ext = name.split('.').pop().toLowerCase();
+                      if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+                      {
+                       alert("Invalid Image File");
+                      }
+                      var oFReader = new FileReader();
+                      oFReader.readAsDataURL(document.getElementById("file").files[0]);
+                      var f = document.getElementById("file").files[0];
+                      var fsize = f.size||f.fileSize;
+                      if(fsize > 2000000)
+                      {
+                       alert("Image File Size is very big");
+                      }
+                      else
+                      {
+                       form_data.append("file", document.getElementById('file').files[0]);
+                       
+                       $.ajax({
+                        url:"core/upload.php",
+                        method:"POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend:function(){
+                         $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+                        },   
+                        success:function(data)
+                        {
+                         $('#uploaded_image').html(data);
+                        }
+                       });
+                      }
+                });
+               $(document).on('click', '#remove_button', function(){  
+                     if(confirm("Are you sure you want to remove this image?"))  
+                     {  
+
+                          
+                          var filename = $('#remove_button').data("path");  
+                          $.ajax({  
+                               url:"core/delete.php",  
+                               type:"POST",  
+                               data:{filename:filename},  
+                               success:function(data){  
+                                    if(data != '')  
+                                    {  
+                                         $('#uploaded_image').html('');
+                                         $('#file').val('');
+                                         
+                                    }  
+                               }  
+                          });  
+                     }  
+                     else  
+                     {  
+                          return false;  
+                     }  
+                });
+               $(document).on('change', '#studentImage', function(){
+                      var name = document.getElementById("studentImage").files[0].name;
+                      var form_data = new FormData();
+                      var action = 'addBook';
+                      var ext = name.split('.').pop().toLowerCase();
+                      if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+                      {
+                       alert("Invalid Image File");
+                      }
+                      var oFReader = new FileReader();
+                      oFReader.readAsDataURL(document.getElementById("studentImage").files[0]);
+                      var f = document.getElementById("studentImage").files[0];
+                      var fsize = f.size||f.fileSize;
+                      if(fsize > 2000000)
+                      {
+                       alert("Image File Size is very big");
+                      }
+                      else
+                      {
+                       form_data.append("file", document.getElementById('studentImage').files[0]);
+                       
+                       $.ajax({
+                        url:"core/upload_student_img.php",
+                        method:"POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend:function(){
+                         $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+                        },   
+                        success:function(data)
+                        {
+                         $('#student_image').html(data);
+                        }
+                       });
+                      }
+                });
+               $(document).on('click', '#remove_img', function(){  
+                     if(confirm("Are you sure you want to remove this image?"))  
+                     {  
+
+                          
+                          var filename = $('#remove_img').data("path");  
+                          $.ajax({  
+                               url:"core/delete_studentImg.php",  
+                               type:"POST",  
+                               data:{filename:filename},  
+                               success:function(data){  
+                                    if(data != '')  
+                                    {  
+                                         $('#student_image').html('');
+                                         $('#studentImage').val('');
+                                         
+                                    }  
+                               }  
+                          });  
+                     }  
+                     else  
+                     {  
+                          return false;  
+                     }  
+                });
                $('#authorform').on('submit', function(event){  
                     event.preventDefault();  
                     var action=$('#action').val();
@@ -566,11 +657,26 @@ $(document).ready(function(){
                               success:function(data)  
                               {  
                                     alert(data); 
-                                    window.location.href="add_student2.php";
-                                   $('#studentform')[0].reset(); 
+                                    $('#student').modal('toggle');
+                                   $('#studentform')[0].reset();
+                                    load_student_data();
                               }  
                          })  
                });
+                $('#submit_form').on('submit', function(e){  
+                     e.preventDefault();  
+                     $.ajax({  
+                          url:"upload.php",  
+                          method:"POST",  
+                          data:new FormData(this),  
+                          contentType:false,  
+                          //cache:false,  
+                          processData:false,  
+                          success:function(data)  
+                          {  
+                                                        }  
+                     })  
+                }); 
                $('#issueform').on('submit', function(event){  
                     event.preventDefault();  
                     var action=$('#action').val();
@@ -647,8 +753,62 @@ $(document).ready(function(){
                               }  
                          })  
                });
+               $('#feedback').on('submit', function(event){  
+                    event.preventDefault();     
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                
+                                   window.location.reload();
+                                   $('#form-placeholders').css("display","none"); 
+                                    $('#feedback')[0].reset();  
+                              }  
+                         })  
+               });
+               //view
+               $(document).on('click','.view', function(){
+                      var bookID = $(this).attr("id");
+                      $('#button_action').css("display","none");
+                      $(".form-control").attr("readonly",true);
+                      $("#file").css("display","none");;
+                      $(".image").html('Image');
+                      var action = "Fetch Book Data";
+                      $.ajax({
+                        url:"core/action.php",
+                        method:"POST",
+                        data:{bookID:bookID,action:action},
+                        dataType:"json",
+                        success:function(data){
+
+                           $("#book").modal('show');
+                           $("#book_no").val(data.book_no);                          
+                           $("#book_id").val(data.book_id);                          
+                           $("#book_name").val(data.book_title);                          
+                           $("#category").selectpicker('val',data.category_id);                          
+                           $("#category").selectpicker().attr("disabled",true);                          
+                           $("#author").val(data.author);                          
+                           $("#book_copies").val(data.book_copies);                          
+                           $("#publisher").val(data.book_pub);                          
+                           $("#isbn").val(data.isbn);                          
+                           $("#cp_yr").val(data.copyright_year);                          
+                           $("#date_rcv").val(data.date_receive);                          
+                           $("#status").selectpicker('val',data.status);                          
+                           $("#status").selectpicker().attr("disabled",true);                          
+                           $("#uploaded_image").html(data.img);                          
+                           $("#location").val(data.location);                          
+                            $('#action').val("Edit");
+                        }
+                      });
+                    });
                //UPDATE & DELETE
                $(document).on('click','.update', function(){
+
                       var bookID = $(this).attr("id");
                       $('#button_action').val("Save");
                       // $(".chosen").css("display","none");
@@ -665,14 +825,16 @@ $(document).ready(function(){
                            $("#book_no").val(data.book_no);                          
                            $("#book_id").val(data.book_id);                          
                            $("#book_name").val(data.book_title);                          
-                           $("#category").val(data.category_id);                          
-                           $("#search_author").val(data.author);                          
+                           $("#category").selectpicker('val',data.category_id);                           
+                           $("#author").val(data.author);                             
                            $("#book_copies").val(data.book_copies);                          
-                           $("#search_publisher").val(data.book_pub);                          
+                           $("#publisher").val(data.book_pub);                          
                            $("#isbn").val(data.isbn);                          
                            $("#cp_yr").val(data.copyright_year);                          
                            $("#date_rcv").val(data.date_receive);                          
-                           $("#status").val(data.status);                          
+                           $("#status").selectpicker('val',data.status); 
+                           $("#location").val(data.location);
+                           $("#uploaded_image").html(data.img);                           
                             $('#action').val("Edit");
                         }
                       });
@@ -742,17 +904,19 @@ $(document).ready(function(){
                     });
 
                     $(document).on('click','.updatestudent', function(){
-                        
+                        $("#student").modal('show');
                         var studentID = $(this).attr("id");
                         $('#button_action').val("Save");
+                        
                         var action = "Fetch Student Data";
+                       
                      $.ajax({
                           url:"core/action.php",
                           method:"POST",
                           data:{studentID:studentID,action:action},
                           dataType:"json",
                           success:function(data){
-                            $("#students").modal('show');
+                            
                              $("#student_no").val(data.student_id);                                            
                              $("#student_name").val(data.student_name);                                               
                              $("#address").val(data.address);                                               
@@ -762,7 +926,20 @@ $(document).ready(function(){
                              $("#course").val(data.course);                                               
                              $("#course-year").val(data.course);                                               
                              $("#passcode").val(data.passcode);                                               
-                             $("#pwd").val(data.type);                                               
+                             $("#type").val(data.type); 
+                             if(data.type== 0){
+                                  $("#divPasscode").css({"display":"inline"});
+                                   $("#divPwd").css({"display":"none"});
+                                  $("#searchname").attr("disabled",true);
+                                }else if(data.type== 1){
+                                  $("#divPasscode").css({"display":"none"});
+                                  $("#divPwd").css({"display":"inline"});
+                                  $("#searchname").attr("disabled",false);
+                                }else if(data.type== 2){
+                                   $("#divPasscode").css({"display":"inline"});
+                                    $("#divPwd").css({"display":"none"});
+                                    $("#searchname").attr("disabled",true);
+                                }                                              
                              $('#action').val("Edit Student");
                              var action = "Course";
                             var val = $('#department').val(); 
@@ -934,20 +1111,370 @@ $(document).ready(function(){
                            return false;
                           }
                     });
-                     $(document).on('click', '#add', function(){
-                          var html = '';
-                          html += '<tr>';
-                          html += '<td><div class="form-group"><div class="col-sm-9"><select name="bookNo[]" class="form-control item_unit"><option value="">Please Select</option></select></div></div></td>';
-                          html += '<td><div class="form-group"><select name="bookTitle[]" class="form-control item_unit"><option value="">Please Select</option></select></div></td>';
-                          html += '<td><div class="form-group"><div class="col-sm-10"><input type="number" name="copies[]" class="form-control item_quantity" /></div></div></td>';
-                          html += '<td><div class="form-group"><input type="date" name="date_borrowed[]" class="form-control" value="<?php echo date();?>" /></div></td>';
-                          html += '<td><div class="form-group"><input type="date" name="item_quantity[]" class="form-control item_quantity" /></div></td>';
+               function load_book_id(){
+               
+                   var action = 'BookNo';
+                   
+                    $.ajax({
+                         url:"core/action.php",
+                         method:"POST",
+                         data:{action:action},
+                           success:function(data)
+                           {
+                             $('#bookID').html(data);
+                            
+                           }
+                        }); 
+                  }
+                  $(document).on('change','#studentName',function(){
+                     var studentID = $(this).val();
+                     var action = "Fetch Student Data";
+                      
+                          $.ajax({
+                              url:"core/action.php",
+                              method:"POST",
+                              data:{studentID:studentID,action:action},
+                              dataType:"json",
+                              success:function(data){                                                                                 
+                                 $("#contactNumber").val(data.contact); 
+                              }
+                         }); 
+                  }); 
+                  
+                    $(document).on('click', '#add', function(){
+                      var now = new Date();
+                          var month = (now.getMonth() + 1);               
+                          var day = now.getDate();
+                          if(month < 10) 
+                              month = "0" + month;
+                          if(day < 10) 
+                              day = "0" + day;
+                          var today = now.getFullYear() + '-' + month + '-' + day;
+                              now.setDate(now.getDate()+6);
+                            var end_date=now.getFullYear() + "-" + month + "-" + "0" + now.getDate();
+                           
+                          $('#date_issued').val(today);
+                          $('#date_returned').val(end_date);
+                      // $(document).on('change','#bookID',function(){
+                      //       var bookID = $(this).val();
+                      //         var action = 'Fetch Data';
+                              
+                      //       $.ajax({
+                      //          url:"core/action.php",
+                      //          method:"POST",
+                      //          data:{bookID:bookID,action:action},
+                      //          dataType:"json",
+                      //          success:function(data)
+                      //          {
+
+                      //            $('#bookName').val(data.book_title);
+                                
+                      //          }
+                      //       }); 
+                      //   });
+                         
                           
-                          html += '<td><div class="form-group"><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
-                          $('#item_table').append(html);
+                          var html = '';
+
+                          html += "<tr>";
+                          html += "<td width='19%''><input type='text' name='bookID[]' id='bookID' class='form-control bookID' required /></td>";
+                          html += "<td width='26%'><input type='text' name='bookTitle[]' id='bookTitle' class='form-control bookTitle' required /></td>";
+                          html += "<td width='7%'><input type='number' min='1' name='copies[]' class='form-control copies' required /></td>";
+                          html += "<td width='14%'><input type='date' name='date_issued[]' id='date_issued' value='"+today+"' class='form-control date_issued' required  /></td>";
+                          html += "<td  width='14%'><input type='date' name='date_returned[]' id='date_returned' value='"+end_date+"' class='form-control date_returned' required  /></td>";
+                          html += '<td width="16%"><button type="button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
+                          $('#issue_table').append(html);
                      });
-                     
-                     $(document).on('click', '.remove', function(){
-                          $(this).closest('tr').remove();
+                    $(document).on('click', '.remove', function(){
+                        $(this).closest('tr').remove();
                      });
+
+                      $('#issuedBook').on('submit', function(event){
+                          event.preventDefault();
+                          var error = '';
+
+                          $('.bookID').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child's Name at "+count+" Row</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          
+                          $('.bookTitle').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child's Age</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          $('.copies').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                         $('.date_issued').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                         $('.date_returned').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          var form_data = $(this).serialize();
+                         
+                           $.ajax({
+                            url:"core/action.php",
+                            method:"POST",
+                            data:form_data,
+                            success:function(data)
+                            {
+                              alert(data);
+                              window.location.href='issuebook.php';
+                            }
+                           });
+                  });
+
+//Log-in function
+//------------------------------------------------------------------------------------------
+//Tap-in function
+                    $('#tp_id').focus();
+                    $('#tp_id').on('change', function(){
+                      var user = $("#tp_id").val();
+                      var action = 'Tapin'
+
+                      var dats = new FormData();
+                      dats.append('action', action);
+                      dats.append('user',user);
+                      
+                      $.ajax({
+                              url:"core/action.php",
+                              method:"POST",
+                              data:dats,
+                              contentType:false,  
+                              processData:false,
+                              success:function(data)
+                              {
+                                  $('#output').html(data)
+                                  $('#tp_id').val('')
+                      
+                              }
+                      })
+
+
+                      
+
+                    });
+
+
+
+
+//Log-in------------------------------------------------------------------------------------
+                    $('#username').focus()
+                    $('#username').on('focus', function(){
+                        voice("Please enter your student ID number then press tab.")
+                    });
+                    $('#password').on('focus', function(){
+                        voice("Please enter your passcode Number then press enter.")
+                    });
+
+                    $('#log_in').on('submit', function(event){
+                        
+                        event.preventDefault();
+                        var user = $("#username").val();
+                        var pass = $("#password").val();
+                        var action = 'Login'
+
+                        var dat = new FormData();
+                        dat.append('action', action);
+                        dat.append('user',user);
+                        dat.append('pass',pass);
+              
+
+                        $.ajax({
+                              url:"core/action.php",
+                              method:"POST",
+                              data:dat,
+                              contentType:false,  
+                              processData:false,
+                              success:function(data)
+                              {
+                               // alert(data);
+                                var d = data.split(',');
+                                  //*
+                                  if(d[0] == 0 || d[0] == 2 || d[0] == 3){
+                                    voice("Log in verified. Access Approve","log",'login_parse.php?id='+d[1]+'&type='+d[0])
+                                  }else if(d[0] == 5){
+                                    voice("Log in verified. Access Denied, Your ID is no longer active. Please proceed to your librerian on duty for futher info.")
+                                  }else{
+                                    voice("Log in verified. Access Denied, Wrong passcode or ID.")
+                                  }
+                                  
+                                  //*/  
+                              }
+                        });
+
+                    });
+
+                    function voice(text,proc,data){
+                        var ssy = window.speechSynthesis
+                        var utt = new SpeechSynthesisUtterance();
+
+                        if(ssy.speaking){
+                            ssy.cancel()
+                            if (Timeout !== null)
+                            clearTimeout(Timeout);
+
+                            Timeout = setTimeout(function(){ voice(text,proc,data); }, 250);
+                        }else{
+                            utt.text = text
+                            ssy.speak(utt);
+                        }
+                        utt.onend = function(e){
+                            if(proc=="log"){
+                              $(location).attr('href', data);
+                              return false;
+                            }
+                        }
+
+                    }
+                    $('#username').on('keypress', function(data){
+                        var d 
+                        var srch_name = $("#username").val();
+                        if(data.keyCode == 13){
+                            //d= 'Enter'
+                        }else if(data.keyCode==8){
+                            if($('#username').val()!=''){
+                                d= 'Backspace'
+                            }
+                        }else if(data.which==32){
+                            //d="Space"
+                        voice(srch_name);
+                        }else if(data.which==45){
+                            d="Dash"
+                        }else if(data.which==91){
+                            d="Left Bracket"
+                        }else if(data.which==93){
+                            d="Right Bracket"
+                        }else if(data.which==58){
+                            d="Colon"
+                        }else if(data.which==59){
+                            d="Semicolon"
+                        }else if(data.which==39){
+                            d="Apostropy"
+                        }else if(data.which==34){
+                            d="Double Apostropy"
+                        }else if(data.which==44){
+                            d="Coma"
+                        }else if(data.which==63){
+                            d="Question Mark"
+                        }else if(data.which==60){
+                            d="Less Than"
+                        }else if(data.which==46){
+                            d="Period"
+                        }else {
+                            d = String.fromCharCode(data.keyCode || data.which);
+                        }
+                        if(d!=undefined){
+                        voice(d,"not");
+                        }                        
+                    });
+                    $('#password').on('keypress', function(data){
+                        var d 
+                        var srch_name = $("#password").val();
+                        if(data.keyCode == 13){
+                            //d= 'Enter'
+                        }else if(data.keyCode==8){
+                            if($('#password').val()!=''){
+                                d= 'Backspace'
+                            }
+                        }else if(data.which==32){
+                            //d="Space"
+                        voice(srch_name);
+                        }else if(data.which==45){
+                            d="Dash"
+                        }else if(data.which==91){
+                            d="Left Bracket"
+                        }else if(data.which==93){
+                            d="Right Bracket"
+                        }else if(data.which==58){
+                            d="Colon"
+                        }else if(data.which==59){
+                            d="Semicolon"
+                        }else if(data.which==39){
+                            d="Apostropy"
+                        }else if(data.which==34){
+                            d="Double Apostropy"
+                        }else if(data.which==44){
+                            d="Coma"
+                        }else if(data.which==63){
+                            d="Question Mark"
+                        }else if(data.which==60){
+                            d="Less Than"
+                        }else if(data.which==46){
+                            d="Period"
+                        }else {
+                            d = String.fromCharCode(data.keyCode || data.which);
+                        }
+                        if(d!=undefined){
+                        voice(d);
+                        }                        
+                    });
+//--------------------------------------------------------------------------------------
+//Message Data
+
+          $("#data").on('submit', function(e){
+              e.preventDefault();
+              $no = $("#cp_no").val()
+              $mess = $("#message").val()
+              
+
+              //alert($mess)
+              //*
+              var dats = new FormData();
+             
+              dats.append('nos', $no);
+              dats.append('mess', $mess);
+
+              $.ajax({
+                url:"core/sms.php",
+                method:"POST",
+                data:dats,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                  {
+                    if(data == ""){
+                      alert("Server Not Found")
+                    }else if(data==0){
+                      alert('Message Sent')
+                    }else{
+                      alert(data)
+                    }
+
+
+                  }
+              });
+              //*/
+          });
+//------------------------------------------------------------------------------------
+  
 });  

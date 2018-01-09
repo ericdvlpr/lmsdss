@@ -10,5 +10,6 @@
 		 <script src="js/chosen.jquery.js"></script>
 		 <script src="js/general.js"></script>
 		 <script src="js/search.js"></script>
+		    <script src="js/webcam.js"></script>
       </body>  
  </html>  
