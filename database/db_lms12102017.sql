@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2018 at 08:22 AM
--- Server version: 5.7.14
--- PHP Version: 5.6.25
+-- Generation Time: Dec 10, 2017 at 09:18 AM
+-- Server version: 10.1.24-MariaDB
+-- PHP Version: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -73,8 +75,6 @@ CREATE TABLE `book` (
   `book_copies` int(11) NOT NULL,
   `book_pub` varchar(100) NOT NULL,
   `isbn` varchar(50) NOT NULL,
-  `location` longtext,
-  `department` varchar(50) DEFAULT NULL,
   `copyright_year` int(11) NOT NULL,
   `date_receive` date NOT NULL,
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -85,14 +85,16 @@ CREATE TABLE `book` (
 -- Dumping data for table `book`
 --
 
-INSERT INTO `book` (`book_id`, `book_no`, `book_title`, `category_id`, `author`, `book_copies`, `book_pub`, `isbn`, `location`, `department`, `copyright_year`, `date_receive`, `date_added`, `status`) VALUES
-(2, 'Q3265TAO20171111', 'test', 2, '1', 6, '2', 'sdgsdfsdf13', '	Fil. 657 V173p 2010', 'College', 2017, '2017-11-12', '2017-11-12 11:16:02', '1'),
-(3, 'N8752TZY20171111', 'Sample1', 1, '2', 5, '2', '1241515-12131-515', NULL, NULL, 2017, '0000-00-00', '2017-11-12 11:17:40', '2'),
-(4, 'B9720JGO20171111', 'Try', 3, '3', 2, '5', '2312312323-34534534-55675', NULL, NULL, 2017, '2017-11-12', '2017-11-12 11:20:10', '3'),
-(5, 'Y5219ZPQ20171111', 'Try', 7, '3', 2, '4', 'sdgsdfsdf13', NULL, NULL, 2017, '2017-11-04', '2017-11-12 11:23:21', '5'),
-(6, 'R4592NYT20171111', 'trial', 1, '1', 2, '1', 'wqrthjd1313', NULL, NULL, 2018, '2017-11-25', '2017-11-25 11:06:03', '2'),
-(7, 'A3859BDX20171111', 'Tested', 2, '6', 4, '1', 'Asdasd-12313', NULL, NULL, 2017, '2017-11-25', '2017-11-25 11:53:52', '1'),
-(10, 'A3694YFD20171111', 'Try', 1, '3', 3, '14', '123135678', NULL, NULL, 2018, '2017-12-01', '2017-12-01 14:19:28', '1');
+INSERT INTO `book` (`book_id`, `book_no`, `book_title`, `category_id`, `author`, `book_copies`, `book_pub`, `isbn`, `copyright_year`, `date_receive`, `date_added`, `status`) VALUES
+(2, 'Q3265TAO20171111', 'test', 2, '1', 1, '2', 'sdgsdfsdf13', 2017, '2017-11-12', '2017-11-12 11:16:02', '1'),
+(3, 'N8752TZY20171111', 'Sample1', 1, '2', 5, '2', '1241515-12131-515', 2017, '0000-00-00', '2017-11-12 11:17:40', '2'),
+(4, 'B9720JGO20171111', 'Try', 3, '3', 2, '5', '2312312323-34534534-55675', 2017, '2017-11-12', '2017-11-12 11:20:10', '3'),
+(5, 'Y5219ZPQ20171111', 'Try', 7, '3', 2, '4', 'sdgsdfsdf13', 2017, '2017-11-04', '2017-11-12 11:23:21', '5'),
+(6, 'R4592NYT20171111', 'trial', 1, '1', 2, '1', 'wqrthjd1313', 2018, '2017-11-25', '2017-11-25 11:06:03', '2'),
+(7, 'A3859BDX20171111', 'Tested', 2, '6', 4, '1', 'Asdasd-12313', 2017, '2017-11-25', '2017-11-25 11:53:52', '1'),
+(8, 'H2137VDX20171111', 'Test', 2, '', 1, '', '56461321321', 2017, '2017-12-01', '2017-12-01 10:16:30', '1'),
+(9, 'Z9801TPF20171111', 'try', 1, '', 1, '', 'q123124524', 2019, '2017-12-01', '2017-12-01 12:41:33', '1'),
+(10, 'A3694YFD20171111', 'Try', 1, '3', 3, '14', '123135678', 2018, '2017-12-01', '2017-12-01 14:19:28', '1');
 
 -- --------------------------------------------------------
 
@@ -146,25 +148,45 @@ INSERT INTO `book_request` (`request_id`, `request_no`, `book_title`, `author`, 
 CREATE TABLE `borrow` (
   `borrow_id` int(11) NOT NULL,
   `member_id` bigint(50) DEFAULT NULL,
-  `book_no` varchar(50) DEFAULT NULL,
-  `on_date` varchar(100) DEFAULT NULL,
-  `due_date` varchar(100) DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL
+  `date_borrow` varchar(100) DEFAULT NULL,
+  `due_date` varchar(100) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `borrow`
 --
 
-INSERT INTO `borrow` (`borrow_id`, `member_id`, `book_no`, `on_date`, `due_date`, `status`) VALUES
-(484, 55312412, 'Q3265TAO20171111', '2014-03-20 23:50:27', '21/03/2014', 'pending'),
-(483, 55, NULL, '2014-03-20 23:49:34', '21/03/2014', 'pending'),
-(482, 12342324, 'Q3265TAO20171111', '2014-03-20 23:38:22', '03/01/2014', 'borrow'),
-(487, 190377, 'Q3265TAO20171111', '2017-12-15', '2017-12-18', 'reserve'),
-(488, 3523526, 'N8752TZY20171111', '2017-12-27', '2017-12-30', 'reserve'),
-(489, 3523526, 'R4592NYT20171111', '2017-12-27', '2017-12-30', 'reserve'),
-(490, 3523526, 'N8752TZY20171111', '2018-01-01', '2018-01-04', 'reserve'),
-(491, 3523526, 'B9720JGO20171111', '2018-01-01', '2018-01-04', 'reserve');
+INSERT INTO `borrow` (`borrow_id`, `member_id`, `date_borrow`, `due_date`) VALUES
+(484, 55, '2014-03-20 23:50:27', '21/03/2014'),
+(483, 55, '2014-03-20 23:49:34', '21/03/2014'),
+(482, 52, '2014-03-20 23:38:22', '03/01/2014'),
+(485, 442653, NULL, NULL),
+(486, 442653, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `borrowdetails`
+--
+
+CREATE TABLE `borrowdetails` (
+  `borrow_details_id` int(11) NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `borrow_id` int(11) NOT NULL,
+  `borrow_status` varchar(50) DEFAULT NULL,
+  `date_return` varchar(100) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `borrowdetails`
+--
+
+INSERT INTO `borrowdetails` (`borrow_details_id`, `book_id`, `borrow_id`, `borrow_status`, `date_return`) VALUES
+(164, 16, 484, 'pending', ''),
+(162, 15, 482, 'pending', ''),
+(163, 15, 483, 'returned', '2014-03-21 00:30:51'),
+(165, 17, 485, 'reserve', NULL),
+(166, 21, 486, 'reserve', NULL);
 
 -- --------------------------------------------------------
 
@@ -296,18 +318,16 @@ CREATE TABLE `faculty` (
   `id` int(11) NOT NULL,
   `faculty_no` varchar(250) NOT NULL,
   `faculty_name` varchar(250) NOT NULL,
-  `dept` int(11) NOT NULL,
-  `passcode` int(20) NOT NULL DEFAULT '0',
-  `active` int(20) NOT NULL DEFAULT '1'
+  `dept` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `faculty`
 --
 
-INSERT INTO `faculty` (`id`, `faculty_no`, `faculty_name`, `dept`, `passcode`, `active`) VALUES
-(1, '12312123', 'tere', 4, 0, 1),
-(2, '312321412', 'ter', 2, 0, 1);
+INSERT INTO `faculty` (`id`, `faculty_no`, `faculty_name`, `dept`) VALUES
+(1, '12312123', 'tere', 4),
+(2, '312321412', 'ter', 2);
 
 -- --------------------------------------------------------
 
@@ -332,30 +352,6 @@ CREATE TABLE `issue_book` (
 
 INSERT INTO `issue_book` (`issue_book_id`, `book_no`, `book_title`, `student_name`, `copies`, `date_issued`, `date_returned`, `status`) VALUES
 (1, 'Q3265TAO20171111', 'Test', 'test', 1, '2017-12-02', '2017-12-06', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `logs`
---
-
-CREATE TABLE `logs` (
-  `log_id` int(50) NOT NULL,
-  `student_no` int(50) DEFAULT NULL,
-  `description` varchar(100) DEFAULT NULL,
-  `Date_time` datetime(6) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `logs`
---
-
-INSERT INTO `logs` (`log_id`, `student_no`, `description`, `Date_time`) VALUES
-(3, 43634633, 'Just Login', '2017-12-25 14:32:04.000000'),
-(4, 43634633, 'Just Logout', '2017-12-25 14:53:24.000000'),
-(5, 43634633, 'Just Login', '2017-12-25 14:56:36.000000'),
-(6, 213423412, 'Just Login', '2017-12-25 14:57:15.000000'),
-(7, 213423412, 'Just Logout', '2017-12-25 14:57:19.000000');
 
 -- --------------------------------------------------------
 
@@ -465,22 +461,22 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `student_id`, `student_name`, `gender`, `address`, `contact`, `year_level`, `type`, `passcode`, `dept`, `course`, `active`) VALUES
-(52, 190377, 'Mark', 'Male', 'Talisay', '212010', 'Second Year', '2', 0, 1, 3, 1),
+(52, 190377, 'Mark', 'Male', 'Talisay', '212010', 'Second Year', '0', 0, 1, 3, 1),
 (53, 3523526, 'April Joy', 'Female', 'E.B. Magalona', '00', 'Second Year', '0', 0, 1, 1, 1),
-(54, 312412, 'Alfonso', 'Male', 'E.B. Magalona', '009', 'First Year', '0', 0, 1, 3, 1),
-(55, 134412345, 'Jonathan ', 'Male', 'E.B. Magalona', '0032', 'Fourth Year', '0', 0, 3, 4, 1),
-(56, 213423412, 'Renzo Bryan', 'Male', 'Silay City', '03030', 'Third Year', '0', 0, 5, 6, 1),
-(57, 12342324, 'Eleazar', 'Male', 'E.B. Magalona', '90902', 'Second Year', '0', 0, 2, 6, 1),
-(58, 5236574, 'Ellen Mae', 'Female', 'E.B. Magalona', '123', 'First Year', '0', 0, 5, 2, 1),
-(59, 5654754, 'Ruth', 'Female', 'E.B. Magalona', '9340', 'Second Year', '0', 0, 4, 3, 1),
-(60, 43634633, 'Shaina Marie', 'Female', 'Silay City', '132134', 'Second Year', '0', 0, 5, 2, 1),
-(62, 4356452, 'Chairty Joy', 'Female', 'E.B. Magalona', '12423', 'Second Year', '0', 0, 1, 5, 1),
-(63, 24564434, 'Kristine May', 'Female', 'Silay City', '1321', 'Second Year', '0', 0, 3, 4, 1),
-(64, 2124134, 'Chinie marie', 'Female', 'E.B. Magalona', '902101', 'Second Year', '0', 0, 4, 1, 1),
-(65, 1234645, 'Ruby', 'Female', 'E.B. Magalona', '', 'Second Year', '0', 0, 1, 1, 1),
-(66, 123124, 'test', 'Male', '', '1235345', '', 'regStud', 0, 2, 11, 1),
-(67, 0, '1231', 'Male', '', '1231', '', 'visDis', 0, 2, 11, 1),
-(68, 1241526, 'Joel', 'Male', '', '134124534', '', 'visDis', 0, 2, 9, 1);
+(54, 312412, 'Alfonso', 'Male', 'E.B. Magalona', '009', 'First Year', '0', 0, 1, 3, 0),
+(55, 134412345, 'Jonathan ', 'Male', 'E.B. Magalona', '0032', 'Fourth Year', '0', 0, 3, 4, 0),
+(56, 213423412, 'Renzo Bryan', 'Male', 'Silay City', '03030', 'Third Year', '0', 0, 5, 6, 0),
+(57, 12342324, 'Eleazar', 'Male', 'E.B. Magalona', '90902', 'Second Year', '0', 0, 2, 6, 0),
+(58, 5236574, 'Ellen Mae', 'Female', 'E.B. Magalona', '123', 'First Year', '0', 0, 5, 2, 0),
+(59, 5654754, 'Ruth', 'Female', 'E.B. Magalona', '9340', 'Second Year', '0', 0, 4, 3, 0),
+(60, 43634633, 'Shaina Marie', 'Female', 'Silay City', '132134', 'Second Year', '0', 0, 5, 2, 0),
+(62, 4356452, 'Chairty Joy', 'Female', 'E.B. Magalona', '12423', 'Second Year', '0', 0, 1, 5, 0),
+(63, 24564434, 'Kristine May', 'Female', 'Silay City', '1321', 'Second Year', '0', 0, 3, 4, 0),
+(64, 2124134, 'Chinie marie', 'Female', 'E.B. Magalona', '902101', 'Second Year', '0', 0, 4, 1, 0),
+(65, 1234645, 'Ruby', 'Female', 'E.B. Magalona', '', 'Second Year', '0', 0, 1, 1, 0),
+(66, 123124, 'test', 'Male', '', '1235345', '', 'regStud', 0, 2, 11, 0),
+(67, 0, '1231', 'Male', '', '1231', '', 'visDis', 0, 2, 11, 0),
+(68, 1241526, 'Joel', 'Male', '', '134124534', '', 'visDis', 0, 2, 9, 0);
 
 -- --------------------------------------------------------
 
@@ -569,6 +565,12 @@ ALTER TABLE `borrow`
   ADD KEY `borrowid` (`borrow_id`);
 
 --
+-- Indexes for table `borrowdetails`
+--
+ALTER TABLE `borrowdetails`
+  ADD PRIMARY KEY (`borrow_details_id`);
+
+--
 -- Indexes for table `catalogue`
 --
 ALTER TABLE `catalogue`
@@ -599,12 +601,6 @@ ALTER TABLE `faculty`
 --
 ALTER TABLE `issue_book`
   ADD PRIMARY KEY (`issue_book_id`);
-
---
--- Indexes for table `logs`
---
-ALTER TABLE `logs`
-  ADD PRIMARY KEY (`log_id`);
 
 --
 -- Indexes for table `notification`
@@ -652,7 +648,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `book`
 --
@@ -672,7 +668,12 @@ ALTER TABLE `book_request`
 -- AUTO_INCREMENT for table `borrow`
 --
 ALTER TABLE `borrow`
-  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=492;
+  MODIFY `borrow_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=487;
+--
+-- AUTO_INCREMENT for table `borrowdetails`
+--
+ALTER TABLE `borrowdetails`
+  MODIFY `borrow_details_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 --
 -- AUTO_INCREMENT for table `catalogue`
 --
@@ -698,11 +699,6 @@ ALTER TABLE `faculty`
 --
 ALTER TABLE `issue_book`
   MODIFY `issue_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `logs`
---
-ALTER TABLE `logs`
-  MODIFY `log_id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `notification`
 --
@@ -732,7 +728,8 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -2,5 +2,6 @@
            <link rel="stylesheet" href="css/bootstrap.min.css" />
            <link rel="stylesheet" href="css/jquery.dataTables.min.css" />   
 <!--            <link rel="stylesheet" href="css/jquery.dataTables.min.css" />    -->
+         	   <link rel="stylesheet" href="css/jquery-ui.css">
          	    <link rel="stylesheet" href="css/style.css"> 
-         	    <link rel="stylesheet" href="css/jquery-ui.css">
+         	    

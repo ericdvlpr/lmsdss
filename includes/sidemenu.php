@@ -7,8 +7,9 @@
             <li><a href="catalogue.php">Category</a></li>
             <li><a href="faculty.php">Faculty</a></li>
             <li><a href="issuebook.php">Issue Book</a></li>
-            <li><a href="#">Requisitions</a></li>
-            <li><a href="#">Reservation</a></li>
+            <li><a href="referrence.php">Book Referrence</a></li>
+            <li><a href="reservation.php">Reservation</a></li>
+            <li><a href="reports.php">Reports</a></li>
             <li><a href="students.php">Students</a></li>
             <li><a href="users.php">Users</a></li>
           </ul>
@@ -21,8 +22,13 @@
        <?php }elseif ($_SESSION['access'] == 4) { ?> 
        <li class="active"><a href="index.php">Overview <span class="sr-only">(current)</span></a></li>
            <li><a href="requestBook.php">Request for Book</a></li>
+           <li><a href="searchBook.php">Search Book</a></li>
             
-      <?php } ?>  
+      <?php }elseif($_SESSION['access'] == 5){?>  
+       <li class="active"><a href="index.php">Overview <span class="sr-only">(current)</span></a></li>
+      <li><a href="searchBook.php">Search Book</a></li>
+      <li><a href="feedback.php">Give Us a FeedBack</a></li>
+      <?php }?>  
           <!-- <ul class="nav nav-sidebar">
             <li><a href="">Nav item</a></li>
             <li><a href="">Nav item again</a></li>
@@ -30,6 +36,7 @@
             <li><a href="">Another nav item</a></li>
             <li><a href="">More navigation</a></li>
           </ul>
+
           <ul class="nav nav-sidebar">
             <li><a href="">Nav item again</a></li>
             <li><a href="">One more nav</a></li>

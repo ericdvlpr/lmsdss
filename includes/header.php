@@ -2,10 +2,9 @@
 
  include 'core/database.php';  
 $object = new Database();
-// if(!isset($_SESSION['username'])){
-// 	header("location:login.php");
-
-// }
+if(!isset($_SESSION['username'])){
+ 	header("location:login.php");
+}
  ?> 
  <html>  
       <head>  
@@ -17,6 +16,11 @@ $object = new Database();
            <link rel="stylesheet" href="css/jquery.dataTables.min.css" />   
 <!--            <link rel="stylesheet" href="css/jquery.dataTables.min.css" />    -->
          	    <link rel="stylesheet" href="css/style.css">
+              <link rel="stylesheet" href="css/bootstrap-select.min.css">
+              <link rel="stylesheet" href="css/jquery-ui.css">
+              <link rel="stylesheet" href="css/style.css"> 
+         	    <!-- <script src="js/webcam.js"></script> -->
+         	    
          	   
       </head> 
  <body>  
