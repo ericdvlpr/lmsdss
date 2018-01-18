@@ -42,9 +42,14 @@
       }
       if($_POST["action"] == "Issue Book")  
       {  
-           echo $object->get_book_issued_data("SELECT * FROM borrow_detail bd JOIN borrow_book bb USING (borrow_no) JOIN students USING (student_id) JOIN book USING (book_no)");  
+           echo $object->get_book_issued_data();  
 
-      }     
+      } 
+      if($_POST["action"] == "Reserve Book")  
+      {  
+           echo $object->get_book_reserved_data("SELECT s.student_name AS student, bd.member_id AS Id, bd.borrow_no AS borrow_no, bd.activity AS Stats FROM borrow_details bd LEFT JOIN students s ON s.student_id = bd.member_id WHERE bd.activity = 'reserved'");  
+
+      }    
       if($_POST["action"] == "Insert")  
       {  
            $first_name = mysqli_real_escape_string($object->connect, $_POST["first_name"]);  
@@ -206,7 +211,7 @@
 
                if(!$missing){ 
                $Mess="Good Day.. \n";
-               $Mess.="    The following books has been boorowed: \n";
+               $Mess.="\t\t\tThe following books has been boorowed: \n";
                for($count = 0; $count < count($_POST["bookID"]); $count++)
                 {  
                   
@@ -216,7 +221,7 @@
                 $date_borrowed=$_POST["date_issued"][$count];
                 $date_returned=$_POST["date_returned"][$count];
                 $rs_id = $_POST["rs_id"][$count];
-                /*
+                //*
                   if($rs_id == "0"){
                     $query0 = '
                     INSERT INTO borrow_book(borrow_no,book_no, copies, on_date, due_date) 
@@ -227,11 +232,11 @@
                     UPDATE borrow_book SET on_date = '".$date_borrowed."', due_date = '".$date_returned."', copies='".$copies."' WHERE borrow_book.id = '".$rs_id."'";
                     $object->execute_query($query0);
                   }
-                */
+                //*/
                $Mess.=$bookTitle." (".$date_returned.") \n "; 
                
                 }
-                /*
+                //*
                 $query2 = "SELECT * FROM borrow_details WHERE borrow_details.borrow_no= '".$issueNo."'";
                 $result = $object->execute_query($query2);
                 
@@ -245,14 +250,54 @@
                     VALUES('".$issueNo."','".$studentName."','borrowed')";
                     $object->execute_query($query1);
                 }
-                */
+               //*/
                 
-                $Mess .= 'Please Be Advise that you must return the following book(s) before or on date to avoid penalties.';
+                $Mess .= "\t\tPlease Be Advise that you must return the following book(s) before or on date to avoid penalties.";
                 echo $Mess.'|'.$contactN.'|Issue Inserted, Message Sent';
               }else{
                 echo '0';
               }
       }
+      if($_POST['action'] == "ReturnInfo"){
+          echo $object->get_return_info("SELECT s.student_name AS Name, s.contact AS contact, bd.borrow_no AS borrow_no  FROM borrow_details bd LEFT JOIN students s ON s.student_id=bd.member_id WHERE bd.activity = 'borrowed' AND bd.member_id = '".$_POST['id']."'");
+      }
+      
+      if($_POST["action"] == "BookSL2") {
+         echo $object->loctatebook2("SELECT bk.book_title AS Title, bb.id as Id, bb.copies AS Copies, bb.on_date AS Ondate, bb.due_date as Due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no WHERE bb.book_no = '".$_POST['bk_no']."' AND bb.borrow_no = '".$_POST['is_no']."'");
+      }
+       if($_POST["action"] == "DeleteReverse") {
+          $query = " 
+            UPDATE borrow_book SET ret ='0' WHERE borrow_no = '".$_POST['issNo']."' AND book_no ='".$_POST['bk_no']."'";
+            $object->execute_query($query);
+
+            echo 'true';
+
+       }
+       if($_POST["action"] == "returnBook"){
+              $missing = false;
+               if(isset($_POST["bookID"])){
+                for($count = 0; $count < count($_POST["bookID"]); $count++)
+                  {
+                      $bookNo=$_POST["bookID"][$count];
+                      $bookTitle=$_POST["bookTitle"][$count];
+                      
+                      if(($bookNo == "") ||($bookTitle == "")){
+                        $missing = true;
+                        break;
+
+                      }   
+                  }
+               }else{
+                $missing = true;
+               }
+
+          if(!$missing){
+            echo $object->get_return_data($_POST['returnID'],$_POST['contactNum']);
+           }else{
+            echo '0';
+          }
+       }
+      
       if($_POST["action"] == "addUser") {  
              $username=mysqli_real_escape_string($object->connect, $_POST["username"]);
              $password=md5(mysqli_real_escape_string($object->connect, $_POST["password"]));
@@ -655,7 +700,7 @@ if($_POST["action"] == "Search2")
       if($_POST["action"] == "Book_select")  
       {
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.book_copies, b.location as location, d.department_name as department, b.img as img FROM book b LEFT JOIN departments d ON b.department = d.dept_id WHERE book_no ='".$_POST["id"]."'","SELECT COUNT(*) AS CNT FROM `borrow_book` WHERE book_no = '".$_POST["id"]."'");
+          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.book_copies, b.location as location, d.department_name as department, b.img as img FROM book b LEFT JOIN departments d ON b.department = d.dept_id WHERE book_no ='".$_POST["id"]."'","SELECT bb.copies as CNT FROM borrow_book bb WHERE bb.book_no = '".$_POST["id"]."'");
       }
       if($_POST["action"] == "Book_Reserve")  
       {
@@ -702,9 +747,16 @@ if($_POST['action']  == "Tapin"){
             echo $object->tapin_data("SELECT * FROM logs WHERE student_no = '".$_POST['user']."' ORDER by log_id DESC",$_POST['user']);
 
         }
-      if($_POST["action"] == "Notification"){
+if($_POST["action"] == "Notification"){
          echo $object->get_notification("SELECT * FROM notification ORDER BY notif_id DESC LIMIT 5");
            
       }
+if($_POST['action'] == "Time Over"){
+      echo $object->time_due_check();
+    
   }
+
+  }
+
+
  ?>  

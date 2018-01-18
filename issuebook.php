@@ -8,20 +8,24 @@
                          <h3 align="center">Borrowed Books!</h3> 
                               <div  class="table-responsive"> 
                               	  <div class="btn-group">
-                                      <a href="issuedBook.php" id="issue_book" class="btn btn-primary"  >
+                                    <a href="issuedBook.php" id="issue_book" class="btn btn-primary"  >
                                       Issue Book
+                                    </a> 
+                                      
+                                </div>
+                                <div class="btn-group">
+                                    <a href="returnBook.php" id="issue_book" class="btn btn-primary"  >
+                                      Returned Book
                                     </a>
                                 </div>
                                <table class="table table-bordered table-striped" id="bookissue">  
-          					                <thead>  
-          					                     <th width="12%">Book No</th>  
-                                         <th width="12%">Book Title</th>    
-          					                     <th width="12%">Student Name</th>    
-                                         <th width="12%">Book Copies</th>  
-                                         <th width="12%">Date Issued</th>  
-          					                     <th width="12%">Return Date</th>  
-          					                     <th width="12%">Status</th>  
-          					                     <th width="12%">Command</th>  
+          					                <thead align="center">  
+          					                     <th width="12%" align="center">Issue No</th>  
+                                         <th width="24%" align="center">Student / Faculty Name</th>    
+          					                     <th width="28%" align="center">Book(s)</th>    
+                                         <th width="12%" align="center">Date Issued</th>  
+          					                     <th width="12%" align="center">Return Date</th>  
+          					                     <th width="12%" align="center">Status</th>  
           					                </thead> 
           					                <tbody id="bookissue_table">
           					                	

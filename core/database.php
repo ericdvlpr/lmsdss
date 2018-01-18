@@ -92,24 +92,48 @@ session_start();
 
            return $output;  
       } 
-       public function get_book_issued_data($query) {  
+       public function get_book_issued_data() {  
            $output = '';  
-           $result = $this->execute_query($query);  
+           
 
+           $query = "SELECT s.student_name AS Name, bd.borrow_no AS borrow_no, bd.activity AS status FROM borrow_details bd LEFT JOIN students s ON s.student_id = bd.member_id";
+           
+           $result = $this->execute_query($query);  
            while($row = mysqli_fetch_object($result))  
            {  
+
+                $query2 = "SELECT bk.book_title AS title, bb.on_date AS ondate, bb.due_date AS due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no WHERE bb.borrow_no = '".$row->borrow_no."'";
+                $result2 = $this->execute_query($query2);
+                $row1 = mysqli_fetch_object($result2);
+
+
                 $output .= '  
                 <tr>       
-                     <td>'.$row->borrow_id.'</td>  
-                     <td>'.$row->student_name.'</td>  
-                     <td>'.$row->book_title.'</td>  
-                     <td>'.$row->on_date.'</td>  
-                     <td>'.$row->due_date.'</td>  
-                     <td><button type="button" name="update" id="'.$row->borrow_id.'" class="btn btn-success btn-xs updateReturn">Update</button> 
+                    <td rowspan="'.mysqli_num_rows($result2).'" align="center" valign="center">'.$row->borrow_no.'</td>
+                    <td rowspan="'.mysqli_num_rows($result2).'" align="center" valign="center">'.$row->Name.'</td>
+                    <td>'.$row1->title.'</td>
+                    <td>'.$row1->ondate.'</td>
+                    <td >'.$row1->due.'</td>
+                    <td rowspan="'.mysqli_num_rows($result2).'" align="center" valign="center">'.$row->status.'</td>
+                </tr>';
+                  
+                  while ($row2=mysqli_fetch_object($result2)) {
+                    
+                      $output .='
+                      <tr>
+                         <td>'.$row2->title.'</td>
+                         <td>'.$row2->ondate.'</td>
+                         <td>'.$row2->due.'</td>
+                         
+                      </tr>';
 
-                </tr>  
-                ';  
+                    
+                  }
+                
+
+
            }  
+
            return $output;  
       } 
 
@@ -361,12 +385,17 @@ session_start();
       {
          $result = $this->execute_query($query);
          $result2 = $this->execute_query($query2);
-         $row2 = mysqli_fetch_object($result2); 
+         
          $row = mysqli_fetch_object($result);
          
          $dat = explode(',',$row->author);
          $dcnt = count($dat);
          $aut = '';
+         $calc = 0;
+         while ($row2 = mysqli_fetch_object($result2)) {
+           $calc += $row2->CNT;
+         }
+
          if($dcnt>1){
           $cnt=0;
           foreach ($dat as $did){
@@ -428,18 +457,18 @@ session_start();
             </tr>
             <tr>
               <td align="right" >Available: </td>
-              <td>'.($row->book_copies-$row2->CNT).'</td>
+              <td>'.($row->book_copies-$calc).'</td>
             </tr>
         
         </table>';
 
 
 
-         $output .= '|The book ' .$row->book_title. ' by ' . $aut . ' located in the '.$row->department.' Library, call number '.$row->location.', books available ' .($row->book_copies-$row2->CNT). '. ' ;
-         if(($row->book_copies-$row2->CNT) == 0){
-            $output .= 'Sorry... This Book is no longer available. Try Again Later.|false|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$row2->CNT);
+         $output .= '|The book ' .$row->book_title. ' by ' . $aut . ' located in the '.$row->department.' Library, call number '.$row->location.', books available ' .($row->book_copies-$calc). '. ' ;
+         if(($row->book_copies-$calc) == 0){
+            $output .= 'Sorry... This Book is no longer available. Try Again Later.|false|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$calc);
          }else{
-            $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$row2->CNT);
+            $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$aut.'|'.($row->book_copies-$calc);
          }
          return $output;
 
@@ -500,7 +529,38 @@ public function get_search_data($query)
           else
             return '0';
       }
+//-------------------------------------------------------------------------------------------------
+      public function get_book_reserved_data($query){
+        $result = $this->execute_query($query);
+          $output = '';
+          while($row = mysqli_fetch_object($result)){
+              $query2="SELECT bk.book_title AS title, bb.copies AS copies, bb.on_date AS ondate, bb.due_date AS due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no WHERE bb.borrow_no ='".$row->borrow_no."'";
+              $results = $this->execute_query($query2);
+              $row1 = mysqli_fetch_object($results);
+              $output .='
+                <tr>
+                  <td rowspan = "'.mysqli_num_rows($results).'" align="center">'.$row->borrow_no.'</td>
+                  <td rowspan = "'.mysqli_num_rows($results).'" align="center">'.$row->student.' ('.$row->Id.')</td>
+                  <td>('.$row1->copies.') '.$row1->title.'</td>
+                  <td>'.$row1->ondate.'</td>
+                  <td>'.$row1->due.'</td>
+                  <td rowspan = "'.mysqli_num_rows($results).'" align="center">'.$row->Stats.'</td>
+                  <td rowspan = "'.mysqli_num_rows($results).'" align="center"><a href="issuedBook?stud='.$row->Id.'" class = "btn btn-success btn-xs">Issued</a> 
+                </tr>
+              ';
 
+              while($row2 = mysqli_fetch_object($results)){
+                  $output .='
+                  <tr>
+                     <td>('.$row2->copies.') '.$row2->title.'</td>
+                     <td>'.$row2->ondate.'</td>
+                     <td>'.$row2->due.'</td> 
+                  </tr>
+                  ';
+              }
+          }
+          return $output;
+      } 
 //-------------------------------------------------------------------------------------------------
 //Login/Tapin
   public function login($user,$pass){
@@ -656,11 +716,180 @@ public function get_search_data($query)
             if($row = mysqli_fetch_assoc($result)){
               return $row['title'];
             }else{
-              return "No Book ";
+              return "No Book";
             }
           }
-//-------------------------------------------------------------------------------------------------
 
+
+          public function get_return_info($query){
+            $result = $this->execute_query($query);
+            
+
+            if($row = mysqli_fetch_assoc($result)){
+                $output = "
+                <tr> 
+                  <td width='19%''><input type='text' name='bookID[]' id='bookID' class='form-control bookID' required /></td>
+                  <td width='26%'><input type='text' name='bookTitle[]' id='bookTitle' class='form-control bookTitle' readonly = 'true' required /></td>
+                  <td width='7%'><input type='number' min='1' value ='1' name='copies[]' class='form-control copies' readonly = 'true' required /></td> 
+                  <td width='14%'><input type='text' name='date_issued[]' id='date_issued' value='' class='form-control date_issued' readonly = 'true' required  /></td>
+                  <td  width='14%'><input type='text' name='date_returned[]' id='date_returned' value='' class='form-control date_returned' readonly = 'true' required  /></td> 
+                  <td width='16%'><button type='button' name='removes' class='btn btn-danger btn-sm removes'><span class='glyphicon glyphicon-minus'></span></button></td> 
+                </tr>";
+                return $row['Name'].'|'.$row['contact'].'|'.$row['borrow_no'].'|'.$output;
+            }else{
+              return 0;
+            }
+          }
+          public function loctatebook2($query){
+            $result = $this->execute_query($query);
+            
+            if($row = mysqli_fetch_assoc($result)){
+              
+              $output = '|'.$row['Title'].'|'.$row['Copies'].'|'.$row['Ondate'].'|'.$row['Due'];
+              
+              $query2 = "UPDATE borrow_book SET ret ='1' WHERE id = '".$row['Id']."' ";
+              $this->execute_query($query2);
+
+              return $output;
+
+            }else{
+              return 0;
+            }
+          }
+          public function get_return_data($IDs,$Contact){
+              $query ="SELECT * FROM borrow_book WHERE borrow_no='".$IDs."'";
+              $query2 = "SELECT * FROM borrow_book WHERE borrow_no='".$IDs."' AND ret='1'";
+              $result = $this->execute_query($query);
+              $result2 = $this->execute_query($query2);
+              
+              if(mysqli_num_rows($result) == mysqli_num_rows($result2)){
+                $output = "Return Books Complete. All in Accounted For.\n Thank You Very Much :)";
+                $output2 = "All Your Borrowed Books Have Been Returned. \n Thank You And Come Again";
+
+                $query2 = "UPDATE borrow_details SET activity = 'returned' WHERE borrow_no ='".$IDs."'";
+                $this->execute_query($query2);
+                $query3 = "DELETE FROM over_due od WHERE od.issue_id = '".$IDs."'";
+
+
+                return $output.'|'.$output2.'|'.$Contact;
+              }else{
+                $output = "Warning: \n \tThe Following Book(s) Have not been return: \n";
+                $output2 = "Good Day, \n \t The Following Book(s) is Not been return: \n";
+                
+                $query2 = "SELECT bk.book_title AS title, bb.due_date AS Due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no WHERE bb.borrow_no = '".$IDs."' AND ret = '0'";
+                
+                $results = $this->execute_query($query2);
+                  while($row=mysqli_fetch_object($results)){
+                    $output .= "\t\t ".$row->title."(".$row->Due.") \n";
+                    $output2 .= "\t\t ".$row->title."(".$row->Due.") \n"; 
+                  }
+                 $output2 .= "\t Please Return The Following Book(s) Imideately To Avoid Penalties.";
+
+                 return $output.'|'.$output2.'|'.$Contact; 
+                
+              } 
+          }
+//-------------------------------------------------------------------------------------------------
+//check status          
+         public function time_due_check(){
+            //-------------------------------------------------------------------------------------
+            //Validate Division
+
+            $query = "SELECT bd.borrow_no AS borrow_no, bd.member_id AS member_id, s.contact AS contact FROM borrow_details bd LEFT JOIN students s ON bd.member_id = s.student_id WHERE bd.activity = 'borrowed' OR bd.activity = 'limbo'";
+            $result = $this->execute_query($query);
+            $output = '';
+            $date = date('Y-m-d');
+            $dues = date('Y-m-d',strtotime("+3 day"));
+            $empty = true;            
+            
+            while($row=mysqli_fetch_object($result)){
+              $bkque = "SELECT bb.due_date AS due FROM borrow_book as bb WHERE bb.borrow_no = '".$row->borrow_no."'";
+              $bkres = $this->execute_query($bkque);
+              $cnt = 0;
+              $ovli = false;
+              $newbie = false;
+
+              while($row2 = mysqli_fetch_object($bkres)){
+                  if(date('Y-m-d')>=$row2->due){
+                      $cnt++;
+                  }
+              }
+
+                if($cnt == mysqli_num_rows($bkres)){
+                    
+                    $bdque = "UPDATE borrow_details SET activity = 'overdue' WHERE borrow_no ='".$row->borrow_no."'";
+                    $this->execute_query($bdque);
+                    $ovli = true;
+                
+                }else if($cnt == 0){
+                    $ovli = false;
+                }else{
+                    $bdque = "UPDATE borrow_details SET activity = 'limbo' WHERE borrow_no ='".$row->borrow_no."'";
+                    $this->execute_query($bdque);
+                    $ovli = true;
+                }
+                //--------------------------------------------------------------------------------------------------------------
+                // Insert on over due (if any...)
+                if($ovli){
+                    $odque = "SELECT * FROM over_due WHERE issue_id='".$row->borrow_no."'";
+                    $odres = $this->execute_query($odque);
+                    if(mysqli_num_rows($odres) == 0){
+                        $odaqu = "INSERT INTO `over_due`(issue_id, prev_send, next_send, member_id) VALUES ('".$row->borrow_no."', '".$date."', '".$dues."', '".$row->member_id."')";
+                        $this->execute_query($odaqu);
+                        $newbie = true;
+                    }
+                    
+
+                }              
+                //---------------------------------------------------------------------------------------------------------------
+                // Message Division
+                if($newbie){
+                  $output .= "][Good Day\n \tThe Following book(s) is now over due: \n";
+                  $obque = "SELECT bk.book_title AS title, bb.due_date AS due FROM borrow_book bb LEFT JOIN book bk ON bb.book_no = bk.book_no LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bb.borrow_no = '".$row->borrow_no."' AND ((bd.activity = 'overdue') OR (bd.activity = 'limbo'))"; 
+                  $obret = $this->execute_query($obque);
+                  while($obrow = mysqli_fetch_object($obret)){
+                      if(date('Y-m-d')>=$obrow->due){
+                        $output .= "\t\t".$obrow->title." (".$obrow->due.") \n";
+                      }
+                  }
+                  $output .= "\tPlease Return The Following Book(s) Imideately to avoid further penalties.|".$row->contact; 
+                  $empty = false;
+                }
+
+
+            }
+            //Message V2
+            $odcqu = "SELECT s.contact AS contact, od.issue_id AS borrow_no, od.prev_send AS prv, od.next_send AS nxt, od.sent AS sent FROM over_due od LEFT JOIN students s ON s.student_id = od.member_id ";
+            $odcre = $this->execute_query($odcqu);
+            while($odcrow = mysqli_fetch_object($odcre)){
+
+                  if(((date('Y-m-d')) == $odcrow->nxt) && ($odcrow->sent == '0')){
+
+                    $output .= "][Good Day\n \tThe Following book(s) is now over due: \n";
+                    $obque = "SELECT bk.book_title AS title, bb.due_date AS due FROM borrow_book bb LEFT JOIN book bk ON bb.book_no = bk.book_no LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bb.borrow_no = '".$odcrow->borrow_no."' AND ((bd.activity = 'overdue') OR (bd.activity = 'limbo'))"; 
+                    $obret = $this->execute_query($obque);
+                    while($obrow = mysqli_fetch_object($obret)){
+                        if(date('Y-m-d')>=$obrow->due){
+                          $output .= "\t\t".$obrow->title." (".$obrow->due.") \n";
+                        }
+                    }
+                    $output .= "\tPlease Return The Following Book(s) Imideately to avoid further penalties.|".$odcrow->contact."";
+
+                    $odtque = "UPDATE over_due SET prev_send = '".$date."', next_send='".$dues."', sent = '1' WHERE issue_id ='".$odcrow->borrow_no."'";
+                    $this->execute_query($odtque);
+                    $empty = false;
+                  }else if(((date('Y-m-d')) != $odcrow->prv) && ($odcrow->sent == '1')){
+                    $odtque = "UPDATE over_due SET sent = '0' WHERE issue_id ='".$odcrow->borrow_no."'";
+                    $this->execute_query($odtque);
+                  }
+              }
+            
+            if($empty){
+              return "0";
+            }else{
+              return $output;
+            }
+         }
 
       // function upload_file($file)  
       // {  
