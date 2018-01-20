@@ -1,11 +1,8 @@
 <?php include 'includes/header.php';?>  
-
     <div class="container-fluid"> 
                 <div class="row">
-                  
                     <?php include 'includes/sidemenu.php'; ?>
-                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                         
+                  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                          <h3 align="center">Books!</h3> 
                               <div  class="table-responsive"> 
                               	  <div class="btn-group">
@@ -29,9 +26,9 @@
           					                </tbody> 
           					            </table>
                             </div>  
-                      </div>  
                 </div>
 
+           </div> 
            </div> 
 <div class="modal fade" id="book" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

@@ -29,6 +29,7 @@ $(document).ready(function(){
             voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. To change volume or speede please press the shift button.")
             $('#searchname').focus();
           }else{
+            
             $('#mod_info').dialog({
                     title: "Welcome To LMS",
                     width: 550,
@@ -41,9 +42,10 @@ $(document).ready(function(){
                     $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
                     }
              });
-             $('#info_data').html("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. Press any key or click anywhere to continue");
+             $('#info_data').html("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button or on upper right panel. ");
              $('#searchname').prop('disabled',true)
              mod2 =true
+             setTimeout(autoclose, 5000);
           }
 
           
@@ -64,11 +66,11 @@ $(document).ready(function(){
                 processData:false,
                 success:function(data)
                 {
+                  //alert(data);
+                  //*
                   if(data){
-                    if(data){
-                      voice_pre("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book.",2,null);
-                      $('#modal_select').dialog('close');
-                    }
+                    voice_pre("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book.",2,null);
+                    $('#modal_select').dialog('close');
                   } 
                   //*/
                 }
@@ -99,7 +101,7 @@ $(document).ready(function(){
                     title: plt2[3],
                     width: 550,
                     position: {
-                      my: "right top",
+                      my: "right center",
                       at: "right top"
                     }
                   });
@@ -149,13 +151,16 @@ $(document).ready(function(){
                   
                   if(!tabD){
                     $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bFilter": false})
+                    
                     tabD=true
                   }
                   voice_pre("Please use up and down buttons to navigate.",0,null);
                 }else if(tb==2){
                   tbl_diag = false;
                   tbl_res = false;
-                    
+                  $('#searchname').prop('disabled',false)
+                  $('#searchname').blur();
+              
                 }else if(tb==3){
                  logout(); 
                 }
@@ -169,6 +174,7 @@ $(document).ready(function(){
                     tabD=true
                   }
                 }else if(tb==2){
+                  
                   $('#mod_info').dialog({
                     title: "Book Reserve",
                     width: 550,
@@ -177,13 +183,15 @@ $(document).ready(function(){
                       at: "center left"
                     }
                   });
-                  $('#info_data').html(text+" Press any key or click anywhere to continue" );
+                  
+                  $('#info_data').html(text);
                   mod2 =true
                   $('#searchname').prop('disabled',true)
                   tbl_diag = false;
                   tbl_res = false;
-                   
+                  setTimeout(autoclose, 2000); 
                 }else if(tb==3){
+                  
                   $('#mod_info').dialog({
                     title: "Logout",
                     width: 550,
@@ -192,15 +200,26 @@ $(document).ready(function(){
                       at: "center left"
                     }
                   });
+                  
                   $('#info_data').html(text);
                   setTimeout(logout, 3000)
                 }
             }
 
         }
+
+    function autoclose(){
+      $('#mod_info').dialog('close');
+      if(mod2){
+         $('#searchname').prop('disabled',false)
+         $('#mod_info').dialog('close');
+         $('#searchname').focus();
+         mod2 = false
+      }
+    }
     function logout(){
          $('#mod_info').dialog('close');
-         $(location).attr('href','logout.php');
+         $(location).attr('href','logout_parse.php');
          return false;
     }
     function reCalculate(e){
@@ -329,6 +348,7 @@ $(document).ready(function(){
     if(!mod2){
       if(e.keyCode == 27){
         if(!sec_sh){
+          
           $('#mod_info').dialog({
                     title: "Logout",
                     width: 550,
@@ -337,6 +357,7 @@ $(document).ready(function(){
                       at: "center left"
                     }
                   });
+                  
           $('#info_data').html("Logging out. Thank you please come again.");
           voice_pre("Logging out. Thank you please come again.",3,null)
         }
@@ -344,6 +365,7 @@ $(document).ready(function(){
       if(sec_sh){
         if(e.keyCode==39){
             rt++;
+            alert("++")
             voice_pre("Increasing speed.",0,null)
         }else if(e.keyCode==37){
           if(rt>1){
@@ -372,7 +394,7 @@ $(document).ready(function(){
             select_book(dat[active-1][0]);
           }   
         }else if((tbl_diag)&&(tbl_res)) {
-          if(e.which == 50){
+          if(e.which == 50){ //reserve NO
             tbl_diag = false;
             tbl_res = false
             $('#searchname').prop('disabled',false)
@@ -380,7 +402,7 @@ $(document).ready(function(){
             $('#modal_select').dialog('close')  
           }
           if(e.which == 49){
-            reserve(dat[active-1][0], $('#std_name').val());
+            reserve(dat[active-1][0], $('#std_name').val());// Reserve Yes
           }
         }else if((tbl_diag) && (!tbl_res) && (!sec_sh)){
           if(e.keyCode == 13){
@@ -453,7 +475,7 @@ $(document).ready(function(){
               if(!sec_sh){
               var srch_name = $("#searchname").val(); 
               var text = "Searching related to. "+srch_name+ "..." 
-              var action = "Search";
+              var action = "Search2";
               
               if(srch_name!=''){
               

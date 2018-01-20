@@ -97,7 +97,9 @@ include 'includes/footer.php';
                           <div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 text-left control-label text-left">Year</label>
                             <div class="col-sm-9">
-                               <input type="number" min="1" max="5" disabled="true" class="form-control" name="course-year" id="course-year" required="true" />
+                                <select class="form-control" name="course-year" id="course-year" required="true">
+                                  <option value="">Please Select</option>
+                               </select>
                             </div>
                           </div>
                            <div class="form-group">

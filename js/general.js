@@ -1,11 +1,15 @@
 $(document).ready(function(){
-      $(".chosen-select").chosen({ width:"100%" });
+        $.datepicker.setDefaults({  
+                dateFormat: 'yy-mm-dd'   
+           });  
+           $(function(){  
+                $("#from_date").datepicker();  
+                $("#to_date").datepicker();  
+           }); 
        $("input").attr("autocomplete","off");
-    $('.modal').on("hidden.bs.modal", function(){
+        $('.modal').on("hidden.bs.modal", function(){
          $("input").val("");
-        
          $("select").val("");
-         
       });
       //Load Table Data
               load_author_data() 
@@ -17,39 +21,150 @@ $(document).ready(function(){
                // load_Issued_data();
                load_faculty_data();
                load_request_data();
-                load_unseen_notification();
-      //FORM ATTRIBUTES
+                load_request_notification();
+                load_feedBack_notification();
+                load_notification_panel();
+                load_announcement_data();
+                load_announcement_index();
+                load_book_index();
+                load_student_index();
+                load_faculty_index();
+                load_user_index();
+                load_borrow_index();
+      //Load Report
+          $('#filter').click(function(){  
+                var from_date = $('#from_date').val();  
+                var to_date = $('#to_date').val();  
+                var status = $('#status').val();  
+                var action = "bookReport";  
 
-            // $('#action').val("Insert"); 
-     //Capture using Webcam
-    // Webcam.set({
-    //   width: 600,
-    //   height: 460,
-    //   image_format: 'jpeg',
-    //   jpeg_quality: 90
-    // });
-    // Webcam.attach( '#my_camera' );
-
-    //  function take_snapshot() {
-    //   // take snapshot and get image data
-    //   Webcam.snap( function(data_uri) {
-    //     // display results in page
-        
-    //     document.getElementById('results').innerHTML = 
-    //       '<h2>Processing:</h2>';
-          
-    //     Webcam.upload( data_uri, 'saveimage.php', function(code, text) {
-    //       document.getElementById('results').innerHTML = 
-    //       '<h2>Here is your image:</h2>' + 
-    //       '<img src="'+text+'"/>';
-    //     } );  
-    //   } );
-    // }
-
-     //Load Functions
-               function load_user_data()  
-               {  
-                    var action = "Users"; 
+                if(from_date != '' && to_date != '')  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{from_date:from_date, to_date:to_date,action:action,status:status},  
+                          success:function(data)  
+                          {  
+    
+                               $('#book_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }  
+                else  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{action:action},  
+                          success:function(data)  
+                          {  
+    
+                               $('#book_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });    
+                }  
+          });  
+          $('#filter_student').click(function(){  
+                var department = $('#department').val();  
+                var course = $('#course').val();  
+                var year = $('#course-year').val();  
+                var id = $('#stud_id').val();  
+                var action = "studentReport"; 
+                
+                if(department != '' || course != '' || year != '' || id != '')  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{id:id,department:department, course:course,action:action,year:year},  
+                          success:function(data)  
+                          {  
+                               $('#student_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }else{
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{action:action},  
+                          success:function(data)  
+                          {  
+                               $('#student_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }  
+                
+          }); 
+          $('#filter_request').click(function(){  
+                var from_date = $('#from_date').val();  
+                var to_date = $('#to_date').val();  
+                var action = "BookRequestReport"; 
+                
+                if(from_date != '' || to_date != '' )  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{from_date:from_date,to_date:to_date},  
+                          success:function(data)  
+                          {  
+                               $('#request_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }else{
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{action:action},  
+                          success:function(data)  
+                          {  
+                               $('#request_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }  
+                
+          });
+          $('#filter_issued').click(function(){  
+                var from_date = $('#from_date').val();  
+                var to_date = $('#to_date').val();  
+                var action = "BookIssueReport"; 
+              
+                if(from_date != '' || to_date != '' )  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{from_date:from_date,to_date:to_date,action:action},  
+                          success:function(data)  
+                          {  
+                               $('#issue_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }else{
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{action:action},  
+                          success:function(data)  
+                          {  
+                               $('#issue_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }  
+                
+          });
+    //INDEX FUNCTION
+       function load_announcement_index() {  
+                    var action = "announcementIndex"; 
 
                     $.ajax({  
                          url:"core/action.php",  
@@ -57,8 +172,87 @@ $(document).ready(function(){
                          data:{action:action},  
                          success:function(data)  
                          {  
-                              $('#user_table').html(data); 
-                              $('#users').DataTable();  
+                              $('#announcement_index_table').html(data); 
+                            
+                         }  
+                    });  
+               }
+          function load_book_index() {  
+                 
+                    var action = "bookIndex";
+
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#book_index_table').html(data);
+                         }  
+                    });  
+          }
+          function load_student_index() {  
+                    var action = "studentIndex";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#student_index_table').html(data); 
+                         }  
+                    });  
+          }
+        function load_faculty_index()  {  
+                    var action = "facultyindex";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#faculty_index_table').html(data);
+                         }  
+                    });  
+        }
+        function load_user_index() {  
+                    var action = "userIndex";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#user_index_table').html(data);  
+                         }  
+                    });  
+        }
+       function load_borrow_index() {  
+                    var action = "bookIssuedIndex";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#bookissue_index_table').html(data);  
+                         }  
+                    });  
+        }
+    //--------------
+     //Load Functions
+                function load_announcement_data()  
+               {  
+                    var action = "Announcements"; 
+
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#announcement_table').html(data); 
+                            
                          }  
                     });  
                }  
@@ -188,9 +382,9 @@ $(document).ready(function(){
                          }  
                     });  
                }
-               //Notification
-               function load_unseen_notification(view = '') {
-                    var action = "Notification";
+               //Request Notification
+               function load_request_notification(view = '') {
+                    var action = "RequestNotification";
                     
                       $.ajax({
                        url:"core/action.php",
@@ -199,12 +393,48 @@ $(document).ready(function(){
                        dataType:"json",
                        success:function(data)
                        {
-                        
-                        $('.notif').html(data.notification);
+                       
+                        $('.requestnotif').html(data.notification);
                         if(data.unseen_notification > 0)
                         {
-                         $('.count').html(data.unseen_notification);
+                         $('.countRequest').html(data.unseen_notification);
                         }
+                       }
+                      });
+                } 
+                //FeedBack Notification
+               function load_feedBack_notification(view = '') {
+                    var action = "FeedBackNotification";
+                    
+                      $.ajax({
+                       url:"core/action.php",
+                       method:"POST",
+                       data:{view:view,action:action},
+                       dataType:"json",
+                       success:function(data)
+                       {
+                       
+                        $('.feedbacknotif').html(data.notification);
+                        if(data.unseen_notification > 0)
+                        {
+                         $('.countFeedbck').html(data.unseen_notification);
+                        }
+                       }
+                      });
+                } 
+                //Notification Panel
+               function load_notification_panel(view = '') {
+                    var action = "PanelNotification";
+                    
+                      $.ajax({
+                       url:"core/action.php",
+                       method:"POST",
+                       data:{view:view,action:action},
+                       dataType:"json",
+                       success:function(data)
+                       {
+                        $('.panelnotif').html(data.notification);
+                       
                        }
                       });
                 }  
@@ -409,7 +639,21 @@ $(document).ready(function(){
                         data:{action:action,val:val},
                         success:function(data){
                           $("#course").html(data);
+                         
                           $("#course-year").removeAttr("disabled","disabled");
+                        }
+                      });
+                });
+               $('#course').change(function(){
+                      var action = "Course Year";
+                      var val = $('#course').val(); 
+                      $.ajax({
+                        url:"core/action.php",
+                        method:"POST",
+                        data:{action:action,val:val},
+                        success:function(data){
+                          $("#course-year").html(data);
+                          
                         }
                       });
                 });
@@ -605,6 +849,23 @@ $(document).ready(function(){
                           return false;  
                      }  
                 });
+               $('#announcementform').on('submit', function(event){  
+                    event.preventDefault();      
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                   alert(data);  
+                                   $("#announcement").modal('toggle');
+                                   window.location.reload();
+                                   $('#announcementform')[0].reset(); 
+                              }  
+                         })  
+               });
                $('#authorform').on('submit', function(event){  
                     event.preventDefault();  
                     var action=$('#action').val();
@@ -838,6 +1099,25 @@ $(document).ready(function(){
                             $('#action').val("Edit");
                         }
                       });
+                    });
+                $(document).on('click','.updateannouncement', function(){
+                        var announcementID = $(this).attr("id");
+                        $('#button_action').val("Save");
+                        var action = "Fetch Announcement Data";
+                        $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{announcementID:announcementID,action:action},
+                          dataType:"json",
+                          success:function(data){
+                            $("#announcement").modal('show');
+                             $("#title").val(data.title);                          
+                             $("#content").val(data.content);                                               
+                             $("#announcement_id").val(data.id);                                               
+                             $("#status").val(data.status);                                               
+                             $('#action').val("Edit Announcement");
+                          }
+                        });
                     });
                     $(document).on('click','.updateauthor', function(){
                         var authorID = $(this).attr("id");
@@ -1253,6 +1533,194 @@ $(document).ready(function(){
                            });
                   });
 
+  
+          $('#contactNumber').prop('disabled',true)
+          $('#memName').prop('disabled',true)
+
+          $('#studentName').change(function(){
+                $id =  $('#studentName').val()
+                $('#contactNumber').val('')
+                $('#memName').val('')
+                $('#issueID').val('')
+                $('#issue_table tr').remove();
+                      
+                $action = "IssueList";
+                
+                if($id != ""){
+                var dats = new FormData();
+                dats.append('id', $id);
+                dats.append('action', $action);
+
+                $.ajax({
+                  url:"core/action.php",
+                  method:"POST",
+                  data:dats,
+                  contentType:false,  
+                  processData:false,
+                  success:function(data)
+                    {
+                      //alert(data)
+                      //*
+                      $dtsp = data.split('|')
+                      $('#issue_table tr').remove();
+                      $('#issue_table').html($dtsp[0])
+                      $('#contactNumber').val($dtsp[2])
+                      $('#memName').val($dtsp[1])
+                      $('#issueID').val($dtsp[3])
+                      //*/
+                    }
+                });
+                }
+                              
+            });
+
+            $(document).on('change', '.bookID', function(){
+
+                var bk_no = $(this).closest('tr').find('input[name="bookID[]"]').val()
+                var ans=locBOOK(bk_no);
+                alert(ans)
+                $(this).closest('tr').find('input[name="bookTitle[]"]').val(bk_no)
+                     
+            });
+            function locBOOK(bk_no){
+                var action = 'BookSL'
+                var ans = ''
+                var dats = new FormData();
+                    dats.append('bk_no', bk_no)
+                    dats.append('action', action)
+                      $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:dats,
+                          contentType:false,  
+                          processData:false,
+                          success:function(data)
+                            {
+                                ans = data
+                            }
+                      });
+                      alert(ans)
+                      return ans;
+
+
+            }
+
+
+            $('#add').click(function(){
+                          var now = new Date();
+                          var month = (now.getMonth() + 1);               
+                          var day = now.getDate();
+                          if(month < 10) 
+                              month = "0" + month;
+                          if(day < 10) 
+                              day = "0" + day;
+
+                          var today = now.getFullYear() + '-' + month + '-' + day;
+                              now.setDate(now.getDate()+6);
+                          
+                          var end_date=now.getFullYear() + "-" + month + "-" + now.getDate();
+                          var html = '';
+
+                          html += "<tr> <td width='19%''><input type='text' name='bookID[]' id='bookID' class='form-control bookID' required /></td> <td width='26%'><input type='text' name='bookTitle[]' id='bookTitle' class='form-control bookTitle' required /></td> <td width='7%'><input type='number' min='1' value ='1' name='copies[]' class='form-control copies' required /></td> <td width='14%'><input type='date' name='date_issued[]' id='date_issued' value='"+today+"' class='form-control date_issued' required  /></td> <td  width='14%'><input type='date' name='date_returned[]' id='date_returned' value='"+end_date+"' class='form-control date_returned' required  /></td> <td width='16%'><button type='button' name='remove' class='btn btn-danger btn-sm remove'><span class='glyphicon glyphicon-minus'></span></button> <input type='hidden' name='rs_id[]' id='rs_id' value='0'> </td> </tr>"
+                          
+                          $('#issue_table').append(html);
+            });  
+                    $(document).on('click', '.remove', function(){
+                        var rsid = $(this).closest('tr').find('input[name="rs_id[]"]').val()
+                        var action = 'ReserveDel'
+                        var bk_no = $('#issueID').val()
+                        
+                        if(rsid=="0")
+                          $(this).closest('tr').remove();
+                        else{
+                          $(this).closest('tr').remove();
+                          var dats = new FormData();
+                          dats.append('id', rsid)
+                          dats.append('bk', bk_no)
+                          dats.append('action', action)
+                           $.ajax({
+                                url:"core/action.php",
+                                method:"POST",
+                                data:dats,
+                                contentType:false,  
+                                processData:false,
+                                success:function(data)
+                                {
+                                    
+                                }
+                            });
+                        }
+                        
+                     });
+
+
+                      $("#issuedBook").on('submit', function(event){
+                         event.preventDefault();
+                          var error = '';
+
+                          $('.bookID').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child's Name at "+count+" Row</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          
+                          $('.bookTitle').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child's Age</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          $('.copies').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                         $('.date_issued').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                         $('.date_returned').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          var form_data = $(this).serialize();
+                          alert(form_data);
+                          /*
+                           $.ajax({
+                            url:"core/action.php",
+                            method:"POST",
+                            data:form_data,
+                            success:function(data)
+                            {
+                              alert(data);
+                              window.location.href='issuebook.php';
+                            }
+                           });
+                           //*/
+                           
+                  });
+
 //Log-in function
 //------------------------------------------------------------------------------------------
 //Tap-in function
@@ -1278,15 +1746,7 @@ $(document).ready(function(){
                       
                               }
                       })
-
-
-                      
-
                     });
-
-
-
-
 //Log-in------------------------------------------------------------------------------------
                     $('#username').focus()
                     $('#username').on('focus', function(){
@@ -1317,10 +1777,10 @@ $(document).ready(function(){
                               processData:false,
                               success:function(data)
                               {
-                               // alert(data);
+                                //alert(data);
                                 var d = data.split(',');
                                   //*
-                                  if(d[0] == 0 || d[0] == 2 || d[0] == 3){
+                                  if(d[0] == 0 || d[0] == 2 || d[0] == 3 || d[0] == 4){
                                     voice("Log in verified. Access Approve","log",'login_parse.php?id='+d[1]+'&type='+d[0])
                                   }else if(d[0] == 5){
                                     voice("Log in verified. Access Denied, Your ID is no longer active. Please proceed to your librerian on duty for futher info.")
@@ -1440,6 +1900,27 @@ $(document).ready(function(){
                     });
 //--------------------------------------------------------------------------------------
 //Message Data
+          function messageData(mess,cp_no){
+              //alert($mess)
+              //*
+              var dats = new FormData();
+             
+              dats.append('nos', cp_no);
+              dats.append('mess', mess);
+
+              $.ajax({
+                url:"core/sms.php",
+                method:"POST",
+                data:dats,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                  {
+                      alert(data)
+                    
+                  }
+              });
+          }
 
           $("#data").on('submit', function(e){
               e.preventDefault();
@@ -1462,6 +1943,38 @@ $(document).ready(function(){
                 processData:false,
                 success:function(data)
                   {
+                    
+                      alert(data)
+                   
+                  }
+              });
+              //*/
+          });
+
+
+          ("#data").on('submit', function(e){
+              e.preventDefault();
+              $no = $("#cp_no").val()
+              $mess = $("#message").val()
+              
+
+              //alert($mess)
+              //*
+              var dats = new FormData();
+             
+              dats.append('nos', $no);
+              dats.append('mess', $mess);
+
+              $.ajax({
+                url:"core/sms.php",
+                method:"POST",
+                data:dats,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                  {
+                    alert(data)
+                    /*
                     if(data == ""){
                       alert("Server Not Found")
                     }else if(data==0){
@@ -1469,12 +1982,10 @@ $(document).ready(function(){
                     }else{
                       alert(data)
                     }
-
+                    */
 
                   }
               });
               //*/
           });
-//------------------------------------------------------------------------------------
-  
 });  

@@ -1,11 +1,9 @@
 <?php include 'includes/header.php';?>  
-
     <div class="container-fluid"> 
-                <div class="row">
-                  
-                    <?php include 'includes/sidemenu.php'; ?>
-                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                         <h3 align="center">Authors!</h3><br />  
+      <div class="row">
+        <?php include 'includes/sidemenu.php'; ?>
+           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                          <h3 align="center">Authors!</h3><br />  
                               <div  class="table-responsive">
                                <div class="btn-group">
                                       <button type="button" class="btn btn-primary" id="add_author" data-toggle="modal" data-target="#author">
@@ -22,8 +20,7 @@
                 					                </tr> 
                 					                <tbody id="author_table"></tbody> 
 								                  </table>  
-                           </div>  
-                    </div>  
+                           </div>   
                 </div>
            </div>  
   <div class="modal fade" id="author" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

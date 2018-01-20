@@ -3,10 +3,79 @@
  include 'database.php';  
  $object = new Database();  
  if(isset($_POST["action"])){
+
+      //REPORT QUERIES
+      if($_POST["action"] == "bookReport"){
+            $query = "SELECT * FROM book  ";
+            if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+              $query.="WHERE date_receive BETWEEN '".$_POST['from_date']."' AND '".$_POST['to_date']."'";
+            }
+             if(!empty($_POST['status'])){
+              $query.=" AND status = '".$_POST['status']."'";
+            }
+           
+          echo $object->get_bookReport($query);
+        }
+        if($_POST["action"] == "studentReport") {
+              $query = "SELECT * FROM students s LEFT JOIN departments d ON d.dept_id = s.dept LEFT JOIN courses c ON c.course_id =s.course WHERE true ";
+            if(!empty($_POST['department'])){
+              $query.="AND dept = '".$_POST['department']."'";
+            }
+             if(!empty($_POST['course'])){
+              $query.=" AND course = '".$_POST['course']."'";
+            }
+            if(!empty($_POST['year'])){
+              $query.=" AND year_level = '".$_POST['year']."'";
+            }
+            if(!empty($_POST['id'])){
+              $query.=" AND student_id LIKE '%".$_POST['id']."%'";
+            }
+            
+          echo $object->get_studentReport($query);
+        }
+        if($_POST["action"] == "BookRequestReport") { 
+           $query = "SELECT * FROM book_request br JOIN faculty f ON br.faculty_id=f.faculty_no ";
+           if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+              $query.="WHERE date_requested BETWEEN '".$_POST['from_date']."' AND '".$_POST['to_date']."'";
+            }
+           
+           echo $object->get_request_report($query);  
+
+        }
+        if($_POST["action"] == "BookIssueReport") { 
+            $query = "SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id";
+           if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+            $from_date = date("Y-m-d",strtotime($_POST['from_date']));
+            $to_date = date("Y-m-d",strtotime($_POST['to_date']));
+              $query.=" WHERE on_date >= '".$from_date."' AND due_date <= '".$to_date."'  ";
+            }
+           
+           echo $object->get_borrow_report($query);  
+
+        }
+        //INDEX FUNCTION
+      if($_POST["action"] == "announcementIndex"){
+          echo $object->get_announcements_index("SELECT * FROM announcements");
+      }
+      if($_POST["action"] == "bookIndex"){
+        echo $object->get_book_index("SELECT * FROM book b LEFT JOIN authors a ON a.id =b.author LEFT JOIN publishers p ON p.id=b.book_pub JOIN status s ON s.id = b.status LEFT JOIN catalogue c on b.category_id = c.catalogue_id");
+      }
+      if($_POST["action"] == "bookIssuedIndex"){
+        echo $object->get_book_issued_index("SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id");
+      }
+      if($_POST["action"] == "userIndex"){
+        echo $object->get_user_index("SELECT * FROM users WHERE access != 0 ");
+      }
+      if($_POST["action"] == "studentIndex"){
+        echo $object->get_student_index("SELECT * FROM students s LEFT JOIN departments d ON d.dept_id = s.dept LEFT JOIN courses c ON c.course_id =s.course ");
+      }
+      if($_POST["action"] == "facultyindex"){
+        echo $object->get_faculty_index("SELECT * FROM faculty f LEFT JOIN departments d ON d.dept_id = f.dept ");
+      }
        //Load queries
-      if($_POST["action"] == "Load")  
+      if($_POST["action"] == "Announcements")  
       {  
-           echo $object->get_data_in_table("SELECT * FROM book ");  
+           echo $object->get_announcements_data("SELECT * FROM announcements ");  
       }
       if($_POST["action"] == "Book")  
       {  
@@ -42,7 +111,7 @@
       }
       if($_POST["action"] == "Issue Book")  
       {  
-           echo $object->get_book_issued_data("SELECT * FROM borrow_detail bd JOIN borrow_book bb USING (borrow_no) JOIN students USING (student_id) JOIN book USING (book_no)");  
+           echo $object->get_book_issued_data("SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id");  
 
       }     
       if($_POST["action"] == "Insert")  
@@ -67,12 +136,54 @@
        }
        if($_POST["action"] == "Course") {
             $output ='';
+          
             $query = "SELECT * FROM courses WHERE department_code='".$_POST['val']."' ";
             $result = $object->execute_query($query);
             $output .='<option value="">Please Select</option>';
             while($row = mysqli_fetch_array($result))
             {
              $output .= '<option value="'.$row["course_id"].'">'.$row["course_name"].'</option>';
+                
+            }
+            
+            echo $output;
+         }
+         if($_POST["action"] == "Course Year"){
+             $output ='';
+          
+            $query = "SELECT * FROM courses WHERE course_id='".$_POST['val']."' ";
+            $result = $object->execute_query($query);
+            $output .='<option value="">Please Select</option>';
+            while($row = mysqli_fetch_array($result))
+            {
+             $years = $row["numYear"];
+                    if($years == 7){
+                       for($a = 7;$a<=10;$a++){
+                        $output .= '<option value='.$a.'>'.$a.'</option>';
+                        }
+                    }elseif($years == 6){
+                       for($a = 1;$a<=6;$a++){
+                        $output .= '<option value='.$a.'>'.$a.'</option>';
+                        }
+                    }elseif($years == 5){
+                      $output .= '<option value="1">1st</option>';
+                      $output .= '<option value="2">2nd</option>';
+                      $output .= '<option value="3">3rd</option>';
+                      $output .= '<option value="4">4th</option>';
+                      $output .= '<option value="5">5th</option>';
+                    }elseif($years == 4){
+                      $output .= '<option value="1">1st</option>';
+                      $output .= '<option value="2">2nd</option>';
+                      $output .= '<option value="3">3rd</option>';
+                      $output .= '<option value="4">4th</option>';
+                    }elseif($years == 2){
+                      $output .= '<option value="1">1st</option>';
+                      $output .= '<option value="2">2nd</option>';
+                    }elseif($years == 2 && $_POST['val'] == 7 || $_POST['val'] == 8){
+                      $output .= '<option value="1">11</option>';
+                      $output .= '<option value="2">12</option>';
+                    }
+                
             }
             echo $output;
          }
@@ -109,7 +220,17 @@
            echo 'Data Inserted';  
 
       }
-       
+      if($_POST["action"] == "addAnnouncement") {  
+
+            $title = mysqli_real_escape_string($object->connect, $_POST["title"]);  
+            $content = mysqli_real_escape_string($object->connect, $_POST["content"]);  
+           $query = "  
+           INSERT INTO announcements  
+           (title,content,posted_by)   
+           VALUES ('".$title."', '".$content."','".$_SESSION["id"]."')";  
+           $object->execute_query($query);  
+           echo 'Annoucement Posted';  
+      }  
       if($_POST["action"] == "addAuthor") {  
 
             $author_no = mysqli_real_escape_string($object->connect, $_POST["author_no"]);  
@@ -175,9 +296,10 @@
                INSERT INTO borrow_book(borrow_no,book_no, book_title, copies, on_date, due_date) 
                VALUES("'.$issueNo.'","'.$bookNo.'", "'.$bookTitle.'", "'.$copies.'", "'.$date_borrowed.'", "'.$date_returned.'")';
                 $object->execute_query($query0);
+                $object->execute_query("UPDATE book SET  book_copies=book_copies-'$copies' WHERE book_id = '".$bookNo."'");
                 }
                  $query1 = '
-               INSERT INTO borrow_detail(borrow_no,student_id,contact_number) 
+               INSERT INTO borrow_detail(borrow_no,member_id,contact_number) 
                VALUES("'.$issueNo.'","'. $studentName.'","'.$contactNumber.'")';
                  $object->execute_query($query1);
                 echo 'Issued Book Data Inserted';
@@ -298,7 +420,22 @@
                 echo json_encode($output);
                 
       }
-      if($_POST["action"]=="Fetch Author Data") {
+      if($_POST["action"]=="Fetch Announcement Data") {
+      
+                $output =array();
+               $query = "SELECT * FROM announcements WHERE id ='".$_POST['announcementID']."'";
+               $result = $object->execute_query($query);
+                while($row = mysqli_fetch_array($result)) {
+                 $output["id"] = $row["id"];
+                 $output["title"] = $row["title"];
+                  $output["content"] = $row["content"];
+                  $output["status"] = $row["status"];
+                }
+
+                echo json_encode($output);
+                
+      }
+       if($_POST["action"]=="Fetch Author Data") {
       
                 $output =array();
                $query = "SELECT * FROM authors WHERE id ='".$_POST['authorID']."'";
@@ -377,6 +514,15 @@
               $query = "UPDATE book SET book_title ='$book_title', category_id = '$category_id', author='$author_name', book_copies='$book_copies', book_pub='$book_publisher', isbn='$isbn',copyright_year='$cp_yr',date_receive='$date_rcv',status='$status' WHERE book_id = '".$_POST['book_id']."' ";
               $object->execute_query($query);
               echo 'Data Updated';/**/
+            } 
+            if($_POST['action']=="Edit Announcementaaad") {
+               $title = mysqli_escape_string($object->connect,$_POST["title"]);
+               $content = mysqli_escape_string($object->connect,$_POST["content"]);
+               $status = mysqli_escape_string($object->connect,$_POST["status"]);
+
+              $query = "UPDATE announcements SET title ='$title', content = '$content',status='$status' WHERE id = '".$_POST['announcement_id']."' ";
+              $object->execute_query($query);
+              echo 'Data Updated';
             } 
             if($_POST['action']=="Edit Author") {
                $author_no = mysqli_escape_string($object->connect,$_POST["author_no"]);
@@ -570,29 +716,73 @@
                       }
                 }
 
-          // $expired = (strtotime('2017-12-01') == strtotime('2017-12-01'));
-          // if ($expired) {
-          //   // Do something, like output an error
-          //   echo 'expired';
-          //   // die();
-          // }
-if($_POST["action"] == "Search")  
+
+      if($_POST["action"] == "Search2")  
       {
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_search_data("SELECT b.book_title, b.book_no AS book_id, a.author_name AS author, b.copyright_year, p.publisher_name, p.book_publisher AS book_pub, b.isbn, b.location, b.department  FROM book b LEFT JOIN authors a ON a.id = b.author LEFT JOIN publishers p ON p.id=b.book_pub LEFT JOIN status s ON s.id = b.status WHERE book_title LIKE '%".$_POST["srch_name"]."%' ORDER BY b.book_title ASC");
+          echo $object->get_search_data("SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.location, d.department_name as department, b.img AS img  FROM book b LEFT JOIN status s ON s.id = b.status LEFT JOIN departments d ON b.department = d.dept_id WHERE book_title LIKE '%".$_POST["srch_name"]."%' ORDER BY b.book_title ASC");
       }
-      if($_POST["action"] == "Book_select")  
+     if($_POST["action"] == "Book_select")  
       {
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, a.author_name AS author, b.copyright_year, p.publisher_name, p.book_publisher AS book_pub, b.isbn, b.book_copies, b.location as location, b.department as department FROM book b LEFT JOIN authors a ON a.id = b.author LEFT JOIN publishers p ON p.id=b.book_pub WHERE book_no ='".$_POST["id"]."'","SELECT COUNT(*) AS CNT FROM `borrow` WHERE book_no = '".$_POST["id"]."'");
+          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.book_copies, b.location as location, d.department_name as department, b.img as img FROM book b LEFT JOIN departments d ON b.department = d.dept_id WHERE book_no ='".$_POST["id"]."'","SELECT COUNT(*) AS CNT FROM `borrow_book` WHERE book_no = '".$_POST["id"]."'");
       }
+      if($_POST["action"] == "Book_Reserve")  
+      {
+          $bk_id = mysqli_real_escape_string($object->connect, $_POST['id']);
+          $st_id = mysqli_real_escape_string($object->connect, $_POST['std']);
+          $date = date('Y-m-d');
+          $due= date('Y-m-d',strtotime("+3 day"));
+          
+
+          $relay = $object->get_borrow_reserves("SELECT bd.borrow_no AS id_no FROM borrow_details bd WHERE bd.member_id='".$st_id."' AND activity='reserved'");
+          
+          if($relay=="0"){// New Reserve
+              $num = substr(str_shuffle("0123456789"), -8);
+              $query = "
+              INSERT INTO `borrow_book`
+              (borrow_no, book_no, on_date, due_date) VALUES ('".$num."', '".$bk_id."', '".$date."', '".$due."')
+              ";
+              $object->execute_query($query);
+              $query2 = "
+              INSERT INTO `borrow_details`
+              (borrow_no, member_id, activity) VALUES ('".$num."', '".$st_id."', 'reserved')
+              ";
+              $object->execute_query($query2);
+
+          }else{ // Already Reserve / Prev Reserve
+              $query = "
+              INSERT INTO `borrow_book`
+              (borrow_no, book_no, on_date, due_date) VALUES ('".$relay."', '".$bk_id."', '".$date."', '".$due."')
+              ";
+              $object->execute_query($query);  
+          }
+          
+          //*
+          return true;
+          //*/
+        }
+
+      if($_POST['action']  == "Login"){
+    echo $object->login($_POST['user'],$_POST['pass']);
+}
 if($_POST['action']  == "Tapin"){
             echo $object->tapin_data("SELECT * FROM logs WHERE student_no = '".$_POST['user']."' ORDER by log_id DESC",$_POST['user']);
 
         }
-      if($_POST["action"] == "Notification"){
-         echo $object->get_notification("SELECT * FROM notification ORDER BY notif_id DESC LIMIT 5");
+      if($_POST["action"] == "RequestNotification"){
+         echo $object->get_request_notification("SELECT * FROM notification WHERE notif_id_type = 1 AND notif_status=0 ORDER BY notif_id DESC LIMIT 5");
            
       }
+      if($_POST["action"] == "FeedBackNotification"){
+         echo $object->get_feedback_notification("SELECT * FROM notification WHERE notif_id_type = 2 AND notif_status=0 ORDER BY notif_id DESC LIMIT 5");
+           
+      }
+       if($_POST["action"] == "PanelNotification"){
+         echo $object->get_panel_notification("SELECT * FROM notification ORDER BY notif_id DESC LIMIT 15");
+           
+      }
+
+
   }
  ?>  

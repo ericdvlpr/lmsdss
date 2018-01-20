@@ -166,3 +166,34 @@ body {
 #divPwd{
   display: none;
 }
+.active{
+  background: red;
+  color: green;
+}
+.book_title{
+  font-size: 20px;
+  text-decoration: underline;
+  font-style: italic;
+}
+.book_specks{
+  font-size: 12px;
+}
+.modal {
+    display: none; /* Hidden by default */
+}
+.modal_content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+}
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+.calln{
+  font-size: 12px;
+}
+.visi{
+  visibility: hidden;
+}
