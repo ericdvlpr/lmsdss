@@ -474,7 +474,7 @@ $(document).ready(function(){
               
               if(!sec_sh){
               var srch_name = $("#searchname").val(); 
-              var text = "Searching related to. "+srch_name+ "..." 
+              var text = "Searching related to. "+srch_name+ "." 
               var action = "Search2";
               
               if(srch_name!=''){
@@ -493,8 +493,8 @@ $(document).ready(function(){
                 processData:false,
                 success:function(data)
                 {
-                  //alert(data)
-                  //*
+                 
+                  
                   if(data==0){
                    if(voi_ab){
                       voice_pre(text+" Search not found related to "+srch_name,0,null);
@@ -512,12 +512,12 @@ $(document).ready(function(){
                       tp += dat[i][0] +',';
                     }
 
-                    voice_pre(text+' SEARCH FOUND. '+plt[0]+'Hits.',1,plt[1]);
+                    voice_pre(text+' SEARCH FOUND. '+plt[0]+' Hits.',1,plt[1]);
                     bkn = plt[0]
                     tbl=true;
                   
                   }
-                  //*/
+                  //
                   
                 }  
                           

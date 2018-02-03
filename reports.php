@@ -1,9 +1,6 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-                <div class="row">
-                  
-                    <?php include 'includes/sidemenu.php'; ?>
-                <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+ <?php include 'includes/sidemenu.php'; ?>
+ <div class="content-wrapper">
           				<h1 class="page-header">Reports</h1>
 	<?php 
 	
@@ -145,8 +142,6 @@
 		                </div>
 			        </div> <!-- END RoW-->
      	</div>  <!-- END COL-LG-9 -->
-	</div>  <!-- END RoW-->
-</div>  <!-- END Container-->
 <?php 
 include 'includes/footer.php';
 ?>

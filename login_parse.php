@@ -5,7 +5,7 @@
 	
 	
 	if($_GET['type'] == "0" || $_GET['type'] == "1" || $_GET['type'] == "2"){
-		$query = "SELECT * FROM students WHERE student_id ='".$_GET['id']."' WHERE ";
+		$query = "SELECT * FROM students WHERE student_id ='".$_GET['id']."'";
 		$result =  $data->execute_query($query);
 		$row = mysqli_fetch_object($result);		
 		$_SESSION['id'] = $row->student_id;
@@ -13,6 +13,7 @@
 		$_SESSION['name'] = $row->student_name;
 		$_SESSION['type'] = $_GET['type'];
 		$_SESSION['access'] = "5";
+		
 		if($_GET['type'] == "2"){
 			header("location: searchBook.php");
 		}else{

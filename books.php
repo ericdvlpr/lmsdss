@@ -1,9 +1,7 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-                <div class="row">
                     <?php include 'includes/sidemenu.php'; ?>
-                  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                         <h3 align="center">Books!</h3> 
+                  <div class="content-wrapper">
+                         <h3 class="page-header">Books!</h3> 
                               <div  class="table-responsive"> 
                               	  <div class="btn-group">
                                       <button type="button" class="btn btn-primary" id="add_book" data-toggle="modal">
@@ -27,9 +25,6 @@
           					            </table>
                             </div>  
                 </div>
-
-           </div> 
-           </div> 
 <div class="modal fade" id="book" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -114,7 +109,7 @@
 	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Book Copies</label>
 	          <div class="col-sm-9">
 	           
-	             <input type="number" class="form-control" min='1'  name="book_copies"  id="book_copies" placeholder="Book Copies" >
+	             <input type="number" class="form-control" name="book_copies"  id="book_copies" placeholder="Book Copies" >
 	          </div>
         </div>
         <div class="form-group">
@@ -179,7 +174,7 @@
       </div>
           <div class="modal-footer">
             <input type="hidden" name="action" id="action" value="addBook" />
-            <input type="hidden" name="book" id="book_id" />
+            <input type="hidden" name="book_id" id="book_id" />
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             <input type="submit" class="btn btn-primary" id="button_action" value="Save"/>
           </div>

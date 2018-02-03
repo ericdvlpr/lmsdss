@@ -13,7 +13,7 @@
 							    		<div class="form-group">
 										    	<label for="inputEmail3" class="col-xs-3">Student/Faculty Id:</label>
 										     	<div class="col-sm-9">
-										      		<input type="text" id="studentName" name="studentName" class="form-control" placeholder="Student/Faculty ID Number">
+										      		<input type="text" id="studentName" name="studentName" class="form-control" placeholder="Student/Faculty ID Number" value=<?php if(isset($_GET['stud'])){echo $_GET['stud']; }?>>
 										  		</div>
 										 </div>
 							    		<div class="form-group">
@@ -26,14 +26,14 @@
 							    	</div>
 							    	<div class="col-md-6">
 									    <div class="form-group">
-										    <label for="inputEmail3" class="col-xs-4">Contact Number:</label>
-										    <div class="col-sm-8">
+										    <label for="inputEmail3" class="col-xs-3">Contact Number:</label>
+										    <div class="col-sm-9">
 										      <input type="text" class="form-control" name="contactNumber" id="contactNumber" placeholder="Contact Number" readonly="true">
 										    </div>
 										  </div>
 										  <div class="form-group">
-										    <label for="inputEmail3" class="col-xs-4">Borrower's Name:</label>
-										     <div class="col-sm-8">
+										    <label for="inputEmail3" class="col-xs-3">Member Name:</label>
+										     <div class="col-sm-9">
 										     	<input type="text" id="memName" name="memName" class="form-control" placeholder="Member's Name" readonly="true">
 										  	 </div>
 										  </div>

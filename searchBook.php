@@ -1,9 +1,7 @@
-<?php include 'includes/header.php';?>       
-    
-    <div class="container-fluid">    
-		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<?php include 'includes/header.php';?>         
+		 
         <?php include 'includes/sidemenu.php'; ?>
-
+<div class="content-wrapper">
         <div class="container">
         <form name="srch_form" id="srch_form">
 			<div class="page-header"><h1 class="text-center">DWCL LIBRARY</h1></br>
@@ -34,11 +32,11 @@
             </tbody>
          </table>
     </div>
-	<div id="mod_info" class="modal">
+<!-- 	<div id="mod_info" class="modal">
         <div id="info_data" class="modal_content">
                                   
         </div>
-    </div>
+    </div> -->
 
 	<div id="modal_select" class="modal">
         <div id="modal_data" class="modal_content">
@@ -59,8 +57,7 @@
              </table>                
         </div>
     </div>
-    </div>
-  </div>  
+</div>
 
 <?php 
 include 'includes/footer.php';

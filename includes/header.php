@@ -1,31 +1,30 @@
- <?php  
+<?php  
 
  include 'core/database.php';  
 $object = new Database();
-// if(!isset($_SESSION['username'])){
-// 	header("location:login.php");
+if(!isset($_SESSION['username'])){
+  header("location:login.php");
 
-// }
+}
  ?> 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta name="description" content="">
-            <meta name="author" content="">  
-            <title>Library Management System</title>   
-            <link rel="stylesheet" type="text/css" href="css/chosen.css">
-            <link rel="stylesheet" href="css/bootstrap.min.css" />
-            <link rel="stylesheet" href="css/jquery.dataTables.min.css" />   
-            <link rel="stylesheet" href="css/style.css">
-            <link rel="stylesheet" href="css/bootstrap-select.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect. -->
+  <link rel="stylesheet" href="css/skins/skin-blue.min.css">
+  <link rel="stylesheet" href="css/bootstrap-select.min.css">
             <link rel="stylesheet" href="css/jquery-ui.css">
-
-            <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> 
-             
-      </head> 
- <body>  
-  <?php include 'includes/nav.php';?>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+<?php include 'nav.php'; ?>
