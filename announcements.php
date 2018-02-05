@@ -2,28 +2,35 @@
     <div class="content-wrapper"> 
       <div class="row">
         <?php include 'includes/sidemenu.php'; ?>
-           <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                          <h3 class="page-header">Announcements!</h3><br />  
-                              <div  class="table-responsive">
-                               <div class="btn-group">
+           <section class="content">
+                            <div class="box">
+                              <div class="box-header">
+                                <h3 class="box-title">Announcements!</h3>
+                              </div>
+                              <!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="btn-group">
                                       <button type="button" class="btn btn-primary" id="add_announcement" data-toggle="modal" data-target="#myModalannouncements">
                                      Post Announcements
                                     </button>
-                                </div>
+                                    </div>
                                    <table class="table table-bordered  table-striped" id='announcement'>  
                                           <thead>  
-                    					                <tr>  
-                    					                     <th width="30%">Announcement Title</th>  
-                    					                     <th width="30%">Content</th>  
+                                              <tr>  
+                                                   <th width="30%">Announcement Title</th>  
+                                                   <th width="30%">Content</th>  
                                                    <th width="20%">Date Posted</th>  
-                    					                     <th width="20%">Status</th>  
-                    					                     <th width="20%">Command</th>  
-                    					                     
+                                                   <th width="20%">Status</th>  
+                                                   <th width="20%">Command</th>  
+                                                   
                                               </tr> 
-                					                </thead> 
-                					                <tbody id="announcement_table"></tbody> 
-								                  </table>  
-                           </div>   
+                                          </thead> 
+                                          <tbody id="announcement_table"></tbody> 
+                                  </table>  
+                                </div>
+                              </div>
+                               
+                     </section>
                 </div>
            </div>  
            <div class="modal fade" id="myModalannouncements" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
