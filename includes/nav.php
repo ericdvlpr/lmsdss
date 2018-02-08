@@ -1,13 +1,10 @@
 <header class="main-header" >
-    <a href="index.php" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <!-- <span class="logo-mini"><b>A</b>LT</span> -->
-      <!-- logo for regular state and mobile devices -->
-      <!-- <span class="logo-lg"><b>Admin</b>LTE</span> -->
-      <img src="images/icons/dwcl_seal_new.png" width="50" height="50" class="img-responsive" />
+  <div class="image">
+    <a href="index.php" class="logo navbar-brand">
+        <img src="images/icons/dwcl_seal_new.png" width="35" height="35" class="center-block" />
 
-    </a>
-
+      </a>
+  </div>
     <nav class="navbar navbar-static-top" role="navigation">
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
@@ -57,10 +54,10 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-         <!--  <li>
+          <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
- -->        </ul>
+        </ul>
       </div>
     </nav>
   </header>
