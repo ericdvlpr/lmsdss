@@ -146,7 +146,7 @@
 							          <div class="col-md-3">
 							            <div class="box box-solid box-success">
 							              <div class="box-header">
-							                <h3 class="box-title">Success Solid Box Example</h3>
+							                <h3 class="box-title">Notification Panel</h3>
 							              </div><!-- /.box-header -->
 							              <div class="box-body">
 							               	<div class="list-group panelnotif"></div>
@@ -156,7 +156,7 @@
 							          <div class="col-md-3">
 							            <div class="box box-solid box-success">
 							              <div class="box-header">
-							                <h3 class="box-title">Success Solid Box Example</h3>
+							                <h3 class="box-title">User Logs</h3>
 							              </div><!-- /.box-header -->
 							              <div class="box-body">
 							               <div class="list-group usernotif"></div>
