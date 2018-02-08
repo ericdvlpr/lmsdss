@@ -1,9 +1,11 @@
-<header class="main-header">
-    <a href="index2.html" class="logo">
+<header class="main-header" >
+    <a href="index.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <!-- <span class="logo-mini"><b>A</b>LT</span> -->
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+      <!-- <span class="logo-lg"><b>Admin</b>LTE</span> -->
+      <img src="images/icons/dwcl_seal_new.png" width="50" height="50" class="img-responsive" />
+
     </a>
 
     <nav class="navbar navbar-static-top" role="navigation">

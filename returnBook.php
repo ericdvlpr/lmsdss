@@ -1,11 +1,12 @@
 <?php include 'includes/header.php';?>  
            <?php include 'includes/sidemenu.php'; ?>
-             <div class="content-wrapper">
-      		  	
+      		  <section class="content">
 					<form class="form-horizontal" id="returnBook" method="POST">
-                        <div class="panel panel-default">
-						  <div class="panel-heading"><h1>Return Book</h1></div>
-						  	<div class="panel-body">
+                        <div class="box box-solid box-default">
+						  <div class="box-header with-border">
+          							<h3 class="box-title">Return Book</h3>
+						  	  </div>
+						  	<div class="box-body">
 							    <div class="row">
 							    	<div class="col-md-6">
 							    		<div class="form-group">
@@ -59,7 +60,7 @@
                         <input type="hidden" name="res_id" id="res_id" />
                         <button class="btn btn-primary" name="br_book" id="br_book">Return</button>	
 				</form>
-           </div>
+			</section>
 <?php 
 include 'includes/footer.php';
 ?>

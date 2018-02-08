@@ -1,30 +1,38 @@
 <?php include 'includes/header.php';?>  
                     <?php include 'includes/sidemenu.php'; ?>
-                  <div class="content-wrapper">
-                         <h3 class="page-header">Books!</h3> 
-                              <div  class="table-responsive"> 
-                              	  <div class="btn-group">
-                                      <button type="button" class="btn btn-primary" id="add_book" data-toggle="modal">
-                                      Add Book
-                                    </button>
-                                    
-                                </div>
-                               <table class="table table-bordered table-striped" id="books">  
-          					                <thead>  
-                                         <th width="10%">Book No</th>  
-          					                     <th width="20%">Book Title</th>  
-          					                     <th width="15%">Book Author</th>   
-          					                     <th width="10%">Book Copies</th>  
-          					                     <th width="7%">Status</th>  
-          					                      
-          					                     <th width="14%">Command</th>  
-          					                </thead> 
-          					                <tbody id="book_table">
-          					                	
-          					                </tbody> 
-          					            </table>
-                            </div>  
-                </div>
+         <section class="content">
+                  <div class="col-md-12">
+                      <div class="box box-solid box-primary">
+                            <div class="box-header">
+                                   <h3 class="box-title">Books</h3>
+                            </div>
+                            <div class="box-body">
+                                  <div  class="table-responsive"> 
+                                      <div class="btn-group">
+                                          <button type="button" class="btn btn-primary" id="add_book" data-toggle="modal">
+                                          Add Book
+                                        </button>
+                                        
+                                    </div>
+                                   <table class="table table-bordered table-striped" id="books">  
+                                        <thead>  
+                                             <th width="10%">Book No</th>  
+                                             <th width="20%">Book Title</th>  
+                                             <th width="15%">Book Author</th>   
+                                             <th width="10%">Book Copies</th>  
+                                             <th width="7%">Status</th>  
+                                              
+                                             <th width="14%">Command</th>  
+                                        </thead> 
+                                        <tbody id="book_table">
+                                          
+                                        </tbody> 
+                                    </table>
+                                </div> 
+                            </div>
+                      </div>
+                  </div> 
+          </section>
 <div class="modal fade" id="book" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -180,7 +188,8 @@
           </div>
           </form>
     </div> 
-</div>  
+</div> 
+</div> 
 <?php 
 include 'includes/footer.php';
 ?>

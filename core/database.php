@@ -40,6 +40,13 @@ error_reporting(0);
               }
 
         }
+//Index Header
+public function count_books(){
+  $query_1 = "SELECT * FROM books";
+  $result_1 =$this->execute_query($query_1);
+   $count = mysqli_num_rows($result_1);
+   return $count;
+}
 //REPORTS TABLES
  public function get_bookReport($query) {  
            $output = '';  
@@ -411,7 +418,6 @@ public function get_faculty_index($query) {
                 <tr>       
                      <td>'.$row->author_id.'</td>  
                      <td>'.$row->author_name.'</td>  
-                     <td></td>  
                      <td><button type="button" name="update" id="'.$row->id.'" class="btn btn-success btn-xs updateauthor">Update</button></td>  
                 </tr>  
                 ';  
@@ -746,17 +752,17 @@ public function get_faculty_index($query) {
                   if($row["notif_id_type"]==1){
                       $output .= '
                               <a href="referrence.php"class="list-group-item">
-                            <i class="fa fa-bell  fa-fw"></i>
+                           <h4> <i class="fa fa-bell  fa-fw"></i>
                                <strong>'.$row["notif_type"].'</strong><br />
-                               <small><em>'.$row["notif_text"].'</em></small>
+                               <small><em>'.$row["notif_text"].'</em></small></h4>
                               </a>
                              ';
                   }else{
                      $output .= '
                               <a href="referrence.php"class="list-group-item">
-                            <i class="fa fa-bullhorn  fa-fw"></i>
+                            <h4><i class="fa fa-bullhorn  fa-fw"></i>
                                <strong>'.$row["notif_type"].'</strong><br />
-                               <small><em>'.$row["notif_text"].'</em></small>
+                               <small><em>'.$row["notif_text"].'</em></small></h4>
                               </a>
                              ';
                   }

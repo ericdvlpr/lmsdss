@@ -1,10 +1,7 @@
 <?php include 'includes/header.php';?>  
  <?php include 'includes/sidemenu.php'; ?>
- <div class="content-wrapper">
+ 		<section class="content">
           				<h1 class="page-header">Reports</h1>
-	<?php 
-	
-	 ?>
 			          <div class="row placeholders">
 			             <div class="col-lg-3 col-md-6">
 		                    <div class="panel panel-primary">
@@ -141,7 +138,7 @@
 		                    </div>
 		                </div>
 			        </div> <!-- END RoW-->
-     	</div>  <!-- END COL-LG-9 -->
+		</section>
 <?php 
 include 'includes/footer.php';
 ?>

@@ -1,13 +1,13 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-		 <div class="row">
-           <?php include 'includes/sidemenu.php'; ?>
-             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+         <?php include 'includes/sidemenu.php'; ?>
+             <section class="content">
       		  	
 					<form class="form-horizontal" id="issuedBook" method="POST">
-                        <div class="panel panel-default">
-						  <div class="panel-heading"><h1>Issued Book</h1></div>
-						  	<div class="panel-body">
+                        <div  class="box box-solid box-default">
+						   <div class="box-header with-border">
+          							<h3 class="box-title">Issue Book</h3>
+						  	  </div>
+       					<div class="box-body">
 							    <div class="row">
 							    	<div class="col-md-6">
 							    		<div class="form-group">
@@ -61,9 +61,7 @@
                         <input type="hidden" name="res_id" id="res_id" />
                         <button class="btn btn-primary" name="br_book" id="br_book">Borrow</button>	
 				</form>
-           </div>
-     </div>  
-</div>  
+           </section>  
 <?php 
 include 'includes/footer.php';
 ?>

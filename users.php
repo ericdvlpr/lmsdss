@@ -1,28 +1,37 @@
 <?php include 'includes/header.php';?>  
-                    <?php include 'includes/sidemenu.php'; ?>
-                     <div class="content-wrapper">
-                         <h3 class="page-header">Users!</h3><br />  
-                              <div  class="table-responsive"> 
-                                    <div class="btn-group">
-                                          <button type="button" class="btn btn-primary" id="add_user" >
-                                          Add User                                       
-                                        </button>
-                                        </div>
-                                        <table class="table table-bordered table-striped" id="users">  
-                                          <thead>  
-                                              <tr>  
-                                                
-                                                   <th width="35%">Username</th>   
-                                                   <th width="35%">Access Level</th>   
-                                                   <th width="35%">Library Assigned</th>   
-                                                   <th width="10%">Status</th>   
-                                                   <th width="20%">Command</th>  
-                                              </tr> 
-                                          </thead> 
-                                          <tbody id="user_table"></tbody> 
-                                      </table> 
-                              </div>  
-                	 </div>
+<?php include 'includes/sidemenu.php'; ?>
+  <section class="content">
+          <div class="col-md-12">
+               <br />
+                  <div class="box box-solid box-primary">
+                    <div class="box-header">
+                           <h3 class="box-title">Students</h3>
+                    </div>
+                      <div class="box-body">
+                          <div  class="table-responsive"> 
+                                <div class="btn-group">
+                                      <button type="button" class="btn btn-primary" id="add_user" >
+                                      Add User                                       
+                                    </button>
+                                    </div>
+                                    <table class="table table-bordered table-striped" id="users">  
+                                      <thead>  
+                                          <tr>  
+                                            
+                                               <th width="35%">Username</th>   
+                                               <th width="35%">Access Level</th>   
+                                               <th width="35%">Library Assigned</th>   
+                                               <th width="10%">Status</th>   
+                                               <th width="20%">Command</th>  
+                                          </tr> 
+                                      </thead> 
+                                      <tbody id="user_table"></tbody> 
+                                  </table> 
+                           </div>  
+                      </div>
+                  </div>
+          </div>
+      </section>
 <div class="modal fade" id="user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">

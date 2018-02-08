@@ -1,26 +1,34 @@
 <?php include 'includes/header.php';?>  
                     <?php include 'includes/sidemenu.php'; ?>
- <div class="content-wrapper">
-          				<h3 class="page-header">Book Referrence</h3>
-
-			          <div class="row placeholders">
-			            	<table class="table table-bordered table-striped" id="referrence">  
-	      					                <thead>  
-	      					                     <th width="10%">Request No</th>  
-	      					                     <th width="20%">Book Title</th>  
-	      					                     <th width="15%">Book Author</th>  
-	      					                     <th width="10%">Copies</th>  
-	      					                     <th width="12%">Requested By:</th>  
-	      					                     <th width="12%">Date Requested:</th>  
-	      					                     <th width="10%">Status</th>  
-	      					                     <th width="18%">Command</th>  
-	      					                </thead> 
-	      					                <tbody id="request_table">
-	      					                	
-	      					                </tbody> 
-	      					            </table>
-			          </div>     
-           </div>
+<section class="content">
+    <div class="col-md-12">
+      <br />
+        <div class="box box-solid box-primary">
+          <div class="box-header">
+                 <h3 class="box-title">Book Referrence</h3>
+          </div>
+            <div class="box-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="referrence">  
+                          <thead>  
+                               <th width="10%">Request No</th>  
+                               <th width="20%">Book Title</th>  
+                               <th width="15%">Book Author</th>  
+                               <th width="10%">Copies</th>  
+                               <th width="12%">Requested By:</th>  
+                               <th width="12%">Date Requested:</th>  
+                               <th width="10%">Status</th>  
+                               <th width="18%">Command</th>  
+                          </thead> 
+                          <tbody id="request_table">
+                            
+                          </tbody> 
+                      </table>
+                </div>  
+            </div>
+          </div>
+      </div>
+</section> 
 <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

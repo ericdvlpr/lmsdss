@@ -58,13 +58,13 @@
       } 
         //INDEX FUNCTION
       if($_POST["action"] == "announcementIndex"){
-          echo $object->get_announcements_index("SELECT * FROM announcements");
+          echo $object->get_announcements_index("SELECT * FROM announcements LIMIT 5");
       }
       if($_POST["action"] == "bookIndex"){
-        echo $object->get_book_index("SELECT * FROM book b LEFT JOIN authors a ON a.id =b.author LEFT JOIN publishers p ON p.id=b.book_pub JOIN status s ON s.id = b.status LEFT JOIN catalogue c on b.category_id = c.catalogue_id");
+        echo $object->get_book_index("SELECT * FROM book b LEFT JOIN authors a ON a.id =b.author LEFT JOIN publishers p ON p.id=b.book_pub JOIN status s ON s.id = b.status LEFT JOIN catalogue c on b.category_id = c.catalogue_id LIMIT 5 ");
       }
       if($_POST["action"] == "bookIssuedIndex"){
-        echo $object->get_book_issued_index("SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id");
+        echo $object->get_book_issued_index("SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id LIMIT 5 ");
       }
       if($_POST["action"] == "userIndex"){
         echo $object->get_user_index("SELECT * FROM users WHERE access != 0 ");
@@ -950,11 +950,11 @@
                }   
           }
            if($_POST["action"] == "PanelNotification"){
-             echo $object->get_panel_notification("SELECT * FROM notification ORDER BY notif_id DESC LIMIT 15");
+             echo $object->get_panel_notification("SELECT * FROM notification ORDER BY notif_id DESC LIMIT 5");
                
           }
           if($_POST["action"] == "userLogs"){
-             echo $object->get_user_logs("SELECT * FROM logs ORDER BY log_id DESC LIMIT 15");
+             echo $object->get_user_logs("SELECT * FROM logs ORDER BY log_id DESC LIMIT 5");
                
           }
           if($_POST['action'] == "Time Over"){

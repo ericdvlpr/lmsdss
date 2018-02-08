@@ -1,30 +1,38 @@
 <?php include 'includes/header.php';?>  
+      <?php include 'includes/sidemenu.php'; ?>
+      <section class="content">
+          <div class="col-md-12">
+                 <br />
+            <div class="box box-solid box-primary">
+              <div class="box-header">
+                     <h3 class="box-title">Students</h3>
+              </div>
+                <div class="box-body">
+                    <div  class="table-responsive"> 
+                              <div class="btn-group">
+                                    <button type="button" class="btn btn-primary" id="add_student">
+                                    Add Students                                       
+                                  </button>
+                              </div>
 
-                    <?php include 'includes/sidemenu.php'; ?>
-	                     <div class="content-wrapper">
-	                         <h3 class="page-header">Students!</h3><br />  
-	                              <div  class="table-responsive"> 
-	                              <div class="btn-group">
-                                          <button type="button" class="btn btn-primary" id="add_student">
-                                          Add Students                                       
-                                        </button>
-                                        </div>
+                              <table class="table table-bordered table-striped" id='students'>  
+                                 <thead> 
+                                    <tr>  
+                                         <th width="10%">Student #</th>  
+                                         <th width="25%">Student Name</th>  
+                                         <th width="25%">Department</th>  
+                                         <th width="10%">Course</th>  
+                                         <th width="10%">Command</th>  
+                                    </tr>
+                                </thead>
 
-                                        <table class="table table-bordered table-striped" id='students'>  
-              						                 <thead> 
-                                              <tr>  
-                                                   <th width="10%">Student #</th>  
-                                                   <th width="25%">Student Name</th>  
-                                                   <th width="25%">Department</th>  
-                                                   <th width="10%">Course</th>  
-                                                   <th width="10%">Command</th>  
-                                              </tr>
-                                          </thead>
-
-              						                <tbody id="student_table"></tbody> 
-								                          </table> 
-                                   </div> 
-	                              </div>  
+                                <tbody id="student_table"></tbody> 
+                                </table> 
+                         </div> 
+                    </div>
+                </div>
+            </div>                       
+        </section> 
 <?php 
 include 'includes/footer.php';
 ?>
