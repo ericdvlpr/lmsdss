@@ -961,6 +961,18 @@
           echo $object->time_due_check();
         
           }
+          if($_POST['action']=="Total Books"){
+           echo $object->count_books("SELECT * FROM book");
+          }
+          if($_POST['action']=="Total Student"){
+           echo $object->count_students("SELECT * FROM students");
+          }
+          if($_POST['action']=="Total Borrow Books"){
+           echo $object->count_borrowed_books("SELECT * FROM borrow_book");
+          }
+          if($_POST['action']=="Total Return Books"){
+           echo $object->count_returned_books("SELECT * FROM borrow_book WHERE ret=1");
+          }
 
   }
  ?>  

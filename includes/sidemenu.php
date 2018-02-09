@@ -2,7 +2,12 @@
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      
+      <div class="user-panel">
+        <div class="image">
+         
+        </div>
+        <img src="images/icons/dwcl_seal_new.png" width="155" height="155" class="center-block img-responsive" />
+      </div>
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">

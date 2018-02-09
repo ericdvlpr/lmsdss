@@ -35,6 +35,10 @@ $(document).ready(function(){
                 load_borrow_index();
                 load_user_logs();
                 load_announcement();
+                load_books_total();
+                load_student_total();
+                load_borrowed_books_total();
+                load_return_books_total();
       //Load Report
           $('#filter').click(function(){  
                 var from_date = $('#from_date').val();  
@@ -240,6 +244,54 @@ $(document).ready(function(){
                          success:function(data)  
                          {  
                               $('#bookissue_index_table').html(data);  
+                         }  
+                    });  
+        }
+         function load_books_total() {  
+                    var action = "Total Books";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('.bookCount').html(data);  
+                         }  
+                    });  
+        }
+        function load_borrowed_books_total() {  
+                    var action = "Total Borrow Books";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('.bookborrowCount').html(data);  
+                         }  
+                    });  
+        }
+        function load_return_books_total() {  
+                    var action = "Total Return Books";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('.bookreturnCount').html(data);  
+                         }  
+                    });  
+        }
+        function load_student_total() {  
+                    var action = "Total Student";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('.studentCount').html(data);  
                          }  
                     });  
         }

@@ -40,52 +40,66 @@ error_reporting(0);
               }
 
         }
-//Index Header
-public function count_books(){
-  $query_1 = "SELECT * FROM books";
-  $result_1 =$this->execute_query($query_1);
-   $count = mysqli_num_rows($result_1);
-   return $count;
-}
-//REPORTS TABLES
- public function get_bookReport($query) {  
-           $output = '';  
-           $result = $this->execute_query($query);  
-           while($row = mysqli_fetch_object($result))  
-           {  
-              switch ($row->status) {
-                case '1':
-                 $status = 'New';
-                  break;
-                case '2':
-                 $status = 'Archive';
-                  break;
-                  case '3':
-                 $status = 'Damage';
-                  break;
-                  case '4':
-                 $status = 'Lost';
-                  break;
-                  case '5':
-                 $status = 'Old';
-                  break;
-                default:
-                $status = 'Error!';
-                  break;
-              }
-                $output .= '  
-                <tr>       
-                     <td>'.$row->book_no.'</td>  
-                     <td>'.$row->book_title.'</td>  
-                     <td>'.$row->author.'</td>    
-                     <td>'.$row->book_copies.'</td>  
-                     <td>'.$status.'</td>   
-                   
-                </tr>  
-                ';  
-           }  
-           return $output;  
-      }
+        //Index Header
+        public function count_books($query){
+          $result_1 =$this->execute_query($query);
+           $count = mysqli_num_rows($result_1);
+           return $count;
+        }
+        public function count_students($query){
+          $result_1 =$this->execute_query($query);
+           $count = mysqli_num_rows($result_1);
+           return $count;
+        }
+        public function count_borrowed_books($query){
+          $result_1 =$this->execute_query($query);
+           $count = mysqli_num_rows($result_1);
+           return $count;
+        }
+        public function count_returned_books($query){
+          $result_1 =$this->execute_query($query);
+           $count = mysqli_num_rows($result_1);
+           return $count;
+        }
+    //REPORTS TABLES
+     public function get_bookReport($query) {  
+               $output = '';  
+               $result = $this->execute_query($query);  
+               while($row = mysqli_fetch_object($result))  
+               {  
+                  switch ($row->status) {
+                    case '1':
+                     $status = 'New';
+                      break;
+                    case '2':
+                     $status = 'Archive';
+                      break;
+                      case '3':
+                     $status = 'Damage';
+                      break;
+                      case '4':
+                     $status = 'Lost';
+                      break;
+                      case '5':
+                     $status = 'Old';
+                      break;
+                    default:
+                    $status = 'Error!';
+                      break;
+                  }
+                    $output .= '  
+                    <tr>       
+                         <td>'.$row->book_no.'</td>  
+                         <td>'.$row->book_title.'</td>  
+                         <td>'.$row->author.'</td>    
+                         <td>'.$row->book_copies.'</td>  
+                         <td>'.$status.'</td>   
+                       
+                    </tr>  
+                    ';  
+               }  
+               return $output;  
+          }
        public function get_studentReport($query) {  
            $output = '';  
            $result = $this->execute_query($query);  
@@ -684,7 +698,7 @@ public function get_faculty_index($query) {
            }
            else
            {
-            $output .= '<li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
+            $output .= '<li><p>No Notification Found</p></li>';
            }
            $query_1 = "SELECT * FROM notification WHERE notif_id_type = 1 AND notif_status=0";
            $result_1 =$this->execute_query($query_1);
@@ -714,7 +728,7 @@ public function get_faculty_index($query) {
            }
            else
            {
-            $output .= '<li><a href="#" class="text-bold text-italic">No FeedBack Found</a></li>';
+            $output .= '<li><p>No FeedBack Found</p></li>';
            }
            $query_1 = "SELECT * FROM notification WHERE notif_id_type = 2 AND notif_status=0";
            $result_1 =$this->execute_query($query_1);
@@ -770,7 +784,7 @@ public function get_faculty_index($query) {
                   
               }
            }else{
-            $output .= '<li><a href="#" class="text-bold text-italic">No FeedBack Found</a></li>';
+            $output .= '<a href="#"><li>No FeedBack Found</li></a>';
            }
            $query_1 = "SELECT * FROM notification";
            $result_1 =$this->execute_query($query_1);

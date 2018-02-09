@@ -21,18 +21,82 @@
 						            </ul>
 						            <div class="tab-content">
 						              <div class="tab-pane active" id="tab_1">
-						                <b>How to use:</b>
-
-						                <p>Exactly like the original bootstrap tabs except you should use
-						                  the custom wrapper <code>.nav-tabs-custom</code> to achieve this style.</p>
-						                A wonderful serenity has taken possession of my entire soul,
-						                like these sweet mornings of spring which I enjoy with my whole heart.
-						                I am alone, and feel the charm of existence in this spot,
-						                which was created for the bliss of souls like mine. I am so happy,
-						                my dear friend, so absorbed in the exquisite sense of mere tranquil existence,
-						                that I neglect my talents. I should be incapable of drawing a single stroke
-						                at the present moment; and yet I feel that I never was a greater artist than now.
+						              <div class="page-header">
+							              	<div class="btn-group pull-right">
+							              		<button type="submit" class="btn btn-default">Cancel</button>
+											    <button type="submit" class="btn btn-info pull-right">Sign in</button>
+							              	</div>
+						              	<h3 >General Settings</h3>
+						              	
 						              </div>
+						                <div class="row">
+						                	<div class="col-md-4">
+								                		<!-- Horizontal Form -->
+												          <div class="box box-info">
+												            <div class="box-header with-border">
+												              <h3 class="box-title">Allowed Days</h3>
+												            </div>
+												            <!-- /.box-header -->
+												            <!-- form start -->
+												            <form class="form-horizontal">
+												              <div class="box-body">
+												                <div class="form-group">
+												                  <label for="inputEmail3" class="col-sm-5 control-label">Days allowed for borrowing a book</label>
+
+												                  <div class="col-sm-4">
+												                    <input type="number" class="form-control" name="numDays" id="numDays" placeholder="No. of Day/Days">
+												                  </div>
+												                </div>
+												              </div>
+												              <!-- /.box-body -->
+												            </form>
+												          </div>
+								              </div>
+						                	<div class="col-md-4">
+						                		<div class="box box-info">
+												            <div class="box-header with-border">
+												              <h3 class="box-title">Penalty</h3>
+												            </div>
+												            <!-- /.box-header -->
+												            <!-- form start -->
+												            <form class="form-horizontal">
+												              <div class="box-body">
+												                <div class="form-group">
+												                  <label for="inputEmail3" class="col-sm-4 control-label">Amount Per Day</label>
+
+												                  <div class="col-sm-4">
+												                    <input type="number" class="form-control" name="penalty" id="penalty" placeholder="Amount">
+												                  </div>
+												                </div>
+												              </div>
+												              <!-- /.box-body -->
+												            </form>
+												  </div>
+						                	</div>
+						                	<div class="col-md-4">
+						                		<div class="box box-info">
+												            <div class="box-header with-border">
+												              <h3 class="box-title">Allowed Qty</h3>
+												            </div>
+												            <!-- /.box-header -->
+												            <!-- form start -->
+												            <form class="form-horizontal">
+												              <div class="box-body">
+												                <div class="form-group">
+												                  <label for="inputEmail3" class="col-sm-4 control-label">Quantity of Book can be Borrow</label>
+
+												                  <div class="col-sm-4">
+												                    <input type="number" class="form-control" name="numDays" id="numDays" placeholder="Qty">
+												                  </div>
+												                </div>
+												              </div>
+												              <!-- /.box-body -->
+												            </form>
+												  </div>
+						                	</div>
+						                </div>
+						                </div>
+										          
 						              <!-- /.tab-pane -->
 						              <div class="tab-pane" id="tab_2">
 						                The European languages are members of the same family. Their separate existence is a myth.

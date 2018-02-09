@@ -1,8 +1,10 @@
 <header class="main-header" >
   <div class="image">
     <a href="index.php" class="logo navbar-brand">
-        <img src="images/icons/dwcl_seal_new.png" width="35" height="35" class="center-block" />
-
+     <span class="logo-mini"><b>D</b>LS</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b> <h4>DWCL</b> LIBRARY SYSTEM</h4></span>
+        
       </a>
   </div>
     <nav class="navbar navbar-static-top" role="navigation">
@@ -11,24 +13,73 @@
       </a>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <li class="dropdown notifications-menu">
+        <?php if($_SESSION['access'] == 1){?>
+        <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning countRequest"></span>
             </a>
             <ul class="dropdown-menu">
-            <?php if($_SESSION['access'] == 1){?>
+            
               <li class="header">You have <span class="countRequest"></span> notifications</li>
               <li>
+                <ul class="menu requestnotif">
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-comment-o"></i>
+              <span class="label label-warning countFeedBack"></span>
+            </a>
+            <ul class="dropdown-menu">
+            
+              <li class="header">You have <span class="countFeedBack"></span> notifications</li>
+              <li>
                 <ul class="menu">
-                  <li class="requestnotif">
+                  <li class="feedbacknotif">
                   </li>
                 </ul>
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
+          <?php }elseif($_SESSION['access'] == 1){?>
+                  <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-comment-o"></i>
+                      <span class="label label-warning countFeedBack"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                    
+                      <li class="header">You have <span class="countFeedBack"></span> notifications</li>
+                      <li>
+                        <ul class="menu">
+                          <li class="feedbacknotif">
+                          </li>
+                        </ul>
+                      </li>
+                      <li class="footer"><a href="#">View all</a></li>
+                    </ul>
+                  </li>
           <?php } ?>
+        <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning countRequest"></span>
+            </a>
+            <ul class="dropdown-menu">
+            
+              <li class="header">You have <span class="countRequest"></span> notifications</li>
+              <li>
+                <ul class="menu requestnotif">
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="hidden-xs"><?php echo $_SESSION['username'];?></span>
