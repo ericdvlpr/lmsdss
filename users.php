@@ -1,10 +1,7 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-                <div class="row">
-                  
                     <?php include 'includes/sidemenu.php'; ?>
-                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                         <h3 align="center">Users!</h3><br />  
+                     <div class="content-wrapper">
+                         <h3 class="page-header">Users!</h3><br />  
                               <div  class="table-responsive"> 
                                     <div class="btn-group">
                                           <button type="button" class="btn btn-primary" id="add_user" >
@@ -12,20 +9,20 @@
                                         </button>
                                         </div>
                                         <table class="table table-bordered table-striped" id="users">  
-                                          <tr>  
-                                            
-                                               <th width="35%">Username</th>   
-                                               <th width="35%">Access Level</th>   
-                                               <th width="35%">Status</th>   
-                                               <th width="20%">Command</th>  
-                                          </tr> 
+                                          <thead>  
+                                              <tr>  
+                                                
+                                                   <th width="35%">Username</th>   
+                                                   <th width="35%">Access Level</th>   
+                                                   <th width="35%">Library Assigned</th>   
+                                                   <th width="10%">Status</th>   
+                                                   <th width="20%">Command</th>  
+                                              </tr> 
+                                          </thead> 
                                           <tbody id="user_table"></tbody> 
                                       </table> 
                               </div>  
                 	 </div>
-
-                </div>
-           </div>
 <div class="modal fade" id="user" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -38,19 +35,19 @@
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Username</label>
                   <div class="col-sm-9">
-                     <input type="text" class="form-control"  name="username" id="username" required="true" placeholder="Username">
+                     <input type="text" class="form-control"  name="user-name" id="user-name" required="true" placeholder="Username">
                   </div>
                 </div>
                  <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Password</label>
                   <div class="col-sm-9">
-                     <input type="password" class="form-control"  name="password" id="password" required="true" placeholder="Password">
+                     <input type="password" class="form-control"  name="passcode" id="passcode" required="true" placeholder="Password">
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Access Level</label>
                   <div class="col-sm-9">
-                     <select class="form-control" name="access" required>
+                     <select class="form-control" name="access" id="access" required>
                             <option value="">Please Select</option>
                             <option value="1">Librarian</option>
                             <option value="2">Asst-Librarian</option>
@@ -62,7 +59,7 @@
                 <div class="form-group">
                   <label for="inputPassword3" class="col-sm-3 control-label text-left">Library</label>
                   <div class="col-sm-9">
-                     <select class="form-control" name="library" required>
+                     <select class="form-control" name="library" id="library" required>
                             <option value="">Please Select</option>
                             <option value="1">College Library</option>
                             <option value="2">GradeSchool Library</option>

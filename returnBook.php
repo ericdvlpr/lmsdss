@@ -1,8 +1,6 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-		 <div class="row">
            <?php include 'includes/sidemenu.php'; ?>
-             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+             <div class="content-wrapper">
       		  	
 					<form class="form-horizontal" id="returnBook" method="POST">
                         <div class="panel panel-default">
@@ -62,8 +60,6 @@
                         <button class="btn btn-primary" name="br_book" id="br_book">Return</button>	
 				</form>
            </div>
-     </div>  
-</div>  
 <?php 
 include 'includes/footer.php';
 ?>

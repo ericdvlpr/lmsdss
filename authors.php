@@ -1,11 +1,7 @@
 <?php include 'includes/header.php';?>  
-
-    <div class="container-fluid"> 
-                <div class="row">
-                  
-                    <?php include 'includes/sidemenu.php'; ?>
-                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                         <h3 align="center">Authors!</h3><br />  
+        <?php include 'includes/sidemenu.php'; ?>
+           <div class="content-wrapper">
+                          <h3 class="page-header">Authors!</h3><br />  
                               <div  class="table-responsive">
                                <div class="btn-group">
                                       <button type="button" class="btn btn-primary" id="add_author" data-toggle="modal" data-target="#author">
@@ -13,19 +9,20 @@
                                     </button>
                                 </div>
                                    <table class="table table-bordered table-striped" id='authors'>  
-                					                <tr>  
-                					                     <th width="10%">Author #</th>  
-                					                     <th width="35%">Name</th>  
-                					                     <th width="35%">No of Book Published</th>  
-                					                     <th width="20%">Command</th>  
-                					                     
-                					                </tr> 
+                					              <thead>
+                                              <tr>  
+                                                     <th width="10%">Author #</th>  
+                                                     <th width="35%">Name</th>  
+                                                     <th width="35%">No of Book Published</th>  
+                                                     <th width="20%">Command</th>  
+                                               
+                                              </tr>     
+                                        </thead>  
+                                           
                 					                <tbody id="author_table"></tbody> 
 								                  </table>  
-                           </div>  
-                    </div>  
-                </div>
-           </div>  
+                           </div>   
+                           </div>   
   <div class="modal fade" id="author" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">

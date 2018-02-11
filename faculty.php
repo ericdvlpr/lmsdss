@@ -1,30 +1,26 @@
 <?php include 'includes/header.php';?>  
-
-    <div class="container-fluid"> 
-                <div class="row">
-                  
                     <?php include 'includes/sidemenu.php'; ?>
-	                    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-	                         <h3 align="center">Faculty</h3><br />  
+	                    <div class="content-wrapper">
+	                         <h3 class="page-header">Faculty</h3><br />  
 	                              <div  class="table-responsive"> 
 	                              <div class="btn-group">
                                           <button type="button" class="btn btn-primary" id="add_faculty">Add Faculty</button>
                                         </div>
 
                                         <table class="table table-bordered table-striped" id='faculty'>  
-                  						                  <tr>  
-                                                     <th width="10%">Faculty #</th>  
-                                                     <th width="25%">Faculty Name</th>  
-                                                     <th width="25%">Department</th>  
-                                                     <th width="10%">Command</th>  
-                                                </tr>  
+                                                <thead>  
+                      						                  <tr>  
+                                                         <th width="10%">Faculty #</th>  
+                                                         <th width="25%">Faculty Name</th>  
+                                                         <th width="25%">Department</th>  
+                                                         <th width="10%">Command</th>  
+                                                    </tr>  
+                                                </thead>  
                   						                <tbody id="faculty_table"></tbody> 
 								                       </table> 
                                    </div> 
-	                              </div>  
-	                    </div>  
-                </div>
-           </div>
+	                     </div>  
+
 <div class="modal fade" id="facultyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

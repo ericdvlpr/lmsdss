@@ -4,32 +4,45 @@
                   
                     <?php include 'includes/sidemenu.php'; ?>
                          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          				<h1 class="page-header">Dashboard</h1>
-
+                       
+          			<h1 class="page-header">Dashboard</h1>
 			          <div class="row placeholders">
-			            <div class="col-xs-6 col-sm-3 placeholder">
-			              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-			              <h4>Label</h4>
-			              <span class="text-muted">Something else</span>
-			            </div>
-			            <div class="col-xs-6 col-sm-3 placeholder">
-			              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-			              <h4>Label</h4>
-			              <span class="text-muted">Something else</span>
-			            </div>
-			            <div class="col-xs-6 col-sm-3 placeholder">
-			              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-			              <h4>Label</h4>
-			              <span class="text-muted">Something else</span>
-			            </div>
-			            <div class="col-xs-6 col-sm-3 placeholder">
-			              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-			              <h4>Label</h4>
-			              <span class="text-muted">Something else</span>
-			            </div>
+			          	<div class="col-lg-3 col-md-6">
+		                    <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                            <i class="fa fa-bell fa-fw"></i> Announcement Panel
+		                        </div>
+		                        <!-- /.panel-heading -->
+		                        <div class="panel-body">
+		                            <div class="list-group ">
+
+		                                <div class="list-group panelannouncements ">
+		                                	
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!-- /.panel-body -->
+		                    </div>
+		                </div>
+		                <div class="col-lg-3 col-md-6">
+		                    <div class="panel panel-default">
+		                        <div class="panel-heading">
+		                            <i class="fa fa-bell fa-fw"></i> Requestes Book
+		                        </div>
+		                        <!-- /.panel-heading -->
+		                        <div class="panel-body">
+		                            <div class="list-group ">
+
+		                                <div class="list-group requestBook ">
+		                                	
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!-- /.panel-body -->
+		                    </div>
+		                </div>
 			          </div>
 
-			          <h2 class="sub-header">Section title</h2> 
            </div>
      </div>  
 </div>  

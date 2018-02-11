@@ -1,34 +1,36 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-                <div class="row">
-			                <?php include 'includes/sidemenu.php'; ?>
-			                  <h2 class="page-header">Request for Book</h2> 
-			                  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			                         <h3 align="center">Book Requests</h3><br />  
-			                              <div  class="table-responsive">
-			                              	<!-- Button trigger modal -->
-<button type="button" id="request_book"class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalRequest">
-Request Book
-</button>
-			                                </div>
-			                                   <table class="table table-bordered table-striped" id='request'>  
-            					                <tr>  
-            					                     <th width="13%">Request #</th>  
-            					                     <th width="22%">Book Title</th>  
-            					                     <th width="16%">Author</th>  
-            					                     <th width="13%">Copies</th>  
-            					                     <th width="16%">Date Requested</th>  
-            					                     <th width="16%">Status</th>  
-            					                     <th width="16%">Command</th>  
-            					                     
-            					                </tr> 
-            					                <tbody id="request_table"></tbody> 
-							                  </table>  
-			                           </div>  
-			                    </div>  
-			                </div>
-			           </div> 
-			           Modal
+	                	<?php include 'includes/sidemenu.php'; ?>
+	                   <div class="content-wrapper">
+	                  	 <div class="row placeholders">
+	                         <h3 class="page-header">Book Requests</h3><br />  
+	                       <div  class="table-responsive">
+	                              	<!-- Button trigger modal -->
+	                              	<div class="btn-group pull-left">
+	             					<button type="button" id="request_book" class="btn btn-primary btn-md">
+									Request Book</button>
+	                              	</div>
+									<br />
+									<br />
+									<table class="table table-bordered table-striped" id='request'>  
+    					                <thead>
+	    					                <tr>  
+	    					                     <th width="13%">Request #</th>  
+	    					                     <th width="22%">Book Title</th>  
+	    					                     <th width="16%">Author</th>  
+	    					                     <th width="13%">Copies</th>  
+	    					                     <th width="16%">Date Requested</th>  
+	    					                     <th width="16%">Status</th>  
+	    					                     <th width="16%">Command</th>  
+	    					                     
+	    					                
+	    					                </tr>
+    					                </thead>
+    					                 
+    					                <tbody id="request_table"></tbody> 
+					                  </table> 
+	                         </div>
+	                     </div>      
+	                 </div>  
 <div class="modal fade" id="myModalRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -76,17 +78,6 @@ Request Book
     </div>
   </div>
 </div>
-			 <!--  <div class="modal fade" id="request" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			        <div class="modal-dialog" role="document">
-			          <div class="modal-content">
-			            <div class="modal-header">
-			              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			              <h4 class="modal-title" id="myModalLabel">Request Book</h4>
-			            </div>
-			            
-			      </div>
-           </div>
-     </div>  
 
 <?php 
 include 'includes/footer.php';

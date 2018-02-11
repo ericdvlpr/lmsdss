@@ -1,13 +1,24 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-                <div class="row">
+
                   
                     <?php include 'includes/sidemenu.php'; ?>
-         	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-					<h1 class="page-header">Dashboard</h1>
+         	 <div class="content-wrapper">
+					
+						<div class="panel panel-default">
+                        <div class="panel-heading">
+                        	<h1> <i class="fa fa-clock-o fa-fw"></i> Bulletin</h1>
+                            
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body" >
+                            <ul class="timeline" id="announcements">
+                                
+                            </ul>
+                        </div>
+                    </div>
+
            	</div>
-     </div>  
-</div>  
+
 <?php 
 include 'includes/footer.php';
 ?>

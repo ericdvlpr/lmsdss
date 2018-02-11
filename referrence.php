@@ -1,10 +1,7 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-                <div class="row">
-                  
                     <?php include 'includes/sidemenu.php'; ?>
-                         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          				<h1 class="page-header">Book Referrence</h1>
+ <div class="content-wrapper">
+          				<h3 class="page-header">Book Referrence</h3>
 
 			          <div class="row placeholders">
 			            	<table class="table table-bordered table-striped" id="referrence">  
@@ -14,9 +11,9 @@
 	      					                     <th width="15%">Book Author</th>  
 	      					                     <th width="10%">Copies</th>  
 	      					                     <th width="12%">Requested By:</th>  
-	      					                     <th width="15%">Date Requested:</th>  
+	      					                     <th width="12%">Date Requested:</th>  
 	      					                     <th width="10%">Status</th>  
-	      					                     <th width="16%">Command</th>  
+	      					                     <th width="18%">Command</th>  
 	      					                </thead> 
 	      					                <tbody id="request_table">
 	      					                	
@@ -24,8 +21,6 @@
 	      					            </table>
 			          </div>     
            </div>
-     </div>  
-</div>
 <div class="modal fade" id="requestModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -65,8 +60,8 @@
               <input type="date" class="form-control" name="date_request" id="date_request" placeholder="Date Requested">
             </div>
           </div>
-          <div class="form-group">
-            <label for="inputPassword3" class="col-sm-3 control-label">Status:</label>
+          <div class="form-group" id="statusGroup">
+            <label for="inputPassword3" class="col-sm-3 control-label" >Status:</label>
             <div class="col-sm-9">
               <select class="form-control" name="status" id="status" required="true">
                 <option value="">Please Select</option>
@@ -76,7 +71,7 @@
             </div>
           </div>
       </div>
-       <input type="hidden" name="action" id="action" />
+       <input type="hidden" name="action" id="action" value='approveRequest' />
       <input type="hidden" name="request_id" id="request_id" />
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

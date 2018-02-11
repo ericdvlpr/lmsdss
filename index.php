@@ -1,38 +1,19 @@
-<?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-                <div class="row">
-                  
-                    <?php include 'includes/sidemenu.php'; ?>
-                         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          				<h1 class="page-header">Dashboard</h1>
+<?php include 'includes/header.php';?>            
+  <?php include 'includes/sidemenu.php'; ?>                   
+                <div class="content-wrapper">
+                	 <section class="content-header">
+					      <h1>
+					        Dashboard
+					      </h1>
+					      <ol class="breadcrumb">
+					        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+					        <li class="active">Dashboard</li>
+					      </ol>
+					    </section>
 
-			          <div class="row placeholders">
-			            <div class="col-xs-6 col-sm-3 placeholder">
-			              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-			              <h4>Label</h4>
-			              <span class="text-muted">Something else</span>
-			            </div>
-			            <div class="col-xs-6 col-sm-3 placeholder">
-			              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-			              <h4>Label</h4>
-			              <span class="text-muted">Something else</span>
-			            </div>
-			            <div class="col-xs-6 col-sm-3 placeholder">
-			              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-			              <h4>Label</h4>
-			              <span class="text-muted">Something else</span>
-			            </div>
-			            <div class="col-xs-6 col-sm-3 placeholder">
-			              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-			              <h4>Label</h4>
-			              <span class="text-muted">Something else</span>
-			            </div>
-			          </div>
+			          <div class="row placeholders"></div>
 
-			          <h2 class="sub-header">Section title</h2> 
-           </div>
-     </div>  
-</div>  
+			    </div> 
 <?php 
 include 'includes/footer.php';
 ?>

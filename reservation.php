@@ -1,9 +1,7 @@
 <?php include 'includes/header.php';?>  
-    <div class="container-fluid"> 
-                <div class="row">
-                  
+
                     <?php include 'includes/sidemenu.php'; ?>
-                        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                        <div class="content-wrapper">
                          <h3 align="center">Reserved Books!</h3> 
                               <div  class="table-responsive"> 
                                <table class="table table-bordered table-striped" id="reserve_list">  
@@ -19,11 +17,10 @@
           					                <tbody id="reserve_table">
           					                	
           					                </tbody> 
-          					            </table>
+          					   </table>
                             </div>  
                       </div>  
-     </div>  
-</div>  
+
 <?php 
 include 'includes/footer.php';
 ?>

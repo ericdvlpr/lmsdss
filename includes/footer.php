@@ -1,20 +1,26 @@
-		<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>   -->
-		 <script src="js/jquery.js"></script>  
-		<!--   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>    -->
-		  <script src="js/bootstrap.min.js"></script>  
-		  <script src="js/bootstrap-select.min.js"></script> 
-<!-- 		  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>   -->
-		  <script src="js/jquery.dataTables.min.js"></script>  
-		  
+</div>
+</body>
+
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- AdminLTE App -->
+<script src="js/adminlte.min.js"></script>
+<script src="js/bootstrap-select.min.js"></script> 
+		  <script src="js/jquery.dataTables.min.js"></script>   
 		 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-		 <script src="js/chosen.jquery.js"></script>
-		 
-		 <?php if((isset($_SESSION['type'])) && (($_SESSION['type']=="0")||($_SESSION['type']=="1")|| ($_SESSION['type']=="2")||($_SESSION['type']=="3"))){?>
-		 <script src="js/jquery-ui.js"></script>
-		 <script src="js/search.js"></script>
-		 <?php }else{ ?>
+		
 		 <script src="js/general.js"></script>
-		 <?php } ?>
-		    <script src="js/webcam.js"></script>
-      </body>  
- </html>  
+		 
+<script type="text/javascript">
+	function printContent(el){
+	var restorepage = document.body.innerHTML;
+	var printcontent = document.getElementById(el).innerHTML;
+	document.body.innerHTML = printcontent;
+	window.print();
+	document.body.innerHTML = restorepage;
+
+}
+</script>
+ </html>
+ 

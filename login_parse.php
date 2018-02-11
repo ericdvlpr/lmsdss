@@ -13,13 +13,14 @@
 		$_SESSION['name'] = $row->student_name;
 		$_SESSION['type'] = $_GET['type'];
 		$_SESSION['access'] = "5";
+		
 		if($_GET['type'] == "2"){
 			header("location: searchBook.php");
 		}else{
 			header("location: student_index.php");
 		}
 	}else if($_GET['type'] == "3"){
-		$query = "SELECT * FROM faculty WHERE faculty_no ='".$_GET['id']."'";
+		$query = "SELECT * FROM faculty WHERE faculty_no ='".$_GET['id']."' ";
 		$result =  $data->execute_query($query);
 		$row = mysqli_fetch_object($result);
 		$_SESSION['id'] = $row->faculty_no;
@@ -29,7 +30,7 @@
 		$_SESSION['access'] = "4";
 		header("location: faculty_index.php");
 	}else if($_GET['type'] == "4"){
-		$query = "SELECT * FROM users WHERE username = '".$_GET['id']."'";
+		$query = "SELECT * FROM users WHERE username = '".$_GET['id']."'  ";
 		$result = $data->execute_query($query);
 		$row = mysqli_fetch_object($result);
 		$_SESSION['username'] = $row->username;
