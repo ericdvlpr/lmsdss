@@ -1,14 +1,14 @@
 <?php include 'includes/header.php';?>  
     <?php include 'includes/sidemenu.php'; ?>
-							<section class="content-header">
-						  		<h1>
-						        Setup
-						      </h1>
-						      <ol class="breadcrumb">
-						        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-						        <li class="active">Setup</li>
-						      </ol>
-						     </section>
+					<section class="content-header">
+				  		<h1>
+				        Setup
+				      </h1>
+				      <ol class="breadcrumb">
+				        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+				        <li class="active">Setup</li>
+				      </ol>
+				     </section>
 					<section class="content">
 						<div class="col-md-12">
 						          <!-- Custom Tabs -->
@@ -98,24 +98,72 @@
 						                </div>
 										          
 						              <!-- /.tab-pane -->
-						              <div class="tab-pane" id="tab_2">
-						                The European languages are members of the same family. Their separate existence is a myth.
-						                For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-						                in their grammar, their pronunciation and their most common words. Everyone realizes why a
-						                new common language would be desirable: one could refuse to pay expensive translators. To
-						                achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-						                words. If several languages coalesce, the grammar of the resulting language is more simple
-						                and regular than that of the individual languages.
+						              <div class="tab-pane" id="tab_2">  
+ 										<div class="box box-solid box-primary">
+							                    <div class="box-header">
+							                          <div class="btn-group pull-right">
+							                                      <button type="button" class="btn btn-success" id="add_user" >
+							                                      Add User                                       
+							                                    </button>
+							                          </div>
+							                           <h3 class="box-title">Users</h3>
+							                    </div>
+							                      <div class="box-body">
+							                          <div  class="table-responsive"> 
+							                                
+							                                    <table class="table table-bordered table-striped" id="users">  
+							                                      <thead>  
+							                                          <tr>  
+							                                            
+							                                               <th width="35%">Username</th>   
+							                                               <th width="35%">Access Level</th>   
+							                                               <th width="35%">Library Assigned</th>   
+							                                               <th width="10%">Status</th>   
+							                                               <th width="20%">Command</th>  
+							                                          </tr> 
+							                                      </thead> 
+							                                      <tbody id="user_table"></tbody> 
+							                                  </table> 
+							                           </div>  
+							                      </div>
+							                  </div>
 						              </div>
 						              <!-- /.tab-pane -->
 						              <div class="tab-pane" id="tab_3">
-						                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-						                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-						                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-						                It has survived not only five centuries, but also the leap into electronic typesetting,
-						                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
-						                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
-						                like Aldus PageMaker including versions of Lorem Ipsum.
+						                 <h3 class="page-header">Messsage Update</h3>   	 
+													     <div class="row">
+													     	
+													     	<div class="col-sm-9 col-md-offset-1 main">
+													     		<h4 align="center">Borrow Message</h4>
+													     		<div>
+													     			<textarea class="form-control" rows="6" readonly="true" id="bmdata"></textarea>
+													     		</div>
+													     		<div align="right">
+													     			<button class="btn btn-primary" name="br_book" id="bmb">Edit Message</button>
+													     		</div>
+													     	</div>
+													     	
+													     	<div class="col-sm-9 col-md-offset-1 main">
+													     		<h4 align="center">Warning Message</h4>
+													     		<div >
+													     			<textarea class="form-control" rows="6" readonly="true" id="wmdata"></textarea>
+													     		</div>
+													     		<div align="right">
+													     			<button class="btn btn-primary" name="br_book" id="wmb">Edit Message</button>
+													     		</div>
+													     	</div>
+													     	
+													     	<div class="col-sm-9 col-md-offset-1 main">
+													     		<h4 align="center">Overdue Message</h4>
+													     		<div>
+													     			<textarea class="form-control" rows="6" readonly="true"  id="omdata"></textarea>
+													     		</div>
+													     		<div align="right">
+													     			<button class="btn btn-primary" name="br_book" id="omb">Edit Message</button>
+													     		</div>
+													     	</div>
+													     </div>
+						               
 						              </div>
 						              <!-- /.tab-pane -->
 						            </div>
@@ -124,6 +172,114 @@
 						          <!-- nav-tabs-custom -->
 						        </div>
 					</section>
+
+<!-- 
+				<div class="modal fade" id="mod_info" role="dialog">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h4 class="modal-title" id="mod_title">Success</h4>
+				      </div>
+				      <div class="modal-body">
+				        <p id="mod_data" align="center">Message Edited</p>
+				      </div>
+				      <div class="modal-footer">
+				        
+				      </div>
+				    </div>
+				</div>-->
     <?php 
 include 'includes/footer.php';
-?>
+?> 
+					<div class="modal fade" id="messEd" role="dialog">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						        <h4 class="modal-title" id="MEtitle"></h4>
+						      </div>
+						      <form class="form-horizontal" method="Post" class="collapse">
+						      	<div class="modal-body">
+						      		<div class="form-group">
+						      			<label class="control-label text-left col-sm-2">Header</label>
+						      			<div class="col-sm-9">
+						      				<textarea class="form-control" id="hddata" rows="3"></textarea>
+						 				</div>
+						 			</div>
+						      		<div class="form-group">
+						      			<label class="control-label text-left col-sm-2">Footer</label>
+						      			<div class="col-sm-9">		
+						      				<textarea class="form-control" id="ftdata" rows="3"></textarea>
+						      			</div>
+						 			</div>
+
+						 		</div>
+						        <div class="modal-footer">
+						            <input type="hidden" name="action" id="action" value="addBook" />
+						            <input type="hidden" name="doc_id" id="doc_id" />
+						            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						            <button type="button" class="btn btn-primary" id="edbtn">Edit</button>
+						            
+						        </div>
+						      </form>
+						    </div> 
+						</div>
+						</div>
+<div class="modal fade" id="user" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add User</h4>
+              </div>
+              <form class="form-horizontal" id="userform" method="Post" class="collapse">
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Username</label>
+                  <div class="col-sm-9">
+                     <input type="text" class="form-control"  name="user-name" id="user-name" required="true" placeholder="Username">
+                  </div>
+                </div>
+                 <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Password</label>
+                  <div class="col-sm-9">
+                     <input type="password" class="form-control"  name="passcode" id="passcode" required="true" placeholder="Password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Access Level</label>
+                  <div class="col-sm-9">
+                     <select class="form-control" name="access" id="access" required>
+                            <option value="">Please Select</option>
+                            <option value="1">Librarian</option>
+                            <option value="2">Asst-Librarian</option>
+                            <option value="3">Library Staff</option>
+                            
+                     </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Library</label>
+                  <div class="col-sm-9">
+                     <select class="form-control" name="library" id="library" required>
+                            <option value="">Please Select</option>
+                            <option value="1">College Library</option>
+                            <option value="2">GradeSchool Library</option>
+                            <option value="3">HighSchool Library</option>
+                            <option value="4">Graduate School Library</option>
+                            
+                     </select>
+                  </div>
+                </div>
+                <input type="hidden" name="action" id="action" value="addUser" />
+                <input type="hidden" name="user" id="user_id" />
+                
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-primary" id="button_action" value="Save"  />
+              </div>
+              </form>
+        </div> 
+     </div> 
+</div>

@@ -5,21 +5,20 @@
                         <br />
                             <div class="box box-solid box-primary">
                                 <div class="box-header">
+                                <div class="btn-group pull-right">
+                                            <a href="issuedBook.php" id="issue_book" class="btn btn-success"  >
+                                              Issue Book
+                                            </a> 
+                                            
+                                            <a href="returnBook.php" id="issue_book" class="btn btn-warning"  >
+                                              Returned Book
+                                            </a>
+                                        </div>
                                        <h3 class="box-title">Borrowed Books</h3>
                                 </div>
                                 <div class="box-body">
                                     <div  class="table-responsive"> 
-                                          <div class="btn-group">
-                                            <a href="issuedBook.php" id="issue_book" class="btn btn-primary"  >
-                                              Issue Book
-                                            </a> 
-                                              
-                                        </div>
-                                        <div class="btn-group">
-                                            <a href="returnBook.php" id="issue_book" class="btn btn-primary"  >
-                                              Returned Book
-                                            </a>
-                                        </div>
+                                          
                                        <table class="table table-bordered table-striped" id="bookissue">  
                                             <thead align="center">  
                                                  <th width="12%" align="center">Issue No</th>  

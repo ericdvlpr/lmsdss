@@ -32,33 +32,59 @@
             </tbody>
          </table>
     </div>
-<!-- 	<div id="mod_info" class="modal">
-        <div id="info_data" class="modal_content">
-                                  
-        </div>
-    </div> -->
+  
+  <div class="modal fade" tabindex="-1" role="dialog" id=mod_info>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="mod_title"></h4>
+      </div>
+      <div class="modal-body">
+        <p id="mod_data" align="center"></p>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-	<div id="modal_select" class="modal">
-        <div id="modal_data" class="modal_content">
-             <table>
-             	<tr>
-             		<td id='book_content'>
-             		</td>
-             	</tr>
-             	<tr id="row1hid" align="center">
-             		<td>
-             			Would you like to reserve this book?<br />
-             			<button id="Yes">(1)Yes</button> <button id="No">(2)No</button>
-             		</td>
-             	</tr>
-             	<tr id="row2hid" align="center">
-             		<td>No Longer Available</td>
-             	</tr>
-             </table>                
-        </div>
-    </div>
-</div>
+<div class="modal fade modal-fullscreen force-fullscreen" tabindex="-1" role="dialog" id=modal_select>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+        <h4 class="modal-title" id="book_title"></h4>
+      </div>
+      <div class="modal-body">
+        <table>
+            <tr>
+                <td id='book_content'>
+                
+                </td>
+            </tr>
+        </table> 
+      </div>
+      <div class="modal-footer">
+         <table align="center">
+             <tr id="row1hid" align="center">
+                <td>
+                        Would you like to reserve this book?<br />
+                        <button id="Yes" class="btn btn-success">(1)Yes</button> <button id="No" class="btn btn-danger">(2)No</button>
+                </td>
+            </tr>
+                <tr id="row2hid" align="center">
+                    <td>
+                        <h4 class="modal-title" id="rowdata"></h4>
+                    </td>
+                </tr>
+         </table>  
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 <?php 
-include 'includes/footer.php';
+include 'includes/sfooter.php';
 ?>

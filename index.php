@@ -29,7 +29,7 @@
 						            <span class="info-box-icon bg-red"><i class="fa fa-toggle-up"></i></span>
 
 						            <div class="info-box-content">
-						              <span class="info-box-text">Books Borrowed</span>
+						              <span class="info-box-text"><h4>Books Borrowed</h4></span>
 						              <span class="info-box-number bookborrowCount"></span>
 						            </div>
 						            <!-- /.info-box-content -->
@@ -46,7 +46,7 @@
 						            <span class="info-box-icon bg-green"><i class="fa fa-toggle-down"></i></span>
 
 						            <div class="info-box-content">
-						              <span class="info-box-text">Books Returned</span>
+						              <span class="info-box-text"><h4>Books Returned</h4></span>
 						              <span class="info-box-number bookreturnCount"></span>
 						            </div>
 						            <!-- /.info-box-content -->

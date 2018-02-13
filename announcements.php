@@ -5,15 +5,16 @@
                            <div class="col-md-12">
                                <div class="box box-solid box-primary">
                                       <div class="box-header">
+                                      <div class="btn-group pull-right">
+                                              <button type="button" class="btn btn-success" id="add_announcement" data-toggle="modal" data-target="#myModalannouncements">
+                                             Post Announcements
+                                            </button>
+                                            </div>
                                         <h3 class="box-title">Announcements!</h3>
                                       </div>
                                       <!-- /.box-header -->
                                         <div class="box-body">
-                                            <div class="btn-group">
-                                              <button type="button" class="btn btn-primary" id="add_announcement" data-toggle="modal" data-target="#myModalannouncements">
-                                             Post Announcements
-                                            </button>
-                                            </div>
+                                            
                                            <table class="table table-bordered  table-striped" id='announcement'>  
                                                   <thead>  
                                                       <tr>  
@@ -53,7 +54,18 @@
                          <textarea class="form-control"  name="content" id="content" required="true" placeholder="Content"></textarea>
                       </div>
                     </div>
-                    <?php //if($_SESSION['access']==1){ ?>
+                    <div class="form-group">  
+                          <label class="col-sm-3 control-label image text-left">Select Image</label>  
+                           <div class="col-sm-9">
+                              <input class="form-control" type="file" name="announcementImage" id="announcementImage" required />   
+                           </div>  
+                       </div>
+                     <div class="form-group">
+                           <div class="col-sm-3"></div>
+                            <div class=" col-sm-9 img-thumbnail" id="announcement_image">  
+                          </div>    
+                     </div>
+                    <?php if($_SESSION['access']==1){ ?>
                     <div class="form-group">
                       <label for="inputPassword3" class="col-sm-3 control-label text-left">Status</label>
                       <div class="col-sm-9">
@@ -64,7 +76,7 @@
                         </select>
                       </div>
                     </div>
-                    <?php //} ?>
+                    <?php } ?>
                     <input type="hidden" name="action" id="action" value="addAnnouncement" />
                     <input type="hidden" name="announcement_id" id="announcement_id" />
                     

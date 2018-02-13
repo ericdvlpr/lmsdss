@@ -1,3 +1,5 @@
+var Timeout=null;
+var mtmess = [];
 $(document).ready(function(){
         // $.datepicker.setDefaults({  
         //         dateFormat: 'yy-mm-dd'   
@@ -8,8 +10,10 @@ $(document).ready(function(){
         //    }); 
        $("input").attr("autocomplete","off");
         $('.modal').on("hidden.bs.modal", function(){
+          $('.form-horizontal')[0].reset();
          $("input").val("");
          $("select").val("");
+         window.location.reload();
       });
       //Load Table Data
               load_author_data() 
@@ -35,10 +39,7 @@ $(document).ready(function(){
                 load_borrow_index();
                 load_user_logs();
                 load_announcement();
-                load_books_total();
-                load_student_total();
-                load_borrowed_books_total();
-                load_return_books_total();
+                load_message_info()
       //Load Report
           $('#filter').click(function(){  
                 var from_date = $('#from_date').val();  
@@ -244,54 +245,6 @@ $(document).ready(function(){
                          success:function(data)  
                          {  
                               $('#bookissue_index_table').html(data);  
-                         }  
-                    });  
-        }
-         function load_books_total() {  
-                    var action = "Total Books";  
-                    $.ajax({  
-                         url:"core/action.php",  
-                         method:"POST",  
-                         data:{action:action},  
-                         success:function(data)  
-                         {  
-                              $('.bookCount').html(data);  
-                         }  
-                    });  
-        }
-        function load_borrowed_books_total() {  
-                    var action = "Total Borrow Books";  
-                    $.ajax({  
-                         url:"core/action.php",  
-                         method:"POST",  
-                         data:{action:action},  
-                         success:function(data)  
-                         {  
-                              $('.bookborrowCount').html(data);  
-                         }  
-                    });  
-        }
-        function load_return_books_total() {  
-                    var action = "Total Return Books";  
-                    $.ajax({  
-                         url:"core/action.php",  
-                         method:"POST",  
-                         data:{action:action},  
-                         success:function(data)  
-                         {  
-                              $('.bookreturnCount').html(data);  
-                         }  
-                    });  
-        }
-        function load_student_total() {  
-                    var action = "Total Student";  
-                    $.ajax({  
-                         url:"core/action.php",  
-                         method:"POST",  
-                         data:{action:action},  
-                         success:function(data)  
-                         {  
-                              $('.studentCount').html(data);  
                          }  
                     });  
         }
@@ -558,6 +511,22 @@ $(document).ready(function(){
                       });
                 }  
 
+                function load_message_info() {
+                    var action = "Message Info"
+
+                    $.ajax({
+                       url:"core/action.php",
+                       method:"POST",
+                       data:{action:action},
+                       success:function(data)
+                       {
+                          $dtsp = data.split('|')
+                          $('#wmdata').val($dtsp[0])  
+                          $('#omdata').val($dtsp[1])
+                          $('#bmdata').val($dtsp[2])
+                       }
+                      });
+                }
                 $(document).on('click', '.dropdown-toggle', function(){
                     $('.countRequest').html('');
                     $('.countFeedbck').html('');
@@ -928,7 +897,7 @@ $(document).ready(function(){
                $(document).on('change', '#studentImage', function(){
                       var name = document.getElementById("studentImage").files[0].name;
                       var form_data = new FormData();
-                      var action = 'addBook';
+                      var action = 'addStudent';
                       var ext = name.split('.').pop().toLowerCase();
                       if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
                       {
@@ -978,6 +947,69 @@ $(document).ready(function(){
                                     {  
                                          $('#student_image').html('');
                                          $('#studentImage').val('');
+                                         
+                                    }  
+                               }  
+                          });  
+                     }  
+                     else  
+                     {  
+                          return false;  
+                     }  
+                });
+               $(document).on('change', '#announcementImage', function(){
+                      var name = document.getElementById("announcementImage").files[0].name;
+                      var form_data = new FormData();
+                      var action = 'addAnnouncement';
+                      var ext = name.split('.').pop().toLowerCase();
+                      if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+                      {
+                       alert("Invalid Image File");
+                      }
+                      var oFReader = new FileReader();
+                      oFReader.readAsDataURL(document.getElementById("announcementImage").files[0]);
+                      var f = document.getElementById("announcementImage").files[0];
+                      var fsize = f.size||f.fileSize;
+                      if(fsize > 2000000)
+                      {
+                       alert("Image File Size is very big");
+                      }
+                      else
+                      {
+                       form_data.append("file", document.getElementById('announcementImage').files[0]);
+                       
+                       $.ajax({
+                        url:"core/upload_announcement_img.php",
+                        method:"POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend:function(){
+                         $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+                        },   
+                        success:function(data)
+                        {
+                         $('#announcement_image').html(data);
+                        }
+                       });
+                      }
+                });
+               $(document).on('click', '#remove_img', function(){  
+                     if(confirm("Are you sure you want to remove this image?"))  
+                     {  
+
+                          
+                          var filename = $('#remove_img').data("path");  
+                          $.ajax({  
+                               url:"core/delete_announcementImg.php",  
+                               type:"POST",  
+                               data:{filename:filename},  
+                               success:function(data){  
+                                    if(data != '')  
+                                    {  
+                                         $('#announcement_image').html('');
+                                         $('#announcementImage').val('');
                                          
                                     }  
                                }  
@@ -1267,10 +1299,13 @@ $(document).ready(function(){
                           data:{announcementID:announcementID,action:action},
                           dataType:"json",
                           success:function(data){
+
                             $("#myModalannouncements").modal('show');
                              $("#title").val(data.title);                          
                              $("#content").val(data.content);                                               
-                             $("#announcement_id").val(data.id);                                               
+                             $("#announcement_id").val(data.id); 
+                             // $("#announcementImage").val(data.image); 
+                             $("#announcement_image").html(data.image);                                               
                              $("#status").val(data.status);                                               
                              $('#action').val("Edit Announcement");
                           }
@@ -2035,7 +2070,7 @@ $('#memberName').change(function(){
                               processData:false,
                               success:function(data)
                               {
-                                //alert(data);
+                                // alert(data);
                                 var d = data.split(',');
                                   //*
                                   if(d[0] == 0 || d[0] == 2 || d[0] == 3 || d[0] == 4){
@@ -2045,8 +2080,6 @@ $('#memberName').change(function(){
                                   }else{
                                     voice("Log in verified. Access Denied, Wrong passcode or ID.")
                                   }
-                                  
-                                  //*/  
                               }
                         });
 
@@ -2060,7 +2093,6 @@ $('#memberName').change(function(){
                             ssy.cancel()
                             if (Timeout !== null)
                             clearTimeout(Timeout);
-
                             Timeout = setTimeout(function(){ voice(text,proc,data); }, 250);
                         }else{
                             utt.text = text
@@ -2258,5 +2290,122 @@ $('#memberName').change(function(){
           }  
       });
   }
+  $('#bmb, #bmdata').on('click', function(){
+      var action = 'Message Update Select'
+      var id = "NWBRBK002"
 
+      var dats = new FormData();
+             
+        dats.append('action', action);
+        dats.append('id', id);
+
+        $.ajax({
+            url:"core/action.php",
+            method:"POST",
+            data:dats,
+            contentType:false,  
+            processData:false,
+            success:function(data)
+              {
+                  //alert(data)
+                  $dtsp = data.split('|')
+                  $('#hddata').val($dtsp[1])
+                  $('#ftdata').val($dtsp[2])
+                  $('#doc_id').val($dtsp[3])
+                  $('#MEtitle').html('Borrow Message Edit')
+                  $('#messEd').modal('show');
+            
+              }
+           });
+  });
+  $('#wmb, #wmdata').on('click', function(){
+      var action = 'Message Update Select'
+      var id = "BRBKWR001"
+
+      var dats = new FormData();
+             
+        dats.append('action', action);
+        dats.append('id', id);
+
+        $.ajax({
+            url:"core/action.php",
+            method:"POST",
+            data:dats,
+            contentType:false,  
+            processData:false,
+            success:function(data)
+              {
+                  //alert(data)
+                  $dtsp = data.split('|')
+                  $('#hddata').val($dtsp[1])
+                  $('#ftdata').val($dtsp[2])
+                  $('#doc_id').val($dtsp[3])
+                  $('#MEtitle').html('Warning Message Edit')
+                  $('#messEd').modal('show');
+            
+              }
+           });
+  });
+  $('#omb, #omdata').on('click', function(){
+      var action = 'Message Update Select'
+      var id = "ODBRBK002"
+
+      var dats = new FormData();
+             
+        dats.append('action', action);
+        dats.append('id', id);
+
+        $.ajax({
+            url:"core/action.php",
+            method:"POST",
+            data:dats,
+            contentType:false,  
+            processData:false,
+            success:function(data)
+              {
+                  //alert(data)
+                  $dtsp = data.split('|')
+                  $('#hddata').val($dtsp[1])
+                  $('#ftdata').val($dtsp[2])
+                  $('#doc_id').val($dtsp[3])
+                  $('#MEtitle').html('Over Due Message Edit')
+                  $('#messEd').modal('show');
+            
+              }
+           });
+  });
+
+  $('#edbtn').on('click',function(){
+      $header = $('#hddata').val()
+      $footer = $('#ftdata').val()
+      $id = $('#doc_id').val()
+      $action = "Message Editing"
+      var dats = new FormData();
+             
+        dats.append('action', $action);
+        dats.append('id', $id);
+        dats.append('header',$header);
+        dats.append('footer',$footer);
+
+        $.ajax({
+            url:"core/action.php",
+            method:"POST",
+            data:dats,
+            contentType:false,  
+            processData:false,
+            success:function(data)
+              {
+                
+                if(data){
+                    $('#mod_info').modal('show');
+                    load_message_info()
+                    setTimeout(autoclose,2000);
+              }
+            }
+        });
+  });
+  function autoclose(){
+     $('#mod_info').modal('toggle');
+     $('#messEd').modal('toggle');
+  }
 });  

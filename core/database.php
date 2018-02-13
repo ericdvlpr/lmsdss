@@ -1356,6 +1356,50 @@ public function get_search_data($query)
               return $output;
             }
          }
+         
+         public function message_info_startup($query){
+           
+            $result = $this->execute_query($query);
+            $output ='';
+            while($row = mysqli_fetch_object($result)){
+              $output .= $row->heads."\n";
+              $output .= "\t\tBook (Due Date)\n";
+              $output .= "\t\tBook (Due Date)\n";
+              $output .= "\t\tBook (Due Date)\n";
+              $output .= $row->foots."|";
+            }
+            return $output;
+
+         }
+
+         public function message_info_select($query){
+          $result = $this->execute_query($query);
+          $row = mysqli_fetch_object($result);
+
+          return '|'.$row->heads.'|'.$row->foots.'|'.$row->doc;
+
+         }
+
+         public function message_edit($header,$footer,$id){
+            
+            $query = "UPDATE message_board SET header = '".$header."', footer = '".$footer."' WHERE doc_id ='".$id."'";
+            $this->execute_query($query);
+            return true;
+         }
+
+         public function get_message_head($code){
+            $query ="SELECT hb.header AS heads FROM message_board hb WHERE hb.doc_id='".$code."'";
+            $result = $this->execute_query($query);
+            $row = mysqli_fetch_object($result);
+            return $row->heads; 
+         }
+
+         public function get_message_foot($code){
+            $query ="SELECT hb.header AS heads FROM message_board hb WHERE hb.doc_id='".$code."'";
+            $result = $this->execute_query($query);
+            $row = mysqli_fetch_object($result);
+            return $row->heads; 
+         }
          function time_ago($timestamp) {  
                 $time_ago = strtotime($timestamp);  
                 $current_time = time();  

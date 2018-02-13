@@ -220,7 +220,7 @@
              $isbn = mysqli_real_escape_string($object->connect, $_POST["isbn"]);
              $path = mysqli_real_escape_string($object->connect, $_POST["path"]);
              $location = mysqli_real_escape_string($object->connect, $_POST["location"]);
-           $query = "  
+            $query = "  
            INSERT INTO book  
            (book_no,book_title, category_id, author, book_copies, book_pub, isbn, copyright_year,date_receive,img,location,department,status)   
            VALUES ('".$book_no."', '".$book_name."', '".$category."','".$author."','".$book_copies."','".$publisher."','".$isbn."','".$cp_yr."','".$date_rcv."','".$path."','".$location."','".$_SESSION["department"]."','".$status."')";  
@@ -230,12 +230,11 @@
       }
       if($_POST["action"] == "addAnnouncement") {  
 
-            $title = mysqli_real_escape_string($object->connect, $_POST["title"]);  
+             $title = mysqli_real_escape_string($object->connect, $_POST["title"]);  
             $content = mysqli_real_escape_string($object->connect, $_POST["content"]);  
+            $img = mysqli_real_escape_string($object->connect, $_POST["path"]);  
            $query = "  
-           INSERT INTO announcements  
-           (title,content,posted_by)   
-           VALUES ('".$title."', '".$content."','".$_SESSION["id"]."')";  
+           INSERT INTO announcements(title,content,img,posted_by)VALUES ('".$title."', '".$content."','".$img."','".$_SESSION["id"]."')";  
            $object->execute_query($query);  
            echo 'Annoucement Posted';  
       }  
@@ -545,6 +544,7 @@
                  $output["id"] = $row["id"];
                  $output["title"] = $row["title"];
                   $output["content"] = $row["content"];
+                   $output["image"] = "<img src='".$row["img"]."' class='img img-thumbnail' height='150' weight='150'?>";
                   $output["status"] = $row["status"];
                 }
 
@@ -667,8 +667,9 @@
                $title = mysqli_escape_string($object->connect,$_POST["title"]);
                $content = mysqli_escape_string($object->connect,$_POST["content"]);
                $status = mysqli_escape_string($object->connect,$_POST["status"]);
+               $path = mysqli_escape_string($object->connect,$_POST["path"]);
 
-              $query = "UPDATE announcements SET title ='$title', content = '$content',status='$status' WHERE id = '".$_POST['announcement_id']."' ";
+              $query = "UPDATE announcements SET title ='$title', content = '$content',status='$status',img='$path' WHERE id = '".$_POST['announcement_id']."' ";
               $object->execute_query($query);
               echo 'Data Updated';
             } 
@@ -972,6 +973,19 @@
           }
           if($_POST['action']=="Total Return Books"){
            echo $object->count_returned_books("SELECT * FROM borrow_book WHERE ret=1");
+          }
+          if($_POST['action'] == "Message Info"){
+          echo $object->message_info_startup("SELECT hb.header AS heads, hb.footer AS foots FROM message_board hb");
+        
+          }
+
+          if($_POST['action'] == "Message Update Select"){
+          echo $object->message_info_select("SELECT hb.header AS heads, hb.footer AS foots, hb.doc_id as doc FROM message_board hb WHERE hb.doc_id ='".$_POST['id']."'");
+        
+          }
+
+          if($_POST['action'] == "Message Editing"){
+          echo $object->message_edit($_POST['header'],$_POST['footer'],$_POST['id']);  
           }
 
   }

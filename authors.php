@@ -5,15 +5,16 @@
              <div class="col-md-12">
                  <div class="box box-solid box-primary">
                       <div class="box-header">
+                      <div class="btn-group pull-right">
+                                      <button type="button" class="btn btn-success" id="add_author" data-toggle="modal" data-target="#author">
+                                      Add Author
+                                    </button>
+                                </div>
                              <h3 class="box-title">Authors</h3>
                       </div>
                       <div class="box-body">
                         <div  class="table-responsive">
-                               <div class="btn-group">
-                                      <button type="button" class="btn btn-primary" id="add_author" data-toggle="modal" data-target="#author">
-                                      Add Author
-                                    </button>
-                                </div>
+                               
                                    <table class="table table-bordered table-striped" id='authors'>  
                                         <thead>
                                               <tr>  

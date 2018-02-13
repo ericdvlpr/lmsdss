@@ -22,7 +22,7 @@
             <li><a href="reservation.php"><i class="fa fa-folder"></i>  <span>Reservation <span></a></li>
             <li><a href="reports.php"><i class="fa fa-file"></i>  <span>Reports <span></a></li>
             <li><a href="students.php"><i class="fa fa-male"></i>  <span>Students <span></a></li>
-            <li><a href="users.php"><i class="fa fa-users  "></i>  <span>Users <span></a></li>
+           <!--  <li><a href="users.php"><i class="fa fa-users  "></i>  <span>Users <span></a></li> -->
           
        <?php }elseif (($_SESSION['access'] == 2)|| ($_SESSION['access'] == 3)  ) {?>
             <li><a href="index.php"><i class="fa fa-bar-chart-o fa-fw"></i> <span>Overview</span> </a></li>
@@ -51,7 +51,7 @@
             <li><a href="reservation.php"><i class="fa fa-folder"></i> <span>Reservation</span> </a></li>
             <li><a href="reports.php"><i class="fa fa-file"></i> <span>Reports</span> </a></li>
             <li><a href="students.php"><i class="fa fa-male"></i> <span>Students</span> </a></li>
-            <li><a href="users.php"><i class="fa fa-users  "></i><span> Users</span> </a></li>
+         <!--    <li><a href="users.php"><i class="fa fa-users  "></i><span> Users</span> </a></li> -->
 
     <?php
       }?> 

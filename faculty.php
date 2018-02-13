@@ -5,13 +5,14 @@
                     <br />
                       <div class="box box-solid box-primary">
                             <div class="box-header">
+                                          <div class="btn-group pull-right">
+                                            <button type="button" class="btn btn-success" id="add_faculty">Add Faculty</button>
+                                          </div>
                                    <h3 class="box-title">Faculty</h3>
                             </div>
                             <div class="box-body">
                                 <div  class="table-responsive"> 
-                                  <div class="btn-group">
-                                            <button type="button" class="btn btn-primary" id="add_faculty">Add Faculty</button>
-                                          </div>
+                                  
 
                                           <table class="table table-bordered table-striped" id='faculty'>  
                                                   <thead>  

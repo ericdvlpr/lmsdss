@@ -4,16 +4,17 @@
                   <div class="col-md-12">
                       <div class="box box-solid box-primary">
                             <div class="box-header">
-                                   <h3 class="box-title">Books</h3>
-                            </div>
-                            <div class="box-body">
-                                  <div  class="table-responsive"> 
-                                      <div class="btn-group">
-                                          <button type="button" class="btn btn-primary" id="add_book" data-toggle="modal">
+                                  <div class="btn-group pull-right">
+                                          <button type="button" class="btn btn-success" id="add_book" data-toggle="modal">
                                           Add Book
                                         </button>
                                         
                                     </div>
+                                   <h3 class="box-title">Books</h3>
+                            </div>
+                            <div class="box-body">
+                                  <div  class="table-responsive"> 
+                                      
                                    <table class="table table-bordered table-striped" id="books">  
                                         <thead>  
                                              <th width="10%">Book No</th>  
