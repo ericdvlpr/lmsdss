@@ -479,10 +479,16 @@ $(document).ready(function(){
                          }  
                     });  
                }
-               function load_course_list() {  
-                    var action = "Course"; 
-                    var val = $('#department').val();
-                    alert(val); 
+               function load_course_list(deptID) { 
+                  var action = "Course"; 
+                      if (val='') {
+                       
+                        var val = $('#department').val();
+                      }else{
+
+                        var val = deptID;
+                      }
+                      
                     $.ajax({  
                          url:"core/action.php",  
                          method:"POST",  
@@ -493,9 +499,17 @@ $(document).ready(function(){
                          }  
                     });  
                }
-               function load_year_list() {  
-                    var action = "Course Year";
-                    var val = $('#course').val();  
+               function load_year_list(courseID) { 
+                    var action = "Course Year"; 
+                    if (val='') {
+                       
+                        var val = $('#course').val();  
+                      }else{
+
+                        var val = courseID;
+                      }
+                    
+                    
                    
                     $.ajax({  
                          url:"core/action.php",  
@@ -832,28 +846,28 @@ $(document).ready(function(){
                 $("#type").change(function(){
                          var action = "Type";
                         var type = $('#type').val();
-
-                        if(type== 0){
-                          $("#divPasscode").css({"display":"inline"});
-                           $("#divPwd").css({"display":"none"});
-                          $("#searchname").attr("disabled",true);
-                        }else if(type== 1){
-                          $("#divPasscode").css({"display":"none"});
-                          $("#divPwd").css({"display":"inline"});
-                          $("#searchname").attr("disabled",false);
-                        }else if(type== 2){
-                           $("#divPasscode").css({"display":"inline"});
-                            $("#divPwd").css({"display":"none"});
-                            $("#searchname").attr("disabled",true);
-                        }
-                          $.ajax({
-                          url:"core/action.php",
-                          method:"POST",
-                          data:{action:action},
-                          success:function(data){
-                            $("#passcode").val(data);
-                          }
-                        });
+                        alert(type);
+                        // if(type== 0){
+                        //   $("#divPasscode").css({"display":"inline"});
+                        //    $("#divPwd").css({"display":"none"});
+                        //   $("#searchname").attr("disabled",true);
+                        // }else if(type== 1){
+                        //   $("#divPasscode").css({"display":"none"});
+                        //   $("#divPwd").css({"display":"inline"});
+                        //   $("#searchname").attr("disabled",false);
+                        // }else if(type== 2){
+                        //    $("#divPasscode").css({"display":"inline"});
+                        //     $("#divPwd").css({"display":"none"});
+                        //     $("#searchname").attr("disabled",true);
+                        // }
+                        //   $.ajax({
+                        //   url:"core/action.php",
+                        //   method:"POST",
+                        //   data:{action:action},
+                        //   success:function(data){
+                        //     $("#passcode").val(data);
+                        //   }
+                        // });
                 });
 //           FORM SUBMIT 
                $('#bookform').on('submit', function(event){  
@@ -1482,14 +1496,16 @@ $(document).ready(function(){
                           dataType:"json",
                           success:function(data){
                             $("#student").modal('show');
-                            load_course_list();
-                            load_year_list();
+                            //load_course_list(data.dept);
+                            //load_year_list(data.course);
                              $("#student_no").val(data.student_id);                                            
                              $("#student_name").val(data.student_name);                                               
                              $("#address").val(data.address);                                               
                              $("#contact").val(data.contact);                                               
                              $("#sex").val(data.gender);                                               
-                             $("#department").val(data.dept);                                                                                                                                     
+                             $("#department").val(data.dept);
+                             $('#course').val(data.course);  
+                             $('#course-year').val(data.year_level);                                                                                                                                       
                              $("#type").val(data.type); 
                              $("#studentImage").val(data.image); 
                              $("#student_image").html(data.image);
