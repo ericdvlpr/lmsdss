@@ -33,6 +33,7 @@
 		$query = "SELECT * FROM users WHERE username = '".$_GET['id']."'  ";
 		$result = $data->execute_query($query);
 		$row = mysqli_fetch_object($result);
+		$_SESSION['id'] = $row->id;
 		$_SESSION['username'] = $row->username;
 		$_SESSION['access'] = $row->access;
 		$_SESSION['department'] = $row->department;

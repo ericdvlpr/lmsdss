@@ -1,5 +1,6 @@
 var Timeout=null;
 var mtmess = [];
+var daycnt = 0
 $(document).ready(function(){
         // $.datepicker.setDefaults({  
         //         dateFormat: 'yy-mm-dd'   
@@ -10,8 +11,10 @@ $(document).ready(function(){
         //    }); 
        $("input").attr("autocomplete","off");
         $('.modal').on("hidden.bs.modal", function(){
+          $('.form-horizontal')[0].reset();
          $("input").val("");
          $("select").val("");
+         window.location.reload();
       });
       //Load Table Data
               load_author_data() 
@@ -37,7 +40,12 @@ $(document).ready(function(){
                 load_borrow_index();
                 load_user_logs();
                 load_announcement();
-                load_message_info()
+                load_message_info();
+                load_books_total();
+                load_student_total();
+                load_borrowed_books_total();
+                load_return_books_total();
+                load_maintenace()
       //Load Report
           $('#filter').click(function(){  
                 var from_date = $('#from_date').val();  
@@ -243,6 +251,54 @@ $(document).ready(function(){
                          success:function(data)  
                          {  
                               $('#bookissue_index_table').html(data);  
+                         }  
+                    });  
+        }
+        function load_books_total() {  
+                    var action = "Total Books";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('.bookCount').html(data);  
+                         }  
+                    });  
+        }
+        function load_borrowed_books_total() {  
+                    var action = "Total Borrow Books";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('.bookborrowCount').html(data);  
+                         }  
+                    });  
+        }
+        function load_return_books_total() {  
+                    var action = "Total Return Books";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('.bookreturnCount').html(data);  
+                         }  
+                    });  
+        }
+        function load_student_total() {  
+                    var action = "Total Student";  
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('.studentCount').html(data);  
                          }  
                     });  
         }
@@ -525,6 +581,24 @@ $(document).ready(function(){
                        }
                       });
                 }
+                function load_maintenace(){
+                  var action = "Maintenance"
+
+                    $.ajax({
+                       url:"core/action.php",
+                       method:"POST",
+                       data:{action:action},
+                       success:function(data)
+                       {
+                          $dstp = data.split('|');
+                          $('#numDays').val($dstp[1])
+                          $('#penalty').val($dstp[2])
+                          $('#Quant').val($dstp[3])
+                          
+                       }
+                      });
+                }
+
                 $(document).on('click', '.dropdown-toggle', function(){
                     $('.countRequest').html('');
                     $('.countFeedbck').html('');
@@ -895,7 +969,7 @@ $(document).ready(function(){
                $(document).on('change', '#studentImage', function(){
                       var name = document.getElementById("studentImage").files[0].name;
                       var form_data = new FormData();
-                      var action = 'addBook';
+                      var action = 'addStudent';
                       var ext = name.split('.').pop().toLowerCase();
                       if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
                       {
@@ -945,6 +1019,69 @@ $(document).ready(function(){
                                     {  
                                          $('#student_image').html('');
                                          $('#studentImage').val('');
+                                         
+                                    }  
+                               }  
+                          });  
+                     }  
+                     else  
+                     {  
+                          return false;  
+                     }  
+                });
+               $(document).on('change', '#announcementImage', function(){
+                      var name = document.getElementById("announcementImage").files[0].name;
+                      var form_data = new FormData();
+                      var action = 'addAnnouncement';
+                      var ext = name.split('.').pop().toLowerCase();
+                      if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1) 
+                      {
+                       alert("Invalid Image File");
+                      }
+                      var oFReader = new FileReader();
+                      oFReader.readAsDataURL(document.getElementById("announcementImage").files[0]);
+                      var f = document.getElementById("announcementImage").files[0];
+                      var fsize = f.size||f.fileSize;
+                      if(fsize > 2000000)
+                      {
+                       alert("Image File Size is very big");
+                      }
+                      else
+                      {
+                       form_data.append("file", document.getElementById('announcementImage').files[0]);
+                       
+                       $.ajax({
+                        url:"core/upload_announcement_img.php",
+                        method:"POST",
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        beforeSend:function(){
+                         $('#uploaded_image').html("<label class='text-success'>Image Uploading...</label>");
+                        },   
+                        success:function(data)
+                        {
+                         $('#announcement_image').html(data);
+                        }
+                       });
+                      }
+                });
+               $(document).on('click', '#remove_img', function(){  
+                     if(confirm("Are you sure you want to remove this image?"))  
+                     {  
+
+                          
+                          var filename = $('#remove_img').data("path");  
+                          $.ajax({  
+                               url:"core/delete_announcementImg.php",  
+                               type:"POST",  
+                               data:{filename:filename},  
+                               success:function(data){  
+                                    if(data != '')  
+                                    {  
+                                         $('#announcement_image').html('');
+                                         $('#announcementImage').val('');
                                          
                                     }  
                                }  
@@ -1234,10 +1371,13 @@ $(document).ready(function(){
                           data:{announcementID:announcementID,action:action},
                           dataType:"json",
                           success:function(data){
+
                             $("#myModalannouncements").modal('show');
                              $("#title").val(data.title);                          
                              $("#content").val(data.content);                                               
-                             $("#announcement_id").val(data.id);                                               
+                             $("#announcement_id").val(data.id); 
+                             // $("#announcementImage").val(data.image); 
+                             $("#announcement_image").html(data.image);                                               
                              $("#status").val(data.status);                                               
                              $('#action').val("Edit Announcement");
                           }
@@ -1637,13 +1777,32 @@ $(document).ready(function(){
                           processData:false,
                           success:function(data)
                             {
-                               $('#issue_table tr').eq(ans).find('input[name="bookTitle[]"]').val(data)
+                               $dtsp = data.split('|')
+                               $('#issue_table tr').eq(ans).find('input[name="bookTitle[]"]').val($dtsp[1])
                             }
                       });     
             });
-
+            checkdate()
+            function checkdate(){
+                      var action = 'Checkdates'
+                      var dats = new FormData();
+                          dats.append('action', action)
+                            $.ajax({
+                                url:"core/action.php",
+                                method:"POST",
+                                data:dats,
+                                contentType:false,  
+                                processData:false,
+                                success:function(data)
+                                {
+                                  daycnt = parseInt(data)
+                                }
+                            })
+            }
 
             $('#add').click(function(){
+                          
+                          
                           var now = new Date();
                           var month = (now.getMonth() + 1);               
                           var day = now.getDate();
@@ -1653,7 +1812,7 @@ $(document).ready(function(){
                               day = "0" + day;
 
                           var today = now.getFullYear() + '-' + month + '-' + day;
-                              now.setDate(now.getDate()+6);
+                              now.setDate(now.getDate()+daycnt);
                           
                           var end_date=now.getFullYear() + "-" + month + "-" + now.getDate();
                           var html = '';
@@ -1750,9 +1909,10 @@ $(document).ready(function(){
                             data:form_data,
                             success:function(data)
                             {
+                              //alert(data)
                               if(data !='  0  '){
                             
-                                var d = data.split('|');
+                               var d = data.split('|');
                                messageData(d[0],d[1],d[2],'issuebook.php');
                                 
                                 
@@ -1934,6 +2094,7 @@ $('#memberName').change(function(){
                             data:form_data,
                             success:function(data)
                             {                           
+                              //alert(data)
                               if(data !='  0  '){
                                 var d = data.split('|');
                                 messageData(d[0],d[1],d[2],'issuebook.php');
@@ -1975,10 +2136,10 @@ $('#memberName').change(function(){
 //Log-in------------------------------------------------------------------------------------
                     $('#username').focus()
                     $('#username').on('focus', function(){
-                        voice("Please enter your student ID number then press tab.")
+                        voice("Please enter your ID number Or Username then press tab.")
                     });
                     $('#password').on('focus', function(){
-                        voice("Please enter your passcode Number then press enter.")
+                        voice("Please enter your passcode then press enter.")
                     });
 
                     $('#log_in').on('submit', function(event){
@@ -1993,7 +2154,6 @@ $('#memberName').change(function(){
                         dat.append('user',user);
                         dat.append('pass',pass);
               
-
                         $.ajax({
                               url:"core/action.php",
                               method:"POST",
@@ -2012,8 +2172,7 @@ $('#memberName').change(function(){
                                   }else{
                                     voice("Log in verified. Access Denied, Wrong passcode or ID.")
                                   }
-                                  
-                                  //*/  
+                                  //*/
                               }
                         });
 
@@ -2025,6 +2184,7 @@ $('#memberName').change(function(){
 
                         if(ssy.speaking){
                             ssy.cancel()
+                            
                             if (Timeout !== null)
                             clearTimeout(Timeout);
                             Timeout = setTimeout(function(){ voice(text,proc,data); }, 250);
@@ -2211,7 +2371,9 @@ $('#memberName').change(function(){
         success:function(data)  
           {  
               //alert(data)
+               //*
                if(data!='  0  '){
+                
                   var d1 = data.split('][')
                   
                   for(var td = 1;td<d1.length;td++){
@@ -2221,6 +2383,7 @@ $('#memberName').change(function(){
                   
                   //setTimeout(MultimessageData,250);
                }
+               //*/
           }  
       });
   }
@@ -2331,6 +2494,8 @@ $('#memberName').change(function(){
               {
                 
                 if(data){
+                    $('#messEd').modal('toggle');
+                    $('#mod_data').html('Message Update Succesful');
                     $('#mod_info').modal('show');
                     load_message_info()
                     setTimeout(autoclose,2000);
@@ -2340,6 +2505,38 @@ $('#memberName').change(function(){
   });
   function autoclose(){
      $('#mod_info').modal('toggle');
-     $('#messEd').modal('toggle');
+     
   }
+  $('#compt').on('click', function(){
+      $days = $('#numDays').val()
+      $pen = $('#penalty').val()
+      $qua = $('#Quant').val()
+      $action = "Maintenace_Edit";
+
+      var dats = new FormData();
+             
+        dats.append('action', $action);
+        dats.append('day', $days);
+        dats.append('pen',$pen);
+        dats.append('qua',$qua);
+
+        $.ajax({
+            url:"core/action.php",
+            method:"POST",
+            data:dats,
+            contentType:false,  
+            processData:false,
+            success:function(data)
+              {
+                if(data){
+                  $('#mod_info').modal('show');
+                  $('#mod_data').html('Maintenance Update Succesful');
+                  load_maintenace();
+                  setTimeout(autoclose,2000);
+                }
+            }
+        });
+           
+  });
+
 });  

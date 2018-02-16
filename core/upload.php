@@ -5,8 +5,8 @@ if($_FILES["file"]["name"] != '')
  $test = explode('.', $_FILES["file"]["name"]);
  $ext = end($test);
  $name = rand() . '.' . $ext;
- $path = "img/books/" . $name; 
-$location = "../img/books/". $name; 
+ $path = "images/books/" . $name; 
+$location = "../images/books/". $name; 
  // $location = '../img/books/' . $name;  
  move_uploaded_file($_FILES["file"]["tmp_name"], $location);
  echo '<img src="'.$path.'" height="150" width="225" class="img img-thumbnail" />';

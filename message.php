@@ -72,7 +72,7 @@
     </div> 
 </div>
 
-<div class="modal fade" id="mod_info" role="dialog">
+<!-- <div class="modal fade" id="mod_info" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -85,8 +85,8 @@
         
       </div>
     </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+ <!--</div> /.modal-dialog
+</div> -->
 
 <?php 
 include 'includes/footer.php';

@@ -1,9 +1,9 @@
 <?php include 'includes/header.php';?>  
             <?php include 'includes/sidemenu.php'; ?>
-     		 <div class="content-wrapper">
-                <div class="panel panel-default">
-                 <div class="panel-heading"><h4><i class="fa fa-info"></i> Faculty Info</h4></div>
-                    <div class="panel-body">
+               <section class="content">
+                <div class="box box-primary box-solid">
+                 <div class="box-header with-border"><h4 class="box-title"><i class="fa fa-info"></i> Faculty Info</h4></div>
+                    <div class="box-body">
                         <div class="row">
                             <?php 
                                 if(isset($_GET['facID'])){
@@ -53,8 +53,9 @@
                             
                         </div>
                     </div>
-                </div>
-            </div>			
+                
+                </div>	
+            </section>	
 <?php 
 include 'includes/footer.php';
 ?>

@@ -58,13 +58,13 @@
       } 
         //INDEX FUNCTION
       if($_POST["action"] == "announcementIndex"){
-          echo $object->get_announcements_index("SELECT * FROM announcements");
+          echo $object->get_announcements_index("SELECT * FROM announcements LIMIT 5");
       }
       if($_POST["action"] == "bookIndex"){
-        echo $object->get_book_index("SELECT * FROM book b LEFT JOIN authors a ON a.id =b.author LEFT JOIN publishers p ON p.id=b.book_pub JOIN status s ON s.id = b.status LEFT JOIN catalogue c on b.category_id = c.catalogue_id");
+        echo $object->get_book_index("SELECT * FROM book b LEFT JOIN authors a ON a.id =b.author LEFT JOIN publishers p ON p.id=b.book_pub JOIN status s ON s.id = b.status LEFT JOIN catalogue c on b.category_id = c.catalogue_id LIMIT 5 ");
       }
       if($_POST["action"] == "bookIssuedIndex"){
-        echo $object->get_book_issued_index("SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id");
+        echo $object->get_book_issued_index("SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id LIMIT 5 ");
       }
       if($_POST["action"] == "userIndex"){
         echo $object->get_user_index("SELECT * FROM users WHERE access != 0 ");
@@ -220,7 +220,7 @@
              $isbn = mysqli_real_escape_string($object->connect, $_POST["isbn"]);
              $path = mysqli_real_escape_string($object->connect, $_POST["path"]);
              $location = mysqli_real_escape_string($object->connect, $_POST["location"]);
-           $query = "  
+            $query = "  
            INSERT INTO book  
            (book_no,book_title, category_id, author, book_copies, book_pub, isbn, copyright_year,date_receive,img,location,department,status)   
            VALUES ('".$book_no."', '".$book_name."', '".$category."','".$author."','".$book_copies."','".$publisher."','".$isbn."','".$cp_yr."','".$date_rcv."','".$path."','".$location."','".$_SESSION["department"]."','".$status."')";  
@@ -230,12 +230,11 @@
       }
       if($_POST["action"] == "addAnnouncement") {  
 
-            $title = mysqli_real_escape_string($object->connect, $_POST["title"]);  
+             $title = mysqli_real_escape_string($object->connect, $_POST["title"]);  
             $content = mysqli_real_escape_string($object->connect, $_POST["content"]);  
+            $img = mysqli_real_escape_string($object->connect, $_POST["path"]);  
            $query = "  
-           INSERT INTO announcements  
-           (title,content,posted_by)   
-           VALUES ('".$title."', '".$content."','".$_SESSION["id"]."')";  
+           INSERT INTO announcements(title,content,img,posted_by)VALUES ('".$title."', '".$content."','".$img."','".$_SESSION["id"]."')";  
            $object->execute_query($query);  
            echo 'Annoucement Posted';  
       }  
@@ -332,7 +331,7 @@
                }
 
                if(!$missing){ 
-               $Mess= $object->get_message_head('NWBRBK002')."\n";
+               $Mess = $object->get_message_head('NWBRBK002')."\n";
                for($count = 0; $count < count($_POST["bookID"]); $count++)
                 {  
                   
@@ -355,7 +354,7 @@
                     $object->execute_query($query0);
                   }
                 //*/
-               $Mess.=$bookTitle." (".$date_returned.") \n "; 
+               $Mess.="\t\t".$bookTitle." (".$date_returned.") \n "; 
                
                 }
                 //*
@@ -544,6 +543,7 @@
                  $output["id"] = $row["id"];
                  $output["title"] = $row["title"];
                   $output["content"] = $row["content"];
+                   $output["image"] = "<img src='".$row["img"]."' class='img img-thumbnail' height='150' weight='150'?>";
                   $output["status"] = $row["status"];
                 }
 
@@ -666,8 +666,9 @@
                $title = mysqli_escape_string($object->connect,$_POST["title"]);
                $content = mysqli_escape_string($object->connect,$_POST["content"]);
                $status = mysqli_escape_string($object->connect,$_POST["status"]);
+               $path = mysqli_escape_string($object->connect,$_POST["path"]);
 
-              $query = "UPDATE announcements SET title ='$title', content = '$content',status='$status' WHERE id = '".$_POST['announcement_id']."' ";
+              $query = "UPDATE announcements SET title ='$title', content = '$content',status='$status',img='$path' WHERE id = '".$_POST['announcement_id']."' ";
               $object->execute_query($query);
               echo 'Data Updated';
             } 
@@ -949,21 +950,31 @@
                }   
           }
            if($_POST["action"] == "PanelNotification"){
-             echo $object->get_panel_notification("SELECT * FROM notification ORDER BY notif_id DESC LIMIT 15");
+             echo $object->get_panel_notification("SELECT * FROM notification ORDER BY notif_id DESC LIMIT 5");
                
           }
           if($_POST["action"] == "userLogs"){
-             echo $object->get_user_logs("SELECT * FROM logs ORDER BY log_id DESC LIMIT 15");
+             echo $object->get_user_logs("SELECT * FROM logs ORDER BY log_id DESC LIMIT 5");
                
           }
           if($_POST['action'] == "Time Over"){
           echo $object->time_due_check();
         
           }
-
+          if($_POST['action']=="Total Books"){
+           echo $object->count_books("SELECT * FROM book");
+          }
+          if($_POST['action']=="Total Student"){
+           echo $object->count_students("SELECT * FROM students");
+          }
+          if($_POST['action']=="Total Borrow Books"){
+           echo $object->count_borrowed_books("SELECT * FROM borrow_book");
+          }
+          if($_POST['action']=="Total Return Books"){
+           echo $object->count_returned_books("SELECT * FROM borrow_book WHERE ret=1");
+          }
           if($_POST['action'] == "Message Info"){
           echo $object->message_info_startup("SELECT hb.header AS heads, hb.footer AS foots FROM message_board hb");
-        
           }
 
           if($_POST['action'] == "Message Update Select"){
@@ -974,7 +985,19 @@
           if($_POST['action'] == "Message Editing"){
           echo $object->message_edit($_POST['header'],$_POST['footer'],$_POST['id']);  
           }
+          if($_POST['action'] == "Maintenance"){
+          echo $object->maintenace_view("SELECT * FROM `maintenace` WHERE pri_id = '1'");  
+          }
 
+          if($_POST['action'] == "Maintenace_Edit"){
+              $query="UPDATE maintenace SET men_1 = '".$_POST['day']."', men_2 = '".$_POST['pen']."', men_3 = '".$_POST['qua']."' WHERE pri_id = '1'";
+              $object->execute_query($query);
+              echo true;
+          }
+
+          if($_POST['action'] == "Checkdates"){
+            echo $object->Dates_view("SELECT men_1 AS days FROM `maintenace` WHERE pri_id = '1'");  
+          }
 
   }
  ?>  
