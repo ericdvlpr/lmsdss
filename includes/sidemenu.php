@@ -32,11 +32,20 @@
             <li><a href="faculty.php"><i class="fa fa-user"></i>  <span>Faculty <span></a></li>
             <li><a href="issuebook.php"><i class="fa fa-download"></i>  <span>Issue Book <span></a></li>
        <?php }elseif ($_SESSION['access'] == 4) { ?> 
+<<<<<<< HEAD
           <li><a href="index.php"><i class="fa fa-bar-chart-o fa-fw"></i> <span>Overview</span> </a></li>
            <li><a href="requestBook.php"><span>Request for Book</span></a></li>
             
       <?php }elseif($_SESSION['access'] == 5){?>  
        <li><a href="index.php"><span>Overview </span></a></li>
+=======
+          <li><a href="faculty_index.php"><i class="fa fa-bar-chart-o fa-fw"></i> <span>Overview</span> </a></li>
+          <li><a href="searchBook.php"><span>Search Book </span></a></li>
+           <li><a href="requestBook.php"><span>Request for Book</span></a></li>
+            
+      <?php }elseif($_SESSION['access'] == 5){?>  
+       <li><a href="student_index.php"><i class="fa fa-bar-chart-o fa-fw"></i><span>Overview </span></a></li>
+>>>>>>> origin/Francis
       <li><a href="searchBook.php"><span>Search Book </span></a></li>
       <li><a href="feedback.php"><span>Give Us a FeedBack </span></a></li>
       <?php }else{

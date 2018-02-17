@@ -104,9 +104,17 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
+<<<<<<< HEAD
           <li>
             <a href="setup.php"><i class="fa fa-gears"></i></a>
           </li>
+=======
+            <?php if($_SESSION['access']=='1'){ ?>  
+          <li>
+            <a href="setup.php"><i class="fa fa-gears"></i></a>
+          </li>
+            <?php }?>
+>>>>>>> origin/Francis
         </ul>
       </div>
     </nav>

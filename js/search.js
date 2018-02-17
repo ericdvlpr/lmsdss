@@ -270,7 +270,11 @@ $(document).ready(function(){
          $('#searchname').prop('disabled',false)
          $('#searchname').focus();
          mod2 = false
+<<<<<<< HEAD
       }else if(tbl_diag){
+=======
+      }else if(tbl_diag || tbl_res){
+>>>>>>> origin/Francis
         tbl_diag = false;
         tbl_res = false
         $('#searchname').prop('disabled',false)
@@ -344,7 +348,11 @@ $(document).ready(function(){
       if(sec_sh){
         if(e.keyCode==39){
             rt++;
+<<<<<<< HEAD
             alert("++")
+=======
+            
+>>>>>>> origin/Francis
             voice_pre("Increasing speed.",0,null)
         }else if(e.keyCode==37){
           if(rt>1){
@@ -479,8 +487,17 @@ $(document).ready(function(){
                       voice_pre(text+" Search not found related to "+srch_name,0,null);
                    }else{
 
+<<<<<<< HEAD
                       alert("Search not found related to "+srch_name)
 
+=======
+                       $('#mod_info').modal('show');
+                       $('#mod_title').html('Search Not Found');
+                       $('#mod_data').html("Search Not Found Related to "+srch_name)
+                       $('#searchname').prop('disabled',true)
+                       mod2 =true
+                       setTimeout(autoclose, 5000); 
+>>>>>>> origin/Francis
                    }
                   }else{
                     var plt = data.split("|");

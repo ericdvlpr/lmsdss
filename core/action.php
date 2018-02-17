@@ -331,8 +331,12 @@
                }
 
                if(!$missing){ 
+<<<<<<< HEAD
                $Mess="Good Day.. \n";
                $Mess.="\t\t\tThe following books has been borrowed: \n";
+=======
+               $Mess = $object->get_message_head('NWBRBK002')."\n";
+>>>>>>> origin/Francis
                for($count = 0; $count < count($_POST["bookID"]); $count++)
                 {  
                   
@@ -355,7 +359,11 @@
                     $object->execute_query($query0);
                   }
                 //*/
+<<<<<<< HEAD
                $Mess.=$bookTitle." (".$date_returned.") \n "; 
+=======
+               $Mess.="\t\t".$bookTitle." (".$date_returned.") \n "; 
+>>>>>>> origin/Francis
                
                 }
                 //*
@@ -374,7 +382,11 @@
                 }
                //*/
                 
+<<<<<<< HEAD
                 $Mess .= "\t\tPlease Be Advise that you must return the following book(s) before or on date to avoid penalties.";
+=======
+                $Mess .= $object->get_message_foot('NWBRBK002');
+>>>>>>> origin/Francis
                 echo $Mess.'|'.$contactN.'|Issue Inserted, Message Sent';
               }else{
                 echo '0';
@@ -444,6 +456,7 @@
            VALUES ('".$request_no."', '".$book_title."', '".$author."','".$copies."','".$date_requested."','0','".$_SESSION['id']."')";  
            $object->execute_query("INSERT INTO notification(notif_id_type,notif_type,notif_subject,notif_text,notif_status,user_id) VALUES('1','request','Requested for Book','".$book_title."','0','".$_SESSION['id']."')"); 
            $object->execute_query($query); 
+<<<<<<< HEAD
 
            echo 'Data Inserted';  
       }
@@ -471,6 +484,35 @@
            $object->execute_query("INSERT INTO notification(notif_id_type,notif_type,notif_subject,notif_text,notif_status,user_id) VALUES('2','feedback','Feedback from Student','".$subject."','0','".$student_id."')"); 
            $object->execute_query($query); 
 
+=======
+
+           echo 'Data Inserted';  
+      }
+      if($_POST["action"] == "addFaculty") {  
+              $faculty_no=mysqli_real_escape_string($object->connect, $_POST["faculty_no"]);
+              $faculty_name=mysqli_real_escape_string($object->connect, $_POST["faculty_name"]);
+              $department=mysqli_real_escape_string($object->connect, $_POST["department"]);
+              $passcode=md5(mysqli_real_escape_string($object->connect, $_POST["passcode"]));
+             
+            
+              $query = "INSERT INTO faculty(faculty_no,faculty_name,passcode,dept)VALUES ('".$faculty_no."', '".$faculty_name."','".$passcode."','".$department."')";
+             
+               $object->execute_query("INSERT INTO users(username,password,access)VALUES('".$faculty_no."','".$passcode."','4')");
+               $object->execute_query($query);  
+               echo 'Data Inserted';  
+      }
+      if($_POST["action"] == "addFeedBack") {  
+              $subject=mysqli_real_escape_string($object->connect, $_POST["subject"]);
+              $body=mysqli_real_escape_string($object->connect, $_POST["body"]);
+              $student_id=mysqli_real_escape_string($object->connect, $_POST["student_id"]);
+            $query = "  
+           INSERT INTO feedback  
+           (subject,body,student_id)   
+           VALUES ('".$subject."', '".$body."', '".$student_id."')";  
+           $object->execute_query("INSERT INTO notification(notif_id_type,notif_type,notif_subject,notif_text,notif_status,user_id) VALUES('2','feedback','Feedback from Student','".$subject."','0','".$student_id."')"); 
+           $object->execute_query($query); 
+
+>>>>>>> origin/Francis
            echo 'FeedBack Sent';  
       }
       //Fetch Queries 
@@ -891,7 +933,11 @@
      if($_POST["action"] == "Book_select")  
       {
           //"searching for ".$_POST["srch_name"]; 
+<<<<<<< HEAD
           echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.book_copies, b.location as location, l.library_name as department, b.img as img FROM book b LEFT JOIN libraries l ON b.department = l.id WHERE book_no ='".$_POST["id"]."'","SELECT bb.copies as CNT FROM borrow_book bb WHERE bb.book_no = '".$_POST["id"]."'");
+=======
+          echo $object->get_selected_data($_POST['id'],$_POST['mem']);
+>>>>>>> origin/Francis
       }
       if($_POST["action"] == "Book_Reserve")  
       {
@@ -976,7 +1022,10 @@
           }
           if($_POST['action'] == "Message Info"){
           echo $object->message_info_startup("SELECT hb.header AS heads, hb.footer AS foots FROM message_board hb");
+<<<<<<< HEAD
         
+=======
+>>>>>>> origin/Francis
           }
 
           if($_POST['action'] == "Message Update Select"){
@@ -987,6 +1036,22 @@
           if($_POST['action'] == "Message Editing"){
           echo $object->message_edit($_POST['header'],$_POST['footer'],$_POST['id']);  
           }
+<<<<<<< HEAD
+=======
+          if($_POST['action'] == "Maintenance"){
+          echo $object->maintenace_view("SELECT * FROM `maintenace` WHERE pri_id = '1'");  
+          }
+
+          if($_POST['action'] == "Maintenace_Edit"){
+              $query="UPDATE maintenace SET men_1 = '".$_POST['day']."', men_2 = '".$_POST['pen']."', men_3 = '".$_POST['qua']."' WHERE pri_id = '1'";
+              $object->execute_query($query);
+              echo true;
+          }
+
+          if($_POST['action'] == "Checkdates"){
+            echo $object->Dates_view("SELECT men_1 AS days FROM `maintenace` WHERE pri_id = '1'");  
+          }
+>>>>>>> origin/Francis
 
   }
  ?>  

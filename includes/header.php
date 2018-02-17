@@ -26,7 +26,10 @@ if(!isset($_SESSION['username'])){
   <link rel="stylesheet" href="css/skins/skin-blue.min.css">
   <link rel="stylesheet" href="css/bootstrap-select.min.css">
             <link rel="stylesheet" href="css/jquery-ui.css">
+<<<<<<< HEAD
             <title>DWCL LIBRARY MANAGEMENT SYSTEM</title>
+=======
+>>>>>>> origin/Francis
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">

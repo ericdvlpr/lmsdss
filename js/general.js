@@ -1,5 +1,9 @@
 var Timeout=null;
 var mtmess = [];
+<<<<<<< HEAD
+=======
+var daycnt = 0
+>>>>>>> origin/Francis
 $(document).ready(function(){
         // $.datepicker.setDefaults({  
         //         dateFormat: 'yy-mm-dd'   
@@ -44,12 +48,17 @@ $(document).ready(function(){
                 load_student_total();
                 load_borrowed_books_total();
                 load_return_books_total();
+<<<<<<< HEAD
+=======
+                load_maintenace()
+>>>>>>> origin/Francis
       //Load Report
           $('#filter').click(function(){  
                 var from_date = $('#from_date').val();  
                 var to_date = $('#to_date').val();  
                 var status = $('#status').val();  
                 var action = "bookReport";  
+<<<<<<< HEAD
 
                 if(from_date != '' && to_date != '')  
                 {  
@@ -194,6 +203,152 @@ $(document).ready(function(){
                  
                     var action = "bookIndex";
 
+=======
+
+                if(from_date != '' && to_date != '')  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{from_date:from_date, to_date:to_date,action:action,status:status},  
+                          success:function(data)  
+                          {  
+    
+                               $('#book_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }  
+                else  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{action:action},  
+                          success:function(data)  
+                          {  
+    
+                               $('#book_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });    
+                }  
+          });  
+          $('#filter_student').click(function(){  
+                var department = $('#department').val();  
+                var course = $('#course').val();  
+                var year = $('#course-year').val();  
+                var id = $('#stud_id').val();  
+                var action = "studentReport"; 
+                
+                if(department != '' || course != '' || year != '' || id != '')  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{id:id,department:department, course:course,action:action,year:year},  
+                          success:function(data)  
+                          {  
+                               $('#student_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }else{
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{action:action},  
+                          success:function(data)  
+                          {  
+                               $('#student_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }  
+                
+          }); 
+          $('#filter_request').click(function(){  
+                var from_date = $('#from_date').val();  
+                var to_date = $('#to_date').val();  
+                var action = "BookRequestReport"; 
+                
+                if(from_date != '' || to_date != '' )  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{from_date:from_date,to_date:to_date},  
+                          success:function(data)  
+                          {  
+                               $('#request_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }else{
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{action:action},  
+                          success:function(data)  
+                          {  
+                               $('#request_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }  
+                
+          });
+          $('#filter_issued').click(function(){  
+                var from_date = $('#from_date').val();  
+                var to_date = $('#to_date').val();  
+                var action = "BookIssueReport"; 
+              
+                if(from_date != '' || to_date != '' )  
+                {  
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{from_date:from_date,to_date:to_date,action:action},  
+                          success:function(data)  
+                          {  
+                               $('#issue_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }else{
+                     $.ajax({  
+                          url:"core/action.php",  
+                          method:"POST",  
+                          data:{action:action},  
+                          success:function(data)  
+                          {  
+                               $('#issue_report_table').html(data);  
+                               $('#reportOption').attr("disabled",false);  
+                          }  
+                     });  
+                }  
+                
+          });
+    //INDEX FUNCTION
+       function load_announcement_index() {  
+                    var action = "announcementIndex"; 
+
+                    $.ajax({  
+                         url:"core/action.php",  
+                         method:"POST",  
+                         data:{action:action},  
+                         success:function(data)  
+                         {  
+                              $('#announcement_index_table').html(data); 
+                            
+                         }  
+                    });  
+               }
+          function load_book_index() {  
+                 
+                    var action = "bookIndex";
+
+>>>>>>> origin/Francis
                     $.ajax({  
                          url:"core/action.php",  
                          method:"POST",  
@@ -479,6 +634,7 @@ $(document).ready(function(){
                          }  
                     });  
                }
+<<<<<<< HEAD
                function load_course_list(deptID) { 
                   var action = "Course"; 
                       if (val='') {
@@ -489,6 +645,12 @@ $(document).ready(function(){
                         var val = deptID;
                       }
                       
+=======
+               function load_course_list() {  
+                    var action = "Course"; 
+                    var val = $('#department').val();
+                    alert(val); 
+>>>>>>> origin/Francis
                     $.ajax({  
                          url:"core/action.php",  
                          method:"POST",  
@@ -499,6 +661,7 @@ $(document).ready(function(){
                          }  
                     });  
                }
+<<<<<<< HEAD
                function load_year_list(courseID) { 
                     var action = "Course Year"; 
                     if (val='') {
@@ -510,6 +673,11 @@ $(document).ready(function(){
                       }
                     
                     
+=======
+               function load_year_list() {  
+                    var action = "Course Year";
+                    var val = $('#course').val();  
+>>>>>>> origin/Francis
                    
                     $.ajax({  
                          url:"core/action.php",  
@@ -593,6 +761,27 @@ $(document).ready(function(){
                        }
                       });
                 }
+<<<<<<< HEAD
+=======
+                function load_maintenace(){
+                  var action = "Maintenance"
+
+                    $.ajax({
+                       url:"core/action.php",
+                       method:"POST",
+                       data:{action:action},
+                       success:function(data)
+                       {
+                          $dstp = data.split('|');
+                          $('#numDays').val($dstp[1])
+                          $('#penalty').val($dstp[2])
+                          $('#Quant').val($dstp[3])
+                          
+                       }
+                      });
+                }
+
+>>>>>>> origin/Francis
                 $(document).on('click', '.dropdown-toggle', function(){
                     $('.countRequest').html('');
                     $('.countFeedbck').html('');
@@ -846,6 +1035,7 @@ $(document).ready(function(){
                 $("#type").change(function(){
                          var action = "Type";
                         var type = $('#type').val();
+<<<<<<< HEAD
                         alert(type);
                         // if(type== 0){
                         //   $("#divPasscode").css({"display":"inline"});
@@ -868,6 +1058,30 @@ $(document).ready(function(){
                         //     $("#passcode").val(data);
                         //   }
                         // });
+=======
+
+                        if(type== 0){
+                          $("#divPasscode").css({"display":"inline"});
+                           $("#divPwd").css({"display":"none"});
+                          $("#searchname").attr("disabled",true);
+                        }else if(type== 1){
+                          $("#divPasscode").css({"display":"none"});
+                          $("#divPwd").css({"display":"inline"});
+                          $("#searchname").attr("disabled",false);
+                        }else if(type== 2){
+                           $("#divPasscode").css({"display":"inline"});
+                            $("#divPwd").css({"display":"none"});
+                            $("#searchname").attr("disabled",true);
+                        }
+                          $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:{action:action},
+                          success:function(data){
+                            $("#passcode").val(data);
+                          }
+                        });
+>>>>>>> origin/Francis
                 });
 //           FORM SUBMIT 
                $('#bookform').on('submit', function(event){  
@@ -1158,6 +1372,7 @@ $(document).ready(function(){
                                     $('#student').modal('toggle');
                                    $('#studentform')[0].reset();
                                     load_student_data();
+<<<<<<< HEAD
                               }  
                          })  
                });
@@ -1180,6 +1395,30 @@ $(document).ready(function(){
                               }  
                          })  
                });
+=======
+                              }  
+                         })  
+               });
+               $('#referrenceForm').on('submit', function(event){  
+                    event.preventDefault();  
+                    var action=$('#action').val();
+                    
+                    $.ajax({  
+                              url:"core/action.php",  
+                              method:"POST",  
+                              data:new FormData(this),  
+                              contentType:false,  
+                              processData:false,  
+                              success:function(data)  
+                              {  
+                                    alert(data); 
+                                    $('#requestModal').modal('toggle');
+                                   $('#referrenceForm')[0].reset();
+                                    load_request_data();
+                              }  
+                         })  
+               });
+>>>>>>> origin/Francis
                 $('#submit_form').on('submit', function(e){  
                      e.preventDefault();  
                      $.ajax({  
@@ -1496,16 +1735,25 @@ $(document).ready(function(){
                           dataType:"json",
                           success:function(data){
                             $("#student").modal('show');
+<<<<<<< HEAD
                             //load_course_list(data.dept);
                             //load_year_list(data.course);
+=======
+                            load_course_list();
+                            load_year_list();
+>>>>>>> origin/Francis
                              $("#student_no").val(data.student_id);                                            
                              $("#student_name").val(data.student_name);                                               
                              $("#address").val(data.address);                                               
                              $("#contact").val(data.contact);                                               
                              $("#sex").val(data.gender);                                               
+<<<<<<< HEAD
                              $("#department").val(data.dept);
                              $('#course').val(data.course);  
                              $('#course-year').val(data.year_level);                                                                                                                                       
+=======
+                             $("#department").val(data.dept);                                                                                                                                     
+>>>>>>> origin/Francis
                              $("#type").val(data.type); 
                              $("#studentImage").val(data.image); 
                              $("#student_image").html(data.image);
@@ -1687,6 +1935,7 @@ $(document).ready(function(){
                function load_book_id(){
                
                    var action = 'BookNo';
+<<<<<<< HEAD
                    
                     $.ajax({
                          url:"core/action.php",
@@ -2330,6 +2579,673 @@ $('#memberName').change(function(){
                   {
                       
                    
+=======
+                   
+                    $.ajax({
+                         url:"core/action.php",
+                         method:"POST",
+                         data:{action:action},
+                           success:function(data)
+                           {
+                             $('#bookID').html(data);
+                            
+                           }
+                        }); 
+                  }
+                  $(document).on('change','#studentName',function(){
+                     var studentID = $(this).val();
+                     var action = "Fetch Student Data";
+                      
+                          $.ajax({
+                              url:"core/action.php",
+                              method:"POST",
+                              data:{studentID:studentID,action:action},
+                              dataType:"json",
+                              success:function(data){                                                                                 
+                                 $("#contactNumber").val(data.contact); 
+                              }
+                         }); 
+                  }); 
+//--------------------------------------------------------------------------------------------
+//Issue Book
+                  $('#memName').prop('disabled',true)
+          function get_iss_list($id){
+                $('#contactNumber').val('')
+                $('#memName').val('')
+                $('#issueID').val('')
+                $('#issue_table tr').remove();
+                      
+                $action = "IssueList";
+                
+                if($id != ""){
+                var dats = new FormData();
+                dats.append('id', $id);
+                dats.append('action', $action);
+
+                $.ajax({
+                  url:"core/action.php",
+                  method:"POST",
+                  data:dats,
+                  contentType:false,  
+                  processData:false,
+                  success:function(data)
+                    {
+                      //alert(data)
+                      //*
+                      $dtsp = data.split('|')
+                      $('#issue_table tr').remove();
+                      $('#issue_table').html($dtsp[0])
+                      $('#contactNumber').val($dtsp[2])
+                      $('#memName').val($dtsp[1])
+                      $('#issueID').val($dtsp[3])
+                      //*/
+                    }
+                });
+                }
+          }
+
+
+          $('#studentName').change(function(){
+                get_iss_list($('#studentName').val())         
+            });
+
+            $(document).on('change', '.bookID', function(){
+
+                var bk_no = $(this).closest('tr').find('input[name="bookID[]"]').val()
+                var ans = $(this).closest('tr').index(); 
+                var action = 'BookSL'
+                
+                var dats = new FormData();
+                    dats.append('bk_no', bk_no)
+                    dats.append('action', action)
+                      $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:dats,
+                          contentType:false,  
+                          processData:false,
+                          success:function(data)
+                            {
+                               $dtsp = data.split('|')
+                               $('#issue_table tr').eq(ans).find('input[name="bookTitle[]"]').val($dtsp[1])
+                            }
+                      });     
+            });
+            checkdate()
+            function checkdate(){
+                      var action = 'Checkdates'
+                      var dats = new FormData();
+                          dats.append('action', action)
+                            $.ajax({
+                                url:"core/action.php",
+                                method:"POST",
+                                data:dats,
+                                contentType:false,  
+                                processData:false,
+                                success:function(data)
+                                {
+                                  daycnt = parseInt(data)
+                                }
+                            })
+            }
+
+            $('#add').click(function(){
+                          
+                          
+                          var now = new Date();
+                          var month = (now.getMonth() + 1);               
+                          var day = now.getDate();
+                          if(month < 10) 
+                              month = "0" + month;
+                          if(day < 10) 
+                              day = "0" + day;
+
+                          var today = now.getFullYear() + '-' + month + '-' + day;
+                              now.setDate(now.getDate()+daycnt);
+                          
+                          var end_date=now.getFullYear() + "-" + month + "-" + now.getDate();
+                          var html = '';
+
+                          html += "<tr> <td width='19%''><input type='text' name='bookID[]' id='bookID' class='form-control bookID' required /></td> <td width='26%'><input type='text' name='bookTitle[]' id='bookTitle' class='form-control bookTitle' readonly = 'true' required /></td> <td width='7%'><input type='number' min='1' value ='1' name='copies[]' class='form-control copies' required /></td> <td width='14%'><input type='date' name='date_issued[]' id='date_issued' value='"+today+"' class='form-control date_issued' required  /></td> <td  width='14%'><input type='date' name='date_returned[]' id='date_returned' value='"+end_date+"' class='form-control date_returned' required  /></td> <td width='16%'><button type='button' name='remove' class='btn btn-danger btn-sm remove'><span class='glyphicon glyphicon-minus'></span></button> <input type='hidden' name='rs_id[]' id='rs_id' value='0'> </td> </tr>"
+                          
+                          $('#issue_table').append(html);
+            });  
+                    $(document).on('click', '.remove', function(){
+                        var rsid = $(this).closest('tr').find('input[name="rs_id[]"]').val()
+                        var ans = $(this).closest('tr').index(); 
+                        var action = 'ReserveDel'
+                        var bk_no = $('#issueID').val()
+                        
+                        if(rsid=="0")
+                          $(this).closest('tr').remove();
+                        else{
+                          var dats = new FormData();
+                          dats.append('id', rsid)
+                          dats.append('bk', bk_no)
+                          dats.append('action', action)
+                           $.ajax({
+                                url:"core/action.php",
+                                method:"POST",
+                                data:dats,
+                                contentType:false,  
+                                processData:false,
+                                success:function(data)
+                                {
+                                    $('#issue_table tr').eq(ans).remove()
+                                }
+                            });
+                        }
+                        
+                     });
+
+
+                      $("#issuedBook").on('submit', function(event){
+                         event.preventDefault();
+                          var error = '';
+
+                          $('.bookID').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child's Name at "+count+" Row</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          
+                          $('.bookTitle').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child's Age</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          $('.copies').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                         $('.date_issued').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                         $('.date_returned').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          var form_data = $(this).serialize();
+                        
+                          //*
+                           $.ajax({
+                            url:"core/action.php",
+                            method:"POST",
+                            data:form_data,
+                            success:function(data)
+                            {
+                              //alert(data)
+                              if(data !='  0  '){
+                            
+                               var d = data.split('|');
+                               messageData(d[0],d[1],d[2],'issuebook.php');
+                                
+                                
+                              }
+                            }
+                           });
+                           //*/
+                           
+                  });
+
+//------------------------------------------------------------------------------------------
+//Reserve book
+$('#memberName').change(function(){
+                $id =  $('#memberName').val()
+                $('#contactNum').val('')
+                $('#memName').val('')
+                $('#returnID').val('')
+                $('#return_table tr').remove();
+                      
+                $action = "ReturnInfo";
+                
+                if($id != ""){
+                var dats = new FormData();
+                dats.append('id', $id);
+                dats.append('action', $action);
+
+                $.ajax({
+                  url:"core/action.php",
+                  method:"POST",
+                  data:dats,
+                  contentType:false,  
+                  processData:false,
+                  success:function(data)
+                    {
+                      //*
+                      if(data !='  0  '){
+                      $dtsp = data.split('|')
+                      $('#contactNum').val($dtsp[1])
+                      $('#memName').val($dtsp[0])
+                      $('#returnID').val($dtsp[2])
+                      $('#return_table').html($dtsp[3])
+                      }
+                      //*/
+                    }
+                });
+                }
+                              
+            });
+           $('#adds').click(function(){
+              var html = '';
+                if($('#returnID').val() != ""){
+                  html += "<tr> <td width='19%''><input type='text' name='bookID[]' id='bookID' class='form-control bookID' required /></td><td width='26%'><input type='text' name='bookTitle[]' id='bookTitle' class='form-control bookTitle' readonly = 'true' required /></td><td width='7%'><input type='number' min='1' value ='1' name='copies[]' class='form-control copies' readonly = 'true' required /></td><td width='14%'><input type='text' name='date_issued[]' id='date_issued' value='' class='form-control date_issued' readonly = 'true' required  /></td><td  width='14%'><input type='text' name='date_returned[]' id='date_returned' value='' class='form-control date_returned' readonly = 'true' required  /></td><td width='16%'><button type='button' name='removes' class='btn btn-danger btn-sm removes'><span class='glyphicon glyphicon-minus'></span></button></td></tr>"
+                  $('#return_table').append(html);
+                }
+           });
+           $(document).on('change', '.bookID', function(){
+
+                var bk_no = $(this).closest('tr').find('input[name="bookID[]"]').val()
+                var is_no = $('#returnID').val()
+                var ans = $(this).closest('tr').index(); 
+                var action = 'BookSL2'
+                
+                //*
+                var dats = new FormData();
+                    dats.append('bk_no', bk_no)
+                    dats.append('is_no', is_no)
+                    dats.append('action', action)
+                      $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:dats,
+                          contentType:false,  
+                          processData:false,
+                          success:function(data)
+                            {
+                                
+                                //*
+                                if(data !='  0  '){
+                                $dtsp = data.split('|')
+                                $('#return_table tr').eq(ans).find('input[name="bookTitle[]"]').val($dtsp[1])
+                                $('#return_table tr').eq(ans).find('input[name="copies[]"]').val($dtsp[2])
+                                $('#return_table tr').eq(ans).find('input[name="date_issued[]"]').val($dtsp[3])
+                                $('#return_table tr').eq(ans).find('input[name="date_returned[]"]').val($dtsp[4])
+                                }
+                                //*/
+
+                            }
+                      });
+                  //*/     
+            });
+           $(document).on('click', '.removes', function(){
+              //*
+              var bk_no = $(this).closest('tr').find('input[name="bookID[]"]').val()
+              var dtitle = $(this).closest('tr').find('input[name="bookTitle[]"]').val()
+              var issNo = $('#returnID').val()
+              var ans = $(this).closest('tr').index(); 
+              var action='DeleteReverse'
+              
+              if((bk_no == "")||(dtitle == "")){
+                
+                $(this).closest('tr').remove();
+              }else{
+                //*
+                var dats = new FormData();
+                    dats.append('bk_no', bk_no)
+                    dats.append('issNo', issNo)
+                    dats.append('action', action)
+                    $.ajax({
+                          url:"core/action.php",
+                          method:"POST",
+                          data:dats,
+                          contentType:false,  
+                          processData:false,
+                          success:function(data)
+                            {
+                                $('#return_table tr').eq(ans).remove()
+                            }
+                          })
+                          //*/
+              }
+              //*/
+           });
+           $("#returnBook").on('submit', function(event){
+                         event.preventDefault();
+                          var error = '';
+
+                          $('.bookID').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child's Name at "+count+" Row</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          
+                          $('.bookTitle').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child's Age</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          $('.copies').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                         $('.date_issued').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                         $('.date_returned').each(function(){
+                           var count = 1;
+                           if($(this).val() == '')
+                           {
+                            error += "<p>Enter Child Gender</p>";
+                            return false;
+                           }
+                           count = count + 1;
+                          });
+                          var form_data = $(this).serialize();
+                          //alert(form_data);
+                          //*
+                           $.ajax({
+                            url:"core/action.php",
+                            method:"POST",
+                            data:form_data,
+                            success:function(data)
+                            {                           
+                              //alert(data)
+                              if(data !='  0  '){
+                                var d = data.split('|');
+                                messageData(d[0],d[1],d[2],'issuebook.php');
+                                
+                              }
+                            }
+                           });
+                           //*/
+                           
+                  });
+
+//------------------------------------------------------------------------------------------
+//Log-in function
+//------------------------------------------------------------------------------------------
+//Tap-in function
+                    $('#tp_id').focus();
+                    $('#tp_id').on('change', function(){
+                      var user = $("#tp_id").val();
+                      var action = 'Tapin'
+
+                      var dats = new FormData();
+                      dats.append('action', action);
+                      dats.append('user',user);
+                      
+                      $.ajax({
+                              url:"core/action.php",
+                              method:"POST",
+                              data:dats,
+                              contentType:false,  
+                              processData:false,
+                              success:function(data)
+                              {
+                                  $('#output').html(data)
+                                  $('#tp_id').val('')
+                      
+                              }
+                      })
+                    });
+//Log-in------------------------------------------------------------------------------------
+                    $('#username').focus()
+                    $('#username').on('focus', function(){
+                        voice("Please enter your ID number Or Username then press tab.")
+                    });
+                    $('#password').on('focus', function(){
+                        voice("Please enter your passcode then press enter.")
+                    });
+
+                    $('#log_in').on('submit', function(event){
+                        
+                        event.preventDefault();
+                        var user = $("#username").val();
+                        var pass = $("#password").val();
+                        var action = 'Login'
+
+                        var dat = new FormData();
+                        dat.append('action', action);
+                        dat.append('user',user);
+                        dat.append('pass',pass);
+              
+                        $.ajax({
+                              url:"core/action.php",
+                              method:"POST",
+                              data:dat,
+                              contentType:false,  
+                              processData:false,
+                              success:function(data)
+                              {
+                                //alert(data);
+                                var d = data.split(',');
+                                  //*
+                                  if(d[0] == 0 || d[0] == 2 || d[0] == 3 || d[0] == 4){
+                                    voice("Log in verified. Access Approve","log",'login_parse.php?id='+d[1]+'&type='+d[0])
+                                  }else if(d[0] == 5){
+                                    voice("Log in verified. Access Denied, Your ID is no longer active. Please proceed to your librerian on duty for futher info.")
+                                  }else{
+                                    voice("Log in verified. Access Denied, Wrong passcode or ID.")
+                                  }
+                                  //*/
+                              }
+                        });
+
+                    });
+
+                    function voice(text,proc,data){
+                        var ssy = window.speechSynthesis
+                        var utt = new SpeechSynthesisUtterance();
+
+                        if(ssy.speaking){
+                            ssy.cancel()
+                            
+                            if (Timeout !== null)
+                            clearTimeout(Timeout);
+                            Timeout = setTimeout(function(){ voice(text,proc,data); }, 250);
+                        }else{
+                            utt.text = text
+                            ssy.speak(utt);
+                        }
+                        utt.onend = function(e){
+                            if(proc=="log"){
+                              $(location).attr('href', data);
+                              return false;
+                            }
+                        }
+
+                    }
+                    $('#username').on('keypress', function(data){
+                        var d 
+                        var srch_name = $("#username").val();
+                        if(data.keyCode == 13){
+                            //d= 'Enter'
+                        }else if(data.keyCode==8){
+                            if($('#username').val()!=''){
+                                d= 'Backspace'
+                            }
+                        }else if(data.which==32){
+                            //d="Space"
+                        voice(srch_name);
+                        }else if(data.which==45){
+                            d="Dash"
+                        }else if(data.which==91){
+                            d="Left Bracket"
+                        }else if(data.which==93){
+                            d="Right Bracket"
+                        }else if(data.which==58){
+                            d="Colon"
+                        }else if(data.which==59){
+                            d="Semicolon"
+                        }else if(data.which==39){
+                            d="Apostropy"
+                        }else if(data.which==34){
+                            d="Double Apostropy"
+                        }else if(data.which==44){
+                            d="Coma"
+                        }else if(data.which==63){
+                            d="Question Mark"
+                        }else if(data.which==60){
+                            d="Less Than"
+                        }else if(data.which==46){
+                            d="Period"
+                        }else {
+                            d = String.fromCharCode(data.keyCode || data.which);
+                        }
+                        if(d!=undefined){
+                        voice(d,"not");
+                        }                        
+                    });
+                    $('#password').on('keypress', function(data){
+                        var d 
+                        var srch_name = $("#password").val();
+                        if(data.keyCode == 13){
+                            //d= 'Enter'
+                        }else if(data.keyCode==8){
+                            if($('#password').val()!=''){
+                                d= 'Backspace'
+                            }
+                        }else if(data.which==32){
+                            //d="Space"
+                        voice(srch_name);
+                        }else if(data.which==45){
+                            d="Dash"
+                        }else if(data.which==91){
+                            d="Left Bracket"
+                        }else if(data.which==93){
+                            d="Right Bracket"
+                        }else if(data.which==58){
+                            d="Colon"
+                        }else if(data.which==59){
+                            d="Semicolon"
+                        }else if(data.which==39){
+                            d="Apostropy"
+                        }else if(data.which==34){
+                            d="Double Apostropy"
+                        }else if(data.which==44){
+                            d="Coma"
+                        }else if(data.which==63){
+                            d="Question Mark"
+                        }else if(data.which==60){
+                            d="Less Than"
+                        }else if(data.which==46){
+                            d="Period"
+                        }else {
+                            d = String.fromCharCode(data.keyCode || data.which);
+                        }
+                        if(d!=undefined){
+                        voice(d);
+                        }                        
+                    });
+//--------------------------------------------------------------------------------------
+//Message Data
+          function messageData(mess,cp_no,alerts,loc){
+              //alert($mess)
+              //*
+              var dats = new FormData();
+             
+              dats.append('nos', cp_no);
+              dats.append('mess', mess);
+
+              $.ajax({
+                url:"core/sms.php",
+                method:"POST",
+                data:dats,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                  {
+                      // alert(alerts)
+                      window.location.href=loc
+                  }
+              });
+          }
+          function MultimessageData(){
+              //alert($mess)
+              
+              //*
+              
+              mess = mtmess[0][0]
+              cp_no = mtmess[0][1]
+              var dats = new FormData();
+              
+              dats.append('nos', cp_no);
+              dats.append('mess', mess);
+
+              $.ajax({
+                url:"core/sms.php",
+                method:"POST",
+                data:dats,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                  {   
+                      mtmess.shift()
+                      if(mtmess.length>0)
+                        setTimeout(MultimessageData, 250)
+                      }
+              });
+          }
+
+
+          $("#data").on('submit', function(e){
+              e.preventDefault();
+              $no = $("#cp_no").val()
+              $mess = $("#message").val()
+              
+
+              //alert($mess)
+              //*
+              var dats = new FormData();
+             
+              dats.append('nos', $no);
+              dats.append('mess', $mess);
+
+              $.ajax({
+                url:"core/sms.php",
+                method:"POST",
+                data:dats,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                  {
+                      
+                   
+>>>>>>> origin/Francis
                   }
               });
               //*/
@@ -2345,7 +3261,13 @@ $('#memberName').change(function(){
         success:function(data)  
           {  
               //alert(data)
+<<<<<<< HEAD
                if(data!='  0  '){
+=======
+               //*
+               if(data!='  0  '){
+                
+>>>>>>> origin/Francis
                   var d1 = data.split('][')
                   
                   for(var td = 1;td<d1.length;td++){
@@ -2355,6 +3277,10 @@ $('#memberName').change(function(){
                   
                   //setTimeout(MultimessageData,250);
                }
+<<<<<<< HEAD
+=======
+               //*/
+>>>>>>> origin/Francis
           }  
       });
   }
@@ -2454,6 +3380,64 @@ $('#memberName').change(function(){
         dats.append('id', $id);
         dats.append('header',$header);
         dats.append('footer',$footer);
+<<<<<<< HEAD
+=======
+
+        $.ajax({
+            url:"core/action.php",
+            method:"POST",
+            data:dats,
+            contentType:false,  
+            processData:false,
+            success:function(data)
+              {
+                
+                if(data){
+                    $('#messEd').modal('toggle');
+                    $('#mod_data').html('Message Update Succesful');
+                    $('#mod_info').modal('show');
+                    load_message_info()
+                    setTimeout(autoclose,2000);
+              }
+            }
+        });
+  });
+  function autoclose(){
+     $('#mod_info').modal('toggle');
+     
+  }
+  $('#compt').on('click', function(){
+      $days = $('#numDays').val()
+      $pen = $('#penalty').val()
+      $qua = $('#Quant').val()
+      $action = "Maintenace_Edit";
+
+      var dats = new FormData();
+             
+        dats.append('action', $action);
+        dats.append('day', $days);
+        dats.append('pen',$pen);
+        dats.append('qua',$qua);
+
+        $.ajax({
+            url:"core/action.php",
+            method:"POST",
+            data:dats,
+            contentType:false,  
+            processData:false,
+            success:function(data)
+              {
+                if(data){
+                  $('#mod_info').modal('show');
+                  $('#mod_data').html('Maintenance Update Succesful');
+                  load_maintenace();
+                  setTimeout(autoclose,2000);
+                }
+            }
+        });
+           
+  });
+>>>>>>> origin/Francis
 
         $.ajax({
             url:"core/action.php",

@@ -5,7 +5,11 @@
 				        Setup
 				      </h1>
 				      <ol class="breadcrumb">
+<<<<<<< HEAD
 				        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+=======
+				        <li><a href="index.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+>>>>>>> origin/Francis
 				        <li class="active">Setup</li>
 				      </ol>
 				     </section>
@@ -23,8 +27,13 @@
 						              <div class="tab-pane active" id="tab_1">
 						              <div class="page-header">
 							              	<div class="btn-group pull-right">
+<<<<<<< HEAD
 							              		<button type="submit" class="btn btn-default">Cancel</button>
 											    <button type="submit" class="btn btn-info pull-right">Sign in</button>
+=======
+							              		<button type="button" class="btn btn-default">Cancel</button>
+											    <button type="button" class="btn btn-info pull-right" id="compt" name="compt">Compute</button>
+>>>>>>> origin/Francis
 							              	</div>
 						              	<h3 >General Settings</h3>
 						              	
@@ -44,7 +53,11 @@
 												                  <label for="inputEmail3" class="col-sm-5 control-label">Days allowed for borrowing a book</label>
 
 												                  <div class="col-sm-4">
+<<<<<<< HEAD
 												                    <input type="number" class="form-control" name="numDays" id="numDays" placeholder="No. of Day/Days">
+=======
+												                    <input type="number" class="form-control" name="numDays" id="numDays" placeholder="Days">
+>>>>>>> origin/Francis
 												                  </div>
 												                </div>
 												              </div>
@@ -65,7 +78,11 @@
 												                  <label for="inputEmail3" class="col-sm-4 control-label">Amount Per Day</label>
 
 												                  <div class="col-sm-4">
+<<<<<<< HEAD
 												                    <input type="number" class="form-control" name="penalty" id="penalty" placeholder="Amount">
+=======
+												                    <input type="number" class="form-control" name="penalty" id="penalty" placeholder="Amt">
+>>>>>>> origin/Francis
 												                  </div>
 												                </div>
 												              </div>
@@ -86,7 +103,11 @@
 												                  <label for="inputEmail3" class="col-sm-4 control-label">Quantity of Book can be Borrow</label>
 
 												                  <div class="col-sm-4">
+<<<<<<< HEAD
 												                    <input type="number" class="form-control" name="numDays" id="numDays" placeholder="Qty">
+=======
+												                    <input type="number" class="form-control" name="Quant" id="Quant" placeholder="Qty">
+>>>>>>> origin/Francis
 												                  </div>
 												                </div>
 												              </div>
@@ -225,6 +246,25 @@ include 'includes/footer.php';
 						    </div> 
 						</div>
 						</div>
+<<<<<<< HEAD
+=======
+
+<div class="modal fade" tabindex="-1" role="dialog" id=mod_info>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="mod_title">Update</h4>
+      </div>
+      <div class="modal-body">
+        <p id="mod_data" align="center"></p>
+      </div>
+      <div class="modal-footer">
+        
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+>>>>>>> origin/Francis
 <div class="modal fade" id="user" tabindex="-1" role="dialog">
           <div class="modal-dialog" role="document">
             <div class="modal-content">

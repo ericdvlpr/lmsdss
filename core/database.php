@@ -799,10 +799,28 @@ public function get_faculty_index($query) {
           $last_id = $this->insert_id;
           return $last_id;
       }
+<<<<<<< HEAD
    public function get_selected_data($query, $query2)
+=======
+   public function get_selected_data($id,$mid)
+>>>>>>> origin/Francis
       {
+          $query = "SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.book_copies AS copies, b.location as location, l.library_name as department, b.img as img FROM book b LEFT JOIN libraries l ON b.department = l.id WHERE book_no ='".$id."'";
+         
+         $query2 = "SELECT bb.copies as CNT FROM borrow_book bb WHERE bb.book_no = '".$id."'";
+         
+         $query3 = "SELECT * FROM students WHERE student_id='".$mid."'";
+         
+         $query4 = "SELECT * FROM borrow_book bb LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no WHERE bb.book_no = '".$id."' AND bd.member_id = '".$mid."' AND (bd.activity = 'reserved' OR bd.activity = 'borrowed' OR bd.activity = 'overdue')";
+         
+         $query5 = "SELECT bb.copies AS copy FROM borrow_book bb LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bd.member_id = '".$mid."'";
+
+         $query6 = "SELECT m.men_1 AS CON FROM maintenace m WHERE m.pri_id = '1'";
+
+
          $result = $this->execute_query($query);
          $result2 = $this->execute_query($query2);
+<<<<<<< HEAD
          $row2 = mysqli_fetch_object($result2); 
          $row = mysqli_fetch_object($result);
          
@@ -830,21 +848,66 @@ public function get_faculty_index($query) {
          }else{
           $aut=$row->author;
          }
+=======
+         $result3 = $this->execute_query($query3);
+         $result4 = $this->execute_query($query4);
+         $result5 = $this->execute_query($query5);
+         $result6 = $this->execute_query($query6);
+
+         $row = mysqli_fetch_object($result);
+         $row6 = mysqli_fetch_object($result6);
+         
+         
+         $calc2 = 0;
+         $calc = 0;
+         $calc3 = 0;
+         
+         while ($row3 = mysqli_fetch_object($result5)) {
+           $calc3 += $row3->copy;
+         }
+         while ($row2 = mysqli_fetch_object($result2)) {
+           $calc2 += $row2->CNT;
+         }
+
+          $calc =  $row->copies - $calc2;
+        
+
+
+
+         
+>>>>>>> origin/Francis
          $tloc='';
          $loc = explode(' ', $row->location);
          foreach ($loc as $locs) {
            $tloc .= $locs. '<br />'; 
          }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/Francis
          $output = '';
 
          
          $output .='
+<<<<<<< HEAD
+=======
+         
+
+         <table>
+          <tr>
+          <td width = "50%">
+>>>>>>> origin/Francis
          <table>
             <tr>
               <td align="right" width="20%">Call #: </td>
               <td width="20%" class="calln"> '. $tloc .'</td>
+<<<<<<< HEAD
               <td width="60%"><img src="'.$row->img.'" width="80%" height="auto"></td>
+=======
+              <td width="60%"><img src="'.$row->img.'" width="40%" height="auto"></td>
+>>>>>>> origin/Francis
             </tr>
          </table>
          <br />
@@ -860,7 +923,11 @@ public function get_faculty_index($query) {
             </tr>
             <tr>
               <td align="right" >Author: </td>
+<<<<<<< HEAD
               <td>'.$aut.'</td>
+=======
+              <td>'.$row->author.'</td>
+>>>>>>> origin/Francis
             </tr>
             <tr>
               <td align="right" >Edition: </td>
@@ -876,6 +943,7 @@ public function get_faculty_index($query) {
             </tr>
             <tr>
               <td align="right" >Available: </td>
+<<<<<<< HEAD
               <td>'.$row->book_copies.'</td>
             </tr>
         
@@ -889,6 +957,35 @@ public function get_faculty_index($query) {
          }else{
             $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$aut.'|'.$row->book_copies;
          }
+=======
+              <td>'.$calc.'</td>
+            </tr>
+        
+        </table>
+          </td>
+          <td width "50%"><img src="'.$row->img.'" width="100%" height="auto"></td>
+          </tr>
+          
+          </table
+        ';
+
+
+
+         $output .= '|The book ' .$row->book_title. ' by ' . $row->author . ' located in the '.$row->department.', call number '.$row->location.', books available ' .$calc. '. ' ;
+         if($calc == 0){
+            $output .= 'Sorry... This Book is no longer available. Try Again Later. To Close Press the Escape Button.|false|'.$row->book_title.'/'.$row->author.'|'.$calc.'|No longer available.';
+         }else{
+            
+            if(mysqli_num_rows($result4)){
+              $output .= 'You already borrowed this book. Please Return this Book Immediately. To Close Press the Escape Button.|false|'.$row->book_title.'/'.$row->author.'|0|Already Borrowed/Reserved, Please Return this Book Immediately';
+            }else if((mysqli_num_rows($result3)) && ($calc3>=$row6->CON)){
+              $output .= 'Your Borrowing books limit has been reached. Please Return All of your borrowed Books Immediately. To Close Press the Escape Button.|false|'.$row->book_title.'/'.$row->author.'|0|Borrow Limit Reached, Please Return All of your borrowed Books Immediately.';
+            }else{
+              $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$row->author.'|'.$calc.'|N/A';
+            }
+         }
+         //*/
+>>>>>>> origin/Francis
          return $output;
 
       }
@@ -955,6 +1052,12 @@ public function get_search_data($query)
           while($row = mysqli_fetch_object($result)){
               $query2="SELECT bk.book_title AS title, bb.copies AS copies, bb.on_date AS ondate, bb.due_date AS due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no WHERE bb.borrow_no ='".$row->borrow_no."'";
               $results = $this->execute_query($query2);
+<<<<<<< HEAD
+=======
+    //PLAN A--------------------------------------------------------------------------------------- 
+      //*
+
+>>>>>>> origin/Francis
               $row1 = mysqli_fetch_object($results);
               $output .='
                 <tr>
@@ -972,13 +1075,76 @@ public function get_search_data($query)
                   <td rowspan = "'.mysqli_num_rows($results).'" align="center"><a href="issuedBook.php?stud='.$row->Id.'" class = "btn btn-success btn-xs">Issued</a> 
                 </tr>
               ';
+<<<<<<< HEAD
 
           }
+=======
+              while($row2 = mysqli_fetch_object($results)){
+                  $output .='
+                  <tr>
+                     <td>('.$row2->copies.') '.$row2->title.'</td>
+                     <td>'.$row2->ondate.'</td>
+                     <td>'.$row2->due.'</td> 
+                  </tr>
+                  ';
+              }
+          //*/
+      //------------------------------------------------------------------------------------------------------------
+      //PLAN B
+      /*
+              $results = $this->execute_query($query2);
+              $results2 = $this->execute_query($query2);
+              $results3 = $this->execute_query($query2);
+              $output .='
+                <tr>
+                  <td align="center">'.$row->borrow_no.'</td>';
+              if($row->faculty==NULL){
+        $output.='<td align="center">'.$row->student."\n(".$row->Id.')</td>';
+                 }else{
+        $output.='<td align="center">'.$row->faculty."\n(".$row->Id.')</td>';
+                 }
+
+
+        $output.='<td>
+                    <ul>';
+                      while($row1 = mysqli_fetch_object($results)){
+                          $output .='<li>'.$row1->title.'</li>';
+
+                      }
+        $output.=  '</ul>
+                  </td>';
+        $output.='<td>
+                    <ul>';
+                      while($row2 = mysqli_fetch_object($results2)){
+                          $output .='<li>'.$row2->ondate.'</li>';
+                      }
+        $output.=  '</ul>
+                  </td>';
+        $output.='<td>
+                    <ul>';
+                      while($row3 = mysqli_fetch_object($results3)){
+                          $output .='<li>'.$row3->due.'</li>';
+                      }
+        $output.=  '</ul>
+                  </td>';
+  
+                  
+        $output.='<td align="center">'.$row->Stats.'</td>
+                  <td align="center"><a href="issuedBook.php?stud='.$row->Id.'" class = "btn btn-success btn-xs">Issued</a> 
+                </tr>
+              ';
+      //*/      
+
+          }
+
+
+>>>>>>> origin/Francis
           return $output;
       }
 //-------------------------------------------------------------------------------------------------
 //Login/Tapin
   public function login($user,$pass){
+<<<<<<< HEAD
         $query = "SELECT * FROM students WHERE student_id = '".$user."' AND passcode = '".md5($pass)."'";
         $query2 = "SELECT * FROM faculty WHERE faculty_no = '".$user."' AND passcode = '".md5($pass)."'";
         $query3 = "SELECT * FROM users WHERE username = '".$user."' AND password = '".md5($pass)."'";
@@ -1054,13 +1220,95 @@ public function get_search_data($query)
           echo $id. " is not a student here...";
         }
       }
+=======
+        $query = "SELECT * FROM `students` WHERE student_id = '".$user."' AND passcode = '".md5($pass)."'";
+        $query2 = "SELECT * FROM `faculty` WHERE faculty_no = '".$user."' AND passcode = '".md5($pass)."'";
+        $query3 = "SELECT * FROM `users` WHERE username = '".$user."' AND password = '".md5($pass)."'";
+        //$exeque = "INSERT INTO `logs` (student_no, description, date_time) VALUES ('".$user."', 'Login', NOW())";
+        
+        $results = $this->execute_query($query);
+        $results2 = $this->execute_query($query2);
+        $results3 = $this->execute_query($query3);
+        
+        if($row = mysqli_fetch_object($results)){
+            if($row->active){
+              if(($row->type=="0") || ($row->type=="1")){
+                  echo "0,".$user;//------------Student(Norm, Deaf/Disfigure)
+              }else if($row->type=="2"){
+                  echo "2,".$user;//------------Student(Blind)
+              }
+              //$execute = $this->execute_query($exeque);
+            }else{
+              echo "5,".$user;//----------------Not Active
+            }
+        }else if($row = mysqli_fetch_object($results2)){
+            if($row->active){
+              echo "3,".$user;//----------------Faculty
+              //$execute = $this->execute_query($exeque);
+            }else{
+              echo "5,".$user;//----------------Not Active 
+            }
+        }else if($row = mysqli_fetch_object($results3)){
+            echo "4,".$user;//------------------Librian/Admin
+            //$execute = $this->execute_query($exeque);
+        }else{
+            echo '6,'.$user;//------------------Wrong Password / ID No
+        }
+
+      }
+           
+ public function tapin_data($query,$id){
+        $result = $this->execute_query($query);
+        $stuque = "SELECT students.student_name as stdname FROM students WHERE student_id='".$id."'";
+        $studexe = $this->execute_query($stuque);
+
+        date_default_timezone_set("Asia/Manila");
+        
+
+          if(mysqli_num_rows($studexe)){
+          $rows=mysqli_fetch_object($result);
+          if(mysqli_num_rows($result)){
+              if($rows->description == "Just Login"){
+              $exeque = "INSERT INTO `logs`
+              (student_no, description, date_time) VALUES ('".$id."', 'Just Logout', NOW())
+              ";
+              $execute = $this->execute_query($exeque);
+              $row = mysqli_fetch_object($studexe);
+              echo $row->stdname. " just Logged Out.";   
+            }else{
+              $exeque = "INSERT INTO `logs`
+              (student_no, description, date_time) VALUES ('".$id."', 'Just Login', NOW())
+              ";
+              $execute = $this->execute_query($exeque);
+              $row = mysqli_fetch_object($studexe);
+              echo $row->stdname. " just Logged In.";
+            }
+
+          }else{
+            $exeque = "INSERT INTO `logs`
+            (student_no, description, date_time) VALUES ('".$id."', 'Just Login', NOW())
+            ";
+            $execute = $this->execute_query($exeque);
+            $row = mysqli_fetch_object($studexe);
+            echo $row->stdname. " just Logged In.";
+
+          }
+        }else{
+          echo $id. " is not a student here...";
+        }
+      }
+>>>>>>> origin/Francis
       public function get_issue_data($id){
           $query = "SELECT bk.book_no AS book_no, bk.book_title AS title, br.copies AS copies, br.on_date AS on_date, br.due_date AS due_date, s.student_name AS name, f.faculty_name AS fname, s.contact AS contact, f.contacs AS fcontact, br.borrow_no AS borrow_no, br.id AS id FROM borrow_book br LEFT JOIN book bk ON bk.book_no=br.book_no LEFT JOIN borrow_details bd ON bd.borrow_no = br.borrow_no LEFT JOIN students s ON s.student_id=bd.member_id LEFT JOIN faculty f ON f.faculty_no = bd.member_id WHERE bd.member_id ='".$id."' AND bd.activity = 'reserved' ORDER BY br.id Asc";
           $result = $this->execute_query($query);
           
           date_default_timezone_set("Asia/Manila");
           $date = date('Y-m-d');
+<<<<<<< HEAD
           $due= date('Y-m-d',strtotime("+6 day"));
+=======
+          $due= date('Y-m-d',strtotime("+".$this->Dates_view("SELECT men_1 AS days FROM `maintenace` WHERE pri_id = '1'")." day"));
+>>>>>>> origin/Francis
           $num = substr(str_shuffle("0123456789"), -8);  
 
           $data = '';
@@ -1147,9 +1395,15 @@ public function get_search_data($query)
             $result = $this->execute_query($query);
             
             if($row = mysqli_fetch_assoc($result)){
+<<<<<<< HEAD
               return $row['title'];
             }else{
               return "No Book";
+=======
+              return '|'.$row['title'];
+            }else{
+              return"|No Book";
+>>>>>>> origin/Francis
             }
           }
 
@@ -1236,7 +1490,11 @@ public function get_search_data($query)
 
 
                 $output = "Warning: \n \tThe Following Book(s) Have not been return: \n";
+<<<<<<< HEAD
                 $output2 = "Good Day, \n \t The Following Book(s) is Not been return: \n";
+=======
+                $output2 = $this->get_message_head('BRBKWR001')."\n";
+>>>>>>> origin/Francis
                 
                 $query2 = "SELECT bk.book_title AS title, bb.due_date AS Due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no WHERE bb.borrow_no = '".$IDs."' AND ret = '0'";
                 
@@ -1249,7 +1507,11 @@ public function get_search_data($query)
 
 
                   }
+<<<<<<< HEAD
                  $output2 .= "\t Please Return The Following Book(s) Imideately To Avoid Penalties.";
+=======
+                 $output2 .= $this->get_message_foot('BRBKWR001');
+>>>>>>> origin/Francis
 
                  return $output2.'|'.$Contact.'|'.$output ; 
                 
@@ -1310,7 +1572,11 @@ public function get_search_data($query)
                 //---------------------------------------------------------------------------------------------------------------
                 // Message Division
                 if($newbie){
+<<<<<<< HEAD
                   $output .= "][Good Day\n \tThe Following book(s) is now over due: \n";
+=======
+                  $output .= "][".$this->get_message_head('ODBRBK002')."\n";
+>>>>>>> origin/Francis
                   $obque = "SELECT bk.book_title AS title, bb.due_date AS due FROM borrow_book bb LEFT JOIN book bk ON bb.book_no = bk.book_no LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bb.borrow_no = '".$row->borrow_no."' AND bb.ret = '0' AND ((bd.activity = 'overdue') OR (bd.activity = 'limbo'))"; 
                   $obret = $this->execute_query($obque);
                   while($obrow = mysqli_fetch_object($obret)){
@@ -1318,7 +1584,11 @@ public function get_search_data($query)
                         $output .= "\t\t".$obrow->title." (".$obrow->due.") \n";
                       }
                   }
+<<<<<<< HEAD
                   $output .= "\tPlease Return The Following Book(s) Imideately to avoid further penalties.|".$row->contact; 
+=======
+                  $output .= $this->get_message_foot('ODBRBK002')."|".$row->contact; 
+>>>>>>> origin/Francis
                   $empty = false;
                 }
 
@@ -1331,15 +1601,25 @@ public function get_search_data($query)
 
                   if(((date('Y-m-d')) == $odcrow->nxt) && ($odcrow->sent == '0')){
 
+<<<<<<< HEAD
                     $output .= "][Good Day\n \tThe Following book(s) is now over due: \n";
                     $obque = "SELECT bk.book_title AS title, bb.due_date AS due FROM borrow_book bb LEFT JOIN book bk ON bb.book_no = bk.book_no LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bb.borrow_no = '".$odcrow->borrow_no." AND bb.ret = '0' AND ((bd.activity = 'overdue') OR (bd.activity = 'limbo'))"; 
+=======
+                    $output .= "][".$this->get_message_head('ODBRBK002')."\n";
+                    $obque = "SELECT bk.book_title AS title, bb.due_date AS due FROM borrow_book bb LEFT JOIN book bk ON bb.book_no = bk.book_no LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bb.borrow_no = '".$odcrow->borrow_no."' AND bb.ret = '0' AND ((bd.activity = 'overdue') OR (bd.activity = 'limbo'))"; 
+                    
+>>>>>>> origin/Francis
                     $obret = $this->execute_query($obque);
                     while($obrow = mysqli_fetch_object($obret)){
                         if(date('Y-m-d')>=$obrow->due){
                           $output .= "\t\t".$obrow->title." (".$obrow->due.") \n";
                         }
                     }
+<<<<<<< HEAD
                     $output .= "\tPlease Return The Following Book(s) Imideately to avoid further penalties.|".$odcrow->contact."";
+=======
+                    $output .= $this->get_message_foot('ODBRBK002')."|".$odcrow->contact."";
+>>>>>>> origin/Francis
 
                     $odtque = "UPDATE over_due SET prev_send = '".$date."', next_send='".$dues."', sent = '1' WHERE issue_id ='".$odcrow->borrow_no."'";
                     $this->execute_query($odtque);
@@ -1395,11 +1675,33 @@ public function get_search_data($query)
          }
 
          public function get_message_foot($code){
+<<<<<<< HEAD
             $query ="SELECT hb.header AS heads FROM message_board hb WHERE hb.doc_id='".$code."'";
             $result = $this->execute_query($query);
             $row = mysqli_fetch_object($result);
             return $row->heads; 
          }
+=======
+            $query ="SELECT hb.footer AS foots FROM message_board hb WHERE hb.doc_id='".$code."'";
+            $result = $this->execute_query($query);
+            $row = mysqli_fetch_object($result);
+            return $row->foots; 
+         }
+
+         public function maintenace_view($query){
+            $result = $this->execute_query($query);
+            $row = mysqli_fetch_object($result);
+
+            return "|".$row->men_1."|".$row->men_2."|".$row->men_3.'|'; 
+         }
+         public function Dates_view($query){
+            $result = $this->execute_query($query);
+            $row = mysqli_fetch_object($result);
+
+            return $row->days;
+         }
+
+>>>>>>> origin/Francis
          function time_ago($timestamp) {  
                 $time_ago = strtotime($timestamp);  
                 $current_time = time();  
