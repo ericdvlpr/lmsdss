@@ -215,7 +215,6 @@ include 'includes/footer.php';
 
 						 		</div>
 						        <div class="modal-footer">
-						            <input type="hidden" name="action" id="action" value="addBook" />
 						            <input type="hidden" name="doc_id" id="doc_id" />
 						            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						            <button type="button" class="btn btn-primary" id="edbtn">Edit</button>

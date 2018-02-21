@@ -182,11 +182,11 @@ error_reporting(0);
             switch ($number) {
               case 1:
                 $badge = 'fa fa-comments';
-                $color ='success';
+                $color ='bg-yellow';
                 break;
               case 2:
                 $badge = 'fa fa-bullhorn';
-                 $color ='warning';
+                 $color ='bg-red';
                 break;
               case 3:
                 $badge = 'fa fa-calendar-o';
@@ -194,13 +194,15 @@ error_reporting(0);
                 break;
               case 4:
                 $badge = 'fa fa-photo';
-                 $color ='danger';
+                 $color ='bg-blue';
                 break;
               case 5:
                 $badge = 'fa fa-pencil-square-o';
+                 $color ='bg-aqua';
                 break;
               case 6:
                 $badge = 'fa fa-instagram';
+                $color ='bg-purple';
                 break;
               default:
                $badge = 'Error';
@@ -208,17 +210,19 @@ error_reporting(0);
             }
 
 
-            $output='<li>
-                      <div class="timeline-badge '.$color.'"><i class="'.$badge.'"></i>
-                      </div>
-                      <div class="timeline-panel">
-                          <div class="timeline-heading">
-                              <h4 class="timeline-title">'.$row->title.'</h4>
-                              <p><small class="text-muted"><i class="fa fa-clock-o"></i> '.$this->time_ago($row->date).'</small>
-                              </p>
+            $output .='<li>
+                      <i class="'.$badge.' '.$color.'"></i>
+                              
+                      <div class="timeline-item">
+                      <span class="time"><i class="fa fa-clock-o"></i> '.$this->time_ago($row->date).'</span>
+                      
+                          <div class="timeline-header">
+                              <h4>'.$row->title.'</h4>
+                              
                           </div>
                           <div class="timeline-body">
                               <p>'.$row->content.'</p>
+                              <img src="'.$row->img.'" class="img" />
                           </div>
                       </div>
                 </li>';
@@ -808,52 +812,71 @@ public function get_faculty_index($query) {
           $last_id = $this->insert_id;
           return $last_id;
       }
-   public function get_selected_data($query, $query2)
+   public function get_selected_data($id,$mid)
       {
+          $query = "SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.book_copies AS copies, b.location as location, l.library_name as department, b.img as img ,cat.catalogue_image as map FROM book b LEFT JOIN libraries l ON b.department = l.id JOIN catalogue cat ON cat.catalogue_id=b.category_id  WHERE book_no ='".$id."'";
+         
+         $query2 = "SELECT bb.copies as CNT FROM borrow_book bb WHERE bb.book_no = '".$id."'";
+         
+         $query3 = "SELECT * FROM students WHERE student_id='".$mid."'";
+         
+         $query4 = "SELECT * FROM borrow_book bb LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no WHERE bb.book_no = '".$id."' AND bd.member_id = '".$mid."' AND (bd.activity = 'reserved' OR bd.activity = 'borrowed' OR bd.activity = 'overdue')";
+         
+         $query5 = "SELECT bb.copies AS copy FROM borrow_book bb LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bd.member_id = '".$mid."'";
+
+         $query6 = "SELECT m.men_1 AS CON FROM maintenace m WHERE m.pri_id = '1'";
+
+
          $result = $this->execute_query($query);
          $result2 = $this->execute_query($query2);
-         $row2 = mysqli_fetch_object($result2); 
+         $result3 = $this->execute_query($query3);
+         $result4 = $this->execute_query($query4);
+         $result5 = $this->execute_query($query5);
+         $result6 = $this->execute_query($query6);
+
          $row = mysqli_fetch_object($result);
+         $row6 = mysqli_fetch_object($result6);
          
-         $dat = explode(',',$row->author);
-         $dcnt = count($dat);
-         $aut = '';
-
+         
+         $calc2 = 0;
          $calc = 0;
+         $calc3 = 0;
+         
+         while ($row3 = mysqli_fetch_object($result5)) {
+           $calc3 += $row3->copy;
+         }
          while ($row2 = mysqli_fetch_object($result2)) {
-           $calc += $row2->CNT;
+           $calc2 += $row2->CNT;
          }
 
-         if($dcnt>1){
-          $cnt=0;
-          foreach ($dat as $did){
-              if($cnt == ($dcnt-1)){
-                $aut .= 'and '. $did;
-              }elseif($cnt == ($dcnt-2)){
-                $aut .= $did . ' ';
-              }else{
-                $aut .= $did . ', ';
-              }
-              $cnt++;
-          }
-         }else{
-          $aut=$row->author;
-         }
+          $calc =  $row->copies - $calc2;
+          $calc = max($calc,0);
+
+
+
+         
          $tloc='';
          $loc = explode(' ', $row->location);
          foreach ($loc as $locs) {
            $tloc .= $locs. '<br />'; 
          }
 
+
+
          $output = '';
 
          
          $output .='
+         
+
+         <table>
+          <tr>
+          <td width = "50%">
          <table>
             <tr>
               <td align="right" width="20%">Call #: </td>
               <td width="20%" class="calln"> '. $tloc .'</td>
-              <td width="60%"><img src="'.$row->img.'" width="80%" height="auto"></td>
+              <td width="60%"><img src="'.$row->img.'" width="40%" height="auto"></td>
             </tr>
          </table>
          <br />
@@ -869,7 +892,7 @@ public function get_faculty_index($query) {
             </tr>
             <tr>
               <td align="right" >Author: </td>
-              <td>'.$aut.'</td>
+              <td>'.$row->author.'</td>
             </tr>
             <tr>
               <td align="right" >Edition: </td>
@@ -885,19 +908,33 @@ public function get_faculty_index($query) {
             </tr>
             <tr>
               <td align="right" >Available: </td>
-              <td>'.$row->book_copies.'</td>
+              <td>'.$calc.'</td>
             </tr>
         
-        </table>';
+        </table>
+          </td>
+          <td width "50%"><a href="'.$row->map.'" data-lightbox="image-1"><img src="'.$row->map.'" width="100%" height="auto"></a></td>
+          </tr>
+          
+          </table
+        ';
 
 
 
-         $output .= '|The book ' .$row->book_title. ' by ' . $aut . ' located in the '.$row->department.', call number '.$row->location.', books available ' .$row->book_copies. '. ' ;
-         if($row->book_copies == 0){
-            $output .= 'Sorry... This Book is no longer available. Try Again Later.|false|'.$row->book_title.'/'.$aut.'|'.$row->book_copies;
+         $output .= '|The book ' .$row->book_title. ' by ' . $row->author . ' located in the '.$row->department.', call number '.$row->location.', books available ' .$calc. '. ' ;
+         if($calc == 0){
+            $output .= 'Sorry... This Book is no longer available. Try Again Later. To Close Press the Escape Button.|false|'.$row->book_title.'/'.$row->author.'|'.$calc.'|No longer available.';
          }else{
-            $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$aut.'|'.$row->book_copies;
+            
+            if(mysqli_num_rows($result4)){
+              $output .= 'You already borrowed this book. Please Return this Book Immediately. To Close Press the Escape Button.|false|'.$row->book_title.'/'.$row->author.'|0|Already Borrowed/Reserved, Please Return this Book Immediately';
+            }else if((mysqli_num_rows($result3)) && ($calc3>=$row6->CON)){
+              $output .= 'Your Borrowing books limit has been reached. Please Return All of your borrowed Books Immediately. To Close Press the Escape Button.|false|'.$row->book_title.'/'.$row->author.'|0|Borrow Limit Reached, Please Return All of your borrowed Books Immediately.';
+            }else{
+              $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$row->book_title.'/'.$row->author.'|'.$calc.'|N/A';
+            }
          }
+         //*/
          return $output;
 
       }

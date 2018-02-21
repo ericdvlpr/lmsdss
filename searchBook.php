@@ -7,12 +7,11 @@
       <input type="hidden" name="std_name2" id="std_name2" value=<?php echo $_SESSION['name']; ?>> 
       <input type="hidden" name="std_type" id="std_type" value=<?php echo $_SESSION['type']; ?>>
       
-       <div class="form-group">
-        <div class="col-sm-10">
+       <div class="input-group">
           <input type="text" class="form-control" id="searchname" placeholder="Search Book" autocomplete="off">
-        </div>
+          <div class="input-group-btn"> <button type="submit" class="btn btn-default">Search</button> </div>
        </div>
-       <button type="submit" class="btn btn-default">Search</button> 
+      
     </form> 
         </div>
 

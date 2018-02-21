@@ -554,7 +554,7 @@
                  $output["id"] = $row["id"];
                  $output["title"] = $row["title"];
                   $output["content"] = $row["content"];
-                   $output["image"] = "<img src='".$row["img"]."' class='img img-thumbnail' height='150' weight='150'?>";
+                   $output["image"] = "<a href='".$row["img"]."' data-lightbox='image-1'><img src='".$row["img"]."' class='img img-thumbnail' height='550' weight='550'  /></a>";
                   $output["status"] = $row["status"];
                 }
 

@@ -20,6 +20,7 @@ if(!isset($_SESSION['username'])){
   <!-- Theme style -->
   <link rel="stylesheet" href="css/AdminLTE.min.css">
   <link rel="stylesheet" href="css/style.css">
+<link href="css/lightbox.css" rel="stylesheet">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
