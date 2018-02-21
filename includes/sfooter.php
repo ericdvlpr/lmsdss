@@ -1,4 +1,4 @@
- 		</div> 
+ 	</div> 
 			      <footer class="main-footer">
 				    <div class="pull-right hidden-xs">
 				      <b>Version</b> 2.4.0
@@ -19,7 +19,7 @@
 <script src="js/bootstrap-select.min.js"></script> 
 <!-- 		  <script src="js/jquery.dataTables.min.js"></script>    -->
 		 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-		 <script src="js/general.js"></script>
+		 <script src="js/search.js"></script>
 		 
 <script type="text/javascript">
 	function printContent(el){

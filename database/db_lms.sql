@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2018 at 05:04 PM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: Feb 16, 2018 at 12:21 PM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `db_lms`
@@ -26,10 +26,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `allowed_book`
 --
 
-CREATE TABLE IF NOT EXISTS `allowed_book` (
-`allowed_book_id` int(11) NOT NULL,
+CREATE TABLE `allowed_book` (
+  `allowed_book_id` int(11) NOT NULL,
   `qntty_books` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `allowed_book`
@@ -44,10 +44,10 @@ INSERT INTO `allowed_book` (`allowed_book_id`, `qntty_books`) VALUES
 -- Table structure for table `allowed_days`
 --
 
-CREATE TABLE IF NOT EXISTS `allowed_days` (
-`allowed_days_id` int(11) NOT NULL,
+CREATE TABLE `allowed_days` (
+  `allowed_days_id` int(11) NOT NULL,
   `no_of_days` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `allowed_days`
@@ -62,15 +62,15 @@ INSERT INTO `allowed_days` (`allowed_days_id`, `no_of_days`) VALUES
 -- Table structure for table `announcements`
 --
 
-CREATE TABLE IF NOT EXISTS `announcements` (
-`id` int(11) NOT NULL,
+CREATE TABLE `announcements` (
+  `id` int(11) NOT NULL,
   `title` text NOT NULL,
   `content` text NOT NULL,
   `img` text NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `posted_by` varchar(250) NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `announcements`
@@ -86,11 +86,11 @@ INSERT INTO `announcements` (`id`, `title`, `content`, `img`, `date`, `posted_by
 -- Table structure for table `authors`
 --
 
-CREATE TABLE IF NOT EXISTS `authors` (
-`id` int(11) NOT NULL,
+CREATE TABLE `authors` (
+  `id` int(11) NOT NULL,
   `author_id` varchar(250) NOT NULL,
   `author_name` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `authors`
@@ -124,8 +124,8 @@ INSERT INTO `authors` (`id`, `author_id`, `author_name`) VALUES
 -- Table structure for table `book`
 --
 
-CREATE TABLE IF NOT EXISTS `book` (
-`book_id` int(11) NOT NULL,
+CREATE TABLE `book` (
+  `book_id` int(11) NOT NULL,
   `book_no` varchar(250) NOT NULL,
   `book_title` varchar(100) NOT NULL,
   `category_id` int(50) NOT NULL,
@@ -140,16 +140,16 @@ CREATE TABLE IF NOT EXISTS `book` (
   `location` longtext NOT NULL,
   `department` varchar(50) NOT NULL,
   `status` varchar(30) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `book`
 --
 
 INSERT INTO `book` (`book_id`, `book_no`, `book_title`, `category_id`, `author`, `book_copies`, `book_pub`, `isbn`, `copyright_year`, `date_receive`, `date_added`, `img`, `location`, `department`, `status`) VALUES
-(1, '9789719331704', 'Master English Grammar in 28 Days', 3, 'Romeo Flauta', 5, 'Priority Book ', '971-93317-04', 2011, '2018-01-07', '2018-01-07 15:27:14', 'images/books/93870524.jpg', 'Fil. 657 V173p 2010', '1', '1'),
-(2, '4549660094272', 'Movie Making', 801, 'Naomi De Jesus', 8, 'Ibook', '978-971-0054-12-6', 2011, '2018-01-07', '2018-01-07 20:49:07', 'images/books/1321397098.jpg', 'Fil. 220 G646 1992', '1', '3'),
-(3, '4800639090047', 'Limelight', 2, 'Star360', 5, 'Spiral', 'ISBN 186412', 2018, '2018-02-13', '2018-02-13 23:50:36', 'images/books/285.jpg', 'English', '1', '1');
+(1, '9789719331704', 'Master English Grammar in 28 Days', 3, 'Romeo Flauta', 9, 'Priority Book ', '971-93317-04', 2011, '2018-01-07', '2018-01-07 15:27:14', 'images/books/93870524.jpg', 'Fil. 657 V173p 2010', '1', '1'),
+(2, '4549660094272', 'Movie Making', 801, 'Naomi De Jesus', 9, 'Ibook', '978-971-0054-12-6', 2011, '2018-01-07', '2018-01-07 20:49:07', 'images/books/1321397098.jpg', 'Fil. 220 G646 1992', '1', '3'),
+(3, '4800639090047', 'Limelight', 2, 'Star360', 9, 'Spiral', 'ISBN 186412', 2018, '2018-02-13', '2018-02-13 23:50:36', 'images/books/285.jpg', 'English', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -157,10 +157,10 @@ INSERT INTO `book` (`book_id`, `book_no`, `book_title`, `category_id`, `author`,
 -- Table structure for table `booknumber`
 --
 
-CREATE TABLE IF NOT EXISTS `booknumber` (
-`id` int(11) NOT NULL,
+CREATE TABLE `booknumber` (
+  `id` int(11) NOT NULL,
   `bookNum` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `booknumber`
@@ -175,8 +175,8 @@ INSERT INTO `booknumber` (`id`, `bookNum`) VALUES
 -- Table structure for table `book_request`
 --
 
-CREATE TABLE IF NOT EXISTS `book_request` (
-`request_id` int(11) NOT NULL,
+CREATE TABLE `book_request` (
+  `request_id` int(11) NOT NULL,
   `request_no` int(11) NOT NULL,
   `book_title` text NOT NULL,
   `author` text NOT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `book_request` (
   `status` varchar(50) NOT NULL,
   `faculty_id` int(11) NOT NULL,
   `seen` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `book_request`
@@ -201,36 +201,28 @@ INSERT INTO `book_request` (`request_id`, `request_no`, `book_title`, `author`, 
 -- Table structure for table `borrow_book`
 --
 
-CREATE TABLE IF NOT EXISTS `borrow_book` (
-`id` int(11) NOT NULL,
+CREATE TABLE `borrow_book` (
+  `id` int(11) NOT NULL,
   `borrow_no` varchar(50) NOT NULL,
   `book_no` varchar(150) NOT NULL,
   `copies` int(11) NOT NULL DEFAULT '1',
   `on_date` date DEFAULT NULL,
   `due_date` date DEFAULT NULL,
   `ret` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `borrow_book`
 --
 
 INSERT INTO `borrow_book` (`id`, `borrow_no`, `book_no`, `copies`, `on_date`, `due_date`, `ret`) VALUES
-(4, '85372619', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
-(5, '85372619', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
-(6, '43576129', '9789719331704', 1, '2018-01-20', '2018-01-26', 0),
-(7, '43576129', '4549660094272', 1, '2018-01-20', '2018-01-26', 0),
-(10, '91256783', '9789719331704', 1, '2018-01-13', '2018-01-19', 0),
-(11, '91256783', '4549660094272', 1, '2018-01-13', '2018-01-19', 0),
-(14, '12085496  ', '9789719331704', 1, '2018-01-22', '2018-01-28', 0),
-(15, '23475160  ', '9789719331704', 1, '2018-01-22', '2018-01-28', 0),
-(16, '53906427  ', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
-(17, '39065247  ', '4549660094272', 4, '2018-01-23', '2018-01-29', 0),
-(18, '29168705  ', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
-(19, '34290187  ', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
-(20, '16248593  ', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
-(21, '89473052', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
-(22, '80629475  ', '9789719331704', 1, '2018-01-30', '2018-02-05', 0);
+(30, '16295074  ', '4800639090047', 1, '2018-02-15', '2018-02-14', 0),
+(29, '16295074  ', '4549660094272', 1, '2018-02-15', '2018-02-14', 0),
+(28, '16295074  ', '9789719331704', 1, '2018-02-15', '2018-02-14', 0),
+(27, '85026947', '4549660094272', 3, '2018-02-15', '2018-02-18', 0),
+(26, '01847652', '9789719331704', 1, '2018-02-15', '2018-02-18', 0),
+(25, '01847652', '4800639090047', 2, '2018-02-15', '2018-02-18', 0),
+(24, '06834917', '9789719331704', 2, '2018-02-15', '2018-02-21', 0);
 
 -- --------------------------------------------------------
 
@@ -238,30 +230,22 @@ INSERT INTO `borrow_book` (`id`, `borrow_no`, `book_no`, `copies`, `on_date`, `d
 -- Table structure for table `borrow_details`
 --
 
-CREATE TABLE IF NOT EXISTS `borrow_details` (
-`brdt_id` int(20) NOT NULL,
+CREATE TABLE `borrow_details` (
+  `brdt_id` int(20) NOT NULL,
   `borrow_no` varchar(30) DEFAULT NULL,
   `member_id` varchar(50) DEFAULT NULL,
   `activity` varchar(50) NOT NULL DEFAULT 'pending'
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `borrow_details`
 --
 
 INSERT INTO `borrow_details` (`brdt_id`, `borrow_no`, `member_id`, `activity`) VALUES
-(2, '85372619', '73923', 'overdue'),
-(3, '43576129', '739212', 'overdue'),
-(5, '91256783', '7392', 'overdue'),
-(11, '12085496  ', '7392', 'overdue'),
-(12, '23475160  ', '7392', 'overdue'),
-(13, '53906427  ', '7392', 'overdue'),
-(14, '39065247  ', '7392', 'overdue'),
-(15, '29168705  ', '7392', 'overdue'),
-(16, '34290187  ', '7392', 'overdue'),
-(17, '16248593  ', '7392', 'overdue'),
-(18, '89473052', '739212', 'overdue'),
-(19, '80629475  ', '7392', 'overdue');
+(24, '16295074  ', '73923', 'overdue'),
+(23, '85026947', '123456', 'reserved'),
+(22, '01847652', '739212', 'reserved'),
+(21, '06834917', '7392', 'borrowed');
 
 -- --------------------------------------------------------
 
@@ -269,11 +253,11 @@ INSERT INTO `borrow_details` (`brdt_id`, `borrow_no`, `member_id`, `activity`) V
 -- Table structure for table `catalogue`
 --
 
-CREATE TABLE IF NOT EXISTS `catalogue` (
-`catalogue_id` int(11) NOT NULL,
+CREATE TABLE `catalogue` (
+  `catalogue_id` int(11) NOT NULL,
   `catalogue_no` varchar(250) NOT NULL,
   `cataloguename` varchar(50) DEFAULT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=802 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `catalogue`
@@ -297,13 +281,13 @@ INSERT INTO `catalogue` (`catalogue_id`, `catalogue_no`, `cataloguename`) VALUES
 -- Table structure for table `courses`
 --
 
-CREATE TABLE IF NOT EXISTS `courses` (
-`course_id` int(11) NOT NULL,
+CREATE TABLE `courses` (
+  `course_id` int(11) NOT NULL,
   `course_code` varchar(250) NOT NULL,
   `department_code` int(11) NOT NULL,
   `course_name` varchar(250) NOT NULL,
   `numYear` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=44 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `courses`
@@ -360,11 +344,11 @@ INSERT INTO `courses` (`course_id`, `course_code`, `department_code`, `course_na
 -- Table structure for table `departments`
 --
 
-CREATE TABLE IF NOT EXISTS `departments` (
-`dept_id` int(11) NOT NULL,
+CREATE TABLE `departments` (
+  `dept_id` int(11) NOT NULL,
   `department_code` varchar(250) NOT NULL,
   `department_name` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `departments`
@@ -389,15 +373,15 @@ INSERT INTO `departments` (`dept_id`, `department_code`, `department_name`) VALU
 -- Table structure for table `faculty`
 --
 
-CREATE TABLE IF NOT EXISTS `faculty` (
-`id` int(11) NOT NULL,
+CREATE TABLE `faculty` (
+  `id` int(11) NOT NULL,
   `faculty_no` varchar(250) NOT NULL,
   `faculty_name` varchar(250) NOT NULL,
   `passcode` varchar(150) NOT NULL,
   `contacs` varchar(12) NOT NULL DEFAULT '09000000000',
   `dept` int(11) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `faculty`
@@ -415,13 +399,13 @@ INSERT INTO `faculty` (`id`, `faculty_no`, `faculty_name`, `passcode`, `contacs`
 -- Table structure for table `feedback`
 --
 
-CREATE TABLE IF NOT EXISTS `feedback` (
-`id` int(11) NOT NULL,
+CREATE TABLE `feedback` (
+  `id` int(11) NOT NULL,
   `subject` text NOT NULL,
   `body` text NOT NULL,
   `student_id` int(11) NOT NULL,
   `date_posted` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `feedback`
@@ -439,8 +423,8 @@ INSERT INTO `feedback` (`id`, `subject`, `body`, `student_id`, `date_posted`) VA
 -- Table structure for table `issue_book`
 --
 
-CREATE TABLE IF NOT EXISTS `issue_book` (
-`issue_book_id` int(11) NOT NULL,
+CREATE TABLE `issue_book` (
+  `issue_book_id` int(11) NOT NULL,
   `book_no` text NOT NULL,
   `book_title` text NOT NULL,
   `student_name` text NOT NULL,
@@ -448,7 +432,7 @@ CREATE TABLE IF NOT EXISTS `issue_book` (
   `date_issued` date NOT NULL,
   `date_returned` date NOT NULL,
   `status` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `issue_book`
@@ -463,10 +447,10 @@ INSERT INTO `issue_book` (`issue_book_id`, `book_no`, `book_title`, `student_nam
 -- Table structure for table `libraries`
 --
 
-CREATE TABLE IF NOT EXISTS `libraries` (
-`id` int(11) NOT NULL,
+CREATE TABLE `libraries` (
+  `id` int(11) NOT NULL,
   `library_name` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `libraries`
@@ -482,82 +466,32 @@ INSERT INTO `libraries` (`id`, `library_name`) VALUES
 -- Table structure for table `logs`
 --
 
-CREATE TABLE IF NOT EXISTS `logs` (
-`log_id` int(11) NOT NULL,
+CREATE TABLE `logs` (
+  `log_id` int(11) NOT NULL,
   `student_no` varchar(150) NOT NULL,
   `description` text NOT NULL,
   `date_time` datetime NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=65 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `logs`
+-- Table structure for table `maintenace`
 --
 
-INSERT INTO `logs` (`log_id`, `student_no`, `description`, `date_time`) VALUES
-(1, 'admin', 'Login', '2018-01-20 15:02:32'),
-(2, 'Librarian', 'Login', '2018-01-20 15:24:49'),
-(3, 'Librarian', 'Login', '2018-01-20 15:24:51'),
-(4, '12312123', 'Login', '2018-01-20 15:37:03'),
-(5, '12312123', 'Login', '2018-01-20 15:37:13'),
-(6, '12312123', 'Login', '2018-01-20 16:11:16'),
-(7, '12312123', 'Login', '2018-01-20 16:11:32'),
-(8, '12312123', 'Login', '2018-01-20 16:11:33'),
-(9, '12312123', 'Login', '2018-01-20 16:11:34'),
-(10, '12312123', 'Login', '2018-01-20 16:11:34'),
-(11, 'admin', 'Login', '2018-01-20 16:23:55'),
-(12, 'admin', 'Login', '2018-01-20 16:25:09'),
-(13, '739212', 'Login', '2018-01-20 18:09:57'),
-(14, '739212', 'Login', '2018-01-20 18:21:43'),
-(15, '73923', 'Login', '2018-01-20 18:26:24'),
-(16, '7392', 'Login', '2018-01-20 18:28:32'),
-(17, '7392', 'Login', '2018-01-20 18:30:14'),
-(18, '7392', 'Login', '2018-01-20 18:32:38'),
-(19, '739212', 'Login', '2018-01-20 18:37:21'),
-(20, 'Librarian', 'Login', '2018-01-20 18:38:35'),
-(21, '12312123', 'Login', '2018-01-21 10:31:29'),
-(22, '12312123', 'Login', '2018-01-21 10:37:42'),
-(23, 'admin', 'Login', '2018-01-21 12:09:14'),
-(24, 'admin', 'Login', '2018-01-21 12:09:17'),
-(25, '7392', 'Login', '2018-01-21 15:49:18'),
-(26, '12312123', 'Login', '2018-01-21 18:42:10'),
-(27, '7392', 'Login', '2018-01-21 18:43:59'),
-(28, 'admin', 'Login', '2018-01-21 18:44:37'),
-(29, 'admin', 'Login', '2018-01-21 18:45:36'),
-(30, 'admin', 'Login', '2018-01-21 18:45:48'),
-(31, 'admin', 'Login', '2018-01-21 18:45:56'),
-(32, '7392', 'Login', '2018-01-23 19:01:50'),
-(33, '73923', 'Login', '2018-01-23 19:03:58'),
-(34, '73923', 'Login', '2018-01-23 19:04:00'),
-(35, '739212', 'Login', '2018-01-23 19:04:11'),
-(36, 'Librarian', 'Login', '2018-01-23 19:53:28'),
-(37, 'Librarian', 'Login', '2018-01-23 19:53:31'),
-(38, 'Librarian', 'Login', '2018-01-23 21:18:21'),
-(39, '7392', 'Login', '2018-01-23 21:28:59'),
-(40, '739212', 'Login', '2018-01-23 21:31:49'),
-(41, 'Librarian', 'Login', '2018-01-23 21:34:17'),
-(42, '12312123', 'Login', '2018-01-23 21:42:00'),
-(43, 'Librarian', 'Login', '2018-01-23 21:57:18'),
-(44, 'Librarian', 'Login', '2018-01-23 21:57:26'),
-(45, '7392', 'Login', '2018-01-23 22:26:04'),
-(46, 'Librarian', 'Login', '2018-01-23 22:26:59'),
-(47, '7392', 'Login', '2018-01-23 22:31:16'),
-(48, 'admin', 'Login', '2018-01-28 07:50:03'),
-(49, 'admin', 'Login', '2018-01-28 07:52:58'),
-(50, 'admin', 'Login', '2018-01-28 11:55:03'),
-(51, 'admin', 'Login', '2018-01-28 11:55:06'),
-(52, 'admin', 'Login', '2018-01-29 20:36:13'),
-(53, 'admin', 'Login', '2018-02-04 16:34:34'),
-(54, 'admin', 'Login', '2018-02-04 21:04:38'),
-(55, 'admin', 'Login', '2018-02-04 21:04:40'),
-(56, 'admin', 'Login', '2018-02-04 21:04:47'),
-(57, 'admin', 'Login', '2018-02-05 22:05:54'),
-(58, 'admin', 'Login', '2018-02-08 18:13:49'),
-(59, 'admin', 'Login', '2018-02-08 18:13:54'),
-(60, 'admin', 'Login', '2018-02-13 20:42:54'),
-(61, 'admin', 'Login', '2018-02-13 20:47:32'),
-(62, 'admin', 'Login', '2018-02-13 22:27:53'),
-(63, 'admin', 'Login', '2018-02-13 22:29:56'),
-(64, 'admin', 'Login', '2018-02-13 23:18:17');
+CREATE TABLE `maintenace` (
+  `pri_id` int(20) NOT NULL,
+  `men_1` int(20) NOT NULL,
+  `men_2` int(20) NOT NULL,
+  `men_3` int(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `maintenace`
+--
+
+INSERT INTO `maintenace` (`pri_id`, `men_1`, `men_2`, `men_3`) VALUES
+(1, 4, 60, 4);
 
 -- --------------------------------------------------------
 
@@ -565,21 +499,21 @@ INSERT INTO `logs` (`log_id`, `student_no`, `description`, `date_time`) VALUES
 -- Table structure for table `message_board`
 --
 
-CREATE TABLE IF NOT EXISTS `message_board` (
-`pre_id` int(2) NOT NULL,
+CREATE TABLE `message_board` (
+  `pre_id` int(2) NOT NULL,
   `doc_id` varchar(20) NOT NULL,
   `header` longtext NOT NULL,
   `footer` longtext NOT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `message_board`
 --
 
 INSERT INTO `message_board` (`pre_id`, `doc_id`, `header`, `footer`) VALUES
-(1, 'BRBKWR001', '  Good Day, \r\n       The Following Book(s) has Not been return:', '	 Please Return The Following Book(s) Imideately To Avoid Penalties.'),
+(1, 'BRBKWR001', '  Good Day, \r\n       The Following Book(s) has(have) Not been return:', '	 Please Return The Following Book(s) Imideately To Avoid Penalties.'),
 (2, 'ODBRBK002', 'Good Days\r\n     The Following book(s) is (are) now over due:', '     Please Return The Following Book(s) Imideately to avoid further penalties.'),
-(3, 'NWBRBK002', 'Good Day... \r\n    The following books has now been borrowed:', '    Please Be Advise that you must return the following book(s) before or on date to avoid penalties.');
+(3, 'NWBRBK002', 'Good Day... \r\n    The following books is(are) now been borrowed:', '    Please Be Advise that you must return the following book(s) before or on date to avoid penalties.');
 
 -- --------------------------------------------------------
 
@@ -587,15 +521,15 @@ INSERT INTO `message_board` (`pre_id`, `doc_id`, `header`, `footer`) VALUES
 -- Table structure for table `notification`
 --
 
-CREATE TABLE IF NOT EXISTS `notification` (
-`notif_id` int(11) NOT NULL,
+CREATE TABLE `notification` (
+  `notif_id` int(11) NOT NULL,
   `notif_id_type` int(11) NOT NULL,
   `notif_type` varchar(250) NOT NULL,
   `notif_subject` text NOT NULL,
   `notif_text` text NOT NULL,
   `notif_status` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `notification`
@@ -617,32 +551,21 @@ INSERT INTO `notification` (`notif_id`, `notif_id_type`, `notif_type`, `notif_su
 -- Table structure for table `over_due`
 --
 
-CREATE TABLE IF NOT EXISTS `over_due` (
-`id` int(20) NOT NULL,
+CREATE TABLE `over_due` (
+  `id` int(20) NOT NULL,
   `issue_id` varchar(50) CHARACTER SET latin1 DEFAULT NULL,
   `prev_send` date NOT NULL,
   `next_send` date NOT NULL,
   `member_id` varchar(50) CHARACTER SET latin1 NOT NULL,
   `sent` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `over_due`
 --
 
 INSERT INTO `over_due` (`id`, `issue_id`, `prev_send`, `next_send`, `member_id`, `sent`) VALUES
-(20, '91256783', '2018-01-23', '2018-01-26', '7392', 0),
-(21, '43576129', '2018-01-28', '2018-01-31', '739212', 0),
-(22, '12085496  ', '2018-01-29', '2018-02-01', '7392', 0),
-(23, '23475160  ', '2018-01-29', '2018-02-01', '7392', 0),
-(24, '53906427  ', '2018-01-30', '2018-02-02', '7392', 0),
-(25, '39065247  ', '2018-01-30', '2018-02-02', '7392', 0),
-(26, '29168705  ', '2018-01-30', '2018-02-02', '7392', 0),
-(27, '34290187  ', '2018-01-30', '2018-02-02', '7392', 0),
-(28, '16248593  ', '2018-01-30', '2018-02-02', '7392', 0),
-(29, '85372619', '2018-01-30', '2018-02-02', '73923', 0),
-(30, '89473052', '2018-01-30', '2018-02-02', '739212', 0),
-(31, '80629475  ', '2018-02-09', '2018-02-12', '7392', 0);
+(32, '16295074  ', '2018-02-15', '2018-02-18', '73923', 1);
 
 -- --------------------------------------------------------
 
@@ -650,10 +573,10 @@ INSERT INTO `over_due` (`id`, `issue_id`, `prev_send`, `next_send`, `member_id`,
 -- Table structure for table `penalty`
 --
 
-CREATE TABLE IF NOT EXISTS `penalty` (
-`penalty_id` int(11) NOT NULL,
+CREATE TABLE `penalty` (
+  `penalty_id` int(11) NOT NULL,
   `penalty_amount` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `penalty`
@@ -668,12 +591,12 @@ INSERT INTO `penalty` (`penalty_id`, `penalty_amount`) VALUES
 -- Table structure for table `publishers`
 --
 
-CREATE TABLE IF NOT EXISTS `publishers` (
-`id` int(11) NOT NULL,
+CREATE TABLE `publishers` (
+  `id` int(11) NOT NULL,
   `publisherNo` int(11) NOT NULL,
   `book_publisher` varchar(250) NOT NULL,
   `publisher_name` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `publishers`
@@ -704,10 +627,10 @@ INSERT INTO `publishers` (`id`, `publisherNo`, `book_publisher`, `publisher_name
 -- Table structure for table `status`
 --
 
-CREATE TABLE IF NOT EXISTS `status` (
-`id` int(11) NOT NULL,
+CREATE TABLE `status` (
+  `id` int(11) NOT NULL,
   `status_name` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `status`
@@ -726,8 +649,8 @@ INSERT INTO `status` (`id`, `status_name`) VALUES
 -- Table structure for table `students`
 --
 
-CREATE TABLE IF NOT EXISTS `students` (
-`id` int(11) NOT NULL,
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL,
   `student_id` int(250) NOT NULL,
   `student_name` text NOT NULL,
   `gender` varchar(10) NOT NULL,
@@ -740,7 +663,7 @@ CREATE TABLE IF NOT EXISTS `students` (
   `course` int(11) NOT NULL,
   `active` int(11) NOT NULL DEFAULT '1',
   `image` text NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `students`
@@ -757,10 +680,10 @@ INSERT INTO `students` (`id`, `student_id`, `student_name`, `gender`, `address`,
 -- Table structure for table `type`
 --
 
-CREATE TABLE IF NOT EXISTS `type` (
-`id` int(11) NOT NULL,
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL,
   `borrowertype` varchar(50) DEFAULT NULL
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `type`
@@ -779,15 +702,15 @@ INSERT INTO `type` (`id`, `borrowertype`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-`user_id` int(11) NOT NULL,
+CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `image` varchar(250) NOT NULL,
   `access` int(11) NOT NULL,
   `active` int(11) NOT NULL,
   `department` varchar(250) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -807,157 +730,169 @@ INSERT INTO `users` (`user_id`, `username`, `password`, `image`, `access`, `acti
 -- Indexes for table `allowed_book`
 --
 ALTER TABLE `allowed_book`
- ADD PRIMARY KEY (`allowed_book_id`);
+  ADD PRIMARY KEY (`allowed_book_id`);
 
 --
 -- Indexes for table `allowed_days`
 --
 ALTER TABLE `allowed_days`
- ADD PRIMARY KEY (`allowed_days_id`);
+  ADD PRIMARY KEY (`allowed_days_id`);
 
 --
 -- Indexes for table `announcements`
 --
 ALTER TABLE `announcements`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `authors`
 --
 ALTER TABLE `authors`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `book`
 --
 ALTER TABLE `book`
- ADD PRIMARY KEY (`book_id`);
+  ADD PRIMARY KEY (`book_id`);
 
 --
 -- Indexes for table `booknumber`
 --
 ALTER TABLE `booknumber`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `book_request`
 --
 ALTER TABLE `book_request`
- ADD PRIMARY KEY (`request_id`);
+  ADD PRIMARY KEY (`request_id`);
 
 --
 -- Indexes for table `borrow_book`
 --
 ALTER TABLE `borrow_book`
- ADD PRIMARY KEY (`id`), ADD KEY `borrowid` (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `borrowid` (`id`);
 
 --
 -- Indexes for table `borrow_details`
 --
 ALTER TABLE `borrow_details`
- ADD PRIMARY KEY (`brdt_id`);
+  ADD PRIMARY KEY (`brdt_id`);
 
 --
 -- Indexes for table `catalogue`
 --
 ALTER TABLE `catalogue`
- ADD PRIMARY KEY (`catalogue_id`), ADD UNIQUE KEY `category_id` (`catalogue_id`), ADD KEY `classid` (`catalogue_id`);
+  ADD PRIMARY KEY (`catalogue_id`),
+  ADD UNIQUE KEY `category_id` (`catalogue_id`),
+  ADD KEY `classid` (`catalogue_id`);
 
 --
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
- ADD PRIMARY KEY (`course_id`);
+  ADD PRIMARY KEY (`course_id`);
 
 --
 -- Indexes for table `departments`
 --
 ALTER TABLE `departments`
- ADD PRIMARY KEY (`dept_id`);
+  ADD PRIMARY KEY (`dept_id`);
 
 --
 -- Indexes for table `faculty`
 --
 ALTER TABLE `faculty`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `feedback`
 --
 ALTER TABLE `feedback`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `issue_book`
 --
 ALTER TABLE `issue_book`
- ADD PRIMARY KEY (`issue_book_id`);
+  ADD PRIMARY KEY (`issue_book_id`);
 
 --
 -- Indexes for table `libraries`
 --
 ALTER TABLE `libraries`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `logs`
 --
 ALTER TABLE `logs`
- ADD PRIMARY KEY (`log_id`);
+  ADD PRIMARY KEY (`log_id`);
+
+--
+-- Indexes for table `maintenace`
+--
+ALTER TABLE `maintenace`
+  ADD PRIMARY KEY (`pri_id`);
 
 --
 -- Indexes for table `message_board`
 --
 ALTER TABLE `message_board`
- ADD PRIMARY KEY (`pre_id`);
+  ADD PRIMARY KEY (`pre_id`);
 
 --
 -- Indexes for table `notification`
 --
 ALTER TABLE `notification`
- ADD PRIMARY KEY (`notif_id`);
+  ADD PRIMARY KEY (`notif_id`);
 
 --
 -- Indexes for table `over_due`
 --
 ALTER TABLE `over_due`
- ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id` (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `penalty`
 --
 ALTER TABLE `penalty`
- ADD PRIMARY KEY (`penalty_id`);
+  ADD PRIMARY KEY (`penalty_id`);
 
 --
 -- Indexes for table `publishers`
 --
 ALTER TABLE `publishers`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `status`
 --
 ALTER TABLE `status`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `type`
 --
 ALTER TABLE `type`
- ADD PRIMARY KEY (`id`), ADD KEY `borrowertype` (`borrowertype`), ADD KEY `id` (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `borrowertype` (`borrowertype`),
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
- ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -967,132 +902,137 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `allowed_book`
 --
 ALTER TABLE `allowed_book`
-MODIFY `allowed_book_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `allowed_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `allowed_days`
 --
 ALTER TABLE `allowed_days`
-MODIFY `allowed_days_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `allowed_days_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `booknumber`
 --
 ALTER TABLE `booknumber`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `book_request`
 --
 ALTER TABLE `book_request`
-MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `borrow_book`
 --
 ALTER TABLE `borrow_book`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 --
 -- AUTO_INCREMENT for table `borrow_details`
 --
 ALTER TABLE `borrow_details`
-MODIFY `brdt_id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `brdt_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `catalogue`
 --
 ALTER TABLE `catalogue`
-MODIFY `catalogue_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=802;
+  MODIFY `catalogue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=802;
 --
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=44;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 --
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `dept_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `faculty`
 --
 ALTER TABLE `faculty`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `issue_book`
 --
 ALTER TABLE `issue_book`
-MODIFY `issue_book_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `issue_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `libraries`
 --
 ALTER TABLE `libraries`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=65;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `maintenace`
+--
+ALTER TABLE `maintenace`
+  MODIFY `pri_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `message_board`
 --
 ALTER TABLE `message_board`
-MODIFY `pre_id` int(2) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `pre_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `over_due`
 --
 ALTER TABLE `over_due`
-MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `penalty`
 --
 ALTER TABLE `penalty`
-MODIFY `penalty_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `publishers`
 --
 ALTER TABLE `publishers`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `status`
 --
 ALTER TABLE `status`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -53,6 +53,17 @@
            echo $object->get_borrow_report($query);  
 
         }
+        if($_POST["action"] == "BookReturnedReport") { 
+            $query = "SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id WHERE ret=1 ";
+           if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+            $from_date = date("Y-m-d",strtotime($_POST['from_date']));
+            $to_date = date("Y-m-d",strtotime($_POST['to_date']));
+              $query.=" AND on_date >= '".$from_date."' AND due_date <= '".$to_date."'  ";
+            }
+           
+           echo $object->get_return_report($query);  
+
+        }
        if($_POST["action"] == "Bulliten"){
           echo $object->get_bulliten("SELECT * FROM announcements WHERE status = 1");
       } 
@@ -331,8 +342,7 @@
                }
 
                if(!$missing){ 
-               $Mess="Good Day.. \n";
-               $Mess.="\t\t\tThe following books has been borrowed: \n";
+               $Mess = $object->get_message_head('NWBRBK002')."\n";
                for($count = 0; $count < count($_POST["bookID"]); $count++)
                 {  
                   
@@ -355,7 +365,7 @@
                     $object->execute_query($query0);
                   }
                 //*/
-               $Mess.=$bookTitle." (".$date_returned.") \n "; 
+               $Mess.="\t\t".$bookTitle." (".$date_returned.") \n "; 
                
                 }
                 //*
@@ -374,7 +384,7 @@
                 }
                //*/
                 
-                $Mess .= "\t\tPlease Be Advise that you must return the following book(s) before or on date to avoid penalties.";
+                $Mess .= $object->get_message_foot('NWBRBK002');
                 echo $Mess.'|'.$contactN.'|Issue Inserted, Message Sent';
               }else{
                 echo '0';
@@ -590,6 +600,7 @@
                  $output["username"] = $row["username"];
                   $output["access"] = $row["access"];
                   $output["department"] = $row["department"];
+                  $output["active"] = $row["active"];
                 }
 
                 echo json_encode($output);
@@ -891,7 +902,7 @@
      if($_POST["action"] == "Book_select")  
       {
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_selected_data("SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.book_copies, b.location as location, l.library_name as department, b.img as img FROM book b LEFT JOIN libraries l ON b.department = l.id WHERE book_no ='".$_POST["id"]."'","SELECT bb.copies as CNT FROM borrow_book bb WHERE bb.book_no = '".$_POST["id"]."'");
+          echo $object->get_selected_data($_POST['id'],$_POST['mem']);
       }
       if($_POST["action"] == "Book_Reserve")  
       {
@@ -976,7 +987,6 @@
           }
           if($_POST['action'] == "Message Info"){
           echo $object->message_info_startup("SELECT hb.header AS heads, hb.footer AS foots FROM message_board hb");
-        
           }
 
           if($_POST['action'] == "Message Update Select"){
@@ -986,6 +996,19 @@
 
           if($_POST['action'] == "Message Editing"){
           echo $object->message_edit($_POST['header'],$_POST['footer'],$_POST['id']);  
+          }
+          if($_POST['action'] == "Maintenance"){
+          echo $object->maintenace_view("SELECT * FROM `maintenace` WHERE pri_id = '1'");  
+          }
+
+          if($_POST['action'] == "Maintenace_Edit"){
+              $query="UPDATE maintenace SET men_1 = '".$_POST['day']."', men_2 = '".$_POST['pen']."', men_3 = '".$_POST['qua']."' WHERE pri_id = '1'";
+              $object->execute_query($query);
+              echo true;
+          }
+
+          if($_POST['action'] == "Checkdates"){
+            echo $object->Dates_view("SELECT men_1 AS days FROM `maintenace` WHERE pri_id = '1'");  
           }
 
   }

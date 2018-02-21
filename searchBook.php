@@ -1,38 +1,36 @@
 <?php include 'includes/header.php';?>         
-		 
-        <?php include 'includes/sidemenu.php'; ?>
-<div class="content-wrapper">
-        <div class="container">
-        <form name="srch_form" id="srch_form">
-			<div class="page-header"><h1 class="text-center">DWCL LIBRARY</h1></br>
-			<input type="hidden" name="std_name" id="std_name" value=<?php echo $_SESSION['id']; ?>>
-			<input type="hidden" name="std_name2" id="std_name2" value=<?php echo $_SESSION['name']; ?>> 
-			<input type="hidden" name="std_type" id="std_type" value=<?php echo $_SESSION['type']; ?>>
-			
-			 <div class="form-group">
-				<div class="col-sm-10">
-					<input type="text" class="form-control" id="searchname" placeholder="Search Book" autocomplete="off">
-				</div>
-			 </div>
-			 <button type="submit" class="btn btn-default">Search</button> 
-		</form> 
+<?php include 'includes/sidemenu.php'; ?>
+<div class="container">
+   <form name="srch_form" id="srch_form">
+      <div class="page-header"><h1 class="text-center">DWCL LIBRARY</h1></br>
+      <input type="hidden" name="std_name" id="std_name" value=<?php echo $_SESSION['id']; ?>>
+      <input type="hidden" name="std_name2" id="std_name2" value=<?php echo $_SESSION['name']; ?>> 
+      <input type="hidden" name="std_type" id="std_type" value=<?php echo $_SESSION['type']; ?>>
+      
+       <div class="form-group">
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="searchname" placeholder="Search Book" autocomplete="off">
+        </div>
+       </div>
+       <button type="submit" class="btn btn-default">Search</button> 
+    </form> 
         </div>
 
-	<br />
+  <br />
     <div>
- 		<table id="sc_table" class="table table-bordered table-striped">  
+    <table id="sc_table" class="table table-bordered">  
             <thead>
-            	<tr>
-              		<th width="30%"></th>
+              <tr>
+                  <th width="30%"></th>
                     <th></th>  
-            	</tr>
+              </tr>
             </thead>
             <tbody id="search_table">
 
             </tbody>
          </table>
     </div>
-  
+  </div>
   <div class="modal fade" tabindex="-1" role="dialog" id=mod_info>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -47,10 +45,11 @@
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+</div><!-- /.modal -->   
 
-<div class="modal fade modal-fullscreen force-fullscreen" tabindex="-1" role="dialog" id=modal_select>
-  <div class="modal-dialog" role="document">
+
+<div class="modal fade" tabindex="-1" role="dialog" id=modal_select>
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>

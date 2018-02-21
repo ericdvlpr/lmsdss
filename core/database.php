@@ -67,33 +67,18 @@ error_reporting(0);
                $result = $this->execute_query($query);  
                while($row = mysqli_fetch_object($result))  
                {  
-                  switch ($row->status) {
-                    case '1':
-                     $status = 'New';
-                      break;
-                    case '2':
-                     $status = 'Archive';
-                      break;
-                      case '3':
-                     $status = 'Damage';
-                      break;
-                      case '4':
-                     $status = 'Lost';
-                      break;
-                      case '5':
-                     $status = 'Old';
-                      break;
-                    default:
-                    $status = 'Error!';
-                      break;
-                  }
+
+                $date=date_create($row->date_added);
+                 
                     $output .= '  
                     <tr>       
                          <td>'.$row->book_no.'</td>  
-                         <td>'.$row->book_title.'</td>  
+                         <td>'.date_format($date,"d/m/Y").'</td>  
+                         <td>'.$row->location.'</td>  
                          <td>'.$row->author.'</td>    
-                         <td>'.$row->book_copies.'</td>  
-                         <td>'.$status.'</td>   
+                         <td>'.$row->book_title.'</td>  
+                         <td>'.$row->book_pub.'</td>  
+                         <td>'.$row->copyright_year.'</td>  
                        
                     </tr>  
                     ';  
@@ -141,6 +126,30 @@ error_reporting(0);
            return $output;  
       } 
       public function get_borrow_report($query) {  
+           $output = '';  
+           $result = $this->execute_query($query);  
+           $output .= '  
+           
+           ';  
+           while($row = mysqli_fetch_object($result))  
+           {  
+              $output .= '  
+                <tr>       
+                     <td>'.$row->borrow_no.'</td>  
+                     <td>'.$row->book_title.'</td>  
+                     <td>'.$row->student_name.'</td>  
+                     <td>'.$row->copies.'</td>  
+                     <td>'.$row->on_date.'</td>  
+                     <td>'.$row->due_date.'</td>  
+                     <td>'.$row->activity.'</td> 
+
+                    
+                </tr>  
+                ';  
+            }    
+           return $output;  
+      }
+      public function get_return_report($query) {  
            $output = '';  
            $result = $this->execute_query($query);  
            $output .= '  
@@ -1161,7 +1170,7 @@ public function get_search_data($query)
             if($row = mysqli_fetch_assoc($result)){
                 $output = "
                 <tr> 
-                  <td width='19%''><input type='text' name='bookID[]' id='bookID' class='form-control bookID' required /></td>
+                  <td width='19%'><input type='text' name='bookID[]' id='bookID' class='form-control bookID' required /></td>
                   <td width='26%'><input type='text' name='bookTitle[]' id='bookTitle' class='form-control bookTitle' readonly = 'true' required /></td>
                   <td width='7%'><input type='number' min='1' value ='1' name='copies[]' class='form-control copies' readonly = 'true' required /></td> 
                   <td width='14%'><input type='text' name='date_issued[]' id='date_issued' value='' class='form-control date_issued' readonly = 'true' required  /></td>
@@ -1356,8 +1365,7 @@ public function get_search_data($query)
               return $output;
             }
          }
-         
-         public function message_info_startup($query){
+          public function message_info_startup($query){
            
             $result = $this->execute_query($query);
             $output ='';
@@ -1395,11 +1403,25 @@ public function get_search_data($query)
          }
 
          public function get_message_foot($code){
-            $query ="SELECT hb.header AS heads FROM message_board hb WHERE hb.doc_id='".$code."'";
+            $query ="SELECT hb.footer AS foots FROM message_board hb WHERE hb.doc_id='".$code."'";
             $result = $this->execute_query($query);
             $row = mysqli_fetch_object($result);
-            return $row->heads; 
+            return $row->foots; 
          }
+
+         public function maintenace_view($query){
+            $result = $this->execute_query($query);
+            $row = mysqli_fetch_object($result);
+
+            return "|".$row->men_1."|".$row->men_2."|".$row->men_3.'|'; 
+         }
+         public function Dates_view($query){
+            $result = $this->execute_query($query);
+            $row = mysqli_fetch_object($result);
+
+            return $row->days;
+         }
+
          function time_ago($timestamp) {  
                 $time_ago = strtotime($timestamp);  
                 $current_time = time();  
