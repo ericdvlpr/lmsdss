@@ -215,7 +215,6 @@ include 'includes/footer.php';
 
 						 		</div>
 						        <div class="modal-footer">
-						            <input type="hidden" name="action" id="action" value="addBook" />
 						            <input type="hidden" name="doc_id" id="doc_id" />
 						            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 						            <button type="button" class="btn btn-primary" id="edbtn">Edit</button>
@@ -283,6 +282,17 @@ include 'includes/footer.php';
                             <option value="2">GradeSchool Library</option>
                             <option value="3">HighSchool Library</option>
                             <option value="4">Graduate School Library</option>
+                            
+                     </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword3" class="col-sm-3 control-label text-left">Status</label>
+                  <div class="col-sm-9">
+                     <select class="form-control" name="active" id="active" required>
+                            <option value="">Please Select</option>
+                            <option value="1">Active</option>
+                            <option value="2">Inactive</option>
                             
                      </select>
                   </div>

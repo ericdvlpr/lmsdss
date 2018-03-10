@@ -39,12 +39,12 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Book</h4>
+        <h4 class="modal-title" id="myModalLabel">Add Entry</h4>
       </div>
       <form class="form-horizontal" id="bookform" method="Post" class="collapse">
       <div class="modal-body">
       	<div class="form-group">
-          <label for="inputPassword3" class="col-sm-3 control-label text-left">Book No</label>
+          <label for="inputPassword3" class="col-sm-3 control-label text-left">Accession No</label>
           <div class="col-sm-9">
              <input type="text" class="form-control" autofocus name="book_no" id="book_no"  placeholder="Please Scan Book Bar Code" >
 
@@ -52,9 +52,9 @@
           <div id="book_no"></div>
         </div>
       	<div class="form-group">
-          <label for="inputPassword3" class="col-sm-3 control-label text-left">Book Title</label>
+          <label for="inputPassword3" class="col-sm-3 control-label text-left">Title</label>
           <div class="col-sm-9">
-             <input type="text" class="form-control"  name="book_name" id="book_name" required="true" placeholder="Book Title">
+             <input type="text" class="form-control"  name="book_name" id="book_name" required="true" placeholder="Title">
           </div>
         </div>
         <div class="form-group">
@@ -78,7 +78,7 @@
         <div class="form-group">
           <label for="inputPassword3" class="col-sm-3 control-label text-left">Author</label>
           <div class="col-sm-9">
-            <input type="text" name="author" id="author" placeholder="Book Author" class="form-control" required />
+            <input type="text" name="author" id="author" placeholder="Author" class="form-control" required />
            <!-- <select class="selectpicker form-control" name='author' data-live-search="true"  id='author' tabindex="2" required>
             <option value="">Please Select</option>
          <?php 
@@ -97,7 +97,7 @@
 	     <div class="form-group">
 	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Publisher</label>
 	          <div class="col-sm-9">
-              <input type="text" name="publisher" id="publisher" placeholder="Book Publisher" class="form-control" required />
+              <input type="text" name="publisher" id="publisher" placeholder="Publisher" class="form-control" required />
 	          <!--  <select class="selectpicker form-control" name='publisher' data-live-search="true" id='publisher' tabindex="2" required>
 	            <option value="">Please Select</option>
 	         <?php 
@@ -118,7 +118,7 @@
 	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Book Copies</label>
 	          <div class="col-sm-9">
 	           
-	             <input type="number" class="form-control" name="book_copies"  id="book_copies" placeholder="Book Copies" >
+	             <input type="number" class="form-control" name="book_copies"  id="book_copies" placeholder="Copies" >
 	          </div>
         </div>
         <div class="form-group">
@@ -140,10 +140,10 @@
 	          </div>
         </div>
         <div class="form-group">
-	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Copyright year</label>
+	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Copyright</label>
 	          <div class="col-sm-9">
 	           
-	             <input type="number" class="form-control" name="cp_yr" id="cp_yr" min="1900" max="2099" step="1" placeholder="Copyright Year" required="true" />
+	             <input type="number" class="form-control" name="cp_yr" id="cp_yr" min="1900" max="2099" step="1" placeholder="Copyright" required="true" />
 	          </div>
         </div>
         <div class="form-group">
@@ -153,15 +153,15 @@
 	             <input type="text" class="form-control" name="isbn" id="isbn" placeholder="ISBN" required="true" />
 	          </div>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="inputPassword3" class="col-sm-3 control-label text-left">Book Location</label>
             <div class="col-sm-9">
              
                <input type="text" class="form-control" name="location" id="location" required="true" />
             </div>
-        </div>
+        </div> -->
         <div class="form-group">
-	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Date Receive</label>
+	          <label for="inputPassword3" class="col-sm-3 control-label text-left">Acquisition Date</label>
 	          <div class="col-sm-9">
 	           
 	             <input type="date" class="form-control"  name="date_rcv"  id="date_rcv" required/>

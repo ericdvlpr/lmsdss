@@ -42,7 +42,7 @@ include 'includes/footer.php';
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Book</h4>
+        <h4 class="modal-title" id="myModalLabel">Add Student</h4>
       </div>
  <form class="form-horizontal" id="studentform" method="Post">
                         <div class="modal-body">
@@ -120,25 +120,12 @@ include 'includes/footer.php';
                             </div>
                           </div>
 
-                          <div class="form-group" id='divPasscode'>
+                          <div class="form-group" >
                             <label for="inputPassword3" class="col-sm-3 control-label text-left">PassCode</label>
-                            <div class="col-sm-5">
-                               <input type="text" class="form-control" name="passcode" id="passcode" required="true" placeholder="Generate Password" />
-                               
-                            </div>
-                            <div class="btn-group col-sm-4">
-                              <button type="button" class="btn btn-primary btn-sm " id="generate" >Generate Passcode</button>
-                            </div>
-                          
-                        </div>
-                        <div class="form-group" id='divPwd'>
-                            <label for="inputPassword3" class="col-sm-3 control-label text-left">PassCode</label>
-                            <div class="col-sm-5">
-                                  <input type="text" class="form-control" name="passcode" id="searchname" required="true" placeholder="Enter Password" > 
+                            <div class="col-sm-9">
+                               <input type="text" class="form-control passcode" name="passcode" id="passcode" required="true" placeholder="Generate Password" />
                             </div>
                         </div>
-                        <br />
-                        <br />
                         <div class="form-group">  
                           <label class="col-sm-3 control-label image text-left">Select Image</label>  
                            <div class="col-sm-9">

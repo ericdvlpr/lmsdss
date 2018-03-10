@@ -53,8 +53,19 @@
            echo $object->get_borrow_report($query);  
 
         }
+        if($_POST["action"] == "BookReturnedReport") { 
+            $query = "SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id WHERE ret=1 ";
+           if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+            $from_date = date("Y-m-d",strtotime($_POST['from_date']));
+            $to_date = date("Y-m-d",strtotime($_POST['to_date']));
+              $query.=" AND on_date >= '".$from_date."' AND due_date <= '".$to_date."'  ";
+            }
+           
+           echo $object->get_return_report($query);  
+
+        }
        if($_POST["action"] == "Bulliten"){
-          echo $object->get_bulliten("SELECT * FROM announcements WHERE status = 1");
+          echo $object->get_bulliten("SELECT * FROM announcements WHERE status = 1 ORDER BY id DESC");
       } 
         //INDEX FUNCTION
       if($_POST["action"] == "announcementIndex"){
@@ -78,7 +89,7 @@
        //Load queries
       if($_POST["action"] == "Announcements")  
       {  
-           echo $object->get_announcements_data("SELECT * FROM announcements ");  
+           echo $object->get_announcements_data("SELECT * FROM announcements ORDER BY id DESC ");  
       }
       if($_POST["action"] == "Book")  
       {  
@@ -305,7 +316,7 @@
       }
 
       if($_POST["action"] == "BookSL") {
-         echo $object->loctatebook("SELECT bk.book_title AS title FROM book bk WHERE bk.book_no='".$_POST['bk_no']."'");
+         echo $object->loctatebook("SELECT bk.book_title AS title, bk.types AS type FROM book bk WHERE bk.book_no='".$_POST['bk_no']."' UNION SELECT av.av_title AS title, av.types AS type FROM audio_visual av WHERE av.av_num = '".$_POST['bk_no']."' UNION SELECT p.per_article AS title, p.types AS type FROM periodical p WHERE p.per_num = '".$_POST['bk_no']."'");
       }
 
       if($_POST["action"] == "addIssueBook") {  
@@ -384,7 +395,7 @@
       }
       
       if($_POST["action"] == "BookSL2") {
-         echo $object->loctatebook2("SELECT bk.book_title AS Title, bb.id as Id, bb.copies AS Copies, bb.on_date AS Ondate, bb.due_date as Due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no WHERE bb.book_no = '".$_POST['bk_no']."' AND bb.borrow_no = '".$_POST['is_no']."'");
+         echo $object->loctatebook2("SELECT bk.book_title AS Title1, av.av_title AS Title2, p.per_article AS Title3, bb.id as Id, bb.copies AS Copies, bb.on_date AS Ondate, bb.due_date as Due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no LEFT JOIN audio_visual av ON bb.book_no = av.av_num LEFT JOIN periodical p ON bb.book_no = p.per_num WHERE bb.book_no = '".$_POST['bk_no']."' AND bb.borrow_no = '".$_POST['is_no']."'");
       }
        if($_POST["action"] == "DeleteReverse") {
           $query = " 
@@ -543,7 +554,7 @@
                  $output["id"] = $row["id"];
                  $output["title"] = $row["title"];
                   $output["content"] = $row["content"];
-                   $output["image"] = "<img src='".$row["img"]."' class='img img-thumbnail' height='150' weight='150'?>";
+                   $output["image"] = "<a href='".$row["img"]."' data-lightbox='image-1'><img src='".$row["img"]."' class='img img-thumbnail' height='550' weight='550'  /></a>";
                   $output["status"] = $row["status"];
                 }
 
@@ -589,6 +600,7 @@
                  $output["username"] = $row["username"];
                   $output["access"] = $row["access"];
                   $output["department"] = $row["department"];
+                  $output["active"] = $row["active"];
                 }
 
                 echo json_encode($output);
@@ -732,6 +744,12 @@
                 echo 'Data Updated';
             }
       //Delete Queries      
+        if($_POST['action']=="Delete Announcement"){
+        
+          $query = "DELETE FROM announcements WHERE id = '".$_POST['announce_id']."' ";
+           $object->execute_query($query);
+           echo "Announcement Deleted";
+        }
         if($_POST['action']=="Delete Book"){
         
           $query = "DELETE FROM book WHERE book_id = '".$_POST['book_id']."' ";
@@ -885,7 +903,7 @@
       if($_POST["action"] == "Search2")  
       {
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_search_data("SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.location, l.library_name as department, b.img AS img  FROM book b LEFT JOIN status s ON s.id = b.status LEFT JOIN libraries l ON b.department = l.id WHERE book_title LIKE '%".$_POST["srch_name"]."%' ORDER BY b.book_title ASC");
+          echo $object->get_search_data("SELECT b.book_title AS ab_title, b.book_no AS ab_id, b.author AS ab_author, b.copyright_year as ab_year, b.book_pub AS ab_pub, b.isbn as ab_isbn, b.location AS ab_loc, l.library_name as ab_dept, b.img AS ab_img, b.types AS ab_type FROM book b LEFT JOIN status s ON s.id = b.status LEFT JOIN libraries l ON b.department = l.id WHERE b.book_title LIKE '%".$_POST["srch_name"]."%' UNION SELECT av.av_title AS ab_title, av.av_num AS ab_id, av.author AS ab_author, av.copyright As ab_year, av.publisher AS book_pub, av.isbn as ab_isbn, av.location AS ab_loc, l.library_name as ab_dept, av.img AS ab_img, av.types AS ab_type FROM audio_visual av LEFT JOIN status s ON s.id = av.status LEFT JOIN libraries l ON av.department = l.id WHERE av.av_title LIKE '%".$_POST["srch_name"]."%'UNION SELECT p.per_article AS ab_title, p.per_num AS ab_id, p.author AS ab_author, p.copyright_year As ab_year, p.publisher AS book_pub, p.isbn as ab_isbn, p.location AS ab_loc, l.library_name as ab_dept, p.img AS ab_img, p.types AS ab_type FROM periodical p LEFT JOIN status s ON s.id = p.status LEFT JOIN libraries l ON p.department = l.id WHERE p.per_article LIKE '%".$_POST["srch_name"]."%'order BY ".$_POST['field']." ASC ");
       }
      if($_POST["action"] == "Book_select")  
       {

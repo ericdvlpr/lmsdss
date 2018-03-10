@@ -64,7 +64,7 @@
                       <li class="footer"><a href="#">View all</a></li>
                     </ul>
                   </li>
-          <?php } ?>
+         
         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -80,6 +80,7 @@
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
+           <?php } ?>
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="hidden-xs"><?php echo $_SESSION['username'];?></span>

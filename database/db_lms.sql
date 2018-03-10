@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2018 at 12:21 PM
--- Server version: 5.7.14
--- PHP Version: 5.6.25
+-- Generation Time: Feb 21, 2018 at 02:33 PM
+-- Server version: 10.1.24-MariaDB
+-- PHP Version: 7.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -78,7 +80,7 @@ CREATE TABLE `announcements` (
 
 INSERT INTO `announcements` (`id`, `title`, `content`, `img`, `date`, `posted_by`, `status`) VALUES
 (1, 'First Annoucement', 'This is a a Announcements', 'images/announcements/6438.jpg', '2018-01-14 09:34:31', '1', 1),
-(2, 'Test', 'testr', 'images/announcements/28555.jpg', '2018-02-13 23:19:57', '1', 0);
+(2, 'Test', 'testr', 'images/announcements/28555.jpg', '2018-02-13 23:19:57', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -147,9 +149,9 @@ CREATE TABLE `book` (
 --
 
 INSERT INTO `book` (`book_id`, `book_no`, `book_title`, `category_id`, `author`, `book_copies`, `book_pub`, `isbn`, `copyright_year`, `date_receive`, `date_added`, `img`, `location`, `department`, `status`) VALUES
-(1, '9789719331704', 'Master English Grammar in 28 Days', 3, 'Romeo Flauta', 9, 'Priority Book ', '971-93317-04', 2011, '2018-01-07', '2018-01-07 15:27:14', 'images/books/93870524.jpg', 'Fil. 657 V173p 2010', '1', '1'),
-(2, '4549660094272', 'Movie Making', 801, 'Naomi De Jesus', 9, 'Ibook', '978-971-0054-12-6', 2011, '2018-01-07', '2018-01-07 20:49:07', 'images/books/1321397098.jpg', 'Fil. 220 G646 1992', '1', '3'),
-(3, '4800639090047', 'Limelight', 2, 'Star360', 9, 'Spiral', 'ISBN 186412', 2018, '2018-02-13', '2018-02-13 23:50:36', 'images/books/285.jpg', 'English', '1', '1');
+(1, '9789719331704', 'Master English Grammar in 28 Days', 6, 'Romeo Flauta', 5, 'Priority Book ', '971-93317-04', 2011, '2018-01-07', '2018-01-07 15:27:14', 'images/books/93870524.jpg', 'Fil. 657 V173p 2010', '1', '1'),
+(2, '4549660094272', 'Movie Making', 6, 'Naomi De Jesus', 8, 'Ibook', '978-971-0054-12-6', 2011, '2018-01-07', '2018-01-07 20:49:07', 'images/books/1321397098.jpg', 'Fil. 220 G646 1992', '1', '3'),
+(3, '4800639090047', 'Limelight', 2, 'Star360', 5, 'Spiral', 'ISBN 186412', 2018, '2018-02-13', '2018-02-13 23:50:36', 'images/books/285.jpg', 'English', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -216,13 +218,21 @@ CREATE TABLE `borrow_book` (
 --
 
 INSERT INTO `borrow_book` (`id`, `borrow_no`, `book_no`, `copies`, `on_date`, `due_date`, `ret`) VALUES
-(30, '16295074  ', '4800639090047', 1, '2018-02-15', '2018-02-14', 0),
-(29, '16295074  ', '4549660094272', 1, '2018-02-15', '2018-02-14', 0),
-(28, '16295074  ', '9789719331704', 1, '2018-02-15', '2018-02-14', 0),
-(27, '85026947', '4549660094272', 3, '2018-02-15', '2018-02-18', 0),
-(26, '01847652', '9789719331704', 1, '2018-02-15', '2018-02-18', 0),
-(25, '01847652', '4800639090047', 2, '2018-02-15', '2018-02-18', 0),
-(24, '06834917', '9789719331704', 2, '2018-02-15', '2018-02-21', 0);
+(4, '85372619', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
+(5, '85372619', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
+(6, '43576129', '9789719331704', 1, '2018-01-20', '2018-01-26', 0),
+(7, '43576129', '4549660094272', 1, '2018-01-20', '2018-01-26', 0),
+(10, '91256783', '9789719331704', 1, '2018-01-13', '2018-01-19', 0),
+(11, '91256783', '4549660094272', 1, '2018-01-13', '2018-01-19', 0),
+(14, '12085496  ', '9789719331704', 1, '2018-01-22', '2018-01-28', 0),
+(15, '23475160  ', '9789719331704', 1, '2018-01-22', '2018-01-28', 0),
+(16, '53906427  ', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
+(17, '39065247  ', '4549660094272', 4, '2018-01-23', '2018-01-29', 0),
+(18, '29168705  ', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
+(19, '34290187  ', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
+(20, '16248593  ', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
+(21, '89473052', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
+(22, '80629475  ', '9789719331704', 1, '2018-01-30', '2018-02-05', 0);
 
 -- --------------------------------------------------------
 
@@ -242,10 +252,18 @@ CREATE TABLE `borrow_details` (
 --
 
 INSERT INTO `borrow_details` (`brdt_id`, `borrow_no`, `member_id`, `activity`) VALUES
-(24, '16295074  ', '73923', 'overdue'),
-(23, '85026947', '123456', 'reserved'),
-(22, '01847652', '739212', 'reserved'),
-(21, '06834917', '7392', 'borrowed');
+(2, '85372619', '73923', 'overdue'),
+(3, '43576129', '739212', 'overdue'),
+(5, '91256783', '7392', 'overdue'),
+(11, '12085496  ', '7392', 'overdue'),
+(12, '23475160  ', '7392', 'overdue'),
+(13, '53906427  ', '7392', 'overdue'),
+(14, '39065247  ', '7392', 'overdue'),
+(15, '29168705  ', '7392', 'overdue'),
+(16, '34290187  ', '7392', 'overdue'),
+(17, '16248593  ', '7392', 'overdue'),
+(18, '89473052', '739212', 'overdue'),
+(19, '80629475  ', '7392', 'overdue');
 
 -- --------------------------------------------------------
 
@@ -255,25 +273,24 @@ INSERT INTO `borrow_details` (`brdt_id`, `borrow_no`, `member_id`, `activity`) V
 
 CREATE TABLE `catalogue` (
   `catalogue_id` int(11) NOT NULL,
-  `catalogue_no` varchar(250) NOT NULL,
-  `cataloguename` varchar(50) DEFAULT NULL
+  `cataloguename` varchar(50) DEFAULT NULL,
+  `catalogue_image` text NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `catalogue`
 --
 
-INSERT INTO `catalogue` (`catalogue_id`, `catalogue_no`, `cataloguename`) VALUES
-(1, '', 'Periodical'),
-(2, '', 'English'),
-(3, '', 'Math'),
-(4, '', 'Science'),
-(5, '', 'Encyclopedia'),
-(6, '', 'Filipiniana'),
-(7, '', 'Newspaper'),
-(8, '', 'General'),
-(9, '', 'References'),
-(801, '  L8347DLF1511723820  ', 'test');
+INSERT INTO `catalogue` (`catalogue_id`, `cataloguename`, `catalogue_image`) VALUES
+(1, 'Periodical', 'images/map/1.png'),
+(2, 'English', 'images/map/2.png'),
+(3, 'Math', 'images/map/3.png'),
+(4, 'Science', 'images/map/4.png'),
+(5, 'Encyclopedia', 'images/map/5.png'),
+(6, 'Filipiniana', 'images/map/6.png'),
+(7, 'Newspaper', 'images/map/7.png'),
+(8, 'General', 'images/map/8.png'),
+(9, 'References', 'images/map/9.png');
 
 -- --------------------------------------------------------
 
@@ -473,6 +490,81 @@ CREATE TABLE `logs` (
   `date_time` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`log_id`, `student_no`, `description`, `date_time`) VALUES
+(1, 'admin', 'Login', '2018-01-20 15:02:32'),
+(2, 'Librarian', 'Login', '2018-01-20 15:24:49'),
+(3, 'Librarian', 'Login', '2018-01-20 15:24:51'),
+(4, '12312123', 'Login', '2018-01-20 15:37:03'),
+(5, '12312123', 'Login', '2018-01-20 15:37:13'),
+(6, '12312123', 'Login', '2018-01-20 16:11:16'),
+(7, '12312123', 'Login', '2018-01-20 16:11:32'),
+(8, '12312123', 'Login', '2018-01-20 16:11:33'),
+(9, '12312123', 'Login', '2018-01-20 16:11:34'),
+(10, '12312123', 'Login', '2018-01-20 16:11:34'),
+(11, 'admin', 'Login', '2018-01-20 16:23:55'),
+(12, 'admin', 'Login', '2018-01-20 16:25:09'),
+(13, '739212', 'Login', '2018-01-20 18:09:57'),
+(14, '739212', 'Login', '2018-01-20 18:21:43'),
+(15, '73923', 'Login', '2018-01-20 18:26:24'),
+(16, '7392', 'Login', '2018-01-20 18:28:32'),
+(17, '7392', 'Login', '2018-01-20 18:30:14'),
+(18, '7392', 'Login', '2018-01-20 18:32:38'),
+(19, '739212', 'Login', '2018-01-20 18:37:21'),
+(20, 'Librarian', 'Login', '2018-01-20 18:38:35'),
+(21, '12312123', 'Login', '2018-01-21 10:31:29'),
+(22, '12312123', 'Login', '2018-01-21 10:37:42'),
+(23, 'admin', 'Login', '2018-01-21 12:09:14'),
+(24, 'admin', 'Login', '2018-01-21 12:09:17'),
+(25, '7392', 'Login', '2018-01-21 15:49:18'),
+(26, '12312123', 'Login', '2018-01-21 18:42:10'),
+(27, '7392', 'Login', '2018-01-21 18:43:59'),
+(28, 'admin', 'Login', '2018-01-21 18:44:37'),
+(29, 'admin', 'Login', '2018-01-21 18:45:36'),
+(30, 'admin', 'Login', '2018-01-21 18:45:48'),
+(31, 'admin', 'Login', '2018-01-21 18:45:56'),
+(32, '7392', 'Login', '2018-01-23 19:01:50'),
+(33, '73923', 'Login', '2018-01-23 19:03:58'),
+(34, '73923', 'Login', '2018-01-23 19:04:00'),
+(35, '739212', 'Login', '2018-01-23 19:04:11'),
+(36, 'Librarian', 'Login', '2018-01-23 19:53:28'),
+(37, 'Librarian', 'Login', '2018-01-23 19:53:31'),
+(38, 'Librarian', 'Login', '2018-01-23 21:18:21'),
+(39, '7392', 'Login', '2018-01-23 21:28:59'),
+(40, '739212', 'Login', '2018-01-23 21:31:49'),
+(41, 'Librarian', 'Login', '2018-01-23 21:34:17'),
+(42, '12312123', 'Login', '2018-01-23 21:42:00'),
+(43, 'Librarian', 'Login', '2018-01-23 21:57:18'),
+(44, 'Librarian', 'Login', '2018-01-23 21:57:26'),
+(45, '7392', 'Login', '2018-01-23 22:26:04'),
+(46, 'Librarian', 'Login', '2018-01-23 22:26:59'),
+(47, '7392', 'Login', '2018-01-23 22:31:16'),
+(48, 'admin', 'Login', '2018-01-28 07:50:03'),
+(49, 'admin', 'Login', '2018-01-28 07:52:58'),
+(50, 'admin', 'Login', '2018-01-28 11:55:03'),
+(51, 'admin', 'Login', '2018-01-28 11:55:06'),
+(52, 'admin', 'Login', '2018-01-29 20:36:13'),
+(53, 'admin', 'Login', '2018-02-04 16:34:34'),
+(54, 'admin', 'Login', '2018-02-04 21:04:38'),
+(55, 'admin', 'Login', '2018-02-04 21:04:40'),
+(56, 'admin', 'Login', '2018-02-04 21:04:47'),
+(57, 'admin', 'Login', '2018-02-05 22:05:54'),
+(58, 'admin', 'Login', '2018-02-08 18:13:49'),
+(59, 'admin', 'Login', '2018-02-08 18:13:54'),
+(60, 'admin', 'Login', '2018-02-13 20:42:54'),
+(61, 'admin', 'Login', '2018-02-13 20:47:32'),
+(62, 'admin', 'Login', '2018-02-13 22:27:53'),
+(63, 'admin', 'Login', '2018-02-13 22:29:56'),
+(64, 'admin', 'Login', '2018-02-13 23:18:17'),
+(65, 'admin', 'Login', '2018-02-21 13:44:16'),
+(66, 'admin', 'Login', '2018-02-21 13:44:24'),
+(67, '7392', 'Login', '2018-02-21 14:13:38'),
+(68, '7392', 'Login', '2018-02-21 15:24:07'),
+(69, '7392', 'Login', '2018-02-21 19:54:13');
+
 -- --------------------------------------------------------
 
 --
@@ -491,7 +583,7 @@ CREATE TABLE `maintenace` (
 --
 
 INSERT INTO `maintenace` (`pri_id`, `men_1`, `men_2`, `men_3`) VALUES
-(1, 4, 60, 4);
+(1, 3, 60, 4);
 
 -- --------------------------------------------------------
 
@@ -511,7 +603,7 @@ CREATE TABLE `message_board` (
 --
 
 INSERT INTO `message_board` (`pre_id`, `doc_id`, `header`, `footer`) VALUES
-(1, 'BRBKWR001', '  Good Day, \r\n       The Following Book(s) has(have) Not been return:', '	 Please Return The Following Book(s) Imideately To Avoid Penalties.'),
+(1, 'BRBKWR001', '  Good Day, \r\n       The Following Book(s) has Not been return:', '	 Please Return The Following Book(s) Imideately To Avoid Penalties.'),
 (2, 'ODBRBK002', 'Good Days\r\n     The Following book(s) is (are) now over due:', '     Please Return The Following Book(s) Imideately to avoid further penalties.'),
 (3, 'NWBRBK002', 'Good Day... \r\n    The following books is(are) now been borrowed:', '    Please Be Advise that you must return the following book(s) before or on date to avoid penalties.');
 
@@ -565,7 +657,18 @@ CREATE TABLE `over_due` (
 --
 
 INSERT INTO `over_due` (`id`, `issue_id`, `prev_send`, `next_send`, `member_id`, `sent`) VALUES
-(32, '16295074  ', '2018-02-15', '2018-02-18', '73923', 1);
+(20, '91256783', '2018-01-23', '2018-01-26', '7392', 0),
+(21, '43576129', '2018-01-28', '2018-01-31', '739212', 0),
+(22, '12085496  ', '2018-01-29', '2018-02-01', '7392', 0),
+(23, '23475160  ', '2018-01-29', '2018-02-01', '7392', 0),
+(24, '53906427  ', '2018-01-30', '2018-02-02', '7392', 0),
+(25, '39065247  ', '2018-01-30', '2018-02-02', '7392', 0),
+(26, '29168705  ', '2018-01-30', '2018-02-02', '7392', 0),
+(27, '34290187  ', '2018-01-30', '2018-02-02', '7392', 0),
+(28, '16248593  ', '2018-01-30', '2018-02-02', '7392', 0),
+(29, '85372619', '2018-01-30', '2018-02-02', '73923', 0),
+(30, '89473052', '2018-01-30', '2018-02-02', '739212', 0),
+(31, '80629475  ', '2018-02-09', '2018-02-12', '7392', 0);
 
 -- --------------------------------------------------------
 
@@ -670,7 +773,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`id`, `student_id`, `student_name`, `gender`, `address`, `contact`, `year_level`, `type`, `passcode`, `dept`, `course`, `active`, `image`) VALUES
-(1, 7392, 'Mark Cruz', 'Male', '', '09291953693', 1, '0', '7a1d9028a78f418cb8f01909a348d9b2', 1, 1, 1, 'img/student_images/1021942190.jpg'),
+(1, 7392, 'Mark Cruz', 'Male', '', '09291953693', 1, '0', 'e10adc3949ba59abbe56e057f20f883e', 1, 1, 1, 'img/student_images/1021942190.jpg'),
 (2, 73923, 'Joseph Dela Cruz', 'Male', '', '09291953693', 2, '1', 'd09bf41544a3365a46c9077ebb5e35c3', 4, 23, 1, 'img/student_images/1431045741.jpg'),
 (3, 739212, 'Dianna Lopez', 'Female', '', '09291953693', 3, '2', '827ccb0eea8a706c4c34a16891f84e7b', 1, 1, 1, 'img/student_images/1539155088.jpg');
 
@@ -937,12 +1040,12 @@ ALTER TABLE `book_request`
 -- AUTO_INCREMENT for table `borrow_book`
 --
 ALTER TABLE `borrow_book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `borrow_details`
 --
 ALTER TABLE `borrow_details`
-  MODIFY `brdt_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `brdt_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `catalogue`
 --
@@ -982,12 +1085,7 @@ ALTER TABLE `libraries`
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `maintenace`
---
-ALTER TABLE `maintenace`
-  MODIFY `pri_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT for table `message_board`
 --
@@ -1002,7 +1100,7 @@ ALTER TABLE `notification`
 -- AUTO_INCREMENT for table `over_due`
 --
 ALTER TABLE `over_due`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `penalty`
 --
@@ -1032,7 +1130,8 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

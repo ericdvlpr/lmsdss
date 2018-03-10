@@ -17,6 +17,7 @@
 <!-- AdminLTE App -->
 <script src="js/adminlte.min.js"></script>
 <script src="js/bootstrap-select.min.js"></script> 
+<script src="js/lightbox.js"></script>
 <!-- 		  <script src="js/jquery.dataTables.min.js"></script>    -->
 		 <script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 		 <script src="js/search.js"></script>

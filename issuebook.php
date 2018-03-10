@@ -7,14 +7,14 @@
                                 <div class="box-header">
                                 <div class="btn-group pull-right">
                                             <a href="issuedBook.php" id="issue_book" class="btn btn-success"  >
-                                              Issue Book
+                                              Check Out
                                             </a> 
                                             
                                             <a href="returnBook.php" id="issue_book" class="btn btn-warning"  >
-                                              Returned Book
+                                              Check In
                                             </a>
                                         </div>
-                                       <h3 class="box-title">Borrowed Books</h3>
+                                       <h3 class="box-title">Check Out</h3>
                                 </div>
                                 <div class="box-body">
                                     <div  class="table-responsive"> 
