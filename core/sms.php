@@ -2,7 +2,7 @@
 
 $number = $_POST["nos"];
 $message =$_POST["mess"];
-$apicode = "TR-ERICP953693_9ZK94";
+$apicode = "TR-TESTC325356_KFHNM";
 		
 
 			//echo $message; 

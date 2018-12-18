@@ -14,30 +14,42 @@
       
     </form> 
         </div>
+    <div align="center">
+        <button class="btn btn-default" name="br_book" id="bt">Title</button>
+        <button class="btn btn-default" name="br_book" id="ba">Author</button>
+        <button class="btn btn-default" name="br_book" id="bi">ISBN</button>
+        <button class="btn btn-default" name="br_book" id="bc">Call No.</button>
 
-  <br />
-    <div>
-    <table id="sc_table" class="table table-bordered">  
-            <thead>
-              <tr>
-                  <th width="30%"></th>
-                    <th></th>  
-              </tr>
-            </thead>
-            <tbody id="search_table">
-
-            </tbody>
-         </table>
     </div>
+    <div>       
+        <table id="sc_table"  class="table table-bordered">  
+                <thead>
+                <tr>
+                    <th width="50%"></th>
+                    <th></th>  
+                </tr>
+                </thead>
+                <tbody id="search_table">
+
+                </tbody>
+        </table>
+    </div>
+  
+
+
+
   </div>
-  <div class="modal fade" tabindex="-1" role="dialog" id=mod_info>
+  
+
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="mod_info">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title" id="mod_title"></h4>
+        <h4 class="modal-title book_title" id="mod_title"></h4>
       </div>
       <div class="modal-body">
-        <p id="mod_data" align="center"></p>
+        <p id="mod_data" align="center" class="book_specs"></p>
       </div>
       <div class="modal-footer">
         
@@ -47,12 +59,12 @@
 </div><!-- /.modal -->   
 
 
-<div class="modal fade" tabindex="-1" role="dialog" id=modal_select>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_select">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-        <h4 class="modal-title" id="book_title"></h4>
+        <h4 class="modal-title book_title" id="book_title"></h4>
       </div>
       <div class="modal-body">
         <table>

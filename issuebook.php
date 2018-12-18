@@ -1,20 +1,18 @@
 <?php include 'includes/header.php';?>  
                     <?php include 'includes/sidemenu.php'; ?>
     <section class="content">
-                     <div class="col-md-12">
-                        <br />
                             <div class="box box-solid box-primary">
                                 <div class="box-header">
                                 <div class="btn-group pull-right">
                                             <a href="issuedBook.php" id="issue_book" class="btn btn-success"  >
-                                              Issue Book
+                                              Check Out
                                             </a> 
                                             
                                             <a href="returnBook.php" id="issue_book" class="btn btn-warning"  >
-                                              Returned Book
+                                              Check In
                                             </a>
                                         </div>
-                                       <h3 class="box-title">Borrowed Books</h3>
+                                       <h3 class="box-title">Check Out</h3>
                                 </div>
                                 <div class="box-body">
                                     <div  class="table-responsive"> 
@@ -23,7 +21,7 @@
                                             <thead align="center">  
                                                  <th width="12%" align="center">Issue No</th>  
                                                  <th width="24%" align="center">Student / Faculty Name</th>    
-                                                 <th width="28%" align="center">Book(s)</th>    
+                                                 <th width="28%" align="center">Material(s)</th>    
                                                  <th width="12%" align="center">Date Issued</th>  
                                                  <th width="12%" align="center">Return Date</th>  
                                                  <th width="12%" align="center">Status</th>  
@@ -33,7 +31,6 @@
                                     </div> 
                                 </div>
                             </div>
-                       </div> 
       </section>      
 <?php 
 include 'includes/footer.php';

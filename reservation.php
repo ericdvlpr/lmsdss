@@ -13,9 +13,7 @@
                       <thead align="center">  
                            <th width="12%" align="center">Issue No</th>  
                                <th width="20%" align="center">Student / Faculty Name</th>    
-                           <th width="28%" align="center">Book(s)</th> 
-                           <th width="12%" align="center">Date Issued</th>  
-                           <th width="12%" align="center">Return Date</th>   
+                           <th width="28%" align="center">Book(s)</th>    
                                    <th width="8%" align="center">Status</th>  
                            <th width="8%" align="center">Command</th>  
                       </thead> 

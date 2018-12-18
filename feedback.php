@@ -25,7 +25,7 @@
 								    </div>
 								  </div>
 								    <input type="hidden" name="action" id="action" value="addFeedBack" />
-								    <input type="hidden" name="student_id" id="student_id" value="<?php echo $_SESSION['username']; ?>" />
+								    <input type="hidden" name="student_id" id="student_id" value="<?php echo $_SESSION['id']; ?>" />
 							</form>
 			          </div>  
            </div>

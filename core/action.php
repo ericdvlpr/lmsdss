@@ -16,21 +16,44 @@
            
           echo $object->get_bookReport($query);
         }
+         if($_POST["action"] == "periodicalReport"){
+            $query = "SELECT * FROM periodical  ";
+            if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+              $query.="WHERE date_receive BETWEEN '".$_POST['from_date']."' AND '".$_POST['to_date']."'";
+            }
+             if(!empty($_POST['status'])){
+              $query.=" AND status = '".$_POST['status']."'";
+            }
+           
+          echo $object->get_periodicalReport($query);
+        }
+        if($_POST["action"] == "AudioReport"){
+            $query = "SELECT * FROM audio_visual  ";
+            if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+              $query.="WHERE date_receive BETWEEN '".$_POST['from_date']."' AND '".$_POST['to_date']."'";
+            }
+             if(!empty($_POST['status'])){
+              $query.=" AND status = '".$_POST['status']."'";
+            }
+           
+          echo $object->get_audioReport($query);
+        }
+        if($_POST["action"] == "ReferrenceReport"){
+            $query = "SELECT * FROM book_request br JOIN faculty f ON br.faculty_id = f.faculty_no  ";
+            if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+              $query.="WHERE date_requested BETWEEN '".$_POST['from_date']."' AND '".$_POST['to_date']."'";
+            }
+             if(!empty($_POST['status'])){
+              $query.=" AND status = '".$_POST['status']."'";
+            }
+           
+          echo $object->get_request_report($query);
+        }
         if($_POST["action"] == "studentReport") {
-              $query = "SELECT * FROM students s LEFT JOIN departments d ON d.dept_id = s.dept LEFT JOIN courses c ON c.course_id =s.course WHERE true ";
-            if(!empty($_POST['department'])){
-              $query.="AND dept = '".$_POST['department']."'";
+              $query = "SELECT * FROM borrow_details bd JOIN borrow_book USING (borrow_no) JOIN students s ON bd.member_id = s.student_id LEFT JOIN departments d ON d.dept_id = s.dept LEFT JOIN courses c ON c.course_id =s.course  WHERE true ";
+          if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
+              $query.="AND on_date BETWEEN '".$_POST['from_date']."' AND '".$_POST['to_date']."'";
             }
-             if(!empty($_POST['course'])){
-              $query.=" AND course = '".$_POST['course']."'";
-            }
-            if(!empty($_POST['year'])){
-              $query.=" AND year_level = '".$_POST['year']."'";
-            }
-            if(!empty($_POST['id'])){
-              $query.=" AND student_id LIKE '%".$_POST['id']."%'";
-            }
-            
           echo $object->get_studentReport($query);
         }
         if($_POST["action"] == "BookRequestReport") { 
@@ -43,7 +66,7 @@
 
         }
         if($_POST["action"] == "BookIssueReport") { 
-            $query = "SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id";
+             $query = "SELECT *,av.av_title as title ,p.per_article as title, b.book_title as title FROM borrow_book bb JOIN borrow_details bd USING (borrow_no) LEFT JOIN book b USING (book_no) LEFT JOIN periodical p ON p.per_num = bb.book_no LEFT JOIN audio_visual av ON av.av_num = bb.book_no JOIN students s ON bd.member_id = s.student_id";
            if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
             $from_date = date("Y-m-d",strtotime($_POST['from_date']));
             $to_date = date("Y-m-d",strtotime($_POST['to_date']));
@@ -53,19 +76,8 @@
            echo $object->get_borrow_report($query);  
 
         }
-        if($_POST["action"] == "BookReturnedReport") { 
-            $query = "SELECT * FROM borrow_book bb JOIN borrow_details bd  USING (borrow_no) JOIN book b USING (book_no) JOIN students s ON bd.member_id = s.student_id WHERE ret=1 ";
-           if(!empty($_POST['from_date']) && !empty($_POST['to_date'])){
-            $from_date = date("Y-m-d",strtotime($_POST['from_date']));
-            $to_date = date("Y-m-d",strtotime($_POST['to_date']));
-              $query.=" AND on_date >= '".$from_date."' AND due_date <= '".$to_date."'  ";
-            }
-           
-           echo $object->get_return_report($query);  
-
-        }
        if($_POST["action"] == "Bulliten"){
-          echo $object->get_bulliten("SELECT * FROM announcements WHERE status = 1");
+          echo $object->get_bulliten("SELECT * FROM announcements WHERE status = 1 ORDER BY id DESC");
       } 
         //INDEX FUNCTION
       if($_POST["action"] == "announcementIndex"){
@@ -89,11 +101,19 @@
        //Load queries
       if($_POST["action"] == "Announcements")  
       {  
-           echo $object->get_announcements_data("SELECT * FROM announcements ");  
+           echo $object->get_announcements_data("SELECT * FROM announcements ORDER BY id DESC ");  
       }
       if($_POST["action"] == "Book")  
       {  
-           echo $object->get_book_data("SELECT * FROM book b LEFT JOIN authors a ON a.id =b.author LEFT JOIN publishers p ON p.id=b.book_pub JOIN status s ON s.id = b.status LEFT JOIN catalogue c on b.category_id = c.catalogue_id ");  
+           echo $object->get_book_data("SELECT * FROM book b JOIN status s ON s.id = b.status  ");  
+      }
+      if($_POST["action"] == "Periodical")  
+      {  
+           echo $object->get_periodical_data("SELECT * FROM periodical ");  
+      } 
+      if($_POST["action"] == "Audio")  
+      {  
+           echo $object->get_audio_data("SELECT * FROM audio_visual ");  
       }  
        if($_POST["action"] == "Catalogoue")  
       {  
@@ -236,7 +256,43 @@
            (book_no,book_title, category_id, author, book_copies, book_pub, isbn, copyright_year,date_receive,img,location,department,status)   
            VALUES ('".$book_no."', '".$book_name."', '".$category."','".$author."','".$book_copies."','".$publisher."','".$isbn."','".$cp_yr."','".$date_rcv."','".$path."','".$location."','".$_SESSION["department"]."','".$status."')";  
            $object->execute_query($query);  
-           echo 'Data Inserted';  
+           echo 'Book Inserted';  
+
+      }
+      if($_POST["action"] == "addPeriodical") { 
+         $accession_no = mysqli_real_escape_string($object->connect, $_POST["accession_no"]);
+         $article_title = mysqli_real_escape_string($object->connect, $_POST["article_title"]);
+         $period_title = mysqli_real_escape_string($object->connect, $_POST["period_title"]);
+         $publisher = mysqli_real_escape_string($object->connect, $_POST["publisher"]);
+         $volumn_num = mysqli_real_escape_string($object->connect, $_POST["volumn_num"]);
+         $issue_num = mysqli_real_escape_string($object->connect, $_POST["issue_num"]);
+         $total_pages = mysqli_real_escape_string($object->connect, $_POST["total_pages"]);
+         $author = mysqli_real_escape_string($object->connect, $_POST["author"]);
+         $location = mysqli_real_escape_string($object->connect, $_POST["location"]);
+          $path = mysqli_real_escape_string($object->connect, $_POST["path"]);
+            $query = "  
+           INSERT INTO periodical  
+           (accession_num,title_article, title_periodical, publisher, volumn_num, issue_num, total_pages,author, location,img,department)   
+           VALUES ('".$accession_no."', '".$article_title."','".$period_title."', '".$publisher."','".$volumn_num."','".$issue_num."','".$total_pages."','".$author."','".$location."','".$path."','".$_SESSION["department"]."')";  
+           $object->execute_query($query);  
+          echo 'Periodical Inserted';  
+
+      }
+      if($_POST["action"] == "addAudio") { 
+               $accession_no=mysqli_real_escape_string($object->connect, $_POST["accession_no"]);
+               $category_title=mysqli_real_escape_string($object->connect, $_POST["category_title"]);
+               $publisher=mysqli_real_escape_string($object->connect, $_POST["publisher"]);
+               $run_time=mysqli_real_escape_string($object->connect, $_POST["run_time"]);
+               $author=mysqli_real_escape_string($object->connect, $_POST["author"]);
+               $copyright=mysqli_real_escape_string($object->connect, $_POST["copyright"]);
+               $path = mysqli_real_escape_string($object->connect, $_POST["path"]);
+               $location = mysqli_real_escape_string($object->connect, $_POST["location"]);
+            $query = "  
+           INSERT INTO audio_visual  
+           (av_num,av_title, publisher, runningtime, author, copyright, location,img,department)   
+           VALUES ('".$accession_no."', '".$category_title."','".$publisher."','".$run_time."','".$author."','".$copyright."','".$location."','".$path."','".$_SESSION["department"]."')";  
+           $object->execute_query($query);  
+           echo 'Audio Visual Inserted';  
 
       }
       if($_POST["action"] == "addAnnouncement") {  
@@ -316,7 +372,7 @@
       }
 
       if($_POST["action"] == "BookSL") {
-         echo $object->loctatebook("SELECT bk.book_title AS title FROM book bk WHERE bk.book_no='".$_POST['bk_no']."'");
+         echo $object->loctatebook("SELECT bk.book_title AS title, bk.types AS type FROM book bk WHERE bk.book_no='".$_POST['bk_no']."' UNION SELECT av.av_title AS title, av.types AS type FROM audio_visual av WHERE av.av_num = '".$_POST['bk_no']."' UNION SELECT p.per_article AS title, p.types AS type FROM periodical p WHERE p.per_num = '".$_POST['bk_no']."'");
       }
 
       if($_POST["action"] == "addIssueBook") {  
@@ -342,7 +398,7 @@
                }
 
                if(!$missing){ 
-               $Mess = $object->get_message_head('NWBRBK002')."\n";
+               //$Mess = $object->get_message_head('NWBRBK002')."\n";
                for($count = 0; $count < count($_POST["bookID"]); $count++)
                 {  
                   
@@ -365,7 +421,7 @@
                     $object->execute_query($query0);
                   }
                 //*/
-               $Mess.="\t\t".$bookTitle." (".$date_returned.") \n "; 
+               $Mess = "Please return the borrowed books on or before ".$date_returned; 
                
                 }
                 //*
@@ -384,7 +440,7 @@
                 }
                //*/
                 
-                $Mess .= $object->get_message_foot('NWBRBK002');
+                //$Mess .= $object->get_message_foot('NWBRBK002');
                 echo $Mess.'|'.$contactN.'|Issue Inserted, Message Sent';
               }else{
                 echo '0';
@@ -395,7 +451,7 @@
       }
       
       if($_POST["action"] == "BookSL2") {
-         echo $object->loctatebook2("SELECT bk.book_title AS Title, bb.id as Id, bb.copies AS Copies, bb.on_date AS Ondate, bb.due_date as Due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no WHERE bb.book_no = '".$_POST['bk_no']."' AND bb.borrow_no = '".$_POST['is_no']."'");
+         echo $object->loctatebook2("SELECT bk.book_title AS Title1, av.av_title AS Title2, p.per_article AS Title3, bb.id as Id, bb.copies AS Copies, bb.on_date AS Ondate, bb.due_date as Due FROM borrow_book bb LEFT JOIN book bk ON bk.book_no = bb.book_no LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no LEFT JOIN audio_visual av ON bb.book_no = av.av_num LEFT JOIN periodical p ON bb.book_no = p.per_num WHERE bb.book_no = '".$_POST['bk_no']."' AND bb.borrow_no = '".$_POST['is_no']."'");
       }
        if($_POST["action"] == "DeleteReverse") {
           $query = " 
@@ -450,7 +506,7 @@
                $date_requested = date("Y-m-d");
             $query = "  
            INSERT INTO book_request  
-           (request_no,book_title,author,copies,date_requested,status,user_id)   
+           (request_no,book_title,author,copies,date_requested,status,faculty_id)   
            VALUES ('".$request_no."', '".$book_title."', '".$author."','".$copies."','".$date_requested."','0','".$_SESSION['id']."')";  
            $object->execute_query("INSERT INTO notification(notif_id_type,notif_type,notif_subject,notif_text,notif_status,user_id) VALUES('1','request','Requested for Book','".$book_title."','0','".$_SESSION['id']."')"); 
            $object->execute_query($query); 
@@ -521,6 +577,48 @@
                   $output["status"] = $row["status"];
                   
             
+                }
+
+                echo json_encode($output);
+                
+      }
+      if($_POST["action"]=="Fetch Periodical Data") {
+      
+                $output =array();
+                $query = "SELECT * FROM periodical WHERE periodical_id ='".$_POST['periodical_id']."'";
+               $result = $object->execute_query($query);
+                while($row = mysqli_fetch_array($result)) {
+                   $output["periodical_id"] =$row["periodical_id"];
+                   $output["accession_no"] =$row["per_num"];
+                   $output["article_title"] =$row["per_article"];
+                   $output["period_title"] =$row["title_periodical"];
+                   $output["publisher"] =$row["publisher"];
+                   $output["volumn_num"] =$row["volumn_num"];
+                   $output["issue_num"] =$row["issue_num"];
+                   $output["total_pages"] =$row["total_pages"];
+                   $output["author"] =$row["author"];
+                   $output["location"] =$row["location"];
+                   $output["uploaded_image"] = "<img src='".$row["img"]."' class='img img-thumbnail' height='50' weight='50'?>";
+                }
+
+                echo json_encode($output);
+                
+      }
+      if($_POST["action"]=="Fetch Audio Data") {
+      
+                $output =array();
+                $query = "SELECT * FROM audio_visual WHERE av_id ='".$_POST['audio_id']."'";
+               $result = $object->execute_query($query);
+                while($row = mysqli_fetch_array($result)) {
+                  $output["av_id"] = $row["av_id"];
+                  $output["accession_no"] = $row["av_num"];
+                  $output["category_title"] = $row["av_title"];
+                  $output["publisher"] = $row["publisher"];
+                  $output["run_time"] = $row["runningtime"];
+                  $output["author"] = $row["author"];
+                  $output["copyright"] = $row["copyright"];
+                   $output["location"] =$row["location"];
+                   $output["uploaded_image"] = "<img src='".$row["img"]."' class='img img-thumbnail' height='50' weight='50'?>";
                 }
 
                 echo json_encode($output);
@@ -626,6 +724,7 @@
                $query = "SELECT * FROM students WHERE student_id ='".$_POST['studentID']."'";
                $result = $object->execute_query($query);
                 while($row = mysqli_fetch_array($result)) {
+                   $output["id"] =$row["id"];
                    $output["student_id"] =$row["student_id"];
                    $output["student_name"] =$row["student_name"];
                    $output["gender"] =$row["gender"];
@@ -656,7 +755,7 @@
       }
 
        //Update queries
-      if($_POST['action']=="Edit") {
+          if($_POST['action']=="Edit") {
               
               
                $book_id = mysqli_escape_string($object->connect,$_POST["book_id"]);
@@ -669,10 +768,41 @@
                $date_rcv = mysqli_escape_string($object->connect,$_POST["date_rcv"]);
                $status = mysqli_escape_string($object->connect,$_POST["status"]);
                $isbn = mysqli_escape_string($object->connect,$_POST["isbn"]);
+               $path = mysqli_escape_string($object->connect,$_POST["path"]);
 
-                $query = "UPDATE book SET book_title ='$book_title', category_id = '$category_id', author='$author_name', book_copies='$book_copies', book_pub='$book_publisher', isbn='$isbn',copyright_year='$cp_yr',date_receive='$date_rcv',status='$status' WHERE book_id = '".$_POST['book_id']."' ";
+                $query = "UPDATE book SET book_title ='$book_title', category_id = '$category_id', author='$author_name', book_copies='$book_copies', book_pub='$book_publisher', isbn='$isbn',copyright_year='$cp_yr',date_receive='$date_rcv',status='$status',img='$path' WHERE book_id = '".$_POST['book_id']."' ";
               $object->execute_query($query);
               echo 'Data Updated';/**/
+            } 
+             if($_POST['action']=="Edit Periodical") {
+              $accession_no = mysqli_real_escape_string($object->connect, $_POST["accession_no"]);
+               $article_title = mysqli_real_escape_string($object->connect, $_POST["article_title"]);
+               $period_title = mysqli_real_escape_string($object->connect, $_POST["period_title"]);
+               $publisher = mysqli_real_escape_string($object->connect, $_POST["publisher"]);
+               $volumn_num = mysqli_real_escape_string($object->connect, $_POST["volumn_num"]);
+               $issue_num = mysqli_real_escape_string($object->connect, $_POST["issue_num"]);
+               $total_pages = mysqli_real_escape_string($object->connect, $_POST["total_pages"]);
+               $author = mysqli_real_escape_string($object->connect, $_POST["author"]);
+               $location = mysqli_real_escape_string($object->connect, $_POST["location"]);
+                $path = mysqli_real_escape_string($object->connect, $_POST["path"]);
+                 $query = "UPDATE periodical SET per_num ='$accession_no', per_article = '$article_title', title_periodical='$period_title', publisher='$publisher', volumn_num='$volumn_num', issue_num='$issue_num',total_pages='$total_pages',author='$author',location='$location',img='$path' WHERE periodical_id = '".$_POST['periodical_id']."' ";
+              $object->execute_query($query);
+              echo 'Periodical Data Updated';/**/
+            } 
+            if($_POST['action']=="Edit Audio") {
+                $accession_no=mysqli_real_escape_string($object->connect, $_POST["accession_no"]);
+               $category_title=mysqli_real_escape_string($object->connect, $_POST["category_title"]);
+               $publisher=mysqli_real_escape_string($object->connect, $_POST["publisher"]);
+               $run_time=mysqli_real_escape_string($object->connect, $_POST["run_time"]);
+               $author=mysqli_real_escape_string($object->connect, $_POST["author"]);
+               $copyright=mysqli_real_escape_string($object->connect, $_POST["copyright"]);
+               $path = mysqli_real_escape_string($object->connect, $_POST["path"]);
+               $location = mysqli_real_escape_string($object->connect, $_POST["location"]);
+             $query = "  
+           UPDATE audio_visual SET
+           av_num ='$accession_no',av_title='$category_title', publisher='$publisher', runningtime='$run_time', author='$author', copyright='$copyright', location='$location',img='$path' WHERE av_id = '".$_POST['audio_id']."' ";
+              $object->execute_query($query);
+              echo 'Audio Data Updated';/**/
             } 
             if($_POST['action']=="Edit Announcement") {
                $title = mysqli_escape_string($object->connect,$_POST["title"]);
@@ -732,18 +862,24 @@
                  $dept=mysqli_real_escape_string($object->connect, $_POST["department"]);
                  $course=mysqli_real_escape_string($object->connect, $_POST["course"]);
                  $courYr=mysqli_real_escape_string($object->connect, $_POST["course-year"]);
-                 $passcode=mysqli_real_escape_string($object->connect, $_POST["passcode"]);
-                 $pwd=mysqli_real_escape_string($object->connect, $_POST["pwd"]);
+                 $passcode=mysqli_real_escape_string($object->connect, md5($_POST["passcode"]));
+                 $type=mysqli_real_escape_string($object->connect, $_POST["type"]);
                  $address=mysqli_real_escape_string($object->connect, $_POST["address"]);
                  $sex=mysqli_real_escape_string($object->connect, $_POST["sex"]);
                  $contact=mysqli_real_escape_string($object->connect, $_POST["contact"]);
+                 $path = mysqli_escape_string($object->connect,$_POST["path"]);
 
-
-                $query = "UPDATE students SET student_no = '$student_no',student_name='$student_name',address='$address',sex='$sex',contact='$contact',dept='$dept',course='$course',pwd='$pwd',passcode='$passcode' WHERE id = '".$_POST['student_id']."' ";
+                   $query = "UPDATE students SET student_id = '$student_no',student_name='$student_name',address='$address',gender='$sex',contact='$contact',dept='$dept',course='$course',type='$type',passcode='$passcode',image='$path',year_level='$courYr' WHERE id = '".$_POST['student_id']."' ";
                 $object->execute_query($query);
                 echo 'Data Updated';
             }
       //Delete Queries      
+        if($_POST['action']=="Delete Announcement"){
+        
+          $query = "DELETE FROM announcements WHERE id = '".$_POST['announce_id']."' ";
+           $object->execute_query($query);
+           echo "Announcement Deleted";
+        }
         if($_POST['action']=="Delete Book"){
         
           $query = "DELETE FROM book WHERE book_id = '".$_POST['book_id']."' ";
@@ -894,11 +1030,13 @@
                 }
 
 
-      if($_POST["action"] == "Search2")  
+     if($_POST["action"] == "Search2")  
       {
+        // echo "SELECT b.book_title AS ab_title, b.book_no AS ab_id, b.author AS ab_author, b.copyright_year as ab_year, b.book_pub AS ab_pub, b.isbn as ab_isbn, b.location AS ab_loc, l.library_name as ab_dept, b.img AS ab_img, b.types AS ab_type FROM book b LEFT JOIN status s ON s.id = b.status LEFT JOIN libraries l ON b.department = l.id WHERE b.book_title LIKE '%".$_POST["srch_name"]."%' UNION SELECT av.av_title AS ab_title, av.av_num AS ab_id, av.author AS ab_author, av.copyright As ab_year, av.publisher AS book_pub, av.isbn as ab_isbn, av.location AS ab_loc, l.library_name as ab_dept, av.img AS ab_img, av.types AS ab_type FROM audio_visual av LEFT JOIN status s ON s.id = av.status LEFT JOIN libraries l ON av.department = l.id WHERE av.av_title LIKE '%".$_POST["srch_name"]."%' UNION SELECT p.per_article AS ab_title, p.per_num AS ab_id, p.author AS ab_author, p.copyright_year As ab_year, p.publisher AS book_pub, p.isbn as ab_isbn, p.location AS ab_loc, l.library_name as ab_dept, p.img AS ab_img, p.types AS ab_type FROM periodical p LEFT JOIN status s ON s.id = p.status LEFT JOIN libraries l ON p.department = l.id WHERE p.per_article LIKE '%".$_POST["srch_name"]."%' Order BY ".$_POST['field']." ASC ";
           //"searching for ".$_POST["srch_name"]; 
-          echo $object->get_search_data("SELECT b.book_title, b.book_no AS book_id, b.author AS author, b.copyright_year, b.book_pub AS book_pub, b.isbn, b.location, l.library_name as department, b.img AS img  FROM book b LEFT JOIN status s ON s.id = b.status LEFT JOIN libraries l ON b.department = l.id WHERE book_title LIKE '%".$_POST["srch_name"]."%' ORDER BY b.book_title ASC");
+          echo $object->get_search_data("SELECT b.book_title AS ab_title, b.book_no AS ab_id, b.author AS ab_author, b.copyright_year as ab_year, b.book_pub AS ab_pub, b.isbn as ab_isbn, b.location AS ab_loc, l.library_name as ab_dept, b.img AS ab_img, b.types AS ab_type FROM book b LEFT JOIN status s ON s.id = b.status LEFT JOIN libraries l ON b.department = l.id WHERE b.book_title LIKE '%".$_POST["srch_name"]."%' UNION SELECT av.av_title AS ab_title, av.av_num AS ab_id, av.author AS ab_author, av.copyright As ab_year, av.publisher AS book_pub, av.isbn as ab_isbn, av.location AS ab_loc, l.library_name as ab_dept, av.img AS ab_img, av.types AS ab_type FROM audio_visual av LEFT JOIN status s ON s.id = av.status LEFT JOIN libraries l ON av.department = l.id WHERE av.av_title LIKE '%".$_POST["srch_name"]."%' UNION SELECT p.per_article AS ab_title, p.per_num AS ab_id, p.author AS ab_author, p.copyright_year As ab_year, p.publisher AS book_pub, p.isbn as ab_isbn, p.location AS ab_loc, l.library_name as ab_dept, p.img AS ab_img, p.types AS ab_type FROM periodical p LEFT JOIN status s ON s.id = p.status LEFT JOIN libraries l ON p.department = l.id WHERE p.per_article LIKE '%".$_POST["srch_name"]."%' Order BY ".$_POST['field']." ASC ");
       }
+      
      if($_POST["action"] == "Book_select")  
       {
           //"searching for ".$_POST["srch_name"]; 
@@ -923,8 +1061,7 @@
               $object->execute_query($query);
               $query2 = "
               INSERT INTO `borrow_details`
-              (borrow_no, member_id, activity) VALUES ('".$num."', '".$st_id."', 'reserved')
-              ";
+              (borrow_no, member_id, activity) VALUES ('".$num."', '".$st_id."', 'reserved')";
               $object->execute_query($query2);
 
           }else{ // Already Reserve / Prev Reserve
@@ -969,7 +1106,8 @@
              echo $object->get_user_logs("SELECT * FROM logs ORDER BY log_id DESC LIMIT 5");
                
           }
-          if($_POST['action'] == "Time Over"){
+           if($_POST['action'] == "Time Over"){
+          $object->check_reserve_data();
           echo $object->time_due_check();
         
           }
@@ -1010,6 +1148,28 @@
           if($_POST['action'] == "Checkdates"){
             echo $object->Dates_view("SELECT men_1 AS days FROM `maintenace` WHERE pri_id = '1'");  
           }
+          if($_POST['action'] == 'Facultyborrow'){
+           
+            echo $object->get_bookBorrow_faculty("SELECT * FROM borrow_details bd JOIN borrow_book bb USING (borrow_no) JOIN book b USING (book_no) WHERE member_id = '".$_SESSION['id']."' ORDER BY on_date DESC LIMIT 10  ");
+          }
+          if($_POST['action'] == 'Facultyrefer'){
+           
+            echo $object->get_bookRefer_faculty("SELECT * FROM book_request br WHERE faculty_id = '".$_SESSION['id']."' ORDER BY date_requested DESC LIMIT 10  ");
+          }
+          if($_POST["action"] == "Faculty Request")  
+          {  
+               echo $object->get_bookRequest_faculty("SELECT * FROM book_request WHERE faculty_id = '".$_SESSION['id']."' ");  
 
+          }
+          //RUN THIS PROFILE WHEN DETERMINED WHICH LOGIN
+          if($_POST['action']=="Profile"){
+            echo $object->get_profile("SELECT * FROM users WHERE user_id = '".$_SESSION['id']."' ");
+          }
+          if($_POST['action']=="Faculty Profile"){
+            echo $object->get_faculty_profile(" SELECT * FROM faculty f LEFT JOIN departments d ON d.dept_id = f.dept WHERE faculty_no = '".$_SESSION['id']."'");
+          }
+          if($_POST['action']=="Student Profile"){
+            echo $object->get_student_profile(" SELECT * FROM students s LEFT JOIN departments d ON d.dept_id = s.dept LEFT JOIN courses c ON c.course_id =s.course WHERE student_id = '".$_SESSION['id']."'");
+          }
   }
  ?>  

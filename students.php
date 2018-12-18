@@ -34,9 +34,7 @@
                 </div>
             </div>                       
         </section> 
-<?php 
-include 'includes/footer.php';
-?>
+
 <div class="modal fade" id="student" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -62,6 +60,12 @@ include 'includes/footer.php';
                             <label for="inputPassword3" class="text-left col-sm-3 control-label text-left">Contact Number</label>
                             <div class="col-sm-9">
                                <input type="number" class=" text-left form-control"  name="contact" id="contact" required="true" placeholder="Contact Number">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="inputPassword3" class="text-left col-sm-3 control-label text-left">Address</label>
+                            <div class="col-sm-9">
+                               <input type="text" class=" text-left form-control"  name="address" id="address" required="true" placeholder="Address">
                             </div>
                           </div>
                           <div class="form-group">
@@ -148,3 +152,6 @@ include 'includes/footer.php';
             </form>
     </div> 
 </div> 
+<?php 
+include 'includes/footer.php';
+?>

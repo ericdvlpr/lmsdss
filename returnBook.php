@@ -64,3 +64,18 @@
 <?php 
 include 'includes/footer.php';
 ?>
+<div class="modal fade " tabindex="-1" role="dialog" id=mod_info>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="mod_title" align="center">Return Book</h4>
+      </div>
+      <div class="modal-body">
+        <p id="mod_data"></p>
+      </div>
+      <div class="modal-footer">
+        <p align="center"> <button class="btn btn-primary" id="br_ok">OK</button></p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

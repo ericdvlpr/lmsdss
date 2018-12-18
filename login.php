@@ -1,4 +1,4 @@
-<?php 
+<?php
 include "includes/head.php";
 include 'core/database.php';
 ?>
@@ -10,6 +10,7 @@ include 'core/database.php';
   </div>
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>
+    <div class="alertMsg"></div>
     	<form id="log_in" name="log_in">
 					<div class="form-group has-feedback">
 						<input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" autocomplete="off" required="true"  />
@@ -53,7 +54,9 @@ include 'core/database.php';
 <script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="js/adminlte.min.js"></script>
-<script src="js/bootstrap-select.min.js"></script> 
+<script src="js/bootstrap-select.min.js"></script>
+<script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<script src="js/jquery.inputmask.bundle.js"></script>
 		 <script src="js/general.js"></script>
 		 <script src="js/search.js"></script>
 		 <script src="js/jquery-ui.js"></script>

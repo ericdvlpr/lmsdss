@@ -2,16 +2,24 @@ body{
    padding-top:0px;
    margin-top: -20px;
 }
-.active{
+.actives{
   color: green;
   font-style: italic;
   font-weight: bold;
 }
 .calln{
-  font-size: 12px;
+  font-size: 16px;
+
 }
 .visi{
   visibility: hidden;
+}
+.book_title{
+  font-size: 24px;
+  font-weight: bold;
+}
+.book_specs{
+  font-size: 18px;
 }
 textarea {
     resize: none;

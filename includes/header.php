@@ -26,6 +26,7 @@ if(!isset($_SESSION['username'])){
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="css/skins/skin-blue.min.css">
   <link rel="stylesheet" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="plugins/timepicker/bootstrap-timepicker.min.css">
             <link rel="stylesheet" href="css/jquery-ui.css">
             <title>DWCL LIBRARY MANAGEMENT SYSTEM</title>
 </head>

@@ -8,7 +8,6 @@ var sec_sh = false;
 var Timeout = null;
 var bkn = 0
 var rt = 1;
-var vl =1;
 var voi_ab=false
 var tabD = false
 var mod2 = false
@@ -26,7 +25,7 @@ $(document).ready(function(){
           $("#sc_table").hide();
           if($("#std_type").val() == "2"){
             voi_ab = true
-            voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. To change volume or speede please press the shift button.")
+            voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. To speed please press the shift button.")
             $('#searchname').focus();
           }else{
             $('#mod_info').modal('show');
@@ -58,7 +57,7 @@ $(document).ready(function(){
                   //alert(data);
                   //*
                   if(data){
-                    voice_pre("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book.",2,null);
+                    voice_pre("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book. Note, this book will be reserve within 24 hours, beyond that will be consider null and void.",2,null);
                     $('#modal_select').modal('toggle')
                   } 
                   //*/
@@ -84,7 +83,7 @@ $(document).ready(function(){
                 success:function(data)
                 {
                   //alert(data)
-                  //*
+                  
                   var plt2 = data.split('|')
                   
                   $('#modal_select').modal('show')
@@ -105,7 +104,7 @@ $(document).ready(function(){
                   tbl_res = plt2[2];
                   voice_pre(plt2[1],0,null);
                   $('#searchname').prop('disabled',true)
-                  //*/
+                  //
                 }  
                           
               });
@@ -127,7 +126,7 @@ $(document).ready(function(){
               }else{
               utt.text = text
               utt.rate = rt
-              utt.volume = vl;
+              utt.volume = 2;
               ssy.speak(utt);
                 if(tb==2){
                   $('#mod_info').modal('show');
@@ -143,10 +142,19 @@ $(document).ready(function(){
                   $('#search_table').html(td);
                   
                   if(!tabD){
-                    $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bFilter": false})
+                    $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bInfo" : false, "bFilter": false, "paging": false, "ordering": false, "sorting": false})
                     
                     tabD=true
                   }
+                  $('#ba').removeClass('btn btn-primary')
+                  $('#ba').addClass('btn btn-default')
+                  $('#bi').removeClass('btn btn-primary')
+                  $('#bi').addClass('btn btn-default')
+                  $('#bc').removeClass('btn btn-primary')
+                  $('#bc').addClass('btn btn-default')
+                  $('#bt').removeClass('btn btn-default')
+                  $('#bt').addClass('btn btn-primary')
+      
                   voice_pre("Please use up and down buttons to navigate.",0,null);
                 }else if(tb==2){
                   tbl_diag = false;
@@ -164,13 +172,22 @@ $(document).ready(function(){
                   $('#sc_table').show()
                   $('#search_table').html(td);
                   if(!tabD){
-                    $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bFilter": false})
+                    $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bInfo" : false, "bFilter": false, "paging": false, "ordering": false, "sorting": false})
                     tabD=true
                   }
+                  $('#ba').removeClass('btn btn-primary')
+                  $('#ba').addClass('btn btn-default')
+                  $('#bi').removeClass('btn btn-primary')
+                  $('#bi').addClass('btn btn-default')
+                  $('#bc').removeClass('btn btn-primary')
+                  $('#bc').addClass('btn btn-default')
+                  $('#bt').removeClass('btn btn-default')
+                  $('#bt').addClass('btn btn-primary')
+      
                 }else if(tb==2){
                   $('#mod_info').modal('show');
                   $('#mod_title').html('Reserved')
-                  $('#mod_data').html(text);
+                  $('#mod_data').html("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book. <br /> <br /> Note: this book will be reserve within 24 hours, beyond that will be consider null and void.");
                   mod2 =true
                   $('#searchname').prop('disabled',true)
                   tbl_diag = false;
@@ -218,8 +235,8 @@ $(document).ready(function(){
     }
     function rePosition(){
         if(active>0){
-          $('.active').removeClass('active');
-          $('#sc_table tr').eq(active).addClass('active');
+          $('.actives').removeClass('actives');
+          $('#sc_table tr').eq(active).addClass('actives');
 
           var aut = ''
           var dat4 = dat[active-1][2].split(',')
@@ -246,7 +263,7 @@ $(document).ready(function(){
           scrollInView();
 
         }else{
-          $('.active').removeClass('active');
+          $('.active').removeClass('actives');
           
           //$('#searchname').prop('disabled',false)
           $('#searchname').focus();
@@ -299,12 +316,191 @@ $(document).ready(function(){
 
     })
     
+    $('#bt').on('click', function(){
+      $('#ba').removeClass('btn btn-primary')
+      $('#ba').addClass('btn btn-default')
+      $('#bi').removeClass('btn btn-primary')
+      $('#bi').addClass('btn btn-default')
+      $('#bc').removeClass('btn btn-primary')
+      $('#bc').addClass('btn btn-default')
+      $('#bt').removeClass('btn btn-default')
+      $('#bt').addClass('btn btn-primary')
+      if(tbl){
+      var srch_name = $("#searchname").val();
+      var action = "Search2";
+      var field = "ab_title";
+      var tp ='';
+
+      var dat2 = new FormData()
+              dat2.append('action', action);
+              dat2.append('srch_name',srch_name)
+              dat2.append('field',field)
+
+              $.ajax({
+                url:"core/action.php",
+                method:"POST",
+                data:dat2,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                {
+                  // alert(data);
+                    var plt = data.split("|");
+                    var temp1 =plt[2].split("/"); 
+                    for(i=0;i<temp1.length;i++){
+                      dat[i]= temp1[i].split('*');
+
+                      tp += dat[i][0] +',';
+                    }
+                    $('#search_table').html('')
+                    $('#search_table').html(plt[1]);
+                  
+                }
+              })
+            }
+
+    })
+    $('#ba').on('click', function(){
+      $('#bt').removeClass('btn btn-primary')
+      $('#bt').addClass('btn btn-default')
+      $('#bi').removeClass('btn btn-primary')
+      $('#bi').addClass('btn btn-default')
+      $('#bc').removeClass('btn btn-primary')
+      $('#bc').addClass('btn btn-default')
+      $('#ba').removeClass('btn btn-default')
+      $('#ba').addClass('btn btn-primary')
+      if(tbl){
+      var srch_name = $("#searchname").val();
+      var action = "Search2";
+      var field = "ab_author";
+      var tp ='';
+
+      var dat2 = new FormData()
+              dat2.append('action', action);
+              dat2.append('srch_name',srch_name)
+              dat2.append('field',field)
+
+              $.ajax({
+                url:"core/action.php",
+                method:"POST",
+                data:dat2,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                {
+                   //alert(data);
+                    var plt = data.split("|");
+                    var temp1 =plt[2].split("/"); 
+                    for(i=0;i<temp1.length;i++){
+                      dat[i]= temp1[i].split('*');
+
+                      tp += dat[i][0] +',';
+                    }
+                    $('#search_table').html('')
+                    $('#search_table').html(plt[1]);
+                  
+                }
+              })
+            }
+    })
+
+    $('#bi').on('click', function(){
+      $('#bt').removeClass('btn btn-primary')
+      $('#bt').addClass('btn btn-default')
+      $('#ba').removeClass('btn btn-primary')
+      $('#ba').addClass('btn btn-default')
+      $('#bc').removeClass('btn btn-primary')
+      $('#bc').addClass('btn btn-default')
+      $('#bi').removeClass('btn btn-default')
+      $('#bi').addClass('btn btn-primary')
+
+      if(tbl){
+      var srch_name = $("#searchname").val();
+      var action = "Search2";
+      var field = "ab_isbn";
+      var tp ='';
+
+      var dat2 = new FormData()
+              dat2.append('action', action);
+              dat2.append('srch_name',srch_name)
+              dat2.append('field',field)
+
+              $.ajax({
+                url:"core/action.php",
+                method:"POST",
+                data:dat2,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                {
+                   //alert(data);
+                    var plt = data.split("|");
+                    var temp1 =plt[2].split("/"); 
+                    for(i=0;i<temp1.length;i++){
+                      dat[i]= temp1[i].split('*');
+
+                      tp += dat[i][0] +',';
+                    }
+                    $('#search_table').html('')
+                    $('#search_table').html(plt[1]);
+                  
+                }
+              })
+            }
+    })
+
+    $('#bc').on('click', function(){
+      $('#bt').removeClass('btn btn-primary')
+      $('#bt').addClass('btn btn-default')
+      $('#ba').removeClass('btn btn-primary')
+      $('#ba').addClass('btn btn-default')
+      $('#bi').removeClass('btn btn-primary')
+      $('#bi').addClass('btn btn-default')
+      $('#bc').removeClass('btn btn-default')
+      $('#bc').addClass('btn btn-primary')
+
+      if(tbl){
+      var srch_name = $("#searchname").val();
+      var action = "Search2";
+      var field = "ab_loc";
+      var tp ='';
+
+      var dat2 = new FormData()
+              dat2.append('action', action);
+              dat2.append('srch_name',srch_name)
+              dat2.append('field',field)
+
+              $.ajax({
+                url:"core/action.php",
+                method:"POST",
+                data:dat2,
+                contentType:false,  
+                processData:false,
+                success:function(data)
+                {
+                  // alert(data);
+                    var plt = data.split("|");
+                    var temp1 =plt[2].split("/"); 
+                    for(i=0;i<temp1.length;i++){
+                      dat[i]= temp1[i].split('*');
+
+                      tp += dat[i][0] +',';
+                    }
+                    $('#search_table').html('')
+                    $('#search_table').html(plt[1]);
+                  
+                }
+              })
+            }
+    })
+
+
     $(document).on('keydown', function(e){
      
      if(voi_ab && !tbl_diag && !tbl_res){
         if(e.keyCode == 16){
           if(!sec_sh){
-            voice_pre("Switching to maintenance mode. Press Left or Right button to change Speed. Press Up or Down button to change volume.",0,null)
+            voice_pre("Switching to maintenance mode. Press Left or Right button to change Speed.",0,null)
             $('#searchname').prop('disabled',true)
             $('#searchname').blur();
             sec_sh = true
@@ -320,10 +516,9 @@ $(document).ready(function(){
 
     $('#searchname').on('click', function(){
       active = 0
-      $('.active').removeClass('active');
+      $('.actives').removeClass('actives');
     })
-    $(document).on('keypress', function(e){
-      //alert(e.keyCode)
+    $(document).on('keydown', function(e){
     if(!mod2){
       if(e.keyCode == 27){
         if((!sec_sh)&&(!tbl_diag)&&(!tbl_res)){
@@ -351,19 +546,13 @@ $(document).ready(function(){
             rt--;
             voice_pre("Decreasing speed.",0,null)
           }
-        }else if(e.keyCode == 38){
-            vl++;
-            voice_pre("Increasing volume.",0,null)
-        }else if(e.keyCode == 40){
-            if(vl>1){
-            vl--;
-            voice_pre("Deccreasing volume.",0,null)
-          }
         }
       }
 
       if(tbl && (!tbl_diag) && (!sec_sh)){
         if(((e.keyCode == 38) || (e.keyCode == 40)) && (!tbl_diag) ) {
+            
+            
             reCalculate(e);
             return false;
           }
@@ -374,6 +563,7 @@ $(document).ready(function(){
           }   
         }else if((tbl_diag)&&(tbl_res)) {
           if(e.which == 50){ //reserve NO
+            alert('NO');
             tbl_diag = false;
             tbl_res = false
             $('#searchname').prop('disabled',false)
@@ -381,6 +571,7 @@ $(document).ready(function(){
             $('#modal_select').modal('toggle')  
           }
           if(e.which == 49){
+            alert('Yes');
             reserve(dat[active-1][0], $('#std_name').val());// Reserve Yes
           }
         }else if((tbl_diag) && (!tbl_res) && (!sec_sh)){
@@ -455,6 +646,7 @@ $(document).ready(function(){
               var srch_name = $("#searchname").val(); 
               var text = "Searching related to. "+srch_name+ "." 
               var action = "Search2";
+              var field = "ab_title";
               
               if(srch_name!=''){
               
@@ -462,7 +654,7 @@ $(document).ready(function(){
               var dat2 = new FormData()
               dat2.append('action', action);
               dat2.append('srch_name',srch_name)
-              
+              dat2.append('field',field)
 
               $.ajax({
                 url:"core/action.php",
@@ -484,8 +676,21 @@ $(document).ready(function(){
                        $('#mod_data').html("Search Not Found Related to "+srch_name)
                        $('#searchname').prop('disabled',true)
                        mod2 =true
-                       setTimeout(autoclose, 5000); 
+                       setTimeout(autoclose, 5000);
+                       tbl=false
+                       $('#search_table').html('');
+                       $("#sc_table").hide();
+
                    }
+
+                    $('#bt').removeClass('btn btn-primary')
+                    $('#bt').addClass('btn btn-default')
+                    $('#ba').removeClass('btn btn-primary')
+                    $('#ba').addClass('btn btn-default')
+                    $('#bi').removeClass('btn btn-primary')
+                    $('#bi').addClass('btn btn-default')
+                    $('#bc').removeClass('btn btn-primary')
+                    $('#bc').addClass('btn btn-default')
                   }else{
                     var plt = data.split("|");
                     var temp1 =plt[2].split("/"); 

@@ -12,11 +12,11 @@
                     <table class="table table-bordered table-striped" id="referrence">  
                           <thead>  
                                <th width="10%">Request No</th>  
-                               <th width="20%">Book Title</th>  
-                               <th width="15%">Book Author</th>  
+                               <th width="20%">Title</th>  
+                               <th width="15%">Author</th>  
                                <th width="10%">Copies</th>  
-                               <th width="12%">Requested By:</th>  
-                               <th width="12%">Date Requested:</th>  
+                               <th width="12%">Requested By</th>  
+                               <th width="12%">Date Requested</th>  
                                <th width="10%">Status</th>  
                                <th width="18%">Command</th>  
                           </thead> 

@@ -22,7 +22,7 @@
                 
                 <h3><strong>Name: </strong>'.$row["student_name"].'</h3>
 					<h3><strong>Gender</strong>: '.$row["gender"].' </h3>				
-					<h3><strong>Address:</strong> '.$row["gender"].' </h3>				
+					<h3><strong>Address:</strong> '.$row["address"].' </h3>				
 					<h3><strong>Contact:</strong> '.$row["contact"].' </h3>				
 					<h3><strong>Department:</strong> '.$row["department_name"].' </h3>	
 					<h3><strong>Course:</strong> '.$row["course_name"].' </h3>	

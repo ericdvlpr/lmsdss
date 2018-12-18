@@ -1,11 +1,27 @@
 <header class="main-header" >
   <div class="image">
+     <?php if($_SESSION['access'] == 1||$_SESSION['access'] == 2|| $_SESSION['access'] == 3){?>
     <a href="index.php" class="logo navbar-brand">
      <span class="logo-mini"><b>D</b>LS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b> <h4>DWCL</b> LIBRARY SYSTEM</h4></span>
         
       </a>
+       <?php }elseif($_SESSION['access'] == 4){?>
+          <a href="faculty_index.php" class="logo navbar-brand">
+     <span class="logo-mini"><b>D</b>LS</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b> <h4>DWCL</b> LIBRARY SYSTEM</h4></span>
+        
+      </a>
+       <?php }elseif($_SESSION['access'] == 5) {?>
+          <a href="faculty_index.php" class="logo navbar-brand">
+     <span class="logo-mini"><b>D</b>LS</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b> <h4>DWCL</b> LIBRARY SYSTEM</h4></span>
+        
+      </a>
+        <?php  } ?>
   </div>
     <nav class="navbar navbar-static-top" role="navigation">
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -96,7 +112,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="profile.php" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <a href="logout_parse.php" class="btn btn-default btn-flat">Sign out</a>
