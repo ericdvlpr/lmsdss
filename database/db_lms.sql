@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2018 at 02:33 PM
+-- Generation Time: Dec 21, 2018 at 11:08 AM
 -- Server version: 10.1.24-MariaDB
 -- PHP Version: 7.1.6
 
@@ -25,42 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `allowed_book`
---
-
-CREATE TABLE `allowed_book` (
-  `allowed_book_id` int(11) NOT NULL,
-  `qntty_books` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `allowed_book`
---
-
-INSERT INTO `allowed_book` (`allowed_book_id`, `qntty_books`) VALUES
-(1, 3);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `allowed_days`
---
-
-CREATE TABLE `allowed_days` (
-  `allowed_days_id` int(11) NOT NULL,
-  `no_of_days` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `allowed_days`
---
-
-INSERT INTO `allowed_days` (`allowed_days_id`, `no_of_days`) VALUES
-(1, 3);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `announcements`
 --
 
@@ -74,13 +38,57 @@ CREATE TABLE `announcements` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `announcements`
+-- Table structure for table `audio_visual`
 --
 
-INSERT INTO `announcements` (`id`, `title`, `content`, `img`, `date`, `posted_by`, `status`) VALUES
-(1, 'First Annoucement', 'This is a a Announcements', 'images/announcements/6438.jpg', '2018-01-14 09:34:31', '1', 1),
-(2, 'Test', 'testr', 'images/announcements/28555.jpg', '2018-02-13 23:19:57', '1', 1);
+CREATE TABLE `audio_visual` (
+  `av_id` int(11) NOT NULL,
+  `av_num` varchar(250) NOT NULL,
+  `author` varchar(250) NOT NULL,
+  `av_title` varchar(250) NOT NULL,
+  `copies` int(11) NOT NULL,
+  `category_id` int(50) NOT NULL,
+  `publisher` varchar(250) NOT NULL,
+  `isbn` varchar(50) NOT NULL,
+  `copyright` varchar(250) NOT NULL,
+  `date_recieve` date DEFAULT NULL,
+  `date_added` date DEFAULT NULL,
+  `img` text NOT NULL,
+  `location` varchar(250) NOT NULL,
+  `department` varchar(50) NOT NULL,
+  `status` varchar(30) DEFAULT NULL,
+  `runningtime` time NOT NULL,
+  `types` int(3) NOT NULL DEFAULT '2'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `audio_visual`
+--
+
+INSERT INTO `audio_visual` (`av_id`, `av_num`, `author`, `av_title`, `copies`, `category_id`, `publisher`, `isbn`, `copyright`, `date_recieve`, `date_added`, `img`, `location`, `department`, `status`, `runningtime`, `types`) VALUES
+(1, '001', 'TLRC', 'Alimango', 2, 1, 'Columbia Pictures', '', '2000', NULL, NULL, 'images/books/586451932.png', 'FIL # 102', '', '1', '02:00:00', 2),
+(2, '002', 'TLRC', 'Bangus', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(3, '003', 'TLRC', 'Basic Financial Bus. Mgt.', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(4, '004', 'TLRC', 'Bio-Intensive Gardening', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(5, '005', 'TLRC', 'Commercial Banking', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(6, '006', 'TLRC', 'Cooperative (part 1)', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(7, '007', 'TLRC', 'Direct selling and marketing', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(8, '008', 'TLRC', 'Dried flowers', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(9, '009', 'TLRC', 'Fabric toys', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(10, '010', 'TLRC', 'Fashion jewelries and accessories', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(11, '011', 'TLRC', 'Flower arrangements', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(12, '012', 'TLRC', 'Food retailing', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(13, '013', 'TLRC', 'High-value vegetables', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(14, '014', 'TLRC', 'Hito', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(15, '015', 'TLRC', 'Homebakeshop I (tinapay atbp.)', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(16, '016', 'TLRC', 'Homebakeshop II (cakes and pastries)', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(17, '017', 'TLRC', 'Home decors', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(18, '018', 'TLRC', 'Honeybee culture', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(19, '019', 'TLRC', 'ISDA (fish and other seafoods products)', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2),
+(20, '020', 'TLRC', 'Kandila at potpourri', 2, 1, '', '', '', NULL, NULL, '', '', '', '1', '00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -129,29 +137,111 @@ INSERT INTO `authors` (`id`, `author_id`, `author_name`) VALUES
 CREATE TABLE `book` (
   `book_id` int(11) NOT NULL,
   `book_no` varchar(250) NOT NULL,
-  `book_title` varchar(100) NOT NULL,
-  `category_id` int(50) NOT NULL,
-  `author` varchar(250) NOT NULL,
-  `book_copies` int(11) NOT NULL,
-  `book_pub` varchar(100) NOT NULL,
-  `isbn` varchar(50) NOT NULL,
-  `copyright_year` int(11) NOT NULL,
   `date_receive` date NOT NULL,
+  `location` longtext NOT NULL,
+  `author` varchar(250) NOT NULL,
+  `book_title` varchar(100) NOT NULL,
+  `book_pub` varchar(100) NOT NULL,
+  `copyright_year` varchar(250) NOT NULL,
+  `category_id` int(50) NOT NULL,
+  `book_copies` int(11) NOT NULL,
+  `isbn` varchar(50) NOT NULL,
   `date_added` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `img` text NOT NULL,
-  `location` longtext NOT NULL,
   `department` varchar(50) NOT NULL,
-  `status` varchar(30) NOT NULL
+  `status` varchar(30) NOT NULL,
+  `types` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `book`
 --
 
-INSERT INTO `book` (`book_id`, `book_no`, `book_title`, `category_id`, `author`, `book_copies`, `book_pub`, `isbn`, `copyright_year`, `date_receive`, `date_added`, `img`, `location`, `department`, `status`) VALUES
-(1, '9789719331704', 'Master English Grammar in 28 Days', 6, 'Romeo Flauta', 5, 'Priority Book ', '971-93317-04', 2011, '2018-01-07', '2018-01-07 15:27:14', 'images/books/93870524.jpg', 'Fil. 657 V173p 2010', '1', '1'),
-(2, '4549660094272', 'Movie Making', 6, 'Naomi De Jesus', 8, 'Ibook', '978-971-0054-12-6', 2011, '2018-01-07', '2018-01-07 20:49:07', 'images/books/1321397098.jpg', 'Fil. 220 G646 1992', '1', '3'),
-(3, '4800639090047', 'Limelight', 2, 'Star360', 5, 'Spiral', 'ISBN 186412', 2018, '2018-02-13', '2018-02-13 23:50:36', 'images/books/285.jpg', 'English', '1', '1');
+INSERT INTO `book` (`book_id`, `book_no`, `date_receive`, `location`, `author`, `book_title`, `book_pub`, `copyright_year`, `category_id`, `book_copies`, `isbn`, `date_added`, `img`, `department`, `status`, `types`) VALUES
+(1, '13880', '0000-00-00', 'Circ.651 G861 1968', 'Fries Albert C.', 'Office practice fundamentals', 'McGraw-Hill Book Co.', 'c1968.', 8, 2, '', '2018-03-16 22:48:42', '', '1', '1', 1),
+(2, '19861', '0000-00-00', 'Circ.651 F263 1969', 'Fasnacht Harold D.', 'How to use business machines', 'McGraw-Hill', 'c1969.', 8, 4, '', '2018-03-16 22:48:42', '', '1', '1', 1),
+(3, '20191', '0000-00-00', 'Fil.651 An43', 'Angeles Conrado P. ', 'Handbook on office management', 'R.M. Garcia pub. house', ' c1980.', 8, 5, '', '2018-03-16 22:48:42', '', '1', '1', 1),
+(4, '19880', '0000-00-00', 'Fil.651 An53', 'Angeles Conrado P. ', 'Handbook on office management', 'R.M. Garcia pub. house', ' c1980.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(5, '20909', '0000-00-00', 'Circ.651 G861 1968', 'Fries Albert C.', 'Office practice fundamentals', 'McGraw-Hill Book Co.', 'c1968.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(6, '16176', '0000-00-00', 'Circ.651 K125 1970', 'Kallaus Norman F.', 'College business machines', 'McGraw-Hill book Co.', 'c1970.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(7, '7779', '0000-00-00', 'Circ.651 T279 1962 7779', '  ', 'Office management and control : The action of administrative management', 'Richard D. Irwin inc.', 'c1962.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(8, '20197', '0000-00-00', 'Fil.651 An43', 'Angele Conrado P. ', 'Handbook on office management', 'R.M. Garcia pub. house', ' c1980.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(9, '14825', '0000-00-00', 'Circ.651 T279 1975', 'Terry George R.', 'Office management and control: the administrative managing of information', 'Richard D. Irwin inc.', 'c1975.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(10, '651', '0000-00-00', 'AV651 D285 1997', ' ', 'Dear God : many people write to God. somebody is answering [video recording]', 'California Pictures', 'c1997.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(11, '22791', '0000-00-00', 'Circ.651 G861 1968', 'Fries Albert C.', 'Office practice fundamentals', 'McGraw-Hill Book Co.', 'c1968.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(12, '27013', '0000-00-00', 'Circ.651 J445 1978', 'Jenning Lucy Mae ', 'Secretarial and administrative procedures', 'National book store', 'c1978.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(13, '20196', '0000-00-00', 'Fil.651 An43', 'Angeles Conrado P. ', 'Handbook on office management', 'R.M. Garcia pub. house', ' c1980.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(14, '16352', '0000-00-00', 'Fil.651 An53 1976', 'Angeles Conrado P. ', 'Handbook on office management', 'University of the East', 'c1976.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(15, '22789', '0000-00-00', 'Circ.651 G861 1968', 'Fries Albert C.', 'Office practice fundamentals', 'McGraw-Hill Book Co.', 'c1968.', 8, 5, '', '2018-03-16 22:48:43', '', '1', '1', 1),
+(16, '16175', '0000-00-00', 'Circ.651 F263 1969', 'Fasnacht Harold D.', 'How to use business machines', 'McGraw-Hill', 'c1969.', 8, 5, '', '2018-03-16 22:48:44', '', '1', '1', 1),
+(17, '19883', '0000-00-00', 'Fil.651 An43', 'Angeles Conrado P. ', 'Handbook on office management', 'R.M. Garcia pub. house', ' c1980.', 8, 5, '', '2018-03-16 22:48:44', '', '1', '1', 1),
+(18, '26213', '0000-00-00', 'Fil.651 F91', 'Frias Solita A.', 'CPA reviewer in auditing theory (1984 edition)', 'GIC enterprises & co. inc.', ' c1984.', 8, 5, '', '2018-03-16 22:48:44', '', '1', '1', 1),
+(19, '20192', '0000-00-00', 'Fil.651 An53', 'Angeles Conrado P. ', 'Handbook on office management', 'R.M. Garcia pub. house', ' c1980.', 8, 5, '', '2018-03-16 22:48:44', '', '1', '1', 1),
+(38, '', '0000-00-00', '06/06/2017', 'Fil. 510 Or74g 2016', 'General mathematics', 'Rex Book Store', 'c2016.', 8, 5, '', '2018-03-16 23:37:24', '', '', '', 0),
+(41, '350', '0000-00-00', 'GR 500 N532 2000', '', 'The new book of popular science', 'Grolier', 'c2000.', 8, 5, '', '2018-03-16 23:42:58', '', '2', '1', 1),
+(42, '353', '0000-00-00', 'GR 500 N532 2000', '', 'The new book of popular science', 'Grolier', 'c2000.', 8, 5, '', '2018-03-16 23:42:58', '', '2', '1', 1),
+(43, '348', '0000-00-00', 'GR 500 N532 2000', '', 'The new book of popular science', 'Grolier', 'c2000.', 8, 5, '', '2018-03-16 23:42:58', '', '2', '1', 1),
+(44, '351', '0000-00-00', 'GR 500 N532 2000', '', 'The new book of popular science', 'Grolier', 'c2000.', 8, 5, '', '2018-03-16 23:42:58', '', '2', '1', 1),
+(45, '349', '0000-00-00', 'GR 500 N532 2000', '', 'The new book of popular science', 'Grolier', 'c2000.', 8, 5, '', '2018-03-16 23:42:58', '', '2', '1', 1),
+(46, '352', '0000-00-00', 'GR 500 N532 2000', '', 'The new book of popular science', 'Grolier', 'c2000.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(47, '082', '0000-00-00', 'Fil. 500.2 P984p 2016', '', 'Science in today\'s world : physical science', 'Sibs Publishing House', 'c2016.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(48, '697', '0000-00-00', 'Fil. 500.2 B983c 2016', '', 'Conceptual science and beyond : physical science (a worktext for Senior High School)', 'Brilliant Creations Publishing', 'c2016.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(49, '608', '0000-00-00', 'Circ. 500.2 W749i 2016', '', 'An introduction to physical science', 'Rex Book Store', 'c2016.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(50, '083', '0000-00-00', 'Fil. 500.2 P984p 2016', '', 'Science in today\'s world : physical science', 'Sibs Publishing House', 'c2016.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(51, '395', '0000-00-00', 'Fil. 500.2 C124p 2015', '', 'Physical science : a modular approach', 'Mindshapers Co.', 'c2015.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(52, '698', '0000-00-00', 'Fil. 500.2 B983c 2016', '', 'Conceptual science and beyond : physical science (a worktext for Senior High School)', 'Brilliant Creations Publishing', 'c2016.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(53, '696', '0000-00-00', 'Fil. 500.2 B983c 2016', '', 'Conceptual science and beyond : physical science (a worktext for Senior High School)', 'Brilliant Creations Publishing', 'c2016.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(54, '084', '0000-00-00', 'Fil. 500.2 P984p 2016', '', 'Science in today\'s world : physical science', 'Sibs Publishing House', 'c2016.', 8, 5, '', '2018-03-16 23:42:59', '', '2', '1', 1),
+(55, '055', '2018-03-18', 'Fil. 510 G326 2016', 'Jose Rizal', 'General mathematics : soaring 21st century mathematics : Grade 11 Senior High School (K to 12)', 'Phoenix Publishing House', 'c2016.', 8, 3, '#124157', '2018-03-16 23:43:00', 'images/books/327151733.jpg', '2', '1', 1),
+(56, '449', '0000-00-00', 'Fil. 510 Or74g 2016', '', 'General mathematics', 'Rex Book Store', 'c2016.', 8, 5, '', '2018-03-16 23:43:00', '', '2', '1', 1),
+(57, '447', '0000-00-00', 'Fil. 510 Or74g 2016', '', 'General mathematics', 'Rex Book Store', 'c2016.', 8, 5, '', '2018-03-16 23:43:00', '', '2', '1', 1),
+(58, '056', '0000-00-00', 'Fil. 510 G326 2016', '', 'General mathematics : soaring 21st century mathematics : Grade 11 Senior High School (K to 12)', 'Phoenix Publishing House', 'c2016.', 8, 5, '', '2018-03-16 23:43:00', '', '2', '1', 1),
+(59, '448', '0000-00-00', 'Fil. 510 Or74g 2016', '', 'General mathematics', 'Rex Book Store', 'c2016.', 8, 5, '', '2018-03-16 23:43:00', '', '2', '1', 1),
+(60, '057', '2001-12-02', 'Fil. 510 G326 2016', 'Test', 'General mathematics : soaring 21st century mathematics : Grade 11 Senior High School (K to 12)', 'Phoenix Publishing House', 'c2016.', 8, 5, '1231212312312', '2018-03-16 23:43:00', 'images/books/1309114220.jpg', '2', '1', 1),
+(61, '411', '0000-00-00', 'Fil. 510 S621g 2016', '', 'General mathematics for Senior High School : a comprehensive approach', 'Mindshapers Co.', 'c2016.', 8, 5, '', '2018-03-16 23:43:00', '', '2', '1', 1),
+(62, '15684', '0000-00-00', 'Prof. 025.002 B928 2009', '', 'The digital library and other issues in library and information science.', 'Great Books Publishing 2008.', 'c2009.', 8, 5, '', '2018-03-17 00:09:56', '', '3', '1', 1),
+(63, '17575', '0000-00-00', 'Fil. 025.04 D111 2014', '', 'D whiz in database management', 'Rex Book Store', 'c2014.', 8, 5, '', '2018-03-17 00:09:56', '', '3', '1', 1),
+(64, '12063', '0000-00-00', 'Circ. 025.04 C888i 2001', 'Crumlish Christian ', 'The internet for busy people : the book to use when there\'s no time to lose!', 'McGraw-hill', 'c2001.', 8, 5, '', '2018-03-17 00:09:57', '', '3', '1', 1),
+(65, '9324', '0000-00-00', 'Res.', '025.2 1989', '', 'Statistics for managing library acquisition', 'c.', 8, 5, '', '2018-03-17 00:09:57', '', '3', '1', 1),
+(66, '16961', '0000-00-00', 'Fil. 025.24 B272d 2011', '', 'Database concepts / Gladys Barrer [and three others]', 'TechFactors', 'c2011.', 8, 5, '', '2018-03-17 00:09:57', '', '3', '1', 1),
+(67, '16964', '0000-00-00', 'Fil. 025.24 B272d 2011', '', 'Database concepts / Gladys Barrer [and three others]', 'TechFactors', 'c2011.', 8, 5, '', '2018-03-17 00:09:57', '', '3', '1', 1),
+(68, '16962', '0000-00-00', 'Fil. 025.24 B272d 2011', '', 'Database concepts / Gladys Barrer [and three others]', 'TechFactors', 'c2011.', 8, 5, '', '2018-03-17 00:09:58', '', '3', '1', 1),
+(69, '16965', '0000-00-00', 'Fil. 025.24 B272d 2011', '', 'Database concepts / Gladys Barrer [and three others]', 'TechFactors', 'c2011.', 8, 5, '', '2018-03-17 00:09:58', '', '3', '1', 1),
+(70, '16172', '0000-00-00', 'Res. 025.24 B272d 2011', '', 'Database concepts', 'Techfactors Inc.', 'c2011.', 8, 5, '', '2018-03-17 00:14:01', '', '3', '1', 1),
+(71, '16963', '0000-00-00', 'Fil. 025.24 B272d 2011', '', 'Database concepts / Gladys Barrer [and three others]', 'TechFactors', 'c2011.', 8, 5, '', '2018-03-17 00:14:01', '', '3', '1', 1),
+(72, '16172', '0000-00-00', 'Fil. 025.24 B272d 2011', '', 'Database concepts / Gladys Barrer [and three others]', 'TechFactors', 'c2011.', 8, 5, '', '2018-03-17 00:14:01', '', '3', '1', 1),
+(73, '11391', '0000-00-00', 'Res. 025.27 F477 2002', '', 'Filipiniana', 'Philippines', 'c2002.', 8, 5, '', '2018-03-17 00:14:01', '', '3', '1', 1),
+(74, '10979', '0000-00-00', 'Prof. 025.3 W521 1977', 'Westby Barbara M.', 'Sear\'s list of subject headings', 'H.W. Wilson', 'c1977.', 8, 5, '', '2018-03-17 00:14:01', '', '3', '1', 1),
+(75, '12358', '0000-00-00', 'Res. 025.3 B928a 2002', 'Buenrostro Juan Jr. C.', 'Abstracting and indexing made easy', 'Great Books Publishing ', 'c2002.', 8, 5, '', '2018-03-17 00:14:01', '', '3', '1', 1),
+(76, '10726', '0000-00-00', 'Res. 025.3076 1998', '', 'Learn descriptive cataloguing', '', 'c.', 8, 5, '', '2018-03-17 00:15:41', '', '3', '1', 1),
+(77, '11590', '0000-00-00', 'Res. 025.32 An589 2003', '', 'Anglo-American cataloguing rules', 'American Library Association', 'c2003.', 8, 5, '', '2018-03-17 00:15:42', '', '3', '1', 1),
+(78, '11784', '0000-00-00', 'Res. 025.4 D519 1996', '', 'Dewey decimal classification and relative index volume 2-3', 'Forest Press', 'c1996.', 8, 5, '', '2018-03-17 00:17:35', '', '3', '1', 1),
+(79, '17412', '0000-00-00', 'Fil. 025.4 B272d  2005', '', 'Database concepts ', 'Trademark of Techfactors', 'c2005.', 8, 5, '', '2018-03-17 00:17:35', '', '3', '1', 1),
+(80, '11782', '0000-00-00', 'Res. 025.4 D519 1996', '', 'Dewey decimal classification and relative index volume 2-3', 'Forest Press', 'c1996.', 8, 5, '', '2018-03-17 00:17:35', '', '3', '1', 1),
+(81, '11785', '0000-00-00', 'Res. 025.4 D519 1996', '', 'Dewey decimal classification and relative index volume 2-3', 'Forest Press', 'c1996.', 8, 5, '', '2018-03-17 00:17:35', '', '3', '1', 1),
+(82, '11783', '0000-00-00', 'Res. 025.4 D519 1996', '', 'Dewey decimal classification and relative index volume 2-3', 'Forest Press', 'c1996.', 8, 5, '', '2018-03-17 00:17:35', '', '3', '1', 1),
+(83, '20337', '0000-00-00', 'F W339 2009', '', 'The 39 clues 6 : in too deep', 'Scholastic Inc.', 'c2009.', 8, 5, '', '2018-03-17 00:40:14', '', '4', '1', 1),
+(84, '18440', '0000-00-00', 'F D754a 2005', '', 'The adventures of Sherlock Holmes', 'Sterling Press Private Limited', 'c2005.', 8, 5, '', '2018-03-17 00:40:14', '', '4', '1', 1),
+(85, '18393', '0000-00-00', 'F S532s 1979', '', 'Sunflower', 'Pan Books', 'c1979.', 8, 5, '', '2018-03-17 00:40:14', '', '4', '1', 1),
+(86, '22554', '0000-00-00', 'F S856b 2015', '', 'Back in time: the second journey through time', 'Scholastic Inc.', 'c2015.', 8, 5, '', '2018-03-17 00:40:15', '', '4', '1', 1),
+(87, '7837', '0000-00-00', 'Circ.', '', 'I Wonder Why : stars twinkle and other questions about space', 'Kingfisher Publications Plc', ' c199310091', 8, 5, '', '2018-03-17 00:42:31', '', '4', '1', 1),
+(88, '20262', '0000-00-00', 'F K26n 1989', 'Keene Carolyn ', 'Nancy Drew mystery stories 38: the mystery of the fire dragon', 'Grosset & Dunlsp', 'c1989.', 8, 5, '', '2018-03-17 00:44:07', '', '4', '1', 1),
+(89, '20346', '0000-00-00', 'F T969g 2010', 'Twain Mark ', 'Great illustrated classics: the adventures of Hucleberry Finn', 'Cengage Learning', 'c2010.', 8, 5, '', '2018-03-17 00:44:07', '', '4', '1', 1),
+(90, '7232', '0000-00-00', 'SC', '', ' Ksaysayan: the story of the Filipino people vol. 4 Life in the colony', 'Asia Publishing Company Limited', ' c1998.', 8, 5, '', '2018-03-17 00:44:40', '', '4', '1', 1),
+(91, '21786', '0000-00-00', 'F S854g 2013', '', 'Get into the gear Stilton!', 'Scholastic Inc.', 'c2013.', 8, 5, '', '2018-03-17 00:45:21', '', '4', '1', 1),
+(92, '7531', '0000-00-00', 'F P994y 1998', '', 'The young collector\'s illustrated classics: The adventures of Robin Hood', 'Masterwork Books', 'c1998.', 8, 5, '', '2018-03-17 00:46:47', '', '4', '1', 1),
+(93, '21230', '0000-00-00', 'F R585n 2011', '', 'The son of neptune', 'Disney.', 'c2011.', 8, 5, '', '2018-03-17 00:46:47', '', '4', '1', 1),
+(94, '13200', '0000-00-00', 'TB(Ref)', '', 'Across Borders', 'VIBAL Publishing House', ' Inc.', 8, 5, '', '2018-03-17 00:46:47', '', '4', '1', 1),
+(95, '20587', '0000-00-00', 'F C953 2010', '', 'Green princess saves the day', 'Scholastic Inc. ', 'c2010.', 8, 5, '', '2018-03-17 00:46:48', '', '4', '1', 1),
+(96, '9891', '0000-00-00', 'F L585m 1983', '', 'The magician\'s nephew', 'Harper Trophy', 'c1983.', 8, 5, '', '2018-03-17 00:47:34', '', '4', '1', 1),
+(97, '22537', '0000-00-00', 'F S856c 2014', '', 'Cavemice: the great mouse race', 'Scholastic Inc.', 'c2014.', 8, 5, '', '2018-03-17 00:48:27', '', '4', '1', 1),
+(98, '20262', '0000-00-00', 'F K26n 1977', 'Keene Carolyn ', 'Nancy Drew mystery stories 54: the strange message in the parchment', 'Grosset & Dunlap', 'c1977.', 8, 5, '', '2018-03-17 00:48:27', '', '4', '1', 1),
+(99, '8180', '0000-00-00', 'F M498m 1996', 'Melville Herman ', 'Moby Dick', 'Rohan Book Company', 'c1996.', 8, 5, '', '2018-03-17 00:48:27', '', '4', '1', 1),
+(100, '7240', '0000-00-00', 'Prof.', 'Levin Richard I.', 'Quantitative approaches to management', 'Mcgraw Hill International Book Company', ' c.', 8, 5, '', '2018-03-17 00:53:12', '', '4', '1', 1),
+(101, '21791', '0000-00-00', 'F S854m 2013', '', 'The mouse hoax: mini mystery 3', 'Scholastic inc.', 'c2013.', 8, 5, '', '2018-03-17 00:53:12', '', '4', '1', 1),
+(102, '20928', '0000-00-00', 'F P 976 2006', '', 'The Puffin book of classic school stories', 'Penguin Group', 'c2006.', 8, 5, '', '2018-03-17 00:53:14', '', '4', '1', 1),
+(103, '6521', '0000-00-00', 'F H6c 1978', '', 'Continental drift', 'McGHraw-Hill Book Company', 'c1978.', 8, 5, '', '2018-03-17 00:53:14', '', '4', '1', 1),
+(104, '21220', '0000-00-00', 'F S856c 2010', '', 'Creepella von cacklefur: ghost pirate treasure', 'Scholastic Inc.', 'c2010.', 8, 5, '', '2018-03-17 00:53:14', '', '4', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -163,13 +253,6 @@ CREATE TABLE `booknumber` (
   `id` int(11) NOT NULL,
   `bookNum` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `booknumber`
---
-
-INSERT INTO `booknumber` (`id`, `bookNum`) VALUES
-(1, 20171111);
 
 -- --------------------------------------------------------
 
@@ -189,14 +272,6 @@ CREATE TABLE `book_request` (
   `seen` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `book_request`
---
-
-INSERT INTO `book_request` (`request_id`, `request_no`, `book_title`, `author`, `copies`, `date_requested`, `status`, `faculty_id`, `seen`) VALUES
-(1, 10682734, 'test', 'test', 3, '2017-12-09', ' 1', 12312123, 0),
-(2, 90813276, 'try', 'tested', 1, '2017-12-09', '0', 12312123, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -213,27 +288,6 @@ CREATE TABLE `borrow_book` (
   `ret` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `borrow_book`
---
-
-INSERT INTO `borrow_book` (`id`, `borrow_no`, `book_no`, `copies`, `on_date`, `due_date`, `ret`) VALUES
-(4, '85372619', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
-(5, '85372619', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
-(6, '43576129', '9789719331704', 1, '2018-01-20', '2018-01-26', 0),
-(7, '43576129', '4549660094272', 1, '2018-01-20', '2018-01-26', 0),
-(10, '91256783', '9789719331704', 1, '2018-01-13', '2018-01-19', 0),
-(11, '91256783', '4549660094272', 1, '2018-01-13', '2018-01-19', 0),
-(14, '12085496  ', '9789719331704', 1, '2018-01-22', '2018-01-28', 0),
-(15, '23475160  ', '9789719331704', 1, '2018-01-22', '2018-01-28', 0),
-(16, '53906427  ', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
-(17, '39065247  ', '4549660094272', 4, '2018-01-23', '2018-01-29', 0),
-(18, '29168705  ', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
-(19, '34290187  ', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
-(20, '16248593  ', '4549660094272', 1, '2018-01-23', '2018-01-29', 0),
-(21, '89473052', '9789719331704', 1, '2018-01-23', '2018-01-29', 0),
-(22, '80629475  ', '9789719331704', 1, '2018-01-30', '2018-02-05', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -246,24 +300,6 @@ CREATE TABLE `borrow_details` (
   `member_id` varchar(50) DEFAULT NULL,
   `activity` varchar(50) NOT NULL DEFAULT 'pending'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `borrow_details`
---
-
-INSERT INTO `borrow_details` (`brdt_id`, `borrow_no`, `member_id`, `activity`) VALUES
-(2, '85372619', '73923', 'overdue'),
-(3, '43576129', '739212', 'overdue'),
-(5, '91256783', '7392', 'overdue'),
-(11, '12085496  ', '7392', 'overdue'),
-(12, '23475160  ', '7392', 'overdue'),
-(13, '53906427  ', '7392', 'overdue'),
-(14, '39065247  ', '7392', 'overdue'),
-(15, '29168705  ', '7392', 'overdue'),
-(16, '34290187  ', '7392', 'overdue'),
-(17, '16248593  ', '7392', 'overdue'),
-(18, '89473052', '739212', 'overdue'),
-(19, '80629475  ', '7392', 'overdue');
 
 -- --------------------------------------------------------
 
@@ -282,15 +318,12 @@ CREATE TABLE `catalogue` (
 --
 
 INSERT INTO `catalogue` (`catalogue_id`, `cataloguename`, `catalogue_image`) VALUES
-(1, 'Periodical', 'images/map/1.png'),
-(2, 'English', 'images/map/2.png'),
-(3, 'Math', 'images/map/3.png'),
-(4, 'Science', 'images/map/4.png'),
-(5, 'Encyclopedia', 'images/map/5.png'),
+(1, 'Audio Visual', 'images/map/1.png'),
+(2, 'Reserve', 'images/map/2.png'),
 (6, 'Filipiniana', 'images/map/6.png'),
-(7, 'Newspaper', 'images/map/7.png'),
-(8, 'General', 'images/map/8.png'),
-(9, 'References', 'images/map/9.png');
+(7, 'Circulation', 'images/map/7.png'),
+(8, 'General Referrence', 'images/map/8.png'),
+(9, 'Periodical', 'images/map/9.png');
 
 -- --------------------------------------------------------
 
@@ -400,16 +433,6 @@ CREATE TABLE `faculty` (
   `active` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `faculty`
---
-
-INSERT INTO `faculty` (`id`, `faculty_no`, `faculty_name`, `passcode`, `contacs`, `dept`, `active`) VALUES
-(1, '12312123', 'tere', '827ccb0eea8a706c4c34a16891f84e7b', '09000000000', 4, 1),
-(2, '1241526', 'ter', 'cfcd208495d565ef66e7dff9f98764da', '09000000000', 2, 1),
-(3, '123456', 'Theresa', 'cfcd208495d565ef66e7dff9f98764da', '09000000000', 6, 1),
-(4, '3214', 'Johny', '775bfca1e73df62e1fcf0cd050d1f102', '09000000000', 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -423,16 +446,6 @@ CREATE TABLE `feedback` (
   `student_id` int(11) NOT NULL,
   `date_posted` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `feedback`
---
-
-INSERT INTO `feedback` (`id`, `subject`, `body`, `student_id`, `date_posted`) VALUES
-(1, 'Test', 'test', 7392, '2018-01-08 22:17:58'),
-(2, 'Try', 'try', 7392, '2018-01-08 22:18:42'),
-(3, 'Testing', 'Testing', 7392, '2018-01-08 22:19:39'),
-(4, 'Testing', 'Testing', 7392, '2018-01-08 22:22:27');
 
 -- --------------------------------------------------------
 
@@ -451,13 +464,6 @@ CREATE TABLE `issue_book` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `issue_book`
---
-
-INSERT INTO `issue_book` (`issue_book_id`, `book_no`, `book_title`, `student_name`, `copies`, `date_issued`, `date_returned`, `status`) VALUES
-(1, 'Q3265TAO20171111', 'Test', 'test', 1, '2017-12-02', '2017-12-06', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -475,7 +481,9 @@ CREATE TABLE `libraries` (
 
 INSERT INTO `libraries` (`id`, `library_name`) VALUES
 (1, 'College Library'),
-(2, 'HighSchool Library');
+(2, 'Junior HighSchool Library'),
+(3, 'ELementary Library'),
+(4, 'Senior HighSchool Library');
 
 -- --------------------------------------------------------
 
@@ -495,75 +503,7 @@ CREATE TABLE `logs` (
 --
 
 INSERT INTO `logs` (`log_id`, `student_no`, `description`, `date_time`) VALUES
-(1, 'admin', 'Login', '2018-01-20 15:02:32'),
-(2, 'Librarian', 'Login', '2018-01-20 15:24:49'),
-(3, 'Librarian', 'Login', '2018-01-20 15:24:51'),
-(4, '12312123', 'Login', '2018-01-20 15:37:03'),
-(5, '12312123', 'Login', '2018-01-20 15:37:13'),
-(6, '12312123', 'Login', '2018-01-20 16:11:16'),
-(7, '12312123', 'Login', '2018-01-20 16:11:32'),
-(8, '12312123', 'Login', '2018-01-20 16:11:33'),
-(9, '12312123', 'Login', '2018-01-20 16:11:34'),
-(10, '12312123', 'Login', '2018-01-20 16:11:34'),
-(11, 'admin', 'Login', '2018-01-20 16:23:55'),
-(12, 'admin', 'Login', '2018-01-20 16:25:09'),
-(13, '739212', 'Login', '2018-01-20 18:09:57'),
-(14, '739212', 'Login', '2018-01-20 18:21:43'),
-(15, '73923', 'Login', '2018-01-20 18:26:24'),
-(16, '7392', 'Login', '2018-01-20 18:28:32'),
-(17, '7392', 'Login', '2018-01-20 18:30:14'),
-(18, '7392', 'Login', '2018-01-20 18:32:38'),
-(19, '739212', 'Login', '2018-01-20 18:37:21'),
-(20, 'Librarian', 'Login', '2018-01-20 18:38:35'),
-(21, '12312123', 'Login', '2018-01-21 10:31:29'),
-(22, '12312123', 'Login', '2018-01-21 10:37:42'),
-(23, 'admin', 'Login', '2018-01-21 12:09:14'),
-(24, 'admin', 'Login', '2018-01-21 12:09:17'),
-(25, '7392', 'Login', '2018-01-21 15:49:18'),
-(26, '12312123', 'Login', '2018-01-21 18:42:10'),
-(27, '7392', 'Login', '2018-01-21 18:43:59'),
-(28, 'admin', 'Login', '2018-01-21 18:44:37'),
-(29, 'admin', 'Login', '2018-01-21 18:45:36'),
-(30, 'admin', 'Login', '2018-01-21 18:45:48'),
-(31, 'admin', 'Login', '2018-01-21 18:45:56'),
-(32, '7392', 'Login', '2018-01-23 19:01:50'),
-(33, '73923', 'Login', '2018-01-23 19:03:58'),
-(34, '73923', 'Login', '2018-01-23 19:04:00'),
-(35, '739212', 'Login', '2018-01-23 19:04:11'),
-(36, 'Librarian', 'Login', '2018-01-23 19:53:28'),
-(37, 'Librarian', 'Login', '2018-01-23 19:53:31'),
-(38, 'Librarian', 'Login', '2018-01-23 21:18:21'),
-(39, '7392', 'Login', '2018-01-23 21:28:59'),
-(40, '739212', 'Login', '2018-01-23 21:31:49'),
-(41, 'Librarian', 'Login', '2018-01-23 21:34:17'),
-(42, '12312123', 'Login', '2018-01-23 21:42:00'),
-(43, 'Librarian', 'Login', '2018-01-23 21:57:18'),
-(44, 'Librarian', 'Login', '2018-01-23 21:57:26'),
-(45, '7392', 'Login', '2018-01-23 22:26:04'),
-(46, 'Librarian', 'Login', '2018-01-23 22:26:59'),
-(47, '7392', 'Login', '2018-01-23 22:31:16'),
-(48, 'admin', 'Login', '2018-01-28 07:50:03'),
-(49, 'admin', 'Login', '2018-01-28 07:52:58'),
-(50, 'admin', 'Login', '2018-01-28 11:55:03'),
-(51, 'admin', 'Login', '2018-01-28 11:55:06'),
-(52, 'admin', 'Login', '2018-01-29 20:36:13'),
-(53, 'admin', 'Login', '2018-02-04 16:34:34'),
-(54, 'admin', 'Login', '2018-02-04 21:04:38'),
-(55, 'admin', 'Login', '2018-02-04 21:04:40'),
-(56, 'admin', 'Login', '2018-02-04 21:04:47'),
-(57, 'admin', 'Login', '2018-02-05 22:05:54'),
-(58, 'admin', 'Login', '2018-02-08 18:13:49'),
-(59, 'admin', 'Login', '2018-02-08 18:13:54'),
-(60, 'admin', 'Login', '2018-02-13 20:42:54'),
-(61, 'admin', 'Login', '2018-02-13 20:47:32'),
-(62, 'admin', 'Login', '2018-02-13 22:27:53'),
-(63, 'admin', 'Login', '2018-02-13 22:29:56'),
-(64, 'admin', 'Login', '2018-02-13 23:18:17'),
-(65, 'admin', 'Login', '2018-02-21 13:44:16'),
-(66, 'admin', 'Login', '2018-02-21 13:44:24'),
-(67, '7392', 'Login', '2018-02-21 14:13:38'),
-(68, '7392', 'Login', '2018-02-21 15:24:07'),
-(69, '7392', 'Login', '2018-02-21 19:54:13');
+(1, 'admin', 'Login', '2018-12-20 20:55:35');
 
 -- --------------------------------------------------------
 
@@ -578,13 +518,6 @@ CREATE TABLE `maintenace` (
   `men_3` int(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `maintenace`
---
-
-INSERT INTO `maintenace` (`pri_id`, `men_1`, `men_2`, `men_3`) VALUES
-(1, 3, 60, 4);
-
 -- --------------------------------------------------------
 
 --
@@ -597,15 +530,6 @@ CREATE TABLE `message_board` (
   `header` longtext NOT NULL,
   `footer` longtext NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `message_board`
---
-
-INSERT INTO `message_board` (`pre_id`, `doc_id`, `header`, `footer`) VALUES
-(1, 'BRBKWR001', '  Good Day, \r\n       The Following Book(s) has Not been return:', '	 Please Return The Following Book(s) Imideately To Avoid Penalties.'),
-(2, 'ODBRBK002', 'Good Days\r\n     The Following book(s) is (are) now over due:', '     Please Return The Following Book(s) Imideately to avoid further penalties.'),
-(3, 'NWBRBK002', 'Good Day... \r\n    The following books is(are) now been borrowed:', '    Please Be Advise that you must return the following book(s) before or on date to avoid penalties.');
 
 -- --------------------------------------------------------
 
@@ -623,20 +547,6 @@ CREATE TABLE `notification` (
   `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`notif_id`, `notif_id_type`, `notif_type`, `notif_subject`, `notif_text`, `notif_status`, `user_id`) VALUES
-(1, 1, 'request', 'Test Subject', 'Test Content', 1, 12312123),
-(2, 1, 'request', 'Requested for Book', 'try', 1, 12312123),
-(3, 2, 'feedback', 'Feedback from Student', '', 1, 7392),
-(4, 2, 'feedback', 'Feedback from Student', 'Test', 1, 7392),
-(5, 2, 'feedback', 'Feedback from Student', 'Test', 1, 7392),
-(6, 2, 'feedback', 'Feedback from Student', 'Try', 1, 7392),
-(7, 2, 'feedback', 'Feedback from Student', 'Testing', 1, 7392),
-(8, 2, 'feedback', 'Feedback from Student', 'Testing', 1, 7392);
-
 -- --------------------------------------------------------
 
 --
@@ -652,41 +562,59 @@ CREATE TABLE `over_due` (
   `sent` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `over_due`
---
-
-INSERT INTO `over_due` (`id`, `issue_id`, `prev_send`, `next_send`, `member_id`, `sent`) VALUES
-(20, '91256783', '2018-01-23', '2018-01-26', '7392', 0),
-(21, '43576129', '2018-01-28', '2018-01-31', '739212', 0),
-(22, '12085496  ', '2018-01-29', '2018-02-01', '7392', 0),
-(23, '23475160  ', '2018-01-29', '2018-02-01', '7392', 0),
-(24, '53906427  ', '2018-01-30', '2018-02-02', '7392', 0),
-(25, '39065247  ', '2018-01-30', '2018-02-02', '7392', 0),
-(26, '29168705  ', '2018-01-30', '2018-02-02', '7392', 0),
-(27, '34290187  ', '2018-01-30', '2018-02-02', '7392', 0),
-(28, '16248593  ', '2018-01-30', '2018-02-02', '7392', 0),
-(29, '85372619', '2018-01-30', '2018-02-02', '73923', 0),
-(30, '89473052', '2018-01-30', '2018-02-02', '739212', 0),
-(31, '80629475  ', '2018-02-09', '2018-02-12', '7392', 0);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `penalty`
+-- Table structure for table `periodical`
 --
 
-CREATE TABLE `penalty` (
-  `penalty_id` int(11) NOT NULL,
-  `penalty_amount` int(11) NOT NULL
+CREATE TABLE `periodical` (
+  `periodical_id` int(11) NOT NULL,
+  `per_num` varchar(250) NOT NULL,
+  `per_article` varchar(250) NOT NULL,
+  `issue_num` varchar(250) NOT NULL,
+  `location` text NOT NULL,
+  `copies` int(11) NOT NULL,
+  `title_periodical` varchar(250) NOT NULL,
+  `category_id` int(50) NOT NULL,
+  `author` varchar(250) NOT NULL,
+  `publisher` varchar(250) NOT NULL,
+  `isbn` varchar(50) DEFAULT NULL,
+  `copyright_year` int(11) NOT NULL,
+  `date_receive` date DEFAULT NULL,
+  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `img` text NOT NULL,
+  `department` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `total_pages` int(11) NOT NULL,
+  `volumn_num` int(11) NOT NULL,
+  `types` int(3) DEFAULT '3'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `penalty`
+-- Dumping data for table `periodical`
 --
 
-INSERT INTO `penalty` (`penalty_id`, `penalty_amount`) VALUES
-(1, 1);
+INSERT INTO `periodical` (`periodical_id`, `per_num`, `per_article`, `issue_num`, `location`, `copies`, `title_periodical`, `category_id`, `author`, `publisher`, `isbn`, `copyright_year`, `date_receive`, `date_added`, `img`, `department`, `status`, `total_pages`, `volumn_num`, `types`) VALUES
+(1, '1', 'ACCOUNTANCY', '1', 'FIL #', 0, 'Editorial', 9, 'Jose Rizal', 'Rex', NULL, 0, NULL, '2018-03-17 09:09:48', 'images/books/1769637977.jpg', 0, 1, 10, 1, 3),
+(2, '2', 'ADVANCE FOR NURSE PRACTITIONERS', 'MAY - OCT. 2007', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:49', '', 0, 1, 0, 0, 3),
+(3, '3', 'ADVANCE FOR NURSES', 'OCT. - DEC. 2006 JAN. 2007', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:49', '', 0, 1, 0, 0, 3),
+(4, '4', 'ADVANCE FOR NURSES', 'JAN. - SEPT. 2006', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:49', '', 0, 1, 0, 0, 3),
+(5, '5', 'ADVANCE FOR NURSES', 'JAN. - JUNE 2007', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:49', '', 0, 1, 0, 0, 3),
+(6, '6', 'ADVANCE FOR NURSES', 'JULY - DEC. 2007', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:49', '', 0, 1, 0, 0, 3),
+(7, '7', 'ADVANCE IN POST-ACUTE CARE', 'JUNE - DEC. 2006 JAN. 2007', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:49', '', 0, 1, 0, 0, 3),
+(8, '9', 'ALL RECIPES FOOD CONNECTING FOODIES', 'JAN. - OCT. 2008', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:49', '', 0, 1, 0, 0, 3),
+(9, '10', 'AMERICAN JOURNAL OF NURSING', 'FEB. - JULY  2006', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(10, '11', 'AMERICAN JOURNAL OF NURSING', 'JAN. - OCT. 2007', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(11, '12', 'AMERICAN JOURNAL OF NURSING', 'APRIL - OCT. 2007', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(12, '13', 'ASIAWEEK', 'JAN. - MARCH 2000', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(13, '14', 'ASIAWEEK', 'JULY - DEC. 2000', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(14, '15', 'ASIAWEEK', 'MAY - JULY 2001', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(15, '16', 'ASIAWEEK', 'JAN. - APRIL 2000', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(16, '17', 'ASIAWEEK', 'AUG. - OCT. 2001', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(17, '18', 'ASIAWEEK', 'APRIL - JUNE 2000', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(18, '19', 'ASIAWEEK', 'SEPT. - DEC. 2000', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:50', '', 0, 1, 0, 0, 3),
+(19, '20', 'ASIAWEEK', 'JAN. - MARCH 1989', '', 0, '', 9, '', '', NULL, 0, NULL, '2018-03-17 09:09:51', '', 0, 1, 0, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -768,15 +696,6 @@ CREATE TABLE `students` (
   `image` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `students`
---
-
-INSERT INTO `students` (`id`, `student_id`, `student_name`, `gender`, `address`, `contact`, `year_level`, `type`, `passcode`, `dept`, `course`, `active`, `image`) VALUES
-(1, 7392, 'Mark Cruz', 'Male', '', '09291953693', 1, '0', 'e10adc3949ba59abbe56e057f20f883e', 1, 1, 1, 'img/student_images/1021942190.jpg'),
-(2, 73923, 'Joseph Dela Cruz', 'Male', '', '09291953693', 2, '1', 'd09bf41544a3365a46c9077ebb5e35c3', 4, 23, 1, 'img/student_images/1431045741.jpg'),
-(3, 739212, 'Dianna Lopez', 'Female', '', '09291953693', 3, '2', '827ccb0eea8a706c4c34a16891f84e7b', 1, 1, 1, 'img/student_images/1539155088.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -787,17 +706,6 @@ CREATE TABLE `type` (
   `id` int(11) NOT NULL,
   `borrowertype` varchar(50) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `type`
---
-
-INSERT INTO `type` (`id`, `borrowertype`) VALUES
-(2, 'Teacher'),
-(20, 'Employee'),
-(21, 'Non-Teaching'),
-(22, 'Student'),
-(32, 'Contruction');
 
 -- --------------------------------------------------------
 
@@ -821,31 +729,25 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `image`, `access`, `active`, `department`) VALUES
 (1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', '', 1, 1, '1'),
-(2, 'Librarian', 'e10adc3949ba59abbe56e057f20f883e', '', 1, 1, '1'),
-(3, 'Assit', 'd6ef5f7fa914c19931a55bb262ec879c', '', 2, 1, '1'),
-(4, '3214', '775bfca1e73df62e1fcf0cd050d1f102', '', 4, 0, '');
+(2, 'lib', 'e10adc3949ba59abbe56e057f20f883e', '', 1, 1, '1'),
+(3, 'student1', 'e10adc3949ba59abbe56e057f20f883e', '', 2, 1, '1'),
+(4, 'faculty1', '775bfca1e73df62e1fcf0cd050d1f102', '', 4, 0, '');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `allowed_book`
---
-ALTER TABLE `allowed_book`
-  ADD PRIMARY KEY (`allowed_book_id`);
-
---
--- Indexes for table `allowed_days`
---
-ALTER TABLE `allowed_days`
-  ADD PRIMARY KEY (`allowed_days_id`);
-
---
 -- Indexes for table `announcements`
 --
 ALTER TABLE `announcements`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `audio_visual`
+--
+ALTER TABLE `audio_visual`
+  ADD PRIMARY KEY (`av_id`);
 
 --
 -- Indexes for table `authors`
@@ -960,10 +862,10 @@ ALTER TABLE `over_due`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `penalty`
+-- Indexes for table `periodical`
 --
-ALTER TABLE `penalty`
-  ADD PRIMARY KEY (`penalty_id`);
+ALTER TABLE `periodical`
+  ADD PRIMARY KEY (`periodical_id`);
 
 --
 -- Indexes for table `publishers`
@@ -1002,20 +904,15 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `allowed_book`
---
-ALTER TABLE `allowed_book`
-  MODIFY `allowed_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `allowed_days`
---
-ALTER TABLE `allowed_days`
-  MODIFY `allowed_days_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `audio_visual`
+--
+ALTER TABLE `audio_visual`
+  MODIFY `av_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `authors`
 --
@@ -1025,27 +922,27 @@ ALTER TABLE `authors`
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 --
 -- AUTO_INCREMENT for table `booknumber`
 --
 ALTER TABLE `booknumber`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `book_request`
 --
 ALTER TABLE `book_request`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `borrow_book`
 --
 ALTER TABLE `borrow_book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `borrow_details`
 --
 ALTER TABLE `borrow_details`
-  MODIFY `brdt_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `brdt_id` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `catalogue`
 --
@@ -1065,47 +962,47 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `faculty`
 --
 ALTER TABLE `faculty`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `issue_book`
 --
 ALTER TABLE `issue_book`
-  MODIFY `issue_book_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `issue_book_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `libraries`
 --
 ALTER TABLE `libraries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `message_board`
 --
 ALTER TABLE `message_board`
-  MODIFY `pre_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `pre_id` int(2) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `over_due`
 --
 ALTER TABLE `over_due`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `penalty`
+-- AUTO_INCREMENT for table `periodical`
 --
-ALTER TABLE `penalty`
-  MODIFY `penalty_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `periodical`
+  MODIFY `periodical_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `publishers`
 --
@@ -1120,12 +1017,12 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --

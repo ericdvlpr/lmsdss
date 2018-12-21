@@ -6,7 +6,7 @@
         <div class="image">
 
         </div>
-        <img src="images/icons/dwcl_seal_new.png" width="155" height="155" class="center-block img-responsive" />
+        <img src="images/icons/logo.png" width="155" height="155" class="center-block img-circle img-responsive" />
       </div>
 
       <!-- Sidebar Menu -->

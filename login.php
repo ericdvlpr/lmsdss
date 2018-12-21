@@ -5,7 +5,7 @@ include 'core/database.php';
 
 <div class="login-box">
   <div class="login-logo">
-  	<img src="images/icons/dwcl_seal_new.png" width="155" height="155" class="center-block img-responsive" />
+  	<img src="images/icons/logo.png" width="155" height="155" class="center-block img-responsive" />
   	<h3>LIBRARY MANAGEMENT SYSTEM</h3>
   </div>
   <div class="login-box-body">

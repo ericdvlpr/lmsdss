@@ -2,26 +2,12 @@
   <div class="image">
      <?php if($_SESSION['access'] == 1||$_SESSION['access'] == 2|| $_SESSION['access'] == 3){?>
     <a href="index.php" class="logo navbar-brand">
-     <span class="logo-mini"><b>D</b>LS</span>
+     <span class="logo-mini"><b>L</b>MS</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b> <h4>DWCL</b> LIBRARY SYSTEM</h4></span>
-        
+      <span class="logo-lg"><b> <h4>LIBRARY</b> MANAGEMENT SYSTEM</h4></span>
+
       </a>
-       <?php }elseif($_SESSION['access'] == 4){?>
-          <a href="faculty_index.php" class="logo navbar-brand">
-     <span class="logo-mini"><b>D</b>LS</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b> <h4>DWCL</b> LIBRARY SYSTEM</h4></span>
-        
-      </a>
-       <?php }elseif($_SESSION['access'] == 5) {?>
-          <a href="faculty_index.php" class="logo navbar-brand">
-     <span class="logo-mini"><b>D</b>LS</span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b> <h4>DWCL</b> LIBRARY SYSTEM</h4></span>
-        
-      </a>
-        <?php  } ?>
+       <?php }?>
   </div>
     <nav class="navbar navbar-static-top" role="navigation">
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -36,7 +22,7 @@
               <span class="label label-warning countRequest"></span>
             </a>
             <ul class="dropdown-menu">
-            
+
               <li class="header">You have <span class="countRequest"></span> notifications</li>
               <li>
                 <ul class="menu requestnotif">
@@ -51,7 +37,7 @@
               <span class="label label-warning countFeedBack"></span>
             </a>
             <ul class="dropdown-menu">
-            
+
               <li class="header">You have <span class="countFeedBack"></span> notifications</li>
               <li>
                 <ul class="menu">
@@ -69,7 +55,7 @@
                       <span class="label label-warning countFeedBack"></span>
                     </a>
                     <ul class="dropdown-menu">
-                    
+
                       <li class="header">You have <span class="countFeedBack"></span> notifications</li>
                       <li>
                         <ul class="menu">
@@ -80,14 +66,14 @@
                       <li class="footer"><a href="#">View all</a></li>
                     </ul>
                   </li>
-         
+
         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning countRequest"></span>
             </a>
             <ul class="dropdown-menu">
-            
+
               <li class="header">You have <span class="countRequest"></span> notifications</li>
               <li>
                 <ul class="menu requestnotif">
@@ -121,7 +107,7 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-            <?php if($_SESSION['access']=='1'){ ?>  
+            <?php if($_SESSION['access']=='1'){ ?>
           <li>
             <a href="setup.php"><i class="fa fa-gears"></i></a>
           </li>
@@ -130,4 +116,4 @@
       </div>
     </nav>
   </header>
-  
+

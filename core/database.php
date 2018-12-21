@@ -348,24 +348,31 @@ error_reporting(0);
       public function get_announcements_index($query) {
            $output = '';
            $result = $this->execute_query($query);
-           while($row = mysqli_fetch_object($result))
-           {
-            if($row->status== 0){
-              $status = 'Pending';
-            }else{
-               $status = 'Approved';
-            }
-                $output .= '
-                <tr>
-                     <td>'.$row->title.'</td>
-                     <td>'.$row->content.'</td>
-                     <td>'.$row->date.'</td>
-                     <td>'.$status.'</td>
+           $rowCount = mysqli_num_rows($result);
+           if($rowCount == 0){
+             $output .= '
+                      <tr>
+                           <td colspan="4"><center>No Anounncement Posted</center></td>
+                      </tr>
+                      ';
+           }else{
+                while($row = mysqli_fetch_object($result)){
+                  if($row->status== 0){
+                    $status = 'Pending';
+                  }else{
+                     $status = 'Approved';
+                  }
+                      $output .= '
+                      <tr>
+                           <td>'.$row->title.'</td>
+                           <td>'.$row->content.'</td>
+                           <td>'.$row->date.'</td>
+                           <td>'.$status.'</td>
 
-                </tr>
-                ';
+                      </tr>
+                      ';
+                 }
            }
-
            return $output;
       }
        public function get_book_index($query) {
@@ -391,23 +398,30 @@ error_reporting(0);
  public function get_book_issued_index($query) {
            $output = '';
            $result = $this->execute_query($query);
+           if($rowCount == 0){
+             $output .= '
+                      <tr>
+                           <td colspan="7"><center>No Book Borrowed</center></td>
+                      </tr>
+                      ';
+           }else{
+              while($row = mysqli_fetch_object($result)){
+                  $output .= '
+                  <tr>
+                       <td>'.$row->borrow_no.'</td>
+                       <td>'.$row->book_title.'</td>
+                       <td>'.$row->student_name.'</td>
+                       <td>'.$row->copies.'</td>
+                       <td>'.$row->on_date.'</td>
+                       <td>'.$row->due_date.'</td>
+                       <td>'.$row->activity.'</td>
 
-           while($row = mysqli_fetch_object($result))
-           {
-                $output .= '
-                <tr>
-                     <td>'.$row->borrow_no.'</td>
-                     <td>'.$row->book_title.'</td>
-                     <td>'.$row->student_name.'</td>
-                     <td>'.$row->copies.'</td>
-                     <td>'.$row->on_date.'</td>
-                     <td>'.$row->due_date.'</td>
-                     <td>'.$row->activity.'</td>
 
-
-                </tr>
-                ';
+                  </tr>
+                  ';
+             }
            }
+
            return $output;
       }
 public function get_user_index($query) {
@@ -927,7 +941,7 @@ public function get_faculty_index($query) {
            }
            else
            {
-            $output .= '<li><p>No FeedBack Found</p></li>';
+            $output .= '<p class="alert alert-warning">No FeedBack Found</p>';
            }
            $query_1 = "SELECT * FROM notification WHERE notif_id_type = 2 AND notif_status=0";
            $result_1 =$this->execute_query($query_1);
@@ -983,7 +997,7 @@ public function get_faculty_index($query) {
 
               }
            }else{
-            $output .= '<a href="#"><li>No FeedBack Found</li></a>';
+            $output .= '<p class="alert alert-warning">No FeedBack Found</p>';
            }
            $query_1 = "SELECT * FROM notification";
            $result_1 =$this->execute_query($query_1);
