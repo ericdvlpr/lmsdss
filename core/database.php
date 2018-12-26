@@ -8,7 +8,7 @@ error_reporting(0);
       public $connect;
       private $host = "localhost";
       private $username = 'root';
-      private $password = '123456';
+      private $password = '12345789';
       private  $database = 'db_lms';
       function __construct() {
            $this->database_connect();
@@ -1263,7 +1263,7 @@ public function get_search_data($query)
 //Login/Tapin
   public function login($user,$pass){
 
-        $query = "SELECT * FROM users WHERE username = '".$user."' AND password = '".md5($pass)."'";
+         $query = "SELECT * FROM users WHERE username = '".$user."' AND password = '".md5($pass)."'";
         $exeque = "INSERT INTO `logs`
               (student_no, description, Date_time) VALUES ('".$user."', 'Login', NOW())
               ";
@@ -1271,7 +1271,7 @@ public function get_search_data($query)
         $results = $this->execute_query($query);
         $row = mysqli_fetch_object($results);
         $rowCount = mysqli_num_rows($results);
-        echo $row->user_id;
+        echo $row->user_id.','.$row->access;
 
       }
 

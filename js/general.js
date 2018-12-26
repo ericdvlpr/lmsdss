@@ -2536,14 +2536,14 @@ $('#memberName').change(function(){
                               processData:false,
                               success:function(data)
                               {
-
-                                if(data == 0){
-                                    $('.alertMsg').html("<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Login Failed!</strong></div>");
-                                  }else{
-                                    alert("Login Successful!");
-                                    $(location).attr('href', 'login_parse.php?id='+data);
-
-                                  }
+                                alert(data[0]);
+                                // if(data == 0){
+                                //     $('.alertMsg').html("<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><strong>Login Failed!</strong></div>");
+                                //   }else{
+                                //     alert("Login Successful!");
+                                //     $(location).attr('href', 'login_parse.php?type='+data[0]);
+                                //
+                                //   }
 
                               }
                         });
