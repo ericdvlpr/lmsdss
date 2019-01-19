@@ -4,6 +4,10 @@ error_reporting(0);
  date_default_timezone_set('Asia/Manila');
  class Database
  {
+   // BUG: : Check report
+   // BUG: : Check check in/ out book
+   // BUG: : Check reserve book
+   // BUG: : Reserve book modal
       //crud class
       public $connect;
       private $host = "localhost";
@@ -218,10 +222,10 @@ error_reporting(0);
            $result = $this->execute_query($query);
            while($row = mysqli_fetch_object($result))
            {
-            $count = $this->count_borrowed_books_student($row->member_id);
+            $count = $this->count_borrowed_books_student($row->bbid);
                $output .= '
                 <tr>
-                     <td>'.$row->member_id.'</td>
+                     <td>'.$row->bbid.'</td>
                      <td>'.$row->student_name.'</td>
                      <td>'.$row->department_name.'</td>
                      <td>'.$row->course_code.'</td>
@@ -233,7 +237,7 @@ error_reporting(0);
            return $output;
       }
        public function count_borrowed_books_student($id){
-          $result_1 =$this->execute_query("SELECT COUNT('brdt_id') FROM borrow_details WHERE member_id='".$id."'");
+          $result_1 =$this->execute_query("SELECT COUNT('brdt_id') FROM borrow_details WHERE bbid='".$id."'");
            $count = mysqli_num_rows($result_1);
            return $count;
         }
@@ -641,7 +645,7 @@ public function get_faculty_index($query) {
             $output = '';
 
 
-           $query = "SELECT s.student_name AS Name, f.faculty_name AS fname, bd.borrow_no AS borrow_no, bd.activity AS status FROM borrow_details bd LEFT JOIN students s ON s.student_id = bd.member_id LEFT JOIN faculty f ON f.faculty_no = bd.member_id";
+           $query = "SELECT s.student_name AS Name, f.faculty_name AS fname, bd.borrow_no AS borrow_no, bd.activity AS status FROM borrow_details bd LEFT JOIN students s ON s.student_id = bd.bbid LEFT JOIN faculty f ON f.faculty_no = bd.bbid";
 
            $result = $this->execute_query($query);
            while($row = mysqli_fetch_object($result))
@@ -1020,9 +1024,9 @@ public function get_faculty_index($query) {
 
          $query3 = "SELECT * FROM students WHERE student_id='".$mid."'";
 
-         $query4 = "SELECT * FROM borrow_book bb LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no WHERE bb.book_no = '".$id."' AND bd.member_id = '".$mid."' AND (bd.activity = 'reserved' OR bd.activity = 'borrowed' OR bd.activity = 'overdue')";
+         $query4 = "SELECT * FROM borrow_book bb LEFT JOIN borrow_details bd ON bd.borrow_no = bb.borrow_no WHERE bb.book_no = '".$id."' AND bd.bbid = '".$mid."' AND (bd.activity = 'reserved' OR bd.activity = 'borrowed' OR bd.activity = 'overdue')";
 
-         $query5 = "SELECT bb.copies AS copy FROM borrow_book bb LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bd.member_id = '".$mid."'";
+         $query5 = "SELECT bb.copies AS copy FROM borrow_book bb LEFT JOIN borrow_details bd ON bb.borrow_no = bd.borrow_no WHERE bd.bbid = '".$mid."'";
 
          $query6 = "SELECT m.men_1 AS CON FROM maintenace m WHERE m.pri_id = '1'";
 
@@ -1120,7 +1124,7 @@ public function get_faculty_index($query) {
             </tr>
             <tr>
               <td align="right" >Available: </td>
-              <td>'.$calc.'</td>
+              <td>'.$row6->CON.'</td>
             </tr>
 
         </table>
@@ -1143,7 +1147,7 @@ public function get_faculty_index($query) {
             }else if((mysqli_num_rows($result3)) && ($calc3>=$row6->CON)){
               $output .= 'Your Borrowing books limit has been reached. Please Return All of your borrowed Books Immediately. To Close Press the Escape Button.|false|'.$title.'/'.$row->ab_author.'|0|Borrow Limit Reached, Please Return All of your borrowed Books Immediately.';
             }else{
-              $output .= 'Would you like to reserve this book? type 1 for Yes, or Type 2 for No.|true|'.$title.'/'.$row->ab_author.'|'.$calc.'|N/A';
+              $output .= 'Would you like to reserve this book? type Yes, or No.|true|'.$title.'/'.$row->ab_author.'|'.$calc.'|N/A';
             }
          }
          //*/
@@ -1157,53 +1161,48 @@ public function get_search_data($query)
         $numrow = mysqli_num_rows($result);
         $output = '';
         $array = '';
+          if($numrow>0){
+            $output .= $numrow.'|';
 
+            $output .= '';
+            while($row = mysqli_fetch_object($result))
+            {
+               $output .= '
+                <tr>
+                  <td>';
+                  if($row->ab_type == 2){
+                    $output .= '<div class="book_title">'.$row->ab_title.' (Audio Visuasl)</div>';
+                  }else if($row->ab_type == 3){
+                    $output .= '<div class="book_title">'.$row->ab_title.' (Periodical)</div>';
+                  } else{
+                    $output .= '<div class="book_title">'.$row->ab_title.'</div>';
+                  }
+                 $output .= '<div class="book_specs">'.$row->ab_author.'</br>
+                  '.$row->ab_year.' ed.</br>
+                  '.$row->ab_pub.'</br>
+                  ISBN: '.$row->ab_isbn.'</br>
+                  Call #: '.$row->ab_loc.'</br>
+                  '.$row->ab_dept.'</br>
+                  </div>
 
-        if($numrow>0){
-          $output .= $numrow.'|';
-
-          $output .= '
-
-
-        ';
-          while($row = mysqli_fetch_object($result))
-          {
-             $output .= '
-              <tr>
-                <td>';
+                  </br>
+                  </td>
+                  <td>
+                      <img src="'.$row->ab_img.'" width="40%" height="auto">
+                  </td>
+                </tr> ';
                 if($row->ab_type == 2){
-                  $output .= '<div class="book_title">'.$row->ab_title.' (Audio Visuasl)</div>';
-                }else if($row->ab_type == 3){
-                  $output .= '<div class="book_title">'.$row->ab_title.' (Periodical)</div>';
-                } else{
-                  $output .= '<div class="book_title">'.$row->ab_title.'</div>';
+                  $array .= $row->ab_id.'*'.$row->ab_title.' an audio visual*'.$row->ab_author.'/';
+                }else{
+                  $array .= $row->ab_id.'*'.$row->ab_title.'*'.$row->ab_author.'/';
                 }
-               $output .= '<div class="book_specs">'.$row->ab_author.'</br>
-                '.$row->ab_year.' ed.</br>
-                '.$row->ab_pub.'</br>
-                ISBN: '.$row->ab_isbn.'</br>
-                Call #: '.$row->ab_loc.'</br>
-                '.$row->ab_dept.'</br>
-                </div>
-
-                </br>
-                </td>
-                <td>
-                    <img src="'.$row->ab_img.'" width="40%" height="auto">
-                </td>
-              </tr> ';
-              if($row->ab_type == 2){
-                $array .= $row->ab_id.'*'.$row->ab_title.' an audio visual*'.$row->ab_author.'/';
-              }else{
-                $array .= $row->ab_id.'*'.$row->ab_title.'*'.$row->ab_author.'/';
-              }
+            }
+            $output .= '|'.$array;
+          }else{
+            $output = 0;
           }
-          $output .= '|'.$array;
-        }else{
-          $output = 0;
-        }
 
-       return $output;
+         return $output;
 
       }
 
@@ -1271,8 +1270,11 @@ public function get_search_data($query)
         $results = $this->execute_query($query);
         $row = mysqli_fetch_object($results);
         $rowCount = mysqli_num_rows($results);
-        echo $row->user_id.','.$row->access;
-
+        if($rowCount!=0){
+          echo $row->access.','.$row->user_id;
+        }else{
+          echo 0;
+        }
       }
 
  public function tapin_data($query,$id){
@@ -1316,7 +1318,7 @@ public function get_search_data($query)
         }
       }
      public function get_issue_data($id){
-          $query = "SELECT bk.book_no AS ab_no1, av.av_num as ab_no2, p.per_num AS ab_no3, bk.book_title AS title1, av.av_title as title2, p.per_article AS title3, br.copies AS copies, br.on_date AS on_date, br.due_date AS due_date, s.student_name AS name, f.faculty_name AS fname, s.contact AS contact, f.contacs AS fcontact, br.borrow_no AS borrow_no, br.id AS id FROM borrow_book br LEFT JOIN book bk ON bk.book_no=br.book_no LEFT JOIN borrow_details bd ON bd.borrow_no = br.borrow_no LEFT JOIN students s ON s.student_id=bd.member_id LEFT JOIN faculty f ON f.faculty_no = bd.member_id LEFT JOIN audio_visual av ON br.book_no = av.av_num LEFT JOIN periodical p ON p.per_num = br.book_no WHERE bd.member_id ='".$id."' AND bd.activity = 'reserved' ORDER BY br.id Asc";
+          $query = "SELECT bk.book_no AS ab_no1, av.av_num as ab_no2, p.per_num AS ab_no3, bk.book_title AS title1, av.av_title as title2, p.per_article AS title3, br.copies AS copies, br.on_date AS on_date, br.due_date AS due_date, s.student_name AS name, f.faculty_name AS fname, s.contact AS contact, f.contacs AS fcontact, br.borrow_no AS borrow_no, br.id AS id FROM borrow_book br LEFT JOIN book bk ON bk.book_no=br.book_no LEFT JOIN borrow_details bd ON bd.borrow_no = br.borrow_no LEFT JOIN students s ON s.student_id=bd.bbid LEFT JOIN faculty f ON f.faculty_no = bd.bbid LEFT JOIN audio_visual av ON br.book_no = av.av_num LEFT JOIN periodical p ON p.per_num = br.book_no WHERE bd.bbid ='".$id."' AND bd.activity = 'reserved' ORDER BY br.id Asc";
           $result = $this->execute_query($query);
 
           date_default_timezone_set("Asia/Manila");
@@ -1599,7 +1601,7 @@ public function get_search_data($query)
             $penres = $this->execute_query($penque);
             $penrow = mysqli_fetch_object($penres);
 
-            $query = "SELECT bd.borrow_no AS borrow_no, bd.member_id AS member_id, s.contact AS contact FROM borrow_details bd LEFT JOIN students s ON bd.member_id = s.student_id WHERE bd.activity = 'borrowed' OR bd.activity = 'limbo'";
+            $query = "SELECT bd.borrow_no AS borrow_no, bd.bbid AS bbid, s.contact AS contact FROM borrow_details bd LEFT JOIN students s ON bd.bbid = s.student_id WHERE bd.activity = 'borrowed' OR bd.activity = 'limbo'";
             $result = $this->execute_query($query);
             $output = '';
             $date = date('Y-m-d');
@@ -1638,7 +1640,7 @@ public function get_search_data($query)
                     $odque = "SELECT * FROM over_due WHERE issue_id='".$row->borrow_no."'";
                     $odres = $this->execute_query($odque);
                     if(mysqli_num_rows($odres) == 0){
-                        $odaqu = "INSERT INTO `over_due`(issue_id, prev_send, next_send, member_id) VALUES ('".$row->borrow_no."', '".$date."', '".$dues."', '".$row->member_id."')";
+                        $odaqu = "INSERT INTO `over_due`(issue_id, prev_send, next_send, bbid) VALUES ('".$row->borrow_no."', '".$date."', '".$dues."', '".$row->bbid."')";
                         $this->execute_query($odaqu);
                         $newbie = true;
                     }
@@ -1674,7 +1676,7 @@ public function get_search_data($query)
                   $empty = false;
                 }
               //Message V2
-                $odcqu = "SELECT s.contact AS contact, od.issue_id AS borrow_no, od.prev_send AS prv, od.next_send AS nxt, od.sent AS sent FROM over_due od LEFT JOIN students s ON s.student_id = od.member_id ";
+                $odcqu = "SELECT s.contact AS contact, od.issue_id AS borrow_no, od.prev_send AS prv, od.next_send AS nxt, od.sent AS sent FROM over_due od LEFT JOIN students s ON s.student_id = od.bbid ";
                 $odcre = $this->execute_query($odcqu);
                 while($odcrow = mysqli_fetch_object($odcre)){
 

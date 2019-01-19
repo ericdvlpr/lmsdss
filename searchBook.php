@@ -1,18 +1,18 @@
-<?php include 'includes/header.php';?>         
+<?php include 'includes/header.php';?>
 <?php include 'includes/sidemenu.php'; ?>
 <div class="container">
-   <form name="srch_form" id="srch_form">
-      <div class="page-header"><h1 class="text-center">DWCL LIBRARY</h1></br>
+   <form name="srch_form" id="srch_form" method="post">
+      <div class="page-header"><h1 class="text-center">LIBRARY</h1></br>
       <input type="hidden" name="std_name" id="std_name" value=<?php echo $_SESSION['id']; ?>>
-      <input type="hidden" name="std_name2" id="std_name2" value=<?php echo $_SESSION['name']; ?>> 
+      <input type="hidden" name="std_name2" id="std_name2" value=<?php echo $_SESSION['name']; ?>>
       <input type="hidden" name="std_type" id="std_type" value=<?php echo $_SESSION['type']; ?>>
-      
+
        <div class="input-group">
           <input type="text" class="form-control" id="searchname" placeholder="Search Book" autocomplete="off">
           <div class="input-group-btn"> <button type="submit" class="btn btn-default">Search</button> </div>
        </div>
-      
-    </form> 
+
+    </form>
         </div>
     <div align="center">
         <button class="btn btn-default" name="br_book" id="bt">Title</button>
@@ -21,12 +21,12 @@
         <button class="btn btn-default" name="br_book" id="bc">Call No.</button>
 
     </div>
-    <div>       
-        <table id="sc_table"  class="table table-bordered">  
+    <div>
+        <table id="sc_table"  class="table table-bordered">
                 <thead>
                 <tr>
                     <th width="50%"></th>
-                    <th></th>  
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="search_table">
@@ -34,12 +34,12 @@
                 </tbody>
         </table>
     </div>
-  
+
 
 
 
   </div>
-  
+
 
 
   <div class="modal fade" tabindex="-1" role="dialog" id="mod_info">
@@ -52,11 +52,11 @@
         <p id="mod_data" align="center" class="book_specs"></p>
       </div>
       <div class="modal-footer">
-        
+
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->   
+</div><!-- /.modal -->
 
 
 <div class="modal fade" tabindex="-1" role="dialog" id="modal_select">
@@ -70,10 +70,10 @@
         <table>
             <tr>
                 <td id='book_content'>
-                
+
                 </td>
             </tr>
-        </table> 
+        </table>
       </div>
       <div class="modal-footer">
          <table align="center">
@@ -88,13 +88,13 @@
                         <h4 class="modal-title" id="rowdata"></h4>
                     </td>
                 </tr>
-         </table>  
+         </table>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 
-<?php 
+<?php
 include 'includes/sfooter.php';
 ?>

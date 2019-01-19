@@ -15,7 +15,8 @@
       </a>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-        <?php if($_SESSION['access'] == 1){?>
+        <?php if($_SESSION['access'] == 4
+      ){?>
         <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -48,7 +49,7 @@
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
-          <?php }elseif($_SESSION['access'] == 1){?>
+        <?php }elseif($_SESSION['access'] == 4){?>
                   <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                       <i class="fa fa-comment-o"></i>
@@ -107,7 +108,7 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-            <?php if($_SESSION['access']=='1'){ ?>
+            <?php if($_SESSION['access']==4){ ?>
           <li>
             <a href="setup.php"><i class="fa fa-gears"></i></a>
           </li>
@@ -116,4 +117,3 @@
       </div>
     </nav>
   </header>
-

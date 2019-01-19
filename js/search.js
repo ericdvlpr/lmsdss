@@ -13,53 +13,53 @@ var tabD = false
 var mod2 = false
 
 $(document).ready(function(){
-
+$('#searchname').focus();
     /*
     $('#collapseExample').BootSideMenu({
             side: "left"
     });
       */
-        welcome();
-        
-        function welcome(){
-          $("#sc_table").hide();
-          if($("#std_type").val() == "2"){
-            voi_ab = true
-            voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. To speed please press the shift button.")
-            $('#searchname').focus();
-          }else{
-            $('#mod_info').modal('show');
-            $('#mod_title').html('Welcome to LMS');
-            $('#mod_data').html("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button or the upper right corner of this screen.")
-            $('#searchname').prop('disabled',true)
-             mod2 =true
-             setTimeout(autoclose, 5000);
-          }
+        // welcome();
 
-          
-        }  
+        // function welcome(){
+        //   $("#sc_table").hide();
+        //   if($("#std_type").val() == "2"){
+        //     voi_ab = true
+        //     voice_pre("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button. To speed please press the shift button.")
+        //     $('#searchname').focus();
+        //   }else{
+        //     $('#mod_info').modal('show');
+        //     $('#mod_title').html('Welcome to LMS');
+        //     $('#mod_data').html("Welcome "+$("#std_name2").val()+" to LMS. To search, Just type in your title, or related to the title of the your book and press enter. To log out please press the escape button or the upper right corner of this screen.")
+        //     $('#searchname').prop('disabled',true)
+        //      mod2 =true
+        //      setTimeout(autoclose, 5000);
+        //   }
+        //
+        //
+        // }
         function reserve(id,student){
-      
-          var action = 'Book_Reserve' 
+
+          var action = 'Book_Reserve'
           var dat5 = new FormData()
           dat5.append('action', action)
           dat5.append('id', id)
           dat5.append('std', student)
-          
+
           $.ajax({
                 url:"core/action.php",
                 method:"POST",
                 data:dat5,
-                contentType:false,  
+                contentType:false,
                 processData:false,
                 success:function(data)
                 {
                   //alert(data);
                   //*
                   if(data){
-                    voice_pre("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book. Note, this book will be reserve within 24 hours, beyond that will be consider null and void.",2,null);
+                    alert("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book. Note, this book will be reserve within 24 hours, beyond that will be consider null and void.");
                     $('#modal_select').modal('toggle')
-                  } 
+                  }
                   //*/
                 }
           });
@@ -72,27 +72,27 @@ $(document).ready(function(){
               dat3.append('action', action);
               dat3.append('id',id);
               dat3.append('mem',memid);
-              
+
 
               $.ajax({
                 url:"core/action.php",
                 method:"POST",
                 data:dat3,
-                contentType:false,  
+                contentType:false,
                 processData:false,
                 success:function(data)
                 {
                   //alert(data)
-                  
+
                   var plt2 = data.split('|')
-                  
+
                   $('#modal_select').modal('show')
-                  
+
                   $('#book_title').html(plt2[3])
                   $('#book_content').html(plt2[0]);
-                  
+
                   if(plt2[4] != 0){
-                    
+
                     $('#row1hid').show()
                     $('#row2hid').hide()
                   }else{
@@ -102,126 +102,125 @@ $(document).ready(function(){
                   }
 
                   tbl_res = plt2[2];
-                  voice_pre(plt2[1],0,null);
+                  //(plt2[1],0,null);
                   $('#searchname').prop('disabled',true)
                   //
-                }  
-                          
+                }
+
               });
         }
 
 
-        function voice_pre(text,tb,td){
-              if(voi_ab){
-              
-              var ssy = window.speechSynthesis
-              var utt = new SpeechSynthesisUtterance();
+        // function voice_pre(text,tb,td){
+        //       if(voi_ab){
+        //       var ssy = window.speechSynthesis
+        //       var utt = new SpeechSynthesisUtterance();
+        //
+        //       if(ssy.speaking){
+        //           ssy.cancel()
+        //           if (Timeout !== null)
+        //               clearTimeout(Timeout);
+        //
+        //           Timeout = setTimeout(function(){ voice_pre(text,tb,td); }, 250);
+        //       }else{
+        //       utt.text = text
+        //       utt.rate = rt
+        //       utt.volume = 2;
+        //       ssy.speak(utt);
+        //         if(tb==2){
+        //           $('#mod_info').modal('show');
+        //           $('#mod_title').html('Reserved')
+        //           $('#mod_data').html(text);
+        //
+        //         }
+        //       }
+        //
+        //       utt.onend = function(e){
+        //         if(tb==1){
+        //           $('#sc_table').show()
+        //           $('#search_table').html(td);
+        //
+        //           if(!tabD){
+        //             $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bInfo" : false, "bFilter": false, "paging": false, "ordering": false, "sorting": false})
+        //
+        //             tabD=true
+        //           }
+        //           $('#ba').removeClass('btn btn-primary')
+        //           $('#ba').addClass('btn btn-default')
+        //           $('#bi').removeClass('btn btn-primary')
+        //           $('#bi').addClass('btn btn-default')
+        //           $('#bc').removeClass('btn btn-primary')
+        //           $('#bc').addClass('btn btn-default')
+        //           $('#bt').removeClass('btn btn-default')
+        //           $('#bt').addClass('btn btn-primary')
+        //
+        //           voice_pre("Please use up and down buttons to navigate.",0,null);
+        //         }else if(tb==2){
+        //           tbl_diag = false;
+        //           tbl_res = false;
+        //           $('#mod_info').modal('toggle');
+        //           $('#searchname').prop('disabled',false)
+        //           $('#searchname').blur();
+        //
+        //         }else if(tb==3){
+        //          //logout();
+        //         }
+        //       }
+        //     }else{
+        //       if(tb==1){
+        //           $('#sc_table').show()
+        //           $('#search_table').html(td);
+        //           if(!tabD){
+        //             $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bInfo" : false, "bFilter": false, "paging": false, "ordering": false, "sorting": false})
+        //             tabD=true
+        //           }
+        //           $('#ba').removeClass('btn btn-primary')
+        //           $('#ba').addClass('btn btn-default')
+        //           $('#bi').removeClass('btn btn-primary')
+        //           $('#bi').addClass('btn btn-default')
+        //           $('#bc').removeClass('btn btn-primary')
+        //           $('#bc').addClass('btn btn-default')
+        //           $('#bt').removeClass('btn btn-default')
+        //           $('#bt').addClass('btn btn-primary')
+        //
+        //         }else if(tb==2){
+        //           $('#mod_info').modal('show');
+        //           $('#mod_title').html('Reserved')
+        //           $('#mod_data').html("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book. <br /> <br /> Note: this book will be reserve within 24 hours, beyond that will be consider null and void.");
+        //           mod2 =true
+        //           $('#searchname').prop('disabled',true)
+        //           tbl_diag = false;
+        //           tbl_res = false;
+        //           setTimeout(autoclose, 2000);
+        //         }else if(tb==3){
+        //            setTimeout(logout, 3000)
+        //         }
+        //     }
+        //
+        // }
 
-              if(ssy.speaking){
-                  ssy.cancel()
-                  if (Timeout !== null)
-                      clearTimeout(Timeout);
-
-                  Timeout = setTimeout(function(){ voice_pre(text,tb,td); }, 250);
-              }else{
-              utt.text = text
-              utt.rate = rt
-              utt.volume = 2;
-              ssy.speak(utt);
-                if(tb==2){
-                  $('#mod_info').modal('show');
-                  $('#mod_title').html('Reserved')
-                  $('#mod_data').html(text);
-                  
-                }
-              }
-
-              utt.onend = function(e){
-                if(tb==1){
-                  $('#sc_table').show()
-                  $('#search_table').html(td);
-                  
-                  if(!tabD){
-                    $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bInfo" : false, "bFilter": false, "paging": false, "ordering": false, "sorting": false})
-                    
-                    tabD=true
-                  }
-                  $('#ba').removeClass('btn btn-primary')
-                  $('#ba').addClass('btn btn-default')
-                  $('#bi').removeClass('btn btn-primary')
-                  $('#bi').addClass('btn btn-default')
-                  $('#bc').removeClass('btn btn-primary')
-                  $('#bc').addClass('btn btn-default')
-                  $('#bt').removeClass('btn btn-default')
-                  $('#bt').addClass('btn btn-primary')
-      
-                  voice_pre("Please use up and down buttons to navigate.",0,null);
-                }else if(tb==2){
-                  tbl_diag = false;
-                  tbl_res = false;
-                  $('#mod_info').modal('toggle');
-                  $('#searchname').prop('disabled',false)
-                  $('#searchname').blur();
-              
-                }else if(tb==3){
-                 logout(); 
-                }
-              }
-            }else{
-              if(tb==1){
-                  $('#sc_table').show()
-                  $('#search_table').html(td);
-                  if(!tabD){
-                    $('#sc_table').dataTable({"pageLength": 1000, "lengthChange": false, "bInfo" : false, "bFilter": false, "paging": false, "ordering": false, "sorting": false})
-                    tabD=true
-                  }
-                  $('#ba').removeClass('btn btn-primary')
-                  $('#ba').addClass('btn btn-default')
-                  $('#bi').removeClass('btn btn-primary')
-                  $('#bi').addClass('btn btn-default')
-                  $('#bc').removeClass('btn btn-primary')
-                  $('#bc').addClass('btn btn-default')
-                  $('#bt').removeClass('btn btn-default')
-                  $('#bt').addClass('btn btn-primary')
-      
-                }else if(tb==2){
-                  $('#mod_info').modal('show');
-                  $('#mod_title').html('Reserved')
-                  $('#mod_data').html("Your Book is now been reserved. Please proceed to the Librarian on duty to collect your book. <br /> <br /> Note: this book will be reserve within 24 hours, beyond that will be consider null and void.");
-                  mod2 =true
-                  $('#searchname').prop('disabled',true)
-                  tbl_diag = false;
-                  tbl_res = false;
-                  setTimeout(autoclose, 2000); 
-                }else if(tb==3){
-                   setTimeout(logout, 3000)
-                }
-            }
-
-        }
-
-    function autoclose(){
-      
-      if(mod2){
-        $('#mod_info').modal('toggle');
-         $('#searchname').prop('disabled',false)
-         $('#searchname').focus();
-         mod2 = false
-      }
-    }
-    function logout(){
-         $('#mod_info').modal('toggle');
-         $(location).attr('href','logout_parse.php');
-         return false;
-    }
+    // function autoclose(){
+    //
+    //   if(mod2){
+    //     $('#mod_info').modal('toggle');
+    //      $('#searchname').prop('disabled',false)
+    //      $('#searchname').focus();
+    //      mod2 = false
+    //   }
+    // }
+    // function logout(){
+    //      $('#mod_info').modal('toggle');
+    //      $(location).attr('href','logout_parse.php');
+    //      return false;
+    // }
     function reCalculate(e){
         var rows = $('#sc_table tr').length;
-              
+
         if (e.keyCode == 38) { // move up
            active--;
         }
         if (e.keyCode == 40) { // move down
-            active++    
+            active++
         }
         if((active<=rows-1)&&(active>=0)){
           rePosition();
@@ -255,7 +254,7 @@ $(document).ready(function(){
           }
 
 
-          voice_pre(dat[active-1][1] + ' by ' + aut,0,null);
+          //voice_pre(dat[active-1][1] + ' by ' + aut,0,null);
           //*/
 
           //$('#searchname').prop('disabled',true)
@@ -264,7 +263,7 @@ $(document).ready(function(){
 
         }else{
           $('.active').removeClass('actives');
-          
+
           //$('#searchname').prop('disabled',false)
           $('#searchname').focus();
 
@@ -277,10 +276,10 @@ $(document).ready(function(){
         if (target.length){
             var top = target.offset().top;
               $('html,body').stop().animate({scrollTop: top-100}, 400);
-            
+
             return false;
         }
-        
+
     }
    $(document).on('click', function(){
       if(mod2){
@@ -304,7 +303,7 @@ $(document).ready(function(){
     });
     $('#Yes').on('click', function(){
         reserve(dat[active-1][0], $('#std_name').val());
-    })
+    });
 
     $('#sc_table tbody').on('click', 'tr', function(){
       if(tbl && (!tbl_diag) && (!sec_sh)){
@@ -314,8 +313,8 @@ $(document).ready(function(){
         select_book(dat[active-1][0]);
       }
 
-    })
-    
+    });
+
     $('#bt').on('click', function(){
       $('#ba').removeClass('btn btn-primary')
       $('#ba').addClass('btn btn-default')
@@ -340,13 +339,13 @@ $(document).ready(function(){
                 url:"core/action.php",
                 method:"POST",
                 data:dat2,
-                contentType:false,  
+                contentType:false,
                 processData:false,
                 success:function(data)
                 {
                   // alert(data);
                     var plt = data.split("|");
-                    var temp1 =plt[2].split("/"); 
+                    var temp1 =plt[2].split("/");
                     for(i=0;i<temp1.length;i++){
                       dat[i]= temp1[i].split('*');
 
@@ -354,7 +353,7 @@ $(document).ready(function(){
                     }
                     $('#search_table').html('')
                     $('#search_table').html(plt[1]);
-                  
+
                 }
               })
             }
@@ -384,13 +383,13 @@ $(document).ready(function(){
                 url:"core/action.php",
                 method:"POST",
                 data:dat2,
-                contentType:false,  
+                contentType:false,
                 processData:false,
                 success:function(data)
                 {
                    //alert(data);
                     var plt = data.split("|");
-                    var temp1 =plt[2].split("/"); 
+                    var temp1 =plt[2].split("/");
                     for(i=0;i<temp1.length;i++){
                       dat[i]= temp1[i].split('*');
 
@@ -398,7 +397,7 @@ $(document).ready(function(){
                     }
                     $('#search_table').html('')
                     $('#search_table').html(plt[1]);
-                  
+
                 }
               })
             }
@@ -429,13 +428,13 @@ $(document).ready(function(){
                 url:"core/action.php",
                 method:"POST",
                 data:dat2,
-                contentType:false,  
+                contentType:false,
                 processData:false,
                 success:function(data)
                 {
                    //alert(data);
                     var plt = data.split("|");
-                    var temp1 =plt[2].split("/"); 
+                    var temp1 =plt[2].split("/");
                     for(i=0;i<temp1.length;i++){
                       dat[i]= temp1[i].split('*');
 
@@ -443,7 +442,7 @@ $(document).ready(function(){
                     }
                     $('#search_table').html('')
                     $('#search_table').html(plt[1]);
-                  
+
                 }
               })
             }
@@ -474,13 +473,13 @@ $(document).ready(function(){
                 url:"core/action.php",
                 method:"POST",
                 data:dat2,
-                contentType:false,  
+                contentType:false,
                 processData:false,
                 success:function(data)
                 {
                   // alert(data);
                     var plt = data.split("|");
-                    var temp1 =plt[2].split("/"); 
+                    var temp1 =plt[2].split("/");
                     for(i=0;i<temp1.length;i++){
                       dat[i]= temp1[i].split('*');
 
@@ -488,58 +487,59 @@ $(document).ready(function(){
                     }
                     $('#search_table').html('')
                     $('#search_table').html(plt[1]);
-                  
+
                 }
               })
             }
     })
 
 
-    $(document).on('keydown', function(e){
-     
-     if(voi_ab && !tbl_diag && !tbl_res){
-        if(e.keyCode == 16){
-          if(!sec_sh){
-            voice_pre("Switching to maintenance mode. Press Left or Right button to change Speed.",0,null)
-            $('#searchname').prop('disabled',true)
-            $('#searchname').blur();
-            sec_sh = true
-          }else{
-             voice_pre("Switching back to search mode.",0,null)
-             $('#searchname').prop('disabled',false)
-             $('#searchname').focus();
-             sec_sh = false
-          }
-        }
-      }
-    });
+    // $(document).on('keydown', function(e){
+    //
+    //  if(voi_ab && !tbl_diag && !tbl_res){
+    //     if(e.keyCode == 16){
+    //       if(!sec_sh){
+    //         voice_pre("Switching to maintenance mode. Press Left or Right button to change Speed.",0,null)
+    //         $('#searchname').prop('disabled',true)
+    //         $('#searchname').blur();
+    //         sec_sh = true
+    //       }else{
+    //          voice_pre("Switching back to search mode.",0,null)
+    //          $('#searchname').prop('disabled',false)
+    //          $('#searchname').focus();
+    //          sec_sh = false
+    //       }
+    //     }
+    //   }
+    // });
 
     $('#searchname').on('click', function(){
       active = 0
       $('.actives').removeClass('actives');
     })
+
     $(document).on('keydown', function(e){
     if(!mod2){
-      if(e.keyCode == 27){
-        if((!sec_sh)&&(!tbl_diag)&&(!tbl_res)){
-          
-          $('#mod_info').modal('show')
-          $('#mod_title').html("Logging out");
-          $('#mod_data').html("Logging out. Thank you please come again.");
-         
-          voice_pre("Logging out. Thank you please come again.",3,null)
-        }else if(tbl_diag || tbl_res){
-          tbl_diag = false;
-          tbl_res = false
-          $('#searchname').prop('disabled',false)
-          $('#searchname').blur();
-          
-        }
-      }
+      // if(e.keyCode == 27){
+      //   if((!sec_sh)&&(!tbl_diag)&&(!tbl_res)){
+      //
+      //     $('#mod_info').modal('show')
+      //     $('#mod_title').html("Logging out");
+      //     $('#mod_data').html("Logging out. Thank you please come again.");
+      //
+      //     voice_pre("Logging out. Thank you please come again.",3,null)
+      //   }else if(tbl_diag || tbl_res){
+      //     tbl_diag = false;
+      //     tbl_res = false
+      //     $('#searchname').prop('disabled',false)
+      //     $('#searchname').blur();
+      //
+      //   }
+      // }
       if(sec_sh){
         if(e.keyCode==39){
             rt++;
-            
+
             voice_pre("Increasing speed.",0,null)
         }else if(e.keyCode==37){
           if(rt>1){
@@ -551,16 +551,17 @@ $(document).ready(function(){
 
       if(tbl && (!tbl_diag) && (!sec_sh)){
         if(((e.keyCode == 38) || (e.keyCode == 40)) && (!tbl_diag) ) {
-            
-            
+
+
             reCalculate(e);
             return false;
           }
           if((e.keyCode == 13) && (active>0) &&(!tbl_diag)){
-            
+
             tbl_diag = true
             select_book(dat[active-1][0]);
-          }   
+          }
+
         }else if((tbl_diag)&&(tbl_res)) {
           if(e.which == 50){ //reserve NO
             alert('NO');
@@ -568,7 +569,7 @@ $(document).ready(function(){
             tbl_res = false
             $('#searchname').prop('disabled',false)
             $('#searchname').blur();
-            $('#modal_select').modal('toggle')  
+            $('#modal_select').modal('toggle')
           }
           if(e.which == 49){
             alert('Yes');
@@ -584,72 +585,68 @@ $(document).ready(function(){
 
     }else{
          $('#searchname').prop('disabled',false)
-         $('#mod_info').modal('toggle');
+         // $('#mod_info').modal('toggle');
          $('#searchname').focus();
          mod2 = false
     }
     });
 
-
-    
-   
-    $('#searchname').on('keypress', function(data){
-            var d 
-            var srch_name = $("#searchname").val();
-            if(!sec_sh){
-            if(data.keyCode == 13){
-                //d= 'Enter'
-            }else if(data.keyCode==8){
-                if($('#searchname').val()!=''){
-                d= 'Backspace'
-                }
-            }else if(data.which==32){
-                //d="Space"
-                voice_pre(srch_name,0,null);
-            }else if(data.which==45){
-                d="Dash"
-            }else if(data.which==91){
-                d="Left Bracket"
-            }else if(data.which==93){
-                d="Right Bracket"
-            }else if(data.which==58){
-                d="Colon"
-            }else if(data.which==59){
-                d="Semicolon"
-            }else if(data.which==39){
-                d="Apostropy"
-            }else if(data.which==34){
-                d="Double Apostropy"
-            }else if(data.which==44){
-                d="Coma"
-            }else if(data.which==63){
-                d="Question Mark"
-            }else if(data.which==60){
-                d="Less Than"
-            }else if(data.which==46){
-                d="Period"
-            }else {
-                d = String.fromCharCode(data.which);
-            }
-            
-              if(d!=undefined){
-                voice_pre(d,0,null);
-              }
-            }
-          });
+    // $('#searchname').on('keypress', function(data){
+    //         var d
+    //         var srch_name = $("#searchname").val();
+    //         if(!sec_sh){
+    //         if(data.keyCode == 13){
+    //             //d= 'Enter'
+    //         }else if(data.keyCode==8){
+    //             if($('#searchname').val()!=''){
+    //             d= 'Backspace'
+    //             }
+    //         }else if(data.which==32){
+    //             //d="Space"
+    //             voice_pre(srch_name,0,null);
+    //         }else if(data.which==45){
+    //             d="Dash"
+    //         }else if(data.which==91){
+    //             d="Left Bracket"
+    //         }else if(data.which==93){
+    //             d="Right Bracket"
+    //         }else if(data.which==58){
+    //             d="Colon"
+    //         }else if(data.which==59){
+    //             d="Semicolon"
+    //         }else if(data.which==39){
+    //             d="Apostropy"
+    //         }else if(data.which==34){
+    //             d="Double Apostropy"
+    //         }else if(data.which==44){
+    //             d="Coma"
+    //         }else if(data.which==63){
+    //             d="Question Mark"
+    //         }else if(data.which==60){
+    //             d="Less Than"
+    //         }else if(data.which==46){
+    //             d="Period"
+    //         }else {
+    //             d = String.fromCharCode(data.which);
+    //         }
+    //
+    //           if(d!=undefined){
+    //             voice_pre(d,0,null);
+    //           }
+    //         }
+    //       });
 
 
           $('#srch_form').on('submit', function(event){
               event.preventDefault();
-              
+
               if(!sec_sh){
-              var srch_name = $("#searchname").val(); 
-              var text = "Searching related to. "+srch_name+ "." 
+              var srch_name = $("#searchname").val();
+              var text = "Searching related to. "+srch_name+ "."
               var action = "Search2";
               var field = "ab_title";
-              
               if(srch_name!=''){
-              
+
               var tp ='';
               var dat2 = new FormData()
               dat2.append('action', action);
@@ -660,15 +657,13 @@ $(document).ready(function(){
                 url:"core/action.php",
                 method:"POST",
                 data:dat2,
-                contentType:false,  
+                contentType:false,
                 processData:false,
                 success:function(data)
                 {
-                  //alert(data)
-                  //*
                   if(data==0){
                    if(voi_ab){
-                      voice_pre(text+" Search not found related to "+srch_name,0,null);
+                      alert(" Search not found related to "+srch_name);
                    }else{
 
                        $('#mod_info').modal('show');
@@ -693,28 +688,31 @@ $(document).ready(function(){
                     $('#bc').addClass('btn btn-default')
                   }else{
                     var plt = data.split("|");
-                    var temp1 =plt[2].split("/"); 
+                    var temp1 =plt[2].split("/");
                     for(i=0;i<temp1.length;i++){
                       dat[i]= temp1[i].split('*');
 
                       tp += dat[i][0] +',';
                     }
 
-                    voice_pre(text+' SEARCH FOUND. '+plt[0]+' Hits.',1,plt[1]);
+                    alert('SEARCH FOUND.'+plt[0]+' Hits.');
+                    $('#sc_table').show()
+                    $('#search_table').html(plt[1]);
+                    $('.book_title').mouseover(function(){
+                        $('.book_title').css('cursor', 'pointer');
+                    });
                     bkn = plt[0]
                     tbl=true;
-                  
+
                   }
-                  
-                  //*/ 
-                }  
-                         
+                }
+
               });
               }else{
-                voice_pre("PLEASE TYPE IN YOUR BOOK...",0,null);
+                alert("PLEASE TYPE IN YOUR BOOK...");
               }
 
             }
           });
-          
-}); 
+
+});
