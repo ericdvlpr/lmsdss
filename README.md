@@ -20,8 +20,6 @@ The **Library Management System and Decision Support System** is a comprehensive
   - Integration with external databases for book metadata
 
 ## Technologies Used
-- Backend: Python (Django/Flask), Node.js (Express)
-- Frontend: React.js, Vue.js
-- Database: PostgreSQL, MySQL, MongoDB
-- Authentication: JWT, OAuth
-- Analytics: Pandas, TensorFlow (for predictive analysis)
+- Backend: PHP
+- Frontend: HTML CSS & Bootstrap
+- Database: MySQL
